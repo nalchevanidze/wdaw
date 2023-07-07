@@ -1,0 +1,13 @@
+***/.DS_Store
+lerna-debug.log
+.envrc
+node_modules/
+build
+dist/
+dev-certs/
+.serverless/
+ssl/
+**.bs.js
+.env
+.local/
+**/.tsbuildinfo

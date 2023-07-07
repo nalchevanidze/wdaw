@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "composite": true,
+    "incremental": true,
+    "declaration": true,
+    "declarationMap": true,
+    "allowSyntheticDefaultImports": true,
+    "maxNodeModuleJsDepth": 0,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "jsx": "react",
+    "lib": ["es2017", "dom"],
+    "types": ["@types/jest", "@types/react"]
+  },
+  "exclude": ["node_modules"]
+}

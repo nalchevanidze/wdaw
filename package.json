@@ -1,0 +1,25 @@
+{
+  "name": "waw",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "jest",
+    "start": "webpack serve",
+    "clean": "lerna run clean --parallel",
+    "build": "tsc -b && lerna run build --parallel"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.1",
+    "concurrently": "^8.0.1",
+    "jest": "^29.5.0",
+    "lerna": "^6.6.2",
+    "swc-loader": "^0.2.3",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.4",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
