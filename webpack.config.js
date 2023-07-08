@@ -3,9 +3,7 @@ const path = require("path");
 module.exports  = {
   mode: "development",
   entry: { 
-    player: "./packages/player/src/index.tsx",
-    synth:  "./packages/synth/src/index.tsx"  ,
-    demo:  "./packages/demo/src/index.tsx"  
+    demo:  "./examples/demo/src/index.tsx"  
   } ,
   module: {
     rules: [

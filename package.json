@@ -3,7 +3,8 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "scripts": {
     "start": "concurrently --kill-others 'tsc -b -w' 'webpack serve'",
