@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "@waw/player": "^0.1.5",
-    "@waw/svg": "0.0.0",
-    "@waw/synth": "^0.0.0",
+    "@waw/svg": "0.1.0",
+    "@waw/synth": "^0.1.0",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6"
   },
