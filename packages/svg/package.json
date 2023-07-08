@@ -10,10 +10,10 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nalchevanidze/waw.git"
+    "url": "git+https://github.com/nalchevanidze/wdaw.git"
   },
   "bugs": {
-    "url": "https://github.com/nalchevanidze/waw/issues"
+    "url": "https://github.com/nalchevanidze/wdaw/issues"
   },
   "scripts": {
     "test": "jest",
