@@ -9,7 +9,8 @@
     "start": "concurrently --kill-others 'tsc -b -w' 'webpack serve'",
     "test": "jest",
     "clean": "rm -rf ./packages/*/.tsbuildinfo ./packages/*/dist ./packages/*/node_modules",
-    "build": "tsc -b"
+    "build": "tsc -b",
+    "publish": "lerna publish --no-private"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",
