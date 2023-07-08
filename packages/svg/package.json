@@ -1,6 +1,6 @@
 {
   "name": "@wdaw/svg",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "svg tools for web audio workstation",
   "author": "David Nalchevanidze",
   "license": "MIT",

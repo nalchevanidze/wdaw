@@ -1,6 +1,6 @@
 {
   "name": "@wdaw/player",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "react audio visualizer",
   "author": "David Nalchevanidze",
   "license": "MIT",
@@ -26,7 +26,7 @@
     "typescript": "^5.0.4"
   },
   "peerDependencies": {
-    "@wdaw/svg": "0.1.0",
+    "@wdaw/svg": "^0.1.0",
     "react": ">= 17.0.2"
   }
 }
