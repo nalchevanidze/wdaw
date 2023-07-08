@@ -10,4 +10,4 @@ ssl/
 **.bs.js
 .env
 .local/
-**/.tsbuildinfo
+**/tsconfig.tsbuildinfo
