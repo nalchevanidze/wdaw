@@ -37,10 +37,10 @@ const notePosition = (index: number, at: number): number => index * 8 + at;
 export const sortNumbers = (n1: number, n2: number): number[] =>
   [n1, n2].sort((a, b) => (a > b ? 1 : -1));
 
-export function isInArea(
+export const isInArea = (
   [start, end]: SelectZone,
   { position, i, length }: GraphNote
-): boolean {
+): boolean => {
   const minX = Math.min(start.x, end.x);
   const maxX = Math.max(start.x, end.x);
   let startX = position * NOTE_STEP;
@@ -54,7 +54,7 @@ export function isInArea(
   let y = CANVAS_HEIGHT - NOTE_SIZE * i;
   const yIsInArea = minY < y && maxY > y;
   return xIsInArea && yIsInArea;
-}
+};
 
 export const insertNoteAt = (
   { selected, inactive }: Selected<NotePoint>,

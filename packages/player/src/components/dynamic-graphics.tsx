@@ -13,11 +13,8 @@ type PlayingMode = keyof typeof playingModeIcons;
 
 const getIcon = (name: keyof typeof playingModeIcons) => playingModeIcons[name];
 
-function formatTime(time: number) {
-  return (
-    Math.floor(time / 60) + ":" + ("0" + (Math.floor(time) % 60)).slice(-2)
-  );
-}
+const formatTime = (time: number) =>
+  Math.floor(time / 60) + ":" + ("0" + (Math.floor(time) % 60)).slice(-2);
 
 type TimeControllerProps = {
   time: number;

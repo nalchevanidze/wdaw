@@ -1,11 +1,14 @@
 import { Annulus, ArcSector, Circle, Point } from "./types";
 
-export function arcPoint({ radius, center }: Circle, degree: number): string {
+export const arcPoint = (
+  { radius, center }: Circle,
+  degree: number
+): string => {
   const radian = (degree * Math.PI) / 180.0;
   const x = center.x + radius * Math.cos(radian);
   const y = center.y + radius * Math.sin(radian);
   return x.toFixed(2) + " " + y.toFixed(2);
-}
+};
 
 export const arc = (
   circle: Circle,
@@ -59,7 +62,7 @@ export const subSectorByPercent = (
 };
 
 // graphics
-export function filledSector(annulus: Annulus, sector: ArcSector): string {
+export const filledSector = (annulus: Annulus, sector: ArcSector): string => {
   const {
     center,
     radius: [r1, r2],
@@ -73,16 +76,15 @@ export function filledSector(annulus: Annulus, sector: ArcSector): string {
     circle1,
     sector
   )} L ${sectorCutLine(annulus, end)} ${arc(circle2, sectorBack, false)}`;
-}
+};
 
-export function sectorCutLine(
+export const sectorCutLine = (
   { center, radius: [r1, r2] }: Annulus,
   degree: number
-): string {
-  const point1 = arcPoint({ center, radius: r1 }, degree);
-  const point2 = arcPoint({ center, radius: r2 }, degree);
-  return point1 + " " + point2;
-}
+): string =>
+  arcPoint({ center, radius: r1 }, degree) +
+  " " +
+  arcPoint({ center, radius: r2 }, degree);
 
 export const radianToDegree = (radians: number): number =>
   (radians * 180) / Math.PI;
@@ -98,7 +100,6 @@ export const percentFromPoints = (
   let degree = posToDegree(center, point) - start;
   return (degree < 0 ? degree + 360 : degree) / (end - start);
 };
-
 
 const subtractPoints = ({ x, y }: Point, p: Point): Point => ({
   x: x - p.x,

@@ -7,11 +7,11 @@ const renderPoint = ({ center, radius }: Circle, degree: number): number[] => {
   return [Number(x.toFixed(2)), Number(y.toFixed(2))];
 };
 
-function renderArc(
+const renderArc = (
   circle: Circle,
   startDegree: number,
   endDegree: number
-): string {
+): string =>{
   const cutMethod =
     Math.floor((endDegree - startDegree) / 180) % 2 === 0 ? "0,1" : "1,1";
   return [

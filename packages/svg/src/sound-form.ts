@@ -1,5 +1,4 @@
 import { roundStatLineSector } from "./statistics";
-import { sectorCutLine } from "./arc-circle";
 import { AnnulusSector } from "./types";
 
 export default function resampleData(data: number[], steps: number) {
@@ -41,16 +40,15 @@ export const circleFill = (
   return `M ${waveFormInside}  ${waveFormOutside}z`;
 };
 
-export function flatStripes(
+export const flatStripes = (
   data: number[],
   props: { resolution: number; height: number; width: number }
-): string {
-  const { width, height, resolution } = props;
-
+): string => {
   if (data.length < 2) {
     return "";
   }
 
+  const { width, height, resolution } = props;
   const resampledData = resampleData(data, resolution);
   const stepSize = width / resolution;
 
@@ -62,4 +60,4 @@ export function flatStripes(
         } `
     )
     .join(" ");
-}
+};
