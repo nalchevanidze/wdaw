@@ -6,7 +6,7 @@
     "packages/*"
   ],
   "scripts": {
-    "start":"concurrently --kill-others 'tsc -b -w' 'webpack serve'",
+    "start": "concurrently --kill-others 'tsc -b -w' 'webpack serve'",
     "test": "jest",
     "clean": "rm -rf ./packages/*/.tsbuildinfo ./packages/*/dist ./packages/*/node_modules",
     "build": "tsc -b"
@@ -20,5 +20,8 @@
     "typescript": "^5.0.4",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "lerna": "^7.1.1"
   }
 }
