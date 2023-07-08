@@ -9,7 +9,7 @@ const type = urlParams.get("type");
 createRoot(document.getElementById("app")!).render(
   <div>
     {type === "player" ? (
-      <Player src="assets/audio/david-alpha-black-hole" />
+      <Player src="https://nalchevanidze.com/assets/audio/david-alpha-black-hole" />
     ) : (
       <Synth />
     )}
