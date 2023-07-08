@@ -2,12 +2,25 @@
   "name": "@wdaw/player",
   "version": "0.1.0",
   "description": "react audio visualizer",
+  "author": "David Nalchevanidze",
+  "license": "MIT",
   "main": "dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nalchevanidze/wdaw.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nalchevanidze/wdaw/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "clean": "rm -rf ./dist .tsbuildinfo"
   },
-  "author": "David Nalchevanidze",
-  "license": "ISC",
   "devDependencies": {
     "@types/react": "^18.0.15",
     "typescript": "^5.0.4"
