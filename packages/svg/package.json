@@ -1,7 +1,7 @@
 {
   "name": "@waw/svg",
   "version": "0.1.0",
-  "description": "waw svg tools",
+  "description": "svg tools for web audio workstation",
   "author": "David Nalchevanidze",
   "license": "MIT",
   "main": "./dist/main.cjs",
