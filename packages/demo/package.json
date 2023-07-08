@@ -15,7 +15,6 @@
     "@types/react-dom": "^18.0.6"
   },
   "devDependencies": {
-
     "typescript": "^5.0.4"
   },
   "author": "",
