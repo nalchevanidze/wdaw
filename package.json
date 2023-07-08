@@ -8,8 +8,8 @@
   "scripts": {
     "start":"concurrently --kill-others 'tsc -b -w' 'webpack serve'",
     "test": "jest",
-    "clean": "lerna run clean --parallel",
-    "build": "tsc -b && lerna run build --parallel"
+    "clean": "rm -rf ./packages/*/.tsbuildinfo ./packages/*/dist ./packages/*/node_modules",
+    "build": "tsc -b"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",
