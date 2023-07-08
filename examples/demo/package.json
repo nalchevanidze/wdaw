@@ -1,5 +1,5 @@
 {
-  "name": "@waw/demo",
+  "name": "@wdaw/demo",
   "version": "0.1.0",
   "description": "SPA",
   "private": true,
@@ -10,9 +10,9 @@
   "dependencies": {
     "react": "^18.0.15",
     "react-dom": "^18.0.6",
-    "@waw/player": "^0.1.0",
-    "@waw/svg": "^0.1.0",
-    "@waw/synth": "^0.1.0"
+    "@wdaw/player": "^0.1.0",
+    "@wdaw/svg": "^0.1.0",
+    "@wdaw/synth": "^0.1.0"
   },
   "devDependencies": {
     "typescript": "^5.0.4",

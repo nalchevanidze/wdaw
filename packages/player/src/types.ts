@@ -1,4 +1,4 @@
-import { Annulus, ArcSector } from "@waw/svg";
+import { Annulus, ArcSector } from "@wdaw/svg";
 
 export type RingComponentProps = {
   annulus: Annulus;

@@ -1,5 +1,5 @@
 {
-  "name": "@waw/synth",
+  "name": "@wdaw/synth",
   "version": "0.1.0",
   "description": "Synthesizer / Keyboards",
   "main": "dist/index.js",
@@ -17,7 +17,7 @@
     "typescript": "^5.0.4"
   },
   "peerDependencies": {
-    "@waw/svg": "0.1.0",
+    "@wdaw/svg": "0.1.0",
     "react": ">= 17.0.2"
   }
 }

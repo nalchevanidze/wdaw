@@ -1,6 +1,6 @@
 import * as React from "react";
 import lib from "./icons";
-import { StageContext, SvgStage } from "@waw/svg";
+import { StageContext, SvgStage } from "@wdaw/svg";
 import { intRange, unitInterval, Range } from "../../../utils/math";
 
 const styles = {

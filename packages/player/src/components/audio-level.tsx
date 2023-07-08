@@ -5,7 +5,7 @@ import {
   Annulus,
   ArcSector,
   StageContext,
-} from "@waw/svg";
+} from "@wdaw/svg";
 import { useContext } from "react";
 
 type AudioLevelProps =  {

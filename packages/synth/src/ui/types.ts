@@ -1,4 +1,4 @@
-import { Point } from "@waw/svg";
+import { Point } from "@wdaw/svg";
 import { Note } from "../engine/midi/types";
 export { Note } from "../engine/midi/types";
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { flatStripes } from "@waw/svg";
+import { flatStripes } from "@wdaw/svg";
 import { withWaveform } from "../utils/waveform-service";
 
 type SoundformProps = {

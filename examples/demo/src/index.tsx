@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import Synth from "@waw/synth";
-import Player from "@waw/player";
+import Synth from "@wdaw/synth";
+import Player from "@wdaw/player";
 
 const urlParams = new URLSearchParams(window.location.search);
 const type = urlParams.get("type");

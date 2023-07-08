@@ -3,7 +3,7 @@ import LevelWaveForm from "./components/level-wave-form";
 import DynamicGraphics from "./components/dynamic-graphics";
 import { AudioLevel } from "./components/audio-level";
 import { AudioObject } from "./utils/audio-player";
-import { Annulus, ArcSector, Point, SvgStage } from "@waw/svg";
+import { Annulus, ArcSector, Point, SvgStage } from "@wdaw/svg";
 import PlayAtController from "./components/play-at-controller";
 export { Sound } from "./components/sound-form";
 import AnimationFrame from "./components/animation-frame";

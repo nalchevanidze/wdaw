@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useContext, useState } from "react";
 import { Grid } from "../../utils/grid-line";
-import { SvgStage, StageContext } from "@waw/svg";
+import { SvgStage, StageContext } from "@wdaw/svg";
 import { ControlPoint, Point } from "./control-point";
 import { MouseEventHandler } from "react";
 

@@ -1,6 +1,6 @@
-import { AnnulusSector } from "@waw/svg";
+import { AnnulusSector } from "@wdaw/svg";
 import * as React from "react";
-import { circleFill } from "@waw/svg";
+import { circleFill } from "@wdaw/svg";
 import { withWaveform } from "../utils/waveform-service";
 
 export default withWaveform<{
