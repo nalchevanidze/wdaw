@@ -1,8 +1,7 @@
 {
   "name": "@waw/svg",
   "version": "0.1.0",
-  "description": "svg tools",
-  "private": true,
+  "description": "waw svg tools",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",

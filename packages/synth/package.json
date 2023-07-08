@@ -2,7 +2,6 @@
   "name": "@waw/synth",
   "version": "0.1.0",
   "description": "Synthesizer / Keyboards",
-  "private": true,
   "main": "dist/index.js",
   "author": "Davit  Nalchevanidze",
   "license": "MIT",
