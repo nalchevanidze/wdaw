@@ -2,7 +2,7 @@ import * as React from "react";
 import LoadedGraph from "./loaded-graph";
 import LineTime from "./line-time";
 import WaveForms from "./wave-form";
-import { Annulus, ArcSector, subSectorByPercent } from "@nalche/svg";
+import { Annulus, ArcSector, subSectorByPercent } from "@waw/svg";
 
 const playingModeIcons = {
   paused: "M 115 97 l 0 10 8 -5Z",

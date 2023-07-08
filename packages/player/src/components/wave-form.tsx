@@ -1,7 +1,7 @@
-import { ArcSector } from "@nalche/svg";
+import { ArcSector } from "@waw/svg";
 import * as React from "react";
 import { RingComponentProps } from "../types";
-import { roundFillStat, roundStatStripes } from "@nalche/svg";
+import { roundFillStat, roundStatStripes } from "@waw/svg";
 
 type WaveFormProps = RingComponentProps & {
   sector2: ArcSector;

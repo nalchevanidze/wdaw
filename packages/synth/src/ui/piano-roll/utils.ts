@@ -1,4 +1,4 @@
-import { Point } from "@nalche/svg";
+import { Point } from "@waw/svg";
 import { foldMidi } from "../../engine/midi/midi-player";
 import { Midi, Note } from "../../engine/midi/types";
 import {

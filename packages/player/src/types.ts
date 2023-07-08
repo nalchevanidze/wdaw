@@ -1,4 +1,4 @@
-import { Annulus, ArcSector } from "@nalche/svg";
+import { Annulus, ArcSector } from "@waw/svg";
 
 export type RingComponentProps = {
   annulus: Annulus;

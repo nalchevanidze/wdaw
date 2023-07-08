@@ -1,6 +1,6 @@
 import * as React from "react";
 import { RingComponentProps } from "../types";
-import { sectorCutLine } from "@nalche/svg";
+import { sectorCutLine } from "@waw/svg";
 
 const LineTime: React.FC<RingComponentProps> = ({ annulus, sector }) => (
   <path d={"M " + sectorCutLine(annulus, sector.start)} stroke="#FFC107" />

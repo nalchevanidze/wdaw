@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StageContext } from "@nalche/svg";
+import { StageContext } from "@waw/svg";
 import { colors } from "../styles";
 import { NOTE_SIZE, NOTE_STEP, TIMELINE_HEIGHT } from "./utils";
 

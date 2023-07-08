@@ -14,7 +14,7 @@
     "typescript": "^5.0.4"
   },
   "peerDependencies": {
-    "@nalche/svg": "0.0.0",
+    "@waw/svg": "0.0.0",
     "react": ">= 17.0.2"
   }
 }

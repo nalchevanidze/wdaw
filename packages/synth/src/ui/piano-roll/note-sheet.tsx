@@ -15,7 +15,7 @@ import {
   STAGE_HEIGHT,
 } from "./utils";
 import { Background } from "./background";
-import { StageContext, SvgStage, Point } from "@nalche/svg";
+import { StageContext, SvgStage, Point } from "@waw/svg";
 import { MouseEventHandler, useContext, useState } from "react";
 import { EditActionType, NotePoint, SelectZone } from "../types";
 import { ConfiguratorContext } from "../configurator";

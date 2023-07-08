@@ -1,6 +1,6 @@
 import * as React from "react";
 import { RingComponentProps } from "../types";
-import { filledSector } from "@nalche/svg";
+import { filledSector } from "@waw/svg";
 
 type LoadedGraphProps = RingComponentProps & {
   fill?: string;

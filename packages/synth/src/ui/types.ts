@@ -1,4 +1,4 @@
-import { Point } from "@nalche/svg";
+import { Point } from "@waw/svg";
 import { Note } from "../engine/midi/types";
 export { Note } from "../engine/midi/types";
 

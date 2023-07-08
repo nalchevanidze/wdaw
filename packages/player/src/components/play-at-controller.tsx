@@ -1,6 +1,6 @@
 import * as React from "react";
 import LoadedGraph from "./loaded-graph";
-import { percentFromPoints, StageContext } from "@nalche/svg";
+import { percentFromPoints, StageContext } from "@waw/svg";
 import { RingComponentProps } from "../types";
 
 type PlayAtControllerProps = RingComponentProps & {

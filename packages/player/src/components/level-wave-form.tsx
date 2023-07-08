@@ -1,6 +1,6 @@
-import { AnnulusSector } from "@nalche/svg";
+import { AnnulusSector } from "@waw/svg";
 import * as React from "react";
-import { circleFill } from "@nalche/svg";
+import { circleFill } from "@waw/svg";
 import { withWaveform } from "../utils/waveform-service";
 
 export default withWaveform<{
