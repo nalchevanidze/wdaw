@@ -1,6 +1,6 @@
 {
   "name": "@waw/demo",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "SPA",
   "private": true,
   "main": "dist/server.js",
@@ -8,11 +8,11 @@
     "build": "rescript build; export NODE_ENV=production; webpack --mode production"
   },
   "dependencies": {
-    "@waw/player": "^0.1.5",
-    "@waw/svg": "0.1.0",
-    "@waw/synth": "^0.1.0",
     "@types/react": "^18.0.15",
-    "@types/react-dom": "^18.0.6"
+    "@types/react-dom": "^18.0.6",
+    "@waw/player": "^0.1.0",
+    "@waw/svg": "^0.1.0",
+    "@waw/synth": "^0.1.0"
   },
   "devDependencies": {
     "typescript": "^5.0.4"
