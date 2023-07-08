@@ -6,8 +6,8 @@
     "packages/*"
   ],
   "scripts": {
+    "start":"concurrently --kill-others 'tsc -b -w' 'webpack serve'",
     "test": "jest",
-    "start": "webpack serve",
     "clean": "lerna run clean --parallel",
     "build": "tsc -b && lerna run build --parallel"
   },

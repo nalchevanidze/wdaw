@@ -9,13 +9,7 @@
       "path": "packages/player"
     },
     {
-      "path": "packages/components"
-    },
-    {
       "path": "packages/synth"
-    },
-    { 
-      "path": "packages/infra" 
     }
   ]
 }

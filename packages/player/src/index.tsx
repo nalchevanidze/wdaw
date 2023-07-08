@@ -8,23 +8,23 @@ import PlayAtController from "./components/play-at-controller";
 export { Sound } from "./components/sound-form";
 import AnimationFrame from "./components/animation-frame";
 
-type Parameters = {
-  center: Point;
-  radius: readonly [number, number, number];
-  levelSector?: ArcSector;
-  stageSector?: ArcSector;
-};
-
 export type AudioVisualizerProps = {
-  par: Parameters;
   src: string;
   height?: string | number;
   width?: string | number;
   play?: boolean;
+  radius?: readonly [number, number, number];
+  levelSector?: ArcSector;
+  stageSector?: ArcSector;
 };
 
+const size = 200;
+const center = { x: 100, y: 100 };
+
 const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
-  par,
+  radius: [r1, r2, r3] = [50, 85, 95],
+  levelSector = { start: 315, end: 360 },
+  stageSector = { start: 60, end: 300 },
   src,
   width,
   height,
@@ -33,16 +33,10 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
   React.useEffect(() => audio.playNew(src), [src]);
   React.useEffect(() => audio.stop, []);
 
-  const {
-    center,
-    radius: [r1, r2, r3],
-    levelSector = { start: 315, end: 360 },
-    stageSector = { start: 45, end: 315 },
-  } = par;
   const innerAnnulus: Annulus = { center, radius: [r1, r2] };
 
   return (
-    <SvgStage viewBox="0 0 200 200" width={width} height={height}>
+    <SvgStage viewBox={`0 0 ${size} ${size}`} width={width} height={height}>
       <LevelWaveForm
         annulusSector={{
           center,
