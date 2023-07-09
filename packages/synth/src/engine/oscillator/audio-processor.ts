@@ -19,20 +19,20 @@ const audioProcessor = (process: SoundIterator): (() => void) => {
 
     const init = () => {
       AC.resume();
-      document.removeEventListener("click", init);
-      document.removeEventListener("keypress", init);
+      document.removeEventListener('click', init);
+      document.removeEventListener('keypress', init);
     };
 
-    document.addEventListener("click", init);
-    document.addEventListener("keypress", init);
+    document.addEventListener('click', init);
+    document.addEventListener('keypress', init);
 
     return () => {
       AC.close();
-      document.removeEventListener("click", init);
-      document.removeEventListener("keypress", init);
-    }
+      document.removeEventListener('click', init);
+      document.removeEventListener('keypress', init);
+    };
   } catch (e) {
-    console.log("could not create audio context");
+    console.log('could not create audio context');
     return () => {};
   }
 };

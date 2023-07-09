@@ -1,6 +1,6 @@
-import { Point } from "@wdaw/svg";
-import { Note } from "../engine/midi/types";
-export { Note } from "../engine/midi/types";
+import { Point } from '@wdaw/svg';
+import { Note } from '../engine/midi/types';
+export { Note } from '../engine/midi/types';
 
 export type GraphNote = {
   position: number;
@@ -17,7 +17,7 @@ type BaseNote = Note & {
 };
 
 export type NotePoint = BaseNote & {
-  old?: Pick<BaseNote, "i" | "position" | "length">;
+  old?: Pick<BaseNote, 'i' | 'position' | 'length'>;
 };
 
-export type EditActionType = "select" | "draw";
+export type EditActionType = 'select' | 'draw';

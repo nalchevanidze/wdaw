@@ -1,4 +1,4 @@
-import { Annulus, ArcSector, Circle, Point } from "./types";
+import { Annulus, ArcSector, Circle, Point } from './types';
 
 export const arcPoint = (
   { radius, center }: Circle,
@@ -7,7 +7,7 @@ export const arcPoint = (
   const radian = (degree * Math.PI) / 180.0;
   const x = center.x + radius * Math.cos(radian);
   const y = center.y + radius * Math.sin(radian);
-  return x.toFixed(2) + " " + y.toFixed(2);
+  return x.toFixed(2) + ' ' + y.toFixed(2);
 };
 
 export const arc = (
@@ -24,7 +24,7 @@ export const arc = (
     ? [cutMethod1, cutMethod2]
     : [1 - cutMethod1, 1 - cutMethod2];
 
-  return `${startPoint} A${radius} ${radius} 0 ${cutoff.join(" ")} ${endPoint}`;
+  return `${startPoint} A${radius} ${radius} 0 ${cutoff.join(' ')} ${endPoint}`;
 };
 
 export const mod360 = (n: number) => (360 + n) % 360;
@@ -34,12 +34,12 @@ export const complementSector = ({ start, end }: ArcSector): ArcSector =>
 
 export const inverseSector = ({ start, end }: ArcSector): ArcSector => ({
   start: -end,
-  end: 360 - start,
+  end: 360 - start
 });
 
 export const normalizeSector = ({
   start,
-  end,
+  end
 }: {
   start: number;
   end: number;
@@ -65,7 +65,7 @@ export const subSectorByPercent = (
 export const filledSector = (annulus: Annulus, sector: ArcSector): string => {
   const {
     center,
-    radius: [r1, r2],
+    radius: [r1, r2]
   } = annulus;
   const circle1 = { center, radius: r1 };
   const circle2 = { center, radius: r2 };
@@ -83,7 +83,7 @@ export const sectorCutLine = (
   degree: number
 ): string =>
   arcPoint({ center, radius: r1 }, degree) +
-  " " +
+  ' ' +
   arcPoint({ center, radius: r2 }, degree);
 
 export const radianToDegree = (radians: number): number =>
@@ -103,7 +103,7 @@ export const percentFromPoints = (
 
 const subtractPoints = ({ x, y }: Point, p: Point): Point => ({
   x: x - p.x,
-  y: y - p.y,
+  y: y - p.y
 });
 
 export const getDistance = (p1: Point, p2: Point): number => {

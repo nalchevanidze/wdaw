@@ -1,6 +1,6 @@
-import { arcPoint, arc, complementSector } from "./arc-circle";
-import { sectorCutLine } from "./arc-circle";
-import { Annulus, ArcSector, Circle } from "./types";
+import { arcPoint, arc, complementSector } from './arc-circle';
+import { sectorCutLine } from './arc-circle';
+import { Annulus, ArcSector, Circle } from './types';
 
 const sectorStringMap = (
   data: Uint8Array,
@@ -8,13 +8,13 @@ const sectorStringMap = (
   handler: (value: number, degree: number) => string
 ): string => {
   const length = data.length;
-  let output = "";
+  let output = '';
   const spreadAngle = end - start;
   const degreeScale = spreadAngle / (length - 1);
   for (let i = 0; i < length; i++) {
     output += handler(data[i], start + i * degreeScale);
   }
-  return output + " ";
+  return output + ' ';
 };
 
 export const sectorMap = <T>(
@@ -37,23 +37,23 @@ export const roundFillStat = (
   { center, radius: [r1, r2] }: Annulus,
   sector: ArcSector
 ): string =>
-  "M " +
+  'M ' +
   sectorStringMap(
     data,
     sector,
     (value, degree) =>
-      " " +
+      ' ' +
       arcPoint(
         {
           center,
-          radius: Math.max(r1, r1 + (value / 256) * (r2 - r1)),
+          radius: Math.max(r1, r1 + (value / 256) * (r2 - r1))
         },
         degree
       )
   ) +
-  " " +
+  ' ' +
   arc({ center, radius: r1 }, complementSector(sector), false) +
-  "Z";
+  'Z';
 
 export const roundStatStripes = (
   data: Uint8Array,
@@ -65,7 +65,7 @@ export const roundStatStripes = (
     data,
     sector,
     (value, degree) =>
-      " M " +
+      ' M ' +
       sectorCutLine({ center, radius: [r1, r1 + scale * value] }, degree)
   );
 };

@@ -1,5 +1,5 @@
-import { WaveConfig } from "../types";
-import { OSC } from "./osc";
+import { WaveConfig } from '../types';
+import { OSC } from './osc';
 
 const squareFun = (i: number) => Number(i > 0.5) * 2 - 1;
 const sawFun = (i: number) => 1 - i * 2;

@@ -1,4 +1,4 @@
-import { SynthConfig } from "../oscillator/types";
+import { SynthConfig } from '../oscillator/types';
 
 export const SEQUENCE_LENGTH = 16;
 
@@ -14,31 +14,31 @@ const prelude: SynthConfig = {
     fmFreq: 0,
     offset: 0.75,
     voices: 12,
-    octave: 1,
+    octave: 1
   },
   envelopes: {
     filter: {
       attack: 0,
       decay: 0.4,
       sustain: 0.08,
-      release: 0.1,
+      release: 0.1
     },
     gain: {
       attack: 0,
       decay: 0.05,
       sustain: 0.5,
-      release: 0.3,
-    },
+      release: 0.3
+    }
   },
   filter: {
     cutoff: 0.35,
     resonance: 0.2,
     envelope: 0.6,
-    enabled: false,
+    enabled: false
   },
   sequence: {
-    enabled: false,
-  },
+    enabled: false
+  }
 };
 
 const pluck: SynthConfig = {
@@ -53,27 +53,27 @@ const pluck: SynthConfig = {
     fmFreq: 0,
     offset: 0,
     voices: 1,
-    octave: 1,
+    octave: 1
   },
   envelopes: {
     filter: {
       attack: 0,
       decay: 0.2,
       sustain: 0.2,
-      release: 0.3,
+      release: 0.3
     },
     gain: {
       attack: 0,
       decay: 0.385,
       sustain: 0.185,
-      release: 0.7,
-    },
+      release: 0.7
+    }
   },
   filter: {
     cutoff: 0.1,
     resonance: 0.3,
     envelope: 0.5,
-    enabled: true,
+    enabled: true
   },
   sequence: {
     enabled: true,
@@ -83,8 +83,8 @@ const pluck: SynthConfig = {
     10: [1, 3],
     12: [2],
     13: [3],
-    14: [1],
-  },
+    14: [1]
+  }
 };
 
 const razor: SynthConfig = {
@@ -99,27 +99,27 @@ const razor: SynthConfig = {
     fmFreq: 0.53125,
     offset: 0,
     voices: 3,
-    octave: 0,
+    octave: 0
   },
   envelopes: {
     filter: {
       attack: 0,
       decay: 0.4,
       sustain: 0.08,
-      release: 0.1,
+      release: 0.1
     },
     gain: {
       attack: 0,
       decay: 0.2,
       sustain: 1,
-      release: 0.05,
-    },
+      release: 0.05
+    }
   },
   filter: {
     enabled: false,
     cutoff: 0.5,
     resonance: 0.2,
-    envelope: 0.6,
+    envelope: 0.6
   },
   sequence: {
     enabled: true,
@@ -132,8 +132,8 @@ const razor: SynthConfig = {
     9: [1],
     11: [1],
     12: [1],
-    14: [3],
-  },
+    14: [3]
+  }
 };
 
 const wind: SynthConfig = {
@@ -148,31 +148,31 @@ const wind: SynthConfig = {
     fmFreq: 0,
     offset: 0.5,
     voices: 1,
-    octave: 0,
+    octave: 0
   },
   envelopes: {
     filter: {
       attack: 0.7,
       decay: 0.7,
       sustain: 0.08,
-      release: 0.1,
+      release: 0.1
     },
     gain: {
       attack: 0.2,
       decay: 0.2,
       sustain: 1,
-      release: 0.3,
-    },
+      release: 0.3
+    }
   },
   filter: {
     cutoff: 0.5,
     resonance: 0.2,
     envelope: 0.6,
-    enabled: true,
+    enabled: true
   },
   sequence: {
-    enabled: false,
-  },
+    enabled: false
+  }
 };
 
 export const presets = { prelude, pluck, razor, wind };

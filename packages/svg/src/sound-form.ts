@@ -1,5 +1,5 @@
-import { roundStatLineSector } from "./statistics";
-import { AnnulusSector } from "./types";
+import { roundStatLineSector } from './statistics';
+import { AnnulusSector } from './types';
 
 export default function resampleData(data: number[], steps: number) {
   const out = [];
@@ -24,19 +24,19 @@ export const circleFill = (
   { center, radius: [r1, r2], sector }: AnnulusSector
 ): string => {
   if (data.length < 2) {
-    return "";
+    return '';
   }
   const height = (r2 - r1) * 0.9;
   const newCircle = { center, radius: (r2 + r1) / 2 };
   const waveFormInside = roundStatLineSector(data, newCircle, -height, sector)
     .reverse()
-    .join(" ");
+    .join(' ');
   const waveFormOutside = roundStatLineSector(
     data,
     newCircle,
     height,
     sector
-  ).join(" ");
+  ).join(' ');
   return `M ${waveFormInside}  ${waveFormOutside}z`;
 };
 
@@ -45,7 +45,7 @@ export const flatStripes = (
   props: { resolution: number; height: number; width: number }
 ): string => {
   if (data.length < 2) {
-    return "";
+    return '';
   }
 
   const { width, height, resolution } = props;
@@ -59,5 +59,5 @@ export const flatStripes = (
           value * height
         } `
     )
-    .join(" ");
+    .join(' ');
 };

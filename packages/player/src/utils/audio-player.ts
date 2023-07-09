@@ -35,9 +35,9 @@ declare global {
 const defaultAudioState = {
   pro: 0,
   time: 0,
-  mode: "stop",
+  mode: 'stop',
   freq: new Uint8Array(40),
-  spec: new Uint8Array(40),
+  spec: new Uint8Array(40)
 };
 
 export class AudioObject {
@@ -45,13 +45,13 @@ export class AudioObject {
   private waveForm: WaveForm;
   private gain: AudioParam;
   private audio: HTMLMediaElement;
-  private mode: "paused" | "play" | "stop" = "stop";
+  private mode: 'paused' | 'play' | 'stop' = 'stop';
   private allowed: boolean = false;
 
   private allowAudioContext = (): void => {
     this.allowed = true;
     this.audio = new Audio();
-    this.audio.crossOrigin = "anonymous";
+    this.audio.crossOrigin = 'anonymous';
     const WebAudioContext = window.AudioContext || window.webkitAudioContext;
     const context: AudioContext = new WebAudioContext();
     const audioSrc = context.createMediaElementSource(this.audio);
@@ -67,15 +67,15 @@ export class AudioObject {
     if (this.src !== src) {
       this.src = src;
       if (this.audio) {
-        this.audio.src = src + ".mp3";
+        this.audio.src = src + '.mp3';
       }
     }
   };
 
   private loadSource = () =>
     new Promise((resolve, reject) => {
-      this.audio.src = this.src + ".mp3";
-      this.audio.addEventListener("canplaythrough", resolve, true);
+      this.audio.src = this.src + '.mp3';
+      this.audio.addEventListener('canplaythrough', resolve, true);
     });
 
   private loadAudio = async () => {
@@ -88,7 +88,7 @@ export class AudioObject {
 
   private play = async () => {
     await this.loadAudio();
-    this.mode = "play";
+    this.mode = 'play';
     this.audio.play();
   };
 
@@ -102,7 +102,7 @@ export class AudioObject {
       pro,
       mode,
       freq: this.waveForm.freq,
-      spec: this.waveForm.spec,
+      spec: this.waveForm.spec
     };
   };
 
@@ -128,13 +128,13 @@ export class AudioObject {
       time,
       mode: this.mode,
       freq: this.waveForm.freq,
-      spec: this.waveForm.spec,
+      spec: this.waveForm.spec
     };
   };
 
   public getState = (): AudioState | undefined => {
     if (this.allowed) {
-      if (this.mode === "play") {
+      if (this.mode === 'play') {
         this.waveForm.render();
       }
       return this.generateState();
@@ -143,14 +143,14 @@ export class AudioObject {
   };
 
   private pause = (): void => {
-    this.mode = "paused";
+    this.mode = 'paused';
     if (this.allowed) {
       this.audio.pause();
     }
   };
 
   public stop = (): void => {
-    this.mode = "stop";
+    this.mode = 'stop';
     if (this.allowed) {
       this.audio.pause();
       this.audio.currentTime = 0;
@@ -158,6 +158,6 @@ export class AudioObject {
   };
 
   public toggle = () => {
-    this.mode == "play" ? this.pause() : this.play();
+    this.mode == 'play' ? this.pause() : this.play();
   };
 }

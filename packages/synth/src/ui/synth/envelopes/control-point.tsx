@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type Point = [number, number];
 
@@ -14,7 +14,7 @@ const ControlPoint: React.FC<Props> = ({ onClick, xy: [x, y] }) => (
     onTouchStart={onClick}
     onMouseDown={onClick}
     r={5}
-    style={{ cursor: "grabbing" }}
+    style={{ cursor: 'grabbing' }}
   />
 );
 

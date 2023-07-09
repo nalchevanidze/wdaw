@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 const cache: Record<string, number[]> = {};
 
@@ -14,7 +14,7 @@ export const withWaveform =
       } else {
         fetch(src)
           .then((r) => r.json())
-          .then(( data ) => {
+          .then((data) => {
             cache[src] = data;
             setWaveform(data);
           });

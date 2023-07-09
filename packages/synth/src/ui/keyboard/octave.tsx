@@ -1,19 +1,19 @@
-import * as React from "react";
-import { colors } from "../styles";
+import * as React from 'react';
+import { colors } from '../styles';
 
 const keys = [
-  { id: "C" },
-  { semi: true, id: "C#", left: 9.2 },
-  { id: "D" },
-  { semi: true, id: "D#", left: 23.6 },
-  { id: "E" },
-  { id: "F" },
-  { semi: true, id: "F#", left: 52.1 },
-  { id: "G" },
-  { semi: true, id: "G#", left: 66.5 },
-  { id: "A" },
-  { semi: true, id: "A#", left: 81.5 },
-  { id: "B" },
+  { id: 'C' },
+  { semi: true, id: 'C#', left: 9.2 },
+  { id: 'D' },
+  { semi: true, id: 'D#', left: 23.6 },
+  { id: 'E' },
+  { id: 'F' },
+  { semi: true, id: 'F#', left: 52.1 },
+  { id: 'G' },
+  { semi: true, id: 'G#', left: 66.5 },
+  { id: 'A' },
+  { semi: true, id: 'A#', left: 81.5 },
+  { id: 'B' }
 ].map((key, i) => ({ ...key, i }));
 
 const whiteKeys = keys.filter((e) => !e.semi);
@@ -22,52 +22,52 @@ const blackKeys = keys.filter((e) => e.semi);
 const roundness = '2px';
 
 const defaultStyle = {
-  display: "block",
-  border: "none",
+  display: 'block',
+  border: 'none',
   borderBottomLeftRadius: roundness,
   borderBottomRightRadius: roundness,
   flexGrow: 0,
-  boxShadow: "1px 3px 1px rgba(0, 0, 0, 0.2)",
-  width: "14%",
-  paddingTop: "180px",
-  background: "#EEE",
+  boxShadow: '1px 3px 1px rgba(0, 0, 0, 0.2)',
+  width: '14%',
+  paddingTop: '180px',
+  background: '#EEE'
 };
 
 const blackStyle = {
   ...defaultStyle,
   background: colors.black,
-  width: "10%",
-  position: "absolute",
-  paddingTop: "140px",
+  width: '10%',
+  position: 'absolute',
+  paddingTop: '140px'
 };
 
 const StyleBlack = {
   active: {
     ...blackStyle,
-    background: "#333",
-    paddingTop: "135px",
+    background: '#333',
+    paddingTop: '135px'
   },
-  default: blackStyle,
+  default: blackStyle
 };
 
 const StyleWhite = {
   default: defaultStyle,
   active: {
     ...defaultStyle,
-    background: "#DDD",
-    paddingTop: "170px",
-  },
+    background: '#DDD',
+    paddingTop: '170px'
+  }
 };
 
 const styles = {
-  listStyleType: "none",
-  cursor: "pointer",
-  display: "flex",
-  position: "relative",
-  width: "300px",
-  userSelect: "none",
-  justifyContent: "space-between",
-  alignItems: "start",
+  listStyleType: 'none',
+  cursor: 'pointer',
+  display: 'flex',
+  position: 'relative',
+  width: '300px',
+  userSelect: 'none',
+  justifyContent: 'space-between',
+  alignItems: 'start'
 };
 
 type keyProps = OctaveProps & {
@@ -83,7 +83,7 @@ const Key = ({ index, active, keyPress, keyUp, style, left }: keyProps) => {
     <div
       style={{
         ...(active.includes(index) ? style.active : style.default),
-        left,
+        left
       }}
       onTouchStart={press}
       onMouseDown={press}
@@ -110,7 +110,7 @@ const Octave = ({ index, ...props }: OctaveProps) => (
     {blackKeys.map(({ i, left }) => (
       <Key
         {...props}
-        left={left + "%"}
+        left={left + '%'}
         index={index * 12 + i}
         key={i}
         style={StyleBlack}

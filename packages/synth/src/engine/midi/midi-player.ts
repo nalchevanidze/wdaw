@@ -4,14 +4,14 @@ import {
   Note,
   NoteAction,
   NOTE_ACTION,
-  Sequence,
-} from "./types";
-import { keysToIndexes } from "../../utils/notes";
-import { Sequencer } from "./sequencer";
-import { Tempo } from "./tempo";
-import { SAMPLE_RATE } from "../oscillator/utils";
-import { SynthConfig } from "../oscillator/types";
-import { DAWState } from "../state";
+  Sequence
+} from './types';
+import { keysToIndexes } from '../../utils/notes';
+import { Sequencer } from './sequencer';
+import { Tempo } from './tempo';
+import { SAMPLE_RATE } from '../oscillator/utils';
+import { SynthConfig } from '../oscillator/types';
+import { DAWState } from '../state';
 
 const taskAt = (midi: NoteAction[], i: number, key: NOTE_ACTION): number[] => {
   const step = (midi[i] = midi[i] ?? {});
@@ -31,7 +31,7 @@ const taskAt = (midi: NoteAction[], i: number, key: NOTE_ACTION): number[] => {
 
 export const foldMidi =
   <T>(f: (n: Note, i: number) => T) =>
-  (midi: Midi): T[] => 
+  (midi: Midi): T[] =>
     Object.entries(midi.notes).reduce<T[]>(
       (acc, [i, val]) =>
         Array.isArray(val)
@@ -91,7 +91,7 @@ class MidiPlayer {
       start: keyboard?.start,
       end: keyboard?.end,
       notes,
-      current: this.isPlaying ? this.current : undefined,
+      current: this.isPlaying ? this.current : undefined
     };
   };
 

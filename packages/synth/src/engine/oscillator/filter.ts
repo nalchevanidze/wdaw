@@ -1,4 +1,4 @@
-import { FilterConfig } from "./types";
+import { FilterConfig } from './types';
 
 /* 
 according:
@@ -10,7 +10,7 @@ class MoogFilter {
     cutoff: 0,
     enabled: false,
     envelope: 0,
-    resonance: 0,
+    resonance: 0
   };
   private frequency: number = 0;
   private diff: number = 0;

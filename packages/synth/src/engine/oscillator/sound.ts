@@ -1,6 +1,6 @@
-import { SoundEvent } from "./sound-event";
-import { SynthConfig } from "./types";
-import { nList, safeWaveValue } from "./utils";
+import { SoundEvent } from './sound-event';
+import { SynthConfig } from './types';
+import { nList, safeWaveValue } from './utils';
 
 type NotesRegister = {
   [key: number]: SoundEvent;

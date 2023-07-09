@@ -8,5 +8,3 @@ export const intRange = (value: number, [min, max]: Range) => {
   let size = max - min;
   return Math.floor(min + value * size);
 };
-
-

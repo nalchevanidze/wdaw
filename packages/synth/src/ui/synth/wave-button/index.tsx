@@ -1,15 +1,15 @@
-import * as React from "react";
-import lib from "./icons";
-import { StageContext, SvgStage } from "@wdaw/svg";
-import { intRange, unitInterval, Range } from "../../../utils/math";
+import * as React from 'react';
+import lib from './icons';
+import { StageContext, SvgStage } from '@wdaw/svg';
+import { intRange, unitInterval, Range } from '../../../utils/math';
 
 const styles = {
   p: {
-    width: "100%",
-    textAlign: "center",
-    margin: "0",
-    userSelect: "none",
-  },
+    width: '100%',
+    textAlign: 'center',
+    margin: '0',
+    userSelect: 'none'
+  }
 } as const;
 
 const dashes = (steps: number) =>
@@ -23,7 +23,7 @@ const Level: React.FC<WaveButtonProps> = ({
   value,
   steps = 16,
   color,
-  range,
+  range
 }) => {
   const [listen, setListen] = React.useState(false);
   const getCoordinates = React.useContext(StageContext);
@@ -88,7 +88,7 @@ const WaveButton: React.FC<WaveButtonProps> = ({
   color,
   value,
   steps,
-  onChange,
+  onChange
 }) => (
   <div>
     <SvgStage
@@ -96,9 +96,9 @@ const WaveButton: React.FC<WaveButtonProps> = ({
       width="50px"
       height="50px"
       style={{
-        margin: "5px",
+        margin: '5px',
         flexShrink: 0,
-        cursor: "grab",
+        cursor: 'grab'
       }}
     >
       {range ? (
@@ -108,7 +108,7 @@ const WaveButton: React.FC<WaveButtonProps> = ({
           fontSize="40px"
           textAnchor="middle"
           fill={color}
-          style={{ userSelect: "none" }}
+          style={{ userSelect: 'none' }}
         >
           {value}
         </text>

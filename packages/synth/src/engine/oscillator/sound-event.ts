@@ -1,9 +1,9 @@
-import { Envelope } from "./envelope";
-import { renderOSCs } from "./osc/wave";
-import { OSC } from "./osc/osc";
-import { MoogFilter } from "./filter";
-import { nList, noteToFrequency } from "./utils";
-import { SynthConfig } from "./types";
+import { Envelope } from './envelope';
+import { renderOSCs } from './osc/wave';
+import { OSC } from './osc/osc';
+import { MoogFilter } from './filter';
+import { nList, noteToFrequency } from './utils';
+import { SynthConfig } from './types';
 
 const MAX_OSC: number = 12;
 const MAX_OFFSET: number = 2;

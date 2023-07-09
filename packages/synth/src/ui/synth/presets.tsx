@@ -1,33 +1,33 @@
-import * as React from "react";
-import { presetNames } from "../../engine/state/presets";
-import { ConfiguratorContext } from "../configurator";
-import { colors } from "../styles";
+import * as React from 'react';
+import { presetNames } from '../../engine/state/presets';
+import { ConfiguratorContext } from '../configurator';
+import { colors } from '../styles';
 
 const styles = {
   container: {
-    margin: "5px",
-    flexWrap: "wrap",
+    margin: '5px',
+    flexWrap: 'wrap',
     flexShrink: 0,
-    padding: "5px",
+    padding: '5px'
   },
   label: {
-    fontSize: "12px",
+    fontSize: '12px',
     margin: 0,
-    width: "100%",
-    textAlign: "center",
-    textTransform: "uppercase",
-    color: "#555",
-    padding: "5px 0px",
+    width: '100%',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    color: '#555',
+    padding: '5px 0px'
   },
   button: {
-    display: "block",
-    color: "white",
-    outline: "none",
-    border: "none",
-    padding: "2px",
-    width: "100%",
-    cursor: "pointer",
-  },
+    display: 'block',
+    color: 'white',
+    outline: 'none',
+    border: 'none',
+    padding: '2px',
+    width: '100%',
+    cursor: 'pointer'
+  }
 } as const;
 
 const PanelPresets: React.FC = () => {
@@ -43,10 +43,10 @@ const PanelPresets: React.FC = () => {
           onMouseOver={() => setHover(name)}
           style={{
             ...styles.button,
-            background: hover === name ? "#00000010" : "none",
-            color: colors.button(name === active),
+            background: hover === name ? '#00000010' : 'none',
+            color: colors.button(name === active)
           }}
-          onClick={() => dispatch({ type: "SET_PRESET", payload: name })}
+          onClick={() => dispatch({ type: 'SET_PRESET', payload: name })}
         >
           {name}
         </button>

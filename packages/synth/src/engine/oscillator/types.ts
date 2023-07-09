@@ -1,4 +1,4 @@
-import { Sequence } from "../midi/types";
+import { Sequence } from '../midi/types';
 
 export type WaveConfig = {
   sine: number;
@@ -30,7 +30,7 @@ export type EnvelopeConfig = {
 
 export type SynthConfig = {
   wave: WaveConfig;
-  envelopes: Record<"filter" | "gain", EnvelopeConfig>;
+  envelopes: Record<'filter' | 'gain', EnvelopeConfig>;
   filter: FilterConfig;
   sequence: Sequence;
 };

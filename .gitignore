@@ -11,3 +11,4 @@ ssl/
 .env
 .local/
 **/tsconfig.tsbuildinfo
+test-report

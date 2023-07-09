@@ -1,5 +1,5 @@
-import { WaveConfig } from "../types";
-import { SAMPLE_RATE } from "../utils";
+import { WaveConfig } from '../types';
+import { SAMPLE_RATE } from '../utils';
 
 const rescale = (value: number, deep: number): number => {
   deep = 2 / deep ** 2;
@@ -9,7 +9,6 @@ const rescale = (value: number, deep: number): number => {
 type PhysicWave = {
   phase: number;
 };
-
 
 export class OSC {
   private phase: number;
@@ -22,7 +21,7 @@ export class OSC {
     this.next = this.next.bind(this);
     this.phase = 0;
     this.length = 0.1;
-    this.fm = {phase: 0};
+    this.fm = { phase: 0 };
   }
 
   setup = (config: WaveConfig) => {
