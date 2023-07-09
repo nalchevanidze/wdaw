@@ -10,13 +10,13 @@
   },
   "references": [
     {
-      "path": "../svg"
+      "path": "../../packages/svg"
     },
     {
-      "path": "../synth"
+      "path": "../../packages/synth"
     },
     {
-      "path": "../player"
+      "path": "../../packages/player"
     }
   ]
 }
