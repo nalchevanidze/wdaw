@@ -17,8 +17,10 @@ class WaveForm {
   };
 }
 
+export type PlayingMode = 'paused' | 'play' | 'stop';
+
 export type AudioState = {
-  mode: string;
+  mode: PlayingMode;
   pro: number;
   time: number;
   freq: Uint8Array;
@@ -35,7 +37,7 @@ declare global {
 const defaultAudioState = {
   pro: 0,
   time: 0,
-  mode: 'stop',
+  mode: 'stop' as const,
   freq: new Uint8Array(40),
   spec: new Uint8Array(40)
 };
@@ -45,7 +47,7 @@ export class AudioObject {
   private waveForm: WaveForm;
   private gain: AudioParam;
   private audio: HTMLMediaElement;
-  private mode: 'paused' | 'play' | 'stop' = 'stop';
+  private mode: PlayingMode = 'stop';
   private allowed = false;
 
   private allowAudioContext = (): void => {

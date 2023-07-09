@@ -3,13 +3,13 @@ import LoadedGraph from './loaded-graph';
 import LineTime from './line-time';
 import WaveForms from './wave-form';
 import { Annulus, ArcSector, subSectorByPercent } from '@wdaw/svg';
+import { AudioState, PlayingMode } from '../utils/audio-player';
 
 const playingModeIcons = {
   paused: 'M 115 97 l 0 10 8 -5Z',
-  play: 'M 115 97 v 10 m7 -10 v 10'
+  play: 'M 115 97 v 10 m7 -10 v 10',
+  stop: ''
 };
-
-type PlayingMode = keyof typeof playingModeIcons;
 
 const getIcon = (name: keyof typeof playingModeIcons) => playingModeIcons[name];
 
@@ -21,14 +21,6 @@ type TimeControllerProps = {
   mode: PlayingMode;
   annulus: Annulus;
   toggle: () => void;
-};
-
-type AudioState = {
-  mode: PlayingMode;
-  pro: number;
-  time: number;
-  freq: Uint8Array;
-  spec: Uint8Array;
 };
 
 type DynamicGraphicsProps = {
