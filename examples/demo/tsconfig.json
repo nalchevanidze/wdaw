@@ -2,11 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
-    "outDir": "./dist",
-    "incremental": true,
-    "tsBuildInfoFile": ".tsbuildinfo",
-    "allowSyntheticDefaultImports": true,
-    "noImplicitAny": true
+    "outDir": "./dist"
   },
   "references": [
     {
