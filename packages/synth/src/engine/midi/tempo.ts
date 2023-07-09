@@ -1,4 +1,4 @@
-let counter: number = 0;
+let counter = 0;
 let subStep = 0;
 
 class Tempo {

@@ -16,8 +16,8 @@ type SvgStageProps = {
 const svgCoordinates =
   (svg: SVGSVGElement) =>
   (event: React.MouseEvent<SVGGElement, MouseEvent>): Point => {
-    let { clientX, clientY } = event;
-    let point = svg.createSVGPoint();
+    const { clientX, clientY } = event;
+    const point = svg.createSVGPoint();
     point.x = clientX;
     point.y = clientY;
     return point.matrixTransform(svg.getScreenCTM()?.inverse());

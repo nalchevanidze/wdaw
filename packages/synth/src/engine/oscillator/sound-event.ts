@@ -5,11 +5,11 @@ import { MoogFilter } from './filter';
 import { nList, noteToFrequency } from './utils';
 import { SynthConfig } from './types';
 
-const MAX_OSC: number = 12;
-const MAX_OFFSET: number = 2;
+const MAX_OSC = 12;
+const MAX_OFFSET = 2;
 
 export class SoundEvent {
-  private poly: number = 0;
+  private poly = 0;
   private gainEnvelope = new Envelope();
   private filterEnvelope = new Envelope();
   private state: SynthConfig;

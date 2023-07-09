@@ -12,8 +12,8 @@ class MoogFilter {
     envelope: 0,
     resonance: 0
   };
-  private frequency: number = 0;
-  private diff: number = 0;
+  private frequency = 0;
+  private diff = 0;
   private input: Float32Array = new Float32Array(5).fill(0);
   private output: Float32Array = new Float32Array(5).fill(0);
 
@@ -35,7 +35,7 @@ class MoogFilter {
     inputSample -= this.output[4] * this.frequency;
     this.output[0] = inputSample * (0.35013 * power ** 2);
     for (let i = 0; i < 5; i++) {
-      let i2 = i + 1;
+      const i2 = i + 1;
       this.output[i2] = this.output[i] + this.pole(i2);
       this.input[i2] = this.output[i];
     }

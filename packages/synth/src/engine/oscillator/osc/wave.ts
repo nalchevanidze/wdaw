@@ -14,8 +14,8 @@ export const waveFunction = (
   phase: number,
   { square, saw, saw2, tech, sine, noise }: WaveConfig
 ) => {
-  let mixin: number = 0;
-  let i: number = 0;
+  let mixin = 0;
+  let i = 0;
 
   if (square) {
     mixin += square * squareFun(phase);
@@ -60,9 +60,9 @@ export const renderOSCs = (
   oscList: OSC[],
   poly: number
 ): number => {
-  let value: number = 0;
+  let value = 0;
 
-  for (let i: number = 0; i <= poly; i++) {
+  for (let i = 0; i <= poly; i++) {
     value += waveFunction(oscList[i].next(), wave);
   }
 

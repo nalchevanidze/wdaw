@@ -13,23 +13,23 @@ type Options = {
 };
 
 export function* counter(
-  duration: number = 0.5,
-  startValue: number = 1,
-  endValue: number = 0,
+  duration = 0.5,
+  startValue = 1,
+  endValue = 0,
   { power = 3, steps = 2048 }: Options = {}
 ): IterableIterator<number> {
   if (duration === 0) return endValue;
 
-  let left: number = 0;
-  let difference: number = endValue - startValue;
+  let left = 0;
+  const difference: number = endValue - startValue;
   duration = duration * steps;
 
   while (++left < duration) {
-    let level = (left / duration) ** power;
+    const level = (left / duration) ** power;
     yield startValue + difference * level;
   }
 
   return endValue;
 }
 
-export const SAMPLE_RATE: number = 44100;
+export const SAMPLE_RATE = 44100;

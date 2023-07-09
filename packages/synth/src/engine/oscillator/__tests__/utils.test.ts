@@ -23,31 +23,31 @@ describe('counter: linear increase', () => {
 });
 
 describe('counter: Linear Decrease', () => {
-  let event = counter(1, 1, 0.5, { power: 1, steps: 4 });
+  const event = counter(1, 1, 0.5, { power: 1, steps: 4 });
 
   it('call 1: must: 0.875 ', () => {
-    let percent = event.next();
+    const percent = event.next();
     expect(percent).toEqual({ value: 0.875, done: false });
   });
 
   it('call 2: must: 0.75 ', () => {
-    let percent = event.next();
+    const percent = event.next();
     expect(percent).toEqual({ value: 0.75, done: false });
   });
 
   it('call 3: must: 0.625 ', () => {
-    let percent = event.next();
+    const percent = event.next();
     expect(percent).toEqual({ value: 0.625, done: false });
   });
 
   it('call 4: must: 0.5 and Done ', () => {
-    let percent = event.next();
+    const percent = event.next();
     expect(percent).toEqual({ value: 0.5, done: true });
   });
 });
 
 describe('counter: ^2 Increase', () => {
-  let event = counter(1, 0, 16, { power: 2, steps: 4 });
+  const event = counter(1, 0, 16, { power: 2, steps: 4 });
   let percent: IteratorResult<number, any>;
 
   beforeEach(() => {

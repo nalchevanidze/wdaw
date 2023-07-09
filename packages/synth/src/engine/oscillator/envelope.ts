@@ -13,14 +13,14 @@ const toMilliseconds = (n: number) => Math.min((n * 3) ** 3, 200);
 export class Envelope {
   private iter: IterableIterator<number>;
   private stage: STAGE = STAGE.ATTACK;
-  private level: number = 0;
+  private level = 0;
   private config: EnvelopeConfig = {
     attack: 0,
     decay: 0.4,
     sustain: 0,
     release: 0
   };
-  live: boolean = false;
+  live = false;
 
   public setup(state: EnvelopeConfig) {
     this.config = state;
@@ -54,7 +54,7 @@ export class Envelope {
       case STAGE.SUSTAIN:
         return this.level;
       default:
-        let release = this.iter.next();
+        const release = this.iter.next();
         this.live = !release.done;
         return release.value;
     }

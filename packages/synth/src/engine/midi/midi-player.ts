@@ -63,7 +63,7 @@ class MidiPlayer {
   private tempo: Tempo = new Tempo(SAMPLE_RATE);
   private notes: Set<number> = new Set([]);
 
-  public isPlaying: boolean = false;
+  public isPlaying = false;
   public sequencer: Sequencer = new Sequencer();
 
   constructor(state: DAWState) {

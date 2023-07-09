@@ -46,7 +46,7 @@ export class AudioObject {
   private gain: AudioParam;
   private audio: HTMLMediaElement;
   private mode: 'paused' | 'play' | 'stop' = 'stop';
-  private allowed: boolean = false;
+  private allowed = false;
 
   private allowAudioContext = (): void => {
     this.allowed = true;

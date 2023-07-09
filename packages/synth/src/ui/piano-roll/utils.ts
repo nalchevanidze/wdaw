@@ -43,15 +43,15 @@ export const isInArea = (
 ): boolean => {
   const minX = Math.min(start.x, end.x);
   const maxX = Math.max(start.x, end.x);
-  let startX = position * NOTE_STEP;
-  let endX = startX + length * NOTE_STEP;
+  const startX = position * NOTE_STEP;
+  const endX = startX + length * NOTE_STEP;
   const xIsInArea =
     (minX < startX && maxX > startX) ||
     (minX < endX && maxX > endX) ||
     (minX > startX && maxX < endX);
   const minY = Math.min(start.y, end.y);
   const maxY = Math.max(start.y, end.y);
-  let y = CANVAS_HEIGHT - NOTE_SIZE * i;
+  const y = CANVAS_HEIGHT - NOTE_SIZE * i;
   const yIsInArea = minY < y && maxY > y;
   return xIsInArea && yIsInArea;
 };
@@ -60,8 +60,8 @@ export const insertNoteAt = (
   { selected, inactive }: Selected<NotePoint>,
   { x, y }: Point
 ): Selected<NotePoint> => {
-  let i = Math.floor(1 + (CANVAS_HEIGHT - y) / NOTE_SIZE);
-  let position = Math.floor(x / NOTE_STEP);
+  const i = Math.floor(1 + (CANVAS_HEIGHT - y) / NOTE_SIZE);
+  const position = Math.floor(x / NOTE_STEP);
   const note = {
     length: 2,
     i,
@@ -81,7 +81,7 @@ export const flatten = foldMidi<NotePoint>((note, i) => ({
 }));
 
 export const deepen = (flat: NotePoint[]): Midi => {
-  let notes: Midi['notes'] = {};
+  const notes: Midi['notes'] = {};
 
   flat.forEach(({ length, position, i }: NotePoint) => {
     const index = Math.floor(position / 8);

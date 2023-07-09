@@ -13,9 +13,9 @@ export const arcPoint = (
 export const arc = (
   circle: Circle,
   { start, end }: ArcSector,
-  drawFromLeftToRight: boolean = true
+  drawFromLeftToRight = true
 ): string => {
-  let { radius } = circle;
+  const { radius } = circle;
   const startPoint = arcPoint(circle, start);
   const endPoint = arcPoint(circle, end);
   const cutMethod1 = Math.floor(Math.abs(end - start) / 180) % 2;
@@ -97,7 +97,7 @@ export const percentFromPoints = (
   center: Point,
   { start, end }: ArcSector
 ): number => {
-  let degree = posToDegree(center, point) - start;
+  const degree = posToDegree(center, point) - start;
   return (degree < 0 ? degree + 360 : degree) / (end - start);
 };
 
