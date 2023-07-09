@@ -4,6 +4,7 @@
   "description": "react audio visualizer",
   "author": "David Nalchevanidze",
   "license": "MIT",
+  "main": "./dist/index.js",
   "exports": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
