@@ -33,7 +33,7 @@ module.exports = {
     'webpack.config.js',
     'packages/**/generated/**',
     'packages/*/__test__',
-    '.eslintrc.js',
+    '.eslintrc.cjs',
     'jest.config.js',
     'test-report',
     'packages/*/dist',
