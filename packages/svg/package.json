@@ -4,10 +4,14 @@
   "description": "svg tools for web audio workstation",
   "author": "David Nalchevanidze",
   "license": "MIT",
-  "main": "dist/index.js",
+  "exports": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "type": "module",
   "sideEffects": false,
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nalchevanidze/wdaw.git"
