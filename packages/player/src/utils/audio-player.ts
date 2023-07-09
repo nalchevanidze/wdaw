@@ -27,8 +27,8 @@ export type AudioState = {
 
 declare global {
   interface Window {
-    AudioContext: any;
-    webkitAudioContext: any;
+    AudioContext?: AudioContext;
+    webkitAudioContext?: AudioContext;
   }
 }
 
@@ -73,7 +73,7 @@ export class AudioObject {
   };
 
   private loadSource = () =>
-    new Promise((resolve, reject) => {
+    new Promise((resolve) => {
       this.audio.src = this.src + '.mp3';
       this.audio.addEventListener('canplaythrough', resolve, true);
     });

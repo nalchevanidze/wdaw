@@ -2,7 +2,7 @@ import * as React from 'react';
 
 type Props<T> = {
   observable: () => T | undefined;
-  children: (_: object) => React.ReactElement;
+  children: (_: T) => React.ReactElement;
 };
 
 const AnimationFrame = <T extends object>({

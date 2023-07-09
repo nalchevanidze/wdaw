@@ -54,7 +54,7 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
               center,
               radius: [r2, r3]
             }}
-            state={state as any}
+            state={state}
             toggle={audio.toggle}
             src={src}
           />

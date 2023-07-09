@@ -2,25 +2,21 @@ import * as React from 'react';
 
 const cache: Record<string, number[]> = {};
 
-// TODO: useWaveformHook
-export const withWaveform =
-  <P extends object>(Element: React.FC<P & { waveform: number[] }>) =>
-  (props: { src: string } & P) => {
-    const [waveform, setWaveform] = React.useState<number[]>([]);
-    const { src } = props;
+export const useWaveform = (src: string) => {
+  const [waveform, setWaveform] = React.useState<number[]>([]);
 
-    React.useEffect(() => {
-      if (cache[src]) {
-        setWaveform(cache[src]);
-      } else {
-        fetch(src)
-          .then((r) => r.json())
-          .then((data) => {
-            cache[src] = data;
-            setWaveform(data);
-          });
-      }
-    }, [src]);
+  React.useEffect(() => {
+    if (cache[src]) {
+      setWaveform(cache[src]);
+    } else {
+      fetch(src)
+        .then((r) => r.json())
+        .then((data) => {
+          cache[src] = data;
+          setWaveform(data);
+        });
+    }
+  }, [src]);
 
-    return <Element {...(props as P)} waveform={waveform} />;
-  };
+  return waveform;
+};

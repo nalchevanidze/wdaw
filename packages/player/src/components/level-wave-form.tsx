@@ -1,10 +1,15 @@
 import { AnnulusSector } from '@wdaw/svg';
 import * as React from 'react';
 import { circleFill } from '@wdaw/svg';
-import { withWaveform } from '../utils/waveform-service';
+import { useWaveform } from '../utils/waveform-service';
 
-export default withWaveform<{
+type Props = {
   annulusSector: AnnulusSector;
-}>(({ waveform, annulusSector }) => (
-  <path d={circleFill(waveform, annulusSector)} fillOpacity={0.8} />
-));
+  src: string;
+};
+
+const LevelWaveForm: React.FC<Props> = ({ src, annulusSector }) => (
+  <path d={circleFill(useWaveform(src), annulusSector)} fillOpacity={0.8} />
+);
+
+export default LevelWaveForm;
