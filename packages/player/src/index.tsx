@@ -1,12 +1,12 @@
-import * as React from "react";
-import LevelWaveForm from "./components/level-wave-form";
-import DynamicGraphics from "./components/dynamic-graphics";
-import { AudioLevel } from "./components/audio-level";
-import { AudioObject } from "./utils/audio-player";
-import { Annulus, ArcSector,  SvgStage } from "@wdaw/svg";
-import PlayAtController from "./components/play-at-controller";
-export { Sound } from "./components/sound-form";
-import AnimationFrame from "./components/animation-frame";
+import * as React from 'react';
+import LevelWaveForm from './components/level-wave-form';
+import DynamicGraphics from './components/dynamic-graphics';
+import { AudioLevel } from './components/audio-level';
+import { AudioObject } from './utils/audio-player';
+import { Annulus, ArcSector, SvgStage } from '@wdaw/svg';
+import PlayAtController from './components/play-at-controller';
+export { Sound } from './components/sound-form';
+import AnimationFrame from './components/animation-frame';
 
 export type AudioVisualizerProps = {
   src: string;
@@ -27,7 +27,7 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
   stageSector = { start: 60, end: 300 },
   src,
   width,
-  height,
+  height
 }) => {
   const [audio] = React.useState(() => new AudioObject());
   React.useEffect(() => audio.playNew(src), [src]);
@@ -41,9 +41,9 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
         annulusSector={{
           center,
           radius: [r1, r2],
-          sector: stageSector,
+          sector: stageSector
         }}
-        src={src + ".json"}
+        src={src + '.json'}
       />
       <AnimationFrame observable={audio.getState}>
         {(state) => (
@@ -52,7 +52,7 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
             innerAnnulus={innerAnnulus}
             outerAnnulus={{
               center,
-              radius: [r2, r3],
+              radius: [r2, r3]
             }}
             state={state as any}
             toggle={audio.toggle}

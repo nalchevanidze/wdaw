@@ -1,6 +1,6 @@
-import { SEQUENCE_LENGTH } from "../state/presets";
-import { Maybe } from "../../types";
-import { ARP_NOTE_LOCATION, NoteAction, Sequence } from "./types";
+import { SEQUENCE_LENGTH } from '../state/presets';
+import { Maybe } from '../../types';
+import { ARP_NOTE_LOCATION, NoteAction, Sequence } from './types';
 
 const END_INDEX = SEQUENCE_LENGTH * 2;
 
@@ -26,9 +26,8 @@ class Sequencer {
   }
 
   next = (notes: Set<number>): NoteAction | undefined => {
-    
-    if(!this.enabled){
-      return undefined
+    if (!this.enabled) {
+      return undefined;
     }
 
     if (this.index % 2 !== 0) {

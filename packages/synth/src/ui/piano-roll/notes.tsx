@@ -1,7 +1,7 @@
-import * as React from "react";
-import { colors } from "../styles";
-import { GraphNote } from "../types";
-import { CANVAS_HEIGHT, NOTE_SIZE, NOTE_STEP } from "./utils";
+import * as React from 'react';
+import { colors } from '../styles';
+import { GraphNote } from '../types';
+import { CANVAS_HEIGHT, NOTE_SIZE, NOTE_STEP } from './utils';
 
 type Props = {
   notes: GraphNote[];
@@ -14,7 +14,7 @@ const Notes: React.FC<Props> = ({
   notes,
   color = colors.notes,
   mouseDown,
-  resize,
+  resize
 }) => (
   <g fill={color}>
     {notes.map((note, noteIndex) => {
@@ -34,11 +34,11 @@ const Notes: React.FC<Props> = ({
           <rect
             width={5}
             height={NOTE_SIZE}
-            fill={"gray"}
+            fill={'gray'}
             fillOpacity={0.1}
             onMouseDown={(event) => resize && resize(event)}
-            style={{ cursor: "e-resize" }}
-            key={"s" + noteIndex}
+            style={{ cursor: 'e-resize' }}
+            key={'s' + noteIndex}
             x={(note.position + note.length - 1) * 5}
             y={y}
           />

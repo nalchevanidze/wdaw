@@ -1,14 +1,9 @@
-import * as React from "react";
-import LoadedGraph from "./loaded-graph";
-import {
-  getDistance,
-  Annulus,
-  ArcSector,
-  StageContext,
-} from "@wdaw/svg";
-import { useContext } from "react";
+import * as React from 'react';
+import LoadedGraph from './loaded-graph';
+import { getDistance, Annulus, ArcSector, StageContext } from '@wdaw/svg';
+import { useContext } from 'react';
 
-type AudioLevelProps =  {
+type AudioLevelProps = {
   annulus: Annulus;
   stageSector: ArcSector;
   levelSector: ArcSector;
@@ -19,14 +14,14 @@ const AudioLevel: React.FC<AudioLevelProps> = ({
   onChange,
   annulus,
   levelSector,
-  stageSector,
+  stageSector
 }) => {
   const getCoordinates = useContext(StageContext);
   const [trackChanges, setTracking] = React.useState(false);
   const [gain, setGain] = React.useState(0.5);
   const {
     radius: [r1, r2],
-    center,
+    center
   } = annulus;
 
   const onMouseUp = (): void => setTracking(false);
@@ -50,8 +45,8 @@ const AudioLevel: React.FC<AudioLevelProps> = ({
   };
 
   React.useEffect(() => {
-    document.addEventListener("mouseup", onMouseUp, false);
-    return () => document.removeEventListener("mouseup", onMouseUp, false);
+    document.addEventListener('mouseup', onMouseUp, false);
+    return () => document.removeEventListener('mouseup', onMouseUp, false);
   });
 
   const levelAnnulus: Annulus = { center, radius: [r1 + (r2 - r1) * gain, r1] };

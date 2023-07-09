@@ -1,17 +1,22 @@
-import * as React from "react";
-import { StageContext } from "@wdaw/svg";
-import { colors } from "../styles";
-import { NOTE_SIZE, NOTE_STEP, TIMELINE_HEIGHT } from "./utils";
+import * as React from 'react';
+import { StageContext } from '@wdaw/svg';
+import { colors } from '../styles';
+import { NOTE_SIZE, NOTE_STEP, TIMELINE_HEIGHT } from './utils';
 
 const gridSize = 40;
-const id = "TimelinePattern_B_Q_T_D_V_B_D";
+const id = 'TimelinePattern_B_Q_T_D_V_B_D';
 const parent = `${id}_PARENT`;
 const child = `${id}_CHILD`;
 
 const TimelinePattern = () => (
   <g>
     <defs>
-      <pattern width={NOTE_SIZE} height={TIMELINE_HEIGHT} patternUnits="userSpaceOnUse" id={child}>
+      <pattern
+        width={NOTE_SIZE}
+        height={TIMELINE_HEIGHT}
+        patternUnits="userSpaceOnUse"
+        id={child}
+      >
         <line
           x1={1}
           x2={1}
@@ -28,8 +33,16 @@ const TimelinePattern = () => (
         patternUnits="userSpaceOnUse"
         id={parent}
       >
-        <rect width={gridSize} height={TIMELINE_HEIGHT} fill={colors.background} />
-        <rect width={gridSize} height={TIMELINE_HEIGHT} fill={"url(#" + child + ")"} />
+        <rect
+          width={gridSize}
+          height={TIMELINE_HEIGHT}
+          fill={colors.background}
+        />
+        <rect
+          width={gridSize}
+          height={TIMELINE_HEIGHT}
+          fill={'url(#' + child + ')'}
+        />
         <line
           x1={1}
           x2={1}
@@ -40,7 +53,12 @@ const TimelinePattern = () => (
         />
       </pattern>
     </defs>
-    <rect width="100%" height={TIMELINE_HEIGHT} y={-TIMELINE_HEIGHT} fill={"url(#" + parent + ")"} />
+    <rect
+      width="100%"
+      height={TIMELINE_HEIGHT}
+      y={-TIMELINE_HEIGHT}
+      fill={'url(#' + parent + ')'}
+    />
   </g>
 );
 
@@ -55,14 +73,20 @@ const Timeline: React.FC<TimelineProps> = ({
   time,
   height,
   width,
-  setTime,
+  setTime
 }) => {
   const getCoordinates = React.useContext(StageContext);
 
   return (
     <g>
       <TimelinePattern />
-      <line x1={time} x2={time} y1={-TIMELINE_HEIGHT} y2={height} stroke="red" />
+      <line
+        x1={time}
+        x2={time}
+        y1={-TIMELINE_HEIGHT}
+        y2={height}
+        stroke="red"
+      />
       <rect
         fillOpacity="0"
         y={-TIMELINE_HEIGHT}

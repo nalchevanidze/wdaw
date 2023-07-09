@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Point } from "./types";
+import * as React from 'react';
+import { Point } from './types';
 
 const StageContext = React.createContext(
   (e: React.MouseEvent<SVGGElement, MouseEvent>): Point => ({ x: 0, y: 0 })

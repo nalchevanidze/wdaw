@@ -1,4 +1,4 @@
-import { Maybe } from "../../types";
+import { Maybe } from '../../types';
 
 export type Note = {
   id: string;
@@ -8,14 +8,14 @@ export type Note = {
 
 export type Midi = {
   size: number;
-  notes: Record<number, Note[]>
+  notes: Record<number, Note[]>;
 };
 
 export type Sequence = Record<number, Maybe<number[]>> & { enabled?: boolean };
 
 export enum NOTE_ACTION {
   START,
-  END,
+  END
 }
 
 export type NoteAction = {

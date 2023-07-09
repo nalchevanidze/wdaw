@@ -1,8 +1,8 @@
-import * as React from "react";
-import { createContext, useEffect, useReducer } from "react";
-import { DAWState, initialState } from "../engine/state";
-import { SynthEngine } from "../engine";
-import { EngineAction } from "../engine/types";
+import * as React from 'react';
+import { createContext, useEffect, useReducer } from 'react';
+import { DAWState, initialState } from '../engine/state';
+import { SynthEngine } from '../engine';
+import { EngineAction } from '../engine/types';
 
 const reducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
@@ -15,17 +15,17 @@ type ConfiguratorAPI = [DAWState, React.Dispatch<EngineAction>];
 
 export const ConfiguratorContext = createContext<ConfiguratorAPI>([
   initialState,
-  () => undefined,
+  () => undefined
 ]);
 
 const Configurator: React.FC<{ children: React.ReactNode }> = ({
-  children,
+  children
 }) => {
   const engine = React.useMemo(() => new SynthEngine(initialState), []);
   const [config, dispatch] = useReducer(reducer(engine), initialState);
 
   useEffect(() => {
-    engine.onChange = (payload) => dispatch({ type: "REFRESH", payload });
+    engine.onChange = (payload) => dispatch({ type: 'REFRESH', payload });
 
     return () => engine.destroy();
   }, []);

@@ -1,7 +1,7 @@
-import { ArcSector } from "@wdaw/svg";
-import * as React from "react";
-import { RingComponentProps } from "../types";
-import { roundFillStat, roundStatStripes } from "@wdaw/svg";
+import { ArcSector } from '@wdaw/svg';
+import * as React from 'react';
+import { RingComponentProps } from '../types';
+import { roundFillStat, roundStatStripes } from '@wdaw/svg';
 
 type WaveFormProps = RingComponentProps & {
   sector2: ArcSector;
@@ -14,7 +14,7 @@ const WaveForm: React.FC<WaveFormProps> = ({
   fr,
   spec,
   sector,
-  sector2,
+  sector2
 }) => (
   <g>
     <path

@@ -1,50 +1,50 @@
-import * as React from "react";
-import { waveFunction } from "../../engine/oscillator/osc/wave";
-import { FILTER_ID, WAVE_ID } from "../../engine/types";
-import { ConfiguratorContext } from "../configurator";
-import { Grid } from "../utils/grid-line";
-import { Panel } from "./panel";
-import PanelPresets from "./presets";
-import { WaveButton, WaveButtonProps } from "./wave-button";
+import * as React from 'react';
+import { waveFunction } from '../../engine/oscillator/osc/wave';
+import { FILTER_ID, WAVE_ID } from '../../engine/types';
+import { ConfiguratorContext } from '../configurator';
+import { Grid } from '../utils/grid-line';
+import { Panel } from './panel';
+import PanelPresets from './presets';
+import { WaveButton, WaveButtonProps } from './wave-button';
 
 const styles = {
   main: {
-    display: "flex",
-    fontSize: "10px",
-    alignItems: "flex-start",
-  },
+    display: 'flex',
+    fontSize: '10px',
+    alignItems: 'flex-start'
+  }
 };
 
 type Controllers<K extends string> = ReadonlyArray<
-  Pick<WaveButtonProps, "range" | "steps"> & { id: K }
+  Pick<WaveButtonProps, 'range' | 'steps'> & { id: K }
 >;
 
 const oscillators: Controllers<WAVE_ID> = [
-  { id: "sine" },
-  { id: "square" },
-  { id: "saw" },
-  { id: "saw2" },
-  { id: "tech" },
-  { id: "noise" },
-  { id: "offset" },
+  { id: 'sine' },
+  { id: 'square' },
+  { id: 'saw' },
+  { id: 'saw2' },
+  { id: 'tech' },
+  { id: 'noise' },
+  { id: 'offset' },
   {
-    id: "voices",
+    id: 'voices',
     range: [1, 12],
-    steps: 11,
+    steps: 11
   },
   {
-    id: "octave",
+    id: 'octave',
     range: [-4, 4],
-    steps: 8,
-  },
+    steps: 8
+  }
 ];
 
-const fm: Controllers<WAVE_ID> = [{ id: "fm" }, { id: "fmFreq" }];
+const fm: Controllers<WAVE_ID> = [{ id: 'fm' }, { id: 'fmFreq' }];
 
 const filters: Controllers<FILTER_ID> = [
-  { id: "cutoff" },
-  { id: "resonance" },
-  { id: "envelope" },
+  { id: 'cutoff' },
+  { id: 'resonance' },
+  { id: 'envelope' }
 ];
 
 const Oscillators: React.FC = () => {
@@ -57,10 +57,10 @@ const Oscillators: React.FC = () => {
   const middlePoint = (start + end) / 2;
   const waveList = Array.from(
     { length: 200 },
-    (_, i) => i + " " + wavePoint(i / 200)
+    (_, i) => i + ' ' + wavePoint(i / 200)
   );
   const waveForm =
-    "M 0 " + middlePoint + " " + waveList + " 200 " + middlePoint;
+    'M 0 ' + middlePoint + ' ' + waveList + ' 200 ' + middlePoint;
 
   return (
     <div style={styles.main}>
@@ -80,7 +80,7 @@ const Oscillators: React.FC = () => {
             steps={steps}
             color="#555"
             value={wave[id]}
-            onChange={(payload) => dispatch({ type: "SET_WAVE", id, payload })}
+            onChange={(payload) => dispatch({ type: 'SET_WAVE', id, payload })}
           />
         ))}
       </Panel>
@@ -93,7 +93,7 @@ const Oscillators: React.FC = () => {
             steps={steps}
             color="#555"
             value={wave[id]}
-            onChange={(payload) => dispatch({ type: "SET_WAVE", id, payload })}
+            onChange={(payload) => dispatch({ type: 'SET_WAVE', id, payload })}
           />
         ))}
       </Panel>
@@ -107,7 +107,7 @@ const Oscillators: React.FC = () => {
             color="#555"
             value={filter[id]}
             onChange={(payload) =>
-              dispatch({ type: "SET_FILTER", id, payload })
+              dispatch({ type: 'SET_FILTER', id, payload })
             }
           />
         ))}

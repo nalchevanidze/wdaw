@@ -1,5 +1,5 @@
-import * as React from "react";
-import { colors } from "../styles";
+import * as React from 'react';
+import { colors } from '../styles';
 import {
   CANVAS_HEIGHT,
   KEYBOARD_WIDTH,
@@ -7,8 +7,8 @@ import {
   OCTAVE_HEIGHT,
   QUARTER,
   STAGE_WIDTH,
-  SUB_QUARTER,
-} from "./utils";
+  SUB_QUARTER
+} from './utils';
 
 type KeysProps = {
   width: number;
@@ -46,7 +46,7 @@ const Keyboard = () => (
 
 const VerticalLine: React.FC<{ x: number; strength: number }> = ({
   x,
-  strength,
+  strength
 }) => (
   <line
     x1={x}
@@ -94,8 +94,8 @@ const Grid = () => (
 );
 
 const Background = ({
-  onMouseDown,
-}: Pick<React.SVGProps<SVGRectElement>, "onMouseDown">) => (
+  onMouseDown
+}: Pick<React.SVGProps<SVGRectElement>, 'onMouseDown'>) => (
   <>
     <Grid />
     <Keyboard />

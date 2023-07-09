@@ -6,7 +6,7 @@
     "incremental": true,
     "tsBuildInfoFile": ".tsbuildinfo",
     "allowSyntheticDefaultImports": true,
-    "noImplicitAny": true,
+    "noImplicitAny": true
   },
   "references": [
     {

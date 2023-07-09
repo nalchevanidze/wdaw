@@ -2,6 +2,7 @@
   "name": "wdaw",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "workspaces": [
     "packages/*",
     "examples/*"
@@ -12,7 +13,8 @@
     "clean": "rm -rf ./packages/*/tsconfig.tsbuildinfo ./packages/*/dist ./packages/*/node_modules",
     "build": "tsc -b",
     "publish": "lerna publish --no-private",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "format": "prettier . --write"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",

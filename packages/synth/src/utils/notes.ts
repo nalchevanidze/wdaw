@@ -1,16 +1,16 @@
 export const BASE_NOTES: string[] = [
-  "C",
-  "C#",
-  "D",
-  "D#",
-  "E",
-  "F",
-  "F#",
-  "G",
-  "G#",
-  "A",
-  "A#",
-  "B",
+  'C',
+  'C#',
+  'D',
+  'D#',
+  'E',
+  'F',
+  'F#',
+  'G',
+  'G#',
+  'A',
+  'A#',
+  'B'
 ];
 
 export const OCTAVE_SIZE = BASE_NOTES.length;
@@ -25,11 +25,14 @@ export const getNoteIdByIndex = (index: number): string => {
 
 export const keysToIndexes = (note: string): number => {
   const indexPosition = note.length - 1;
-  const octaveIndex = Math.min(OCTAVE_RANGE,Number(note.charAt(indexPosition)));
+  const octaveIndex = Math.min(
+    OCTAVE_RANGE,
+    Number(note.charAt(indexPosition))
+  );
   note = note.slice(0, indexPosition);
   const keyIndex = BASE_NOTES.indexOf(note.toUpperCase());
   if (keyIndex === -1) {
-    throw new Error("invalid Note");
+    throw new Error('invalid Note');
   }
   return keyIndex + octaveIndex * OCTAVE_SIZE;
 };

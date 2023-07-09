@@ -1,8 +1,8 @@
-import * as React from "react";
-import { noteFromKeyboard } from "../../utils/keyboard";
-import { ConfiguratorContext } from "../configurator";
-import { KEY_EVENT_TYPE, useKeyAction } from "../utils";
-import { KeyHandler, Octave } from "./octave";
+import * as React from 'react';
+import { noteFromKeyboard } from '../../utils/keyboard';
+import { ConfiguratorContext } from '../configurator';
+import { KEY_EVENT_TYPE, useKeyAction } from '../utils';
+import { KeyHandler, Octave } from './octave';
 
 const Keyboard: React.FC = ({}) => {
   const [{ notes }, dispatch] = React.useContext(ConfiguratorContext);
@@ -21,10 +21,10 @@ const Keyboard: React.FC = ({}) => {
   return (
     <ul
       style={{
-        borderTop: "2px solid #c8c8c8",
-        display: "flex",
-        padding: "0px",
-        margin: "0px",
+        borderTop: '2px solid #c8c8c8',
+        display: 'flex',
+        padding: '0px',
+        margin: '0px'
       }}
     >
       {[1, 2, 3].map((i) => (

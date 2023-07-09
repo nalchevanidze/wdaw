@@ -1,11 +1,11 @@
-import { EnvelopeConfig } from "./types";
-import { counter } from "./utils";
+import { EnvelopeConfig } from './types';
+import { counter } from './utils';
 
 enum STAGE {
   ATTACK,
   DEACY,
   SUSTAIN,
-  RELEASE,
+  RELEASE
 }
 
 const toMilliseconds = (n: number) => Math.min((n * 3) ** 3, 200);
@@ -18,7 +18,7 @@ export class Envelope {
     attack: 0,
     decay: 0.4,
     sustain: 0,
-    release: 0,
+    release: 0
   };
   live: boolean = false;
 

@@ -1,12 +1,12 @@
-import { Point } from "@wdaw/svg";
-import { foldMidi } from "../../engine/midi/midi-player";
-import { Midi, Note } from "../../engine/midi/types";
+import { Point } from '@wdaw/svg';
+import { foldMidi } from '../../engine/midi/midi-player';
+import { Midi, Note } from '../../engine/midi/types';
 import {
   getNoteIdByIndex,
   keysToIndexes,
-  OCTAVE_SIZE,
-} from "../../utils/notes";
-import { GraphNote, NotePoint, SelectZone } from "../types";
+  OCTAVE_SIZE
+} from '../../utils/notes';
+import { GraphNote, NotePoint, SelectZone } from '../types';
 
 // note height and width
 export const NOTE_SIZE = 10 as const;
@@ -67,7 +67,7 @@ export const insertNoteAt = (
     i,
     position,
     id: getNoteIdByIndex(i - 1),
-    at: position % 8,
+    at: position % 8
   };
 
   return { selected: [note], inactive: [...selected, ...inactive] };
@@ -77,11 +77,11 @@ export const flatten = foldMidi<NotePoint>((note, i) => ({
   ...note,
   index: i,
   i: keysToIndexes(note.id),
-  position: notePosition(i, note.at),
+  position: notePosition(i, note.at)
 }));
 
 export const deepen = (flat: NotePoint[]): Midi => {
-  let notes: Midi["notes"] = {};
+  let notes: Midi['notes'] = {};
 
   flat.forEach(({ length, position, i }: NotePoint) => {
     const index = Math.floor(position / 8);
@@ -95,7 +95,7 @@ export const deepen = (flat: NotePoint[]): Midi => {
 };
 
 export const editNotes = (
-  mode: "MOVE" | "SCALE",
+  mode: 'MOVE' | 'SCALE',
   notes: NotePoint[],
   dragging: Point,
   current: Point
@@ -104,17 +104,17 @@ export const editNotes = (
   const tune = Math.round((current.y - (dragging?.y ?? 0)) / NOTE_SIZE);
 
   switch (mode) {
-    case "SCALE":
+    case 'SCALE':
       return notes.map((note) =>
         note.old ? { ...note, length: note.old.length + time } : note
       );
-    case "MOVE":
+    case 'MOVE':
       return notes.map((note) =>
         note.old
           ? {
               ...note,
               position: note.old.position + time,
-              i: note.old.i - tune,
+              i: note.old.i - tune
             }
           : note
       );

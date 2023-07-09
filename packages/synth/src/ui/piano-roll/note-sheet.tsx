@@ -1,6 +1,6 @@
-import * as React from "react";
-import { Timeline } from "./timeline";
-import { Notes } from "./notes";
+import * as React from 'react';
+import { Timeline } from './timeline';
+import { Notes } from './notes';
 import {
   insertNoteAt,
   flatten,
@@ -12,22 +12,22 @@ import {
   TIMELINE_HEIGHT,
   editNotes,
   STAGE_WIDTH,
-  STAGE_HEIGHT,
-} from "./utils";
-import { Background } from "./background";
-import { StageContext, SvgStage, Point } from "@wdaw/svg";
-import { MouseEventHandler, useContext, useState } from "react";
-import { EditActionType, NotePoint, SelectZone } from "../types";
-import { ConfiguratorContext } from "../configurator";
-import { Maybe } from "../../types";
-import { useKeyAction } from "../utils";
+  STAGE_HEIGHT
+} from './utils';
+import { Background } from './background';
+import { StageContext, SvgStage, Point } from '@wdaw/svg';
+import { MouseEventHandler, useContext, useState } from 'react';
+import { EditActionType, NotePoint, SelectZone } from '../types';
+import { ConfiguratorContext } from '../configurator';
+import { Maybe } from '../../types';
+import { useKeyAction } from '../utils';
 
 const viewBox = [
   -KEYBOARD_WIDTH,
   -TIMELINE_HEIGHT,
   STAGE_WIDTH,
-  STAGE_HEIGHT,
-].join(" ");
+  STAGE_HEIGHT
+].join(' ');
 
 const SelectionCover: React.FC<SelectZone> = ([start, end]) => (
   <rect
@@ -41,7 +41,7 @@ const SelectionCover: React.FC<SelectZone> = ([start, end]) => (
   />
 );
 
-type MODE = "SCALE" | "MOVE" | "SELECT";
+type MODE = 'SCALE' | 'MOVE' | 'SELECT';
 
 type Props = {
   actionType: EditActionType;
@@ -52,8 +52,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const getCoordinates = React.useContext(StageContext);
   const refreshMidi = (ns: Selected<NotePoint>): void =>
     dispatch({
-      type: "SET_MIDI",
-      payload: deepen([...ns.selected, ...ns.inactive]),
+      type: 'SET_MIDI',
+      payload: deepen([...ns.selected, ...ns.inactive])
     });
 
   const [mode, setMode] = React.useState<MODE | undefined>(undefined);
@@ -62,7 +62,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
 
   const [notes, setNotes] = useState<Selected<NotePoint>>({
     selected: [],
-    inactive: flatten(midi),
+    inactive: flatten(midi)
   });
 
   const allNotes = [...notes.selected, ...notes.inactive];
@@ -72,17 +72,17 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     const { selected, inactive } = notes;
 
     switch (mode) {
-      case "SELECT": {
+      case 'SELECT': {
         const area = dragging ? ([dragging, point] as const) : undefined;
         setSelectionArea(area);
         return setNotes(selectNotesIn(notes, area));
       }
-      case "MOVE":
-      case "SCALE": {
+      case 'MOVE':
+      case 'SCALE': {
         return dragging
           ? setNotes({
               selected: editNotes(mode, selected, dragging, point),
-              inactive,
+              inactive
             })
           : undefined;
       }
@@ -90,7 +90,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   };
 
   const handleEventEnd = (): void => {
-    if (mode && ["MOVE", "RESIZE"].includes(mode)) {
+    if (mode && ['MOVE', 'RESIZE'].includes(mode)) {
       allNotes.forEach((x) => (x.old = undefined));
       const changes = { selected: [], inactive: allNotes };
       setNotes(changes);
@@ -103,32 +103,32 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
 
   const clickOnBackground: MouseEventHandler<SVGGElement> = (e) => {
     switch (actionType) {
-      case "draw": {
+      case 'draw': {
         const selection = insertNoteAt(notes, getCoordinates(e));
-        startDragging("SCALE", e, selection);
+        startDragging('SCALE', e, selection);
         refreshMidi(selection);
         return;
       }
-      case "select":
-        startDragging("SELECT", e, { selected: [], inactive: allNotes });
+      case 'select':
+        startDragging('SELECT', e, { selected: [], inactive: allNotes });
     }
   };
 
   const clickOnNote = (e: any, note: NotePoint): void => {
     switch (actionType) {
-      case "draw": {
+      case 'draw': {
         // delete notes
         const changes = {
           selected: [],
-          inactive: allNotes.filter((arrayNote) => arrayNote !== note),
+          inactive: allNotes.filter((arrayNote) => arrayNote !== note)
         };
         refreshMidi(changes);
         return setNotes(changes);
       }
-      case "select": {
-        return startDragging("MOVE", e, {
+      case 'select': {
+        return startDragging('MOVE', e, {
           selected: [note],
-          inactive: allNotes.filter((e) => e !== note),
+          inactive: allNotes.filter((e) => e !== note)
         });
       }
     }
@@ -143,20 +143,19 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     setDragging(getCoordinates(e));
     setNotes({
       selected: selected.map((note) => ({ ...note, old: { ...note } })),
-      inactive,
+      inactive
     });
   };
 
   const deleteNotes = () => (e: any) => {
-
-    switch (e.key){
-      case 'Backspace':{
+    switch (e.key) {
+      case 'Backspace': {
         const changes = { selected: [], inactive: notes.inactive };
         setNotes(changes);
         return refreshMidi(changes);
       }
       case 'Enter':
-        console.log(JSON.stringify(deepen(allNotes)))
+        console.log(JSON.stringify(deepen(allNotes)));
     }
   };
 
@@ -167,7 +166,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       onMouseMove={onMouseMove}
       onMouseLeave={handleEventEnd}
       onMouseUp={handleEventEnd}
-      onKeyDown={(x) => console.log("DOWN", x)}
+      onKeyDown={(x) => console.log('DOWN', x)}
     >
       <Background onMouseDown={clickOnBackground} />
       <g>
@@ -175,15 +174,15 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         <Notes
           notes={notes.selected}
           color="#03A9F4"
-          mouseDown={(e) => startDragging("MOVE", e)}
-          resize={(e) => startDragging("SCALE", e)}
+          mouseDown={(e) => startDragging('MOVE', e)}
+          resize={(e) => startDragging('SCALE', e)}
         />
       </g>
       <Timeline
         time={(time * NOTE_SIZE) / 2}
         height={STAGE_HEIGHT}
         width={STAGE_WIDTH}
-        setTime={(payload) => dispatch({ type: "SET_TIME", payload })}
+        setTime={(payload) => dispatch({ type: 'SET_TIME', payload })}
       />
       {selectionArea ? <SelectionCover {...selectionArea} /> : null}
     </g>
@@ -193,10 +192,10 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
 export default (props: Props) => (
   <SvgStage
     viewBox={viewBox}
-    width={STAGE_WIDTH + "px"}
-    height={STAGE_HEIGHT + "px"}
+    width={STAGE_WIDTH + 'px'}
+    height={STAGE_HEIGHT + 'px'}
     style={{
-      background: "#FFF",
+      background: '#FFF'
     }}
   >
     <NoteSheet {...props} />

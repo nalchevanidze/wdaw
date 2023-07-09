@@ -1,24 +1,24 @@
-import * as React from "react";
-import EnvelopeGraphic from "./envelope-graphic";
-import { Panel } from "../panel";
-import { ConfiguratorContext } from "../../configurator";
-import { ENVELOPE_ID } from "../../../engine/types";
-import { colors } from "../../styles";
+import * as React from 'react';
+import EnvelopeGraphic from './envelope-graphic';
+import { Panel } from '../panel';
+import { ConfiguratorContext } from '../../configurator';
+import { ENVELOPE_ID } from '../../../engine/types';
+import { colors } from '../../styles';
 
 const styles = {
   button: {
     fontSize: '11px',
-    outline: "none",
-    background: "none",
-    border: "none",
-    width: "50%",
-    cursor: "pointer",
-    textTransform: "uppercase",
+    outline: 'none',
+    background: 'none',
+    border: 'none',
+    width: '50%',
+    cursor: 'pointer',
+    textTransform: 'uppercase'
   },
   nav: {
-    marginTop: "10px",
-    width: "80%",
-  },
+    marginTop: '10px',
+    width: '80%'
+  }
 } as const;
 
 export interface ButtonProps {
@@ -31,7 +31,7 @@ const Button = ({ id, active, onClick }: ButtonProps) => (
   <button
     style={{
       ...styles.button,
-      color: colors.button(id === active),
+      color: colors.button(id === active)
     }}
     onClick={() => onClick(id)}
   >
@@ -40,7 +40,7 @@ const Button = ({ id, active, onClick }: ButtonProps) => (
 );
 
 const Envelopes: React.FC = () => {
-  const [id, setId] = React.useState<ENVELOPE_ID>("gain");
+  const [id, setId] = React.useState<ENVELOPE_ID>('gain');
 
   return (
     <Panel label="envelopes" size={3}>

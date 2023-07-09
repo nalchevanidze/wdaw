@@ -1,10 +1,10 @@
-import * as React from "react";
+import * as React from 'react';
 
 type Props = {
   color?: string;
 };
 
-const Grid: React.FC<Props> = ({ color = "#FFEB3B" }): JSX.Element => (
+const Grid: React.FC<Props> = ({ color = '#FFEB3B' }): JSX.Element => (
   <g>
     <defs>
       <pattern width="100" height="100" patternUnits="userSpaceOnUse" id="grid">
