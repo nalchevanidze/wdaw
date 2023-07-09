@@ -2,7 +2,7 @@ import { counter } from '../utils';
 
 describe('counter: linear increase', () => {
   const event = counter(1, 0, 0.5, { power: 1, steps: 4 });
-  let percent: IteratorResult<number, any>;
+  let percent: IteratorResult<number, unknown>;
 
   beforeEach(() => {
     percent = event.next();
@@ -48,7 +48,7 @@ describe('counter: Linear Decrease', () => {
 
 describe('counter: ^2 Increase', () => {
   const event = counter(1, 0, 16, { power: 2, steps: 4 });
-  let percent: IteratorResult<number, any>;
+  let percent: IteratorResult<number, unknown>;
 
   beforeEach(() => {
     percent = event.next();

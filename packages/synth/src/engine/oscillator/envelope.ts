@@ -53,10 +53,11 @@ export class Envelope {
       }
       case STAGE.SUSTAIN:
         return this.level;
-      default:
+      default: {
         const release = this.iter.next();
         this.live = !release.done;
         return release.value;
+      }
     }
   };
 

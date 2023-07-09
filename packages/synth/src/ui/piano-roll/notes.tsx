@@ -5,8 +5,8 @@ import { CANVAS_HEIGHT, NOTE_SIZE, NOTE_STEP } from './utils';
 
 type Props = {
   notes: GraphNote[];
-  mouseDown?(event: any, note?: GraphNote): void;
-  resize?(event: any): void;
+  mouseDown?(event: React.MouseEvent<SVGGElement, MouseEvent>, note?: GraphNote): void;
+  resize?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
   color?: string;
 };
 

@@ -33,7 +33,7 @@ const audioProcessor = (process: SoundIterator): (() => void) => {
     };
   } catch (e) {
     console.log('could not create audio context');
-    return () => {};
+    return () => undefined;
   }
 };
 

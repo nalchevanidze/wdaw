@@ -114,7 +114,10 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     }
   };
 
-  const clickOnNote = (e: any, note: NotePoint): void => {
+  const clickOnNote = (
+    e: React.MouseEvent<SVGGElement, MouseEvent>,
+    note: NotePoint
+  ): void => {
     switch (actionType) {
       case 'draw': {
         // delete notes
@@ -147,7 +150,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     });
   };
 
-  const deleteNotes = () => (e: any) => {
+  const deleteNotes = () => (e: KeyboardEvent) => {
     switch (e.key) {
       case 'Backspace': {
         const changes = { selected: [], inactive: notes.inactive };
@@ -189,7 +192,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   );
 };
 
-export default (props: Props) => (
+const PianoRoll: React.FC<Props> = (props) => (
   <SvgStage
     viewBox={viewBox}
     width={STAGE_WIDTH + 'px'}
@@ -201,3 +204,5 @@ export default (props: Props) => (
     <NoteSheet {...props} />
   </SvgStage>
 );
+
+export default PianoRoll;

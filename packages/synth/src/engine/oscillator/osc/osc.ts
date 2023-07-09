@@ -36,7 +36,8 @@ export class OSC {
   }
 
   next() {
-    let { phase, length, fm } = this;
+    const { length, fm } = this;
+    let { phase } = this;
     const fmAmp = this.config.fm;
     const fmFreq = this.config.fmFreq === 0 ? 1 / 16 : this.config.fmFreq * 4;
     const fmLength = this.length * fmFreq;

@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { Point } from './types';
 
-const StageContext = React.createContext(
-  (e: React.MouseEvent<SVGGElement, MouseEvent>): Point => ({ x: 0, y: 0 })
-);
+type Fun = (_: React.MouseEvent<SVGGElement, MouseEvent>) => Point;
+
+const StageContext = React.createContext<Fun>((): Point => ({ x: 0, y: 0 }));
 
 type SvgStageProps = {
   viewBox: string;
   height?: string | number;
   width?: string | number;
-  style?: {};
+  style?: React.CSSProperties;
   children: React.ReactNode;
 };
 
@@ -26,7 +26,7 @@ const svgCoordinates =
 const fallback = () => ({ x: 0, y: 0 });
 
 const SvgStage: React.FC<SvgStageProps> = ({ children, ...props }) => {
-  const [_, setClient] = React.useState(false);
+  const [, setClient] = React.useState(false);
   const ref = React.useRef<SVGSVGElement>(null);
   React.useEffect(() => setClient(true), []);
 

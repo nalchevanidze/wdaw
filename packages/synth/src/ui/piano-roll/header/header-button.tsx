@@ -17,7 +17,11 @@ export type HeaderButtonProps = {
   color?: string;
 };
 
-export default ({ id, onClick, color = colors.prime }: HeaderButtonProps) => (
+const HeaderButton = ({
+  id,
+  onClick,
+  color = colors.prime
+}: HeaderButtonProps) => (
   <svg
     viewBox={[0, 0, 100, 100].join(' ')}
     width="20px"
@@ -38,3 +42,5 @@ export default ({ id, onClick, color = colors.prime }: HeaderButtonProps) => (
     />
   </svg>
 );
+
+export default HeaderButton;

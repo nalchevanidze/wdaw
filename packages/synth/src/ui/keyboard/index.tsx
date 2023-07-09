@@ -4,7 +4,7 @@ import { ConfiguratorContext } from '../configurator';
 import { KEY_EVENT_TYPE, useKeyAction } from '../utils';
 import { KeyHandler, Octave } from './octave';
 
-const Keyboard: React.FC = ({}) => {
+const Keyboard: React.FC = () => {
   const [{ notes }, dispatch] = React.useContext(ConfiguratorContext);
 
   const handler =

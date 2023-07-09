@@ -38,7 +38,7 @@ export type Props = {
   id?: PANEL_ID;
   label: string;
   size?: number;
-  children?: any;
+  children?: React.ReactNode;
   isActive?: boolean;
   color?: string;
   optional?: boolean;

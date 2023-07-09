@@ -7,7 +7,7 @@ type LoadedGraphProps = RingComponentProps & {
   fillOpacity?: number;
   stroke?: string;
   strokeWidth?: string;
-  style?: {};
+  style?: React.CSSProperties;
   onClick?(evt: React.MouseEvent<SVGPathElement>): void;
 };
 

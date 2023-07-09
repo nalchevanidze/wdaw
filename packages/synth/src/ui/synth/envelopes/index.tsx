@@ -1,7 +1,6 @@
 import * as React from 'react';
 import EnvelopeGraphic from './envelope-graphic';
 import { Panel } from '../panel';
-import { ConfiguratorContext } from '../../configurator';
 import { ENVELOPE_ID } from '../../../engine/types';
 import { colors } from '../../styles';
 

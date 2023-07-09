@@ -1,6 +1,6 @@
 import { Point } from '@wdaw/svg';
 import { foldMidi } from '../../engine/midi/midi-player';
-import { Midi, Note } from '../../engine/midi/types';
+import { Midi } from '../../engine/midi/types';
 import {
   getNoteIdByIndex,
   keysToIndexes,

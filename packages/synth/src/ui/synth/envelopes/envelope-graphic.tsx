@@ -121,8 +121,10 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
   );
 };
 
-export default (props: Props) => (
+const EnvelopeGraphic = (props: Props) => (
   <SvgStage viewBox="-5 -5 210 110" width="180px" height="100px">
     <EnvelopeConsumer {...props} />
   </SvgStage>
 );
+
+export default EnvelopeGraphic;

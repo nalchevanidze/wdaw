@@ -2,10 +2,13 @@ import * as React from 'react';
 
 type Props<T> = {
   observable: () => T | undefined;
-  children: ({}) => React.ReactElement;
+  children: (_: object) => React.ReactElement;
 };
 
-const AnimationFrame = <T extends {}>({ observable, children }: Props<T>) => {
+const AnimationFrame = <T extends object>({
+  observable,
+  children
+}: Props<T>) => {
   const [state, setState] = React.useState<T | undefined>(undefined);
   const ref = React.useRef<number>(0);
 
