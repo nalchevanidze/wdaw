@@ -9,7 +9,7 @@
   "scripts": {
     "start": "concurrently --kill-others 'tsc -b -w' 'webpack serve'",
     "test": "jest",
-    "clean": "rm -rf ./packages/*/.tsbuildinfo ./packages/*/dist ./packages/*/node_modules",
+    "clean": "rm -rf ./packages/*/tsconfig.tsbuildinfo ./packages/*/dist ./packages/*/node_modules",
     "build": "tsc -b",
     "publish": "lerna publish --no-private",
     "lint": "eslint ."
