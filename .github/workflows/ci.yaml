@@ -1,6 +1,5 @@
 name: Test
-on:
-  push
+on: push
 
 jobs:
   health:
@@ -14,7 +13,7 @@ jobs:
           node-version: 18
 
       - name: Install
-        run: npm i      
+        run: npm i
 
       - name: Lint
         run: npm run lint
