@@ -13,6 +13,9 @@ jobs:
           cache: npm
           node-version: 18
 
+      - name: Install
+        run: npm i      
+
       - name: Lint
         run: npm run lint
 
