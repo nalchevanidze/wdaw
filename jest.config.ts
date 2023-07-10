@@ -6,7 +6,16 @@ const config: Config = {
   preset: 'ts-jest',
   coverageDirectory: 'test-report/coverage',
   collectCoverage: true,
-  reporters: ['default', ['github-actions', { silent: false }]],
+  reporters: [
+    'default',
+    ['github-actions', { silent: false }],
+    [
+      './node_modules/jest-html-reporter',
+      {
+        pageTitle: 'Test Report'
+      }
+    ]
+  ],
   collectCoverageFrom: [`<rootDir>/packages/**/src/**/*.ts`],
   coveragePathIgnorePatterns: ignore,
   coverageReporters: ['clover', 'json', 'lcov', ['text', { skipFull: true }]],
