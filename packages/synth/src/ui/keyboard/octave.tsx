@@ -39,7 +39,7 @@ const blackStyle = {
   width: '10%',
   position: 'absolute',
   paddingTop: '140px'
-};
+} as const;
 
 const StyleBlack = {
   active: {
@@ -68,10 +68,10 @@ const styles = {
   userSelect: 'none',
   justifyContent: 'space-between',
   alignItems: 'start'
-};
+} as const;
 
 type keyProps = OctaveProps & {
-  style?: any;
+  style: { active: React.CSSProperties; default: React.CSSProperties };
   left?: string;
 };
 
@@ -103,7 +103,7 @@ type OctaveProps = {
 };
 
 const Octave = ({ index, ...props }: OctaveProps) => (
-  <li style={styles as any}>
+  <li style={styles}>
     {whiteKeys.map(({ i }) => (
       <Key {...props} index={index * 12 + i} key={i} style={StyleWhite} />
     ))}
