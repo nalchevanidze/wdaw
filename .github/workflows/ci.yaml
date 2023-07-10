@@ -25,4 +25,7 @@ jobs:
         run: npm run check:spelling
 
       - name: Test
+        env:
+          JEST_HTML_REPORTER_OUTPUT_PATH: ./test-report/${{ github.sha }}-report.html
+          JEST_HTML_REPORTER_PAGE_TITLE: ${{ github.sha }}
         run: npm run test

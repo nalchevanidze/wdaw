@@ -12,7 +12,8 @@ const config: Config = {
     [
       './node_modules/jest-html-reporter',
       {
-        pageTitle: 'Test Report'
+        pageTitle: 'Test Report',
+        outputPath: 'test-report/index.html'
       }
     ]
   ],
