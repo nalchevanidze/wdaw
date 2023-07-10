@@ -9,6 +9,10 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
+  "files": [
+    "src",
+    "dist"
+  ],
   "type": "module",
   "engines": {
     "node": ">=16.0.0"
