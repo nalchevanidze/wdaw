@@ -16,8 +16,9 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['deprecation', 'react', '@typescript-eslint'],
   rules: {
+    "deprecation/deprecation": "warn", // or "error" to have stricter rule
     'arrow-body-style': ['error', 'as-needed'],
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx', '.jsx'] }],
     'react/function-component-definition': [
