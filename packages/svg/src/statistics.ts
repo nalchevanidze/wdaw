@@ -5,31 +5,23 @@ import { Annulus, ArcSector, Circle } from './types';
 const sectorStringMap = (
   data: Uint8Array,
   { start, end }: ArcSector,
-  handler: (value: number, degree: number) => string
+  f: (value: number, degree: number) => string
 ): string => {
-  const length = data.length;
-  let output = '';
-  const spreadAngle = end - start;
-  const degreeScale = spreadAngle / (length - 1);
-  for (let i = 0; i < length; i++) {
-    output += handler(data[i], start + i * degreeScale);
-  }
-  return output + ' ';
+  const degreeScale = (end - start) / (data.length - 1);
+  return (
+    Array.from(data)
+      .map((v, i) => f(v, start + i * degreeScale))
+      .join('') + ' '
+  );
 };
 
 export const sectorMap = <T>(
-  data: number[],
+  values: number[],
   { start, end }: ArcSector,
-  handler: (value: number, degree: number) => T
+  f: (value: number, degree: number) => T
 ): T[] => {
-  const length = data.length;
-  const spreadAngle = end - start;
-  const degreeScale = spreadAngle / (length - 1);
-  const output: T[] = [];
-  for (let i = 0; i < length; i++) {
-    output.push(handler(data[i], start + i * degreeScale));
-  }
-  return output;
+  const degreeScale = (end - start) / (values.length - 1);
+  return values.map((v, i) => f(v, start + i * degreeScale));
 };
 
 export const roundFillStat = (
