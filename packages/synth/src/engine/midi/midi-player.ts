@@ -53,7 +53,7 @@ const toActions = (input: Midi): NoteAction[] => {
 class MidiPlayer {
   private current = 0;
   private actions: NoteAction[];
-  private tempo: Tempo = new Tempo(SAMPLE_RATE);
+  private tempo = new Tempo(SAMPLE_RATE);
   private notes: Set<number> = new Set([]);
 
   public isPlaying = false;

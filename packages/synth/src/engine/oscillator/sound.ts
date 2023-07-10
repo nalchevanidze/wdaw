@@ -31,11 +31,15 @@ export class Sound {
   }
 
   public next() {
-    let value = 0;
-    for (const osc of this.osc(true)) {
-      value += osc.next();
-    }
+    const value = this.osc(true).reduce((v, osc) => v + osc.next(), 0);
+
     return safeWaveValue(value);
+  }
+
+  newEvent() {
+    const event = new SoundEvent(this.config);
+    this.stack.push(event);
+    return event;
   }
 
   open = (note: number): void => {
@@ -43,14 +47,10 @@ export class Sound {
       return;
     }
 
-    let freeSound = this.osc(false)[0];
-    if (!freeSound) {
-      freeSound = new SoundEvent(this.config);
-      this.stack.push(freeSound);
-    }
+    const sound = this.osc(false)[0] ?? this.newEvent();
 
-    this.notes[note] = freeSound;
-    freeSound.open(note);
+    this.notes[note] = sound;
+    sound.open(note);
   };
 
   close = (note: number): void => {
