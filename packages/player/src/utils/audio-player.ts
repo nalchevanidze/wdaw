@@ -27,13 +27,6 @@ export type AudioState = {
   spec: Uint8Array;
 };
 
-declare global {
-  interface Window {
-    AudioContext?: AudioContext;
-    webkitAudioContext?: AudioContext;
-  }
-}
-
 const defaultAudioState = {
   pro: 0,
   time: 0,
@@ -54,8 +47,7 @@ export class AudioObject {
     this.allowed = true;
     this.audio = new Audio();
     this.audio.crossOrigin = 'anonymous';
-    const WebAudioContext = window.AudioContext || window.webkitAudioContext;
-    const context: AudioContext = new WebAudioContext();
+    const context: AudioContext = new AudioContext();
     const audioSrc = context.createMediaElementSource(this.audio);
     const gainObj = context.createGain();
     audioSrc.connect(gainObj);
