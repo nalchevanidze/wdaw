@@ -19,7 +19,6 @@ export class OSC {
   private config: { fm: number; fmFreq: number } = { fm: 0, fmFreq: 0 };
 
   constructor() {
-    this.next = this.next.bind(this);
     this.phase = 0;
     this.length = 0.1;
     this.fm = { phase: 0 };
@@ -36,7 +35,7 @@ export class OSC {
     this.fm.phase = Math.random();
   }
 
-  next() {
+  next(wave: WaveConfig) {
     const { length, fm } = this;
     let { phase } = this;
     const fmAmp = this.config.fm;
@@ -53,7 +52,9 @@ export class OSC {
     fm.phase = fm.phase + fmLength;
     const FMWaveFormPosition = Math.sin(fm.phase);
 
-    return this.phase * rescale(FMWaveFormPosition, fmAmp);
+    this.phase * rescale(FMWaveFormPosition, fmAmp);
+
+    return waveFunction(this.phase, wave);
   }
 }
 
@@ -83,8 +84,8 @@ export class Oscillators {
   next(wave: WaveConfig) {
     let value = 0;
 
-    for (const o of this.poly) {
-      value += waveFunction(o.next(), wave);
+    for (const osc of this.poly) {
+      value += osc.next(wave);
     }
 
     return value / (this.poly.length + 1);
