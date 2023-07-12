@@ -1,58 +1,40 @@
 import { WaveConfig } from '../types';
 import { OSC } from './osc';
 
-const squareFun = (i: number) => Number(i > 0.5) * 2 - 1;
-const sawFun = (i: number) => 1 - i * 2;
-const saw2Fun = (i: number) => 1 - ((i * 2) % 1) * 2;
-const techFun = (i: number) =>
-  i > 0.15 ? 0 : Math.min((0.05 - (i % 0.05)) * 50 - 0.7, 1);
-
-const sineFun = (i: number) => Math.sin(i * Math.PI * 2);
-const noiseFun = (): number => 1 - Math.random() * 2;
-
 export const waveFunction = (
-  phase: number,
+  i: number,
   { square, saw, saw2, tech, sine, noise }: WaveConfig
 ) => {
-  let mixin = 0;
-  let i = 0;
+  let value = 0;
 
   if (square) {
-    mixin += square * squareFun(phase);
-    i += square;
+    value += square * (i > 0.5 ? 1 : -1);
   }
 
   if (saw) {
-    mixin += saw * sawFun(phase);
-    i += saw;
+    value += saw * (1 - i * 2);
   }
 
   if (saw2) {
-    mixin += saw2 * saw2Fun(phase);
-    i += saw2;
+    value += saw2 * (1 - ((i * 2) % 1) * 2);
   }
 
   if (tech) {
-    mixin += techFun(phase) * tech;
-    i += tech;
+    value +=
+      tech * (i > 0.15 ? 0 : Math.min((0.05 - (i % 0.05)) * 50 - 0.7, 1));
   }
 
   if (sine) {
-    mixin += sineFun(phase) * sine;
-    i += sine;
+    value += sine * Math.sin(i * Math.PI * 2);
   }
 
   if (noise > 0) {
-    mixin += noise * noiseFun();
-    i += noise;
+    value += noise * (1 - Math.random() * 2);
   }
 
-  if (i === 0) {
-    return 0;
-  }
+  const totalVolume = square + saw + saw2 + tech + sine + noise;
 
-  // mix
-  return mixin / (i + 1);
+  return totalVolume === 0 ? 0 : value / (totalVolume + 1);
 };
 
 export const renderOSCs = (
