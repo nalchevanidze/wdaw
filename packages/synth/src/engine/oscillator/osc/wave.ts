@@ -1,5 +1,4 @@
 import { WaveConfig } from '../types';
-import { OSC } from './osc';
 
 export const waveFunction = (
   i: number,
@@ -35,18 +34,4 @@ export const waveFunction = (
   const totalVolume = square + saw + saw2 + tech + sine + noise;
 
   return totalVolume === 0 ? 0 : value / (totalVolume + 1);
-};
-
-export const renderOSCs = (
-  wave: WaveConfig,
-  oscList: OSC[],
-  poly: number
-): number => {
-  let value = 0;
-
-  for (let i = 0; i <= poly; i++) {
-    value += waveFunction(oscList[i].next(), wave);
-  }
-
-  return value / (poly + 1);
 };

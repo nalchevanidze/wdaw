@@ -1,19 +1,13 @@
 import { Envelope } from './envelope';
-import { renderOSCs } from './osc/wave';
-import { OSC } from './osc/osc';
+import { Oscillators } from './osc/osc';
 import { MoogFilter } from './filter';
-import { nList, noteToFrequency } from './utils';
 import { SynthConfig } from './types';
 
-const MAX_OSC = 12;
-const MAX_OFFSET = 2;
-
 export class SoundEvent {
-  private poly = 0;
   private gainEnvelope = new Envelope();
   private filterEnvelope = new Envelope();
   private state: SynthConfig;
-  private oscillators = nList(MAX_OSC, () => new OSC());
+  private oscillators = new Oscillators();
   private filter = new MoogFilter();
 
   constructor(state: SynthConfig) {
@@ -25,20 +19,11 @@ export class SoundEvent {
     this.filter.setup(state.filter);
     this.gainEnvelope.setup(state.envelopes.gain);
     this.filterEnvelope.setup(state.envelopes.filter);
-    this.oscillators.forEach((osc) => osc.setup(state.wave));
+    this.oscillators.setup(state.wave);
   };
 
   public open = (note: number): void => {
-    const { wave } = this.state;
-    const range = Math.max(note + Math.floor(wave.octave) * 12, 0);
-    const frequency = noteToFrequency(range);
-    this.poly = Math.min(MAX_OSC - 1, Math.max(1, wave.voices));
-    const middle = Math.floor((this.poly + 1) / 2);
-    for (let i = 0; i <= this.poly; i++) {
-      this.oscillators[i].set(
-        frequency + (i - middle) * wave.offset * MAX_OFFSET
-      );
-    }
+    this.oscillators.open(this.state.wave, note);
     this.gainEnvelope.open();
     this.filterEnvelope.open();
   };
@@ -46,7 +31,7 @@ export class SoundEvent {
   public next = () =>
     this.gainEnvelope.next() *
     this.filter.next(
-      renderOSCs(this.state.wave, this.oscillators, this.poly),
+      this.oscillators.next(this.state.wave),
       this.filterEnvelope.next() ** 4
     );
 

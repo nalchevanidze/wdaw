@@ -1,5 +1,6 @@
 import { WaveConfig } from '../types';
-import { SAMPLE_RATE } from '../utils';
+import { SAMPLE_RATE, nList, noteToFrequency } from '../utils';
+import { waveFunction } from './wave';
 
 const rescale = (value: number, deep: number): number => {
   deep = 2 / deep ** 2;
@@ -53,5 +54,39 @@ export class OSC {
     const FMWaveFormPosition = Math.sin(fm.phase);
 
     return this.phase * rescale(FMWaveFormPosition, fmAmp);
+  }
+}
+
+const MAX_OSCILLATORS = 12;
+const MAX_OFFSET = 2;
+
+export class Oscillators {
+  private all = nList(MAX_OSCILLATORS, () => new OSC());
+  private poly: OSC[] = [];
+
+  setup(wave: WaveConfig) {
+    this.all.forEach((osc) => osc.setup(wave));
+  }
+
+  open(wave: WaveConfig, note: number) {
+    const poly = Math.min(MAX_OSCILLATORS - 1, Math.max(1, wave.voices));
+
+    const range = Math.max(note + Math.floor(wave.octave) * 12, 0);
+    const frequency = noteToFrequency(range);
+    const middle = Math.floor((poly + 1) / 2);
+    const offset = wave.offset * MAX_OFFSET;
+
+    this.poly = this.all.slice(poly - 1);
+    this.poly.forEach((o, i) => o.set(frequency + (i - middle) * offset));
+  }
+
+  next(wave: WaveConfig) {
+    let value = 0;
+
+    for (const o of this.poly) {
+      value += waveFunction(o.next(), wave);
+    }
+
+    return value / (this.poly.length + 1);
   }
 }
