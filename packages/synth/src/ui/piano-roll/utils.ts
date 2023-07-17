@@ -1,11 +1,12 @@
 import { Point } from '@wdaw/svg';
-import { foldMidi, Midi } from '../../engine';
+import { Midi } from '../../engine';
 import {
   getNoteIdByIndex,
   keysToIndexes,
   OCTAVE_SIZE
 } from '../../utils/notes';
 import { GraphNote, NotePoint, SelectZone } from '../types';
+import { Note } from '../../core/types';
 
 // note height and width
 export const NOTE_SIZE = 10 as const;
@@ -71,6 +72,17 @@ export const insertNoteAt = (
 
   return { selected: [note], inactive: [...selected, ...inactive] };
 };
+
+const foldMidi =
+  <T>(f: (n: Note, i: number) => T) =>
+  (midi: Midi): T[] =>
+    Object.entries(midi.notes).reduce<T[]>(
+      (acc, [i, val]) =>
+        Array.isArray(val)
+          ? acc.concat(val.map((note: Note): T => f(note, parseInt(i, 10))))
+          : acc,
+      []
+    );
 
 export const flatten = foldMidi<NotePoint>((note, i) => ({
   ...note,
