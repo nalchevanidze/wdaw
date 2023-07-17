@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { ConfiguratorContext } from '../configurator';
-import { PANEL_ID } from '../../engine/types';
+
 import { colors } from '../styles';
+import { PANEL_ID } from '../../core/types';
 
 const styles = {
   label: {

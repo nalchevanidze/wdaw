@@ -1,8 +1,8 @@
 import * as React from 'react';
 import EnvelopeGraphic from './envelope-graphic';
 import { Panel } from '../panel';
-import { ENVELOPE_ID } from '../../../engine/types';
 import { colors } from '../../styles';
+import { ENVELOPE_ID } from '../../../core/types';
 
 const styles = {
   button: {

@@ -8,8 +8,8 @@ import { MouseEventHandler } from 'react';
 import { positive, unitInterval } from '../../../utils/math';
 import { EnvelopeConfig } from '../../../engine/oscillator/types';
 import { ConfiguratorContext } from '../../configurator';
-import { ENVELOPE_ID } from '../../../engine/types';
 import { colors } from '../../styles';
+import { ENVELOPE_ID } from '../../../core/types';
 
 type Points = Record<'start' | keyof EnvelopeConfig, Point>;
 type Params = Record<'sustainX' | keyof EnvelopeConfig, number>;
