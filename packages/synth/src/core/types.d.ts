@@ -9,3 +9,5 @@ export type Note = {
 export type PANEL_ID = 'filter' | 'sequence' | 'wave';
 
 export type ENVELOPE_ID = 'gain' | 'filter';
+
+export type PLAYER_ACTION = 'play' | 'pause' | 'stop';

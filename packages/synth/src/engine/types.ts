@@ -1,11 +1,9 @@
 import { DAWState, PresetName } from './state';
 import { ARP_NOTE_LOCATION, Midi } from './midi/types';
 import { EnvelopeConfig, FilterConfig, WaveConfig } from './oscillator/types';
-import { ENVELOPE_ID, PANEL_ID } from '../core/types';
+import { ENVELOPE_ID, PANEL_ID, PLAYER_ACTION } from '../core/types';
 
 export type SET_TIME = { type: 'SET_TIME'; payload: number };
-
-export type PLAYER_ACTION = 'play' | 'pause' | 'stop';
 
 export type PLAYER = { type: 'PLAYER'; payload: PLAYER_ACTION };
 

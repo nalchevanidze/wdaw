@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { createContext, useEffect, useReducer } from 'react';
-import { DAWState, initialState } from '../engine/state';
-import { SynthEngine } from '../engine';
-import { EngineAction } from '../engine/types';
+import { DAWState, initialState, SynthEngine, EngineAction } from '../engine';
 
 const reducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
