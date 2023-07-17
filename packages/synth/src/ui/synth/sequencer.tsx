@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { SEQUENCE_LENGTH } from '../../engine/state/presets';
 import { ConfiguratorContext } from '../configurator';
 import { colors } from '../styles';
 import { Panel } from './panel';
+import { SEQUENCE_LENGTH } from '../../core/defs';
 
 const STEP_SIZE = 10;
 

@@ -1,6 +1,5 @@
 import { SynthConfig } from '../oscillator/types';
 
-export const SEQUENCE_LENGTH = 16;
 
 const prelude: SynthConfig = {
   wave: {

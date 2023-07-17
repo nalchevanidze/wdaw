@@ -8,9 +8,11 @@ import { getDAWState } from './state/state';
 
 export { EngineAction } from './types';
 export { DAWState, initialState } from './state';
-export type Callback = (c: { time: number; notes: number[] }) => void;
 export { foldMidi } from './midi/midi-player';
 export { Midi } from './midi/types';
+export { EnvelopeConfig } from './oscillator/types';
+
+export type Callback = (c: { time: number; notes: number[] }) => void;
 
 export class SynthEngine implements SoundIterator {
   private sound: Sound;

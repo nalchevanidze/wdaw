@@ -1,4 +1,4 @@
-import { SEQUENCE_LENGTH } from '../state/presets';
+import { SEQUENCE_LENGTH } from '../../core/defs';
 import { Maybe } from '../../core/types';
 import { ARP_NOTE_LOCATION, NoteAction, Sequence } from './types';
 
