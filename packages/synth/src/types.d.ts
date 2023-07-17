@@ -1,5 +1,5 @@
 declare class AudioWorkletProcessor {
-  process(inputs: number[][][], outputs:number[][][], params: object): boolean;
+  process(inputs: number[][][], outputs: number[][][], params: object): boolean;
 }
 
 declare function registerProcessor(a: string, b: unknown): void;

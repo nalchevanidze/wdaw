@@ -6,7 +6,6 @@ import { ConfiguratorContext } from '../../configurator';
 import { colors } from '../../styles';
 import { PLAYER_ACTION } from '../../../core/types';
 
-
 const containerStyle = {
   display: 'flex',
   background: colors.background,

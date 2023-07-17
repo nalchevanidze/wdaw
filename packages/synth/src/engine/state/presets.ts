@@ -1,6 +1,5 @@
 import { SynthConfig } from '../oscillator/types';
 
-
 const prelude: SynthConfig = {
   wave: {
     sine: 0.2,

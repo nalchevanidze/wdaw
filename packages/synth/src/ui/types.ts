@@ -1,7 +1,6 @@
 import { Point } from '@wdaw/svg';
 import { Note } from '../core/types';
 
-
 export type GraphNote = {
   position: number;
   length: number;
