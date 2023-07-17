@@ -6,11 +6,13 @@ import { MidiStep } from './midi/types';
 import { EngineAction } from './types';
 import { getDAWState } from './state/state';
 
-export { EngineAction } from './types';
+export { EngineAction, FILTER_ID, WAVE_ID } from './types';
 export { DAWState, initialState } from './state';
 export { foldMidi } from './midi/midi-player';
 export { Midi } from './midi/types';
 export { EnvelopeConfig } from './oscillator/types';
+export { presetNames } from './state/presets';
+export { waveFunction } from './oscillator/osc/wave';
 
 export type Callback = (c: { time: number; notes: number[] }) => void;
 

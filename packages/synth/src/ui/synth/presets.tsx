@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { presetNames } from '../../engine/state/presets';
 import { ConfiguratorContext } from '../configurator';
 import { colors } from '../styles';
+import { presetNames } from '../../engine';
 
 const styles = {
   container: {

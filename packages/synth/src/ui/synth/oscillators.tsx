@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { waveFunction } from '../../engine/oscillator/osc/wave';
-import { FILTER_ID, WAVE_ID } from '../../engine/types';
+import { waveFunction, FILTER_ID, WAVE_ID } from '../../engine';
 import { ConfiguratorContext } from '../configurator';
 import { Grid } from '../utils/grid-line';
 import { Panel } from './panel';
