@@ -1,10 +1,10 @@
-import { Midi, MidiStep, NoteAction, NOTE_ACTION } from './types';
+import { MidiStep, NoteAction, NOTE_ACTION } from './types';
 import { keysToIndexes } from '../../utils/notes';
 import { Sequencer } from './sequencer';
 import { Tempo } from './tempo';
 import { SAMPLE_RATE } from '../oscillator/utils';
 import { DAWState } from '../state';
-import { Note } from '../../core/types';
+import { Midi } from '../../core/types';
 
 const taskAt = (midi: NoteAction[], i: number, key: NOTE_ACTION): number[] => {
   const step = (midi[i] = midi[i] ?? {});
@@ -22,17 +22,6 @@ const taskAt = (midi: NoteAction[], i: number, key: NOTE_ACTION): number[] => {
     }
   }
 };
-
-export const foldMidi =
-  <T>(f: (n: Note, i: number) => T) =>
-  (midi: Midi): T[] =>
-    Object.entries(midi.notes).reduce<T[]>(
-      (acc, [i, val]) =>
-        Array.isArray(val)
-          ? acc.concat(val.map((note: Note): T => f(note, parseInt(i, 10))))
-          : acc,
-      []
-    );
 
 const toActions = (input: Midi): NoteAction[] => {
   const output: NoteAction[] = Array(input.size).fill(undefined);

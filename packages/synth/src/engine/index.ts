@@ -8,7 +8,6 @@ import { getDAWState } from './state/state';
 
 export { EngineAction } from './types';
 export { DAWState, initialState } from './state';
-export { Midi } from './midi/types';
 export { presetNames } from './state/presets';
 export { waveFunction } from './oscillator/osc/wave';
 

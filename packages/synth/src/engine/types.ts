@@ -1,9 +1,10 @@
 import { DAWState, PresetName } from './state';
-import { ARP_NOTE_LOCATION, Midi } from './midi/types';
+import { ARP_NOTE_LOCATION } from './midi/types';
 import {
   ENVELOPE_ID,
   EnvelopeConfig,
   FILTER_ID,
+  Midi,
   PANEL_ID,
   PLAYER_ACTION,
   WAVE_ID

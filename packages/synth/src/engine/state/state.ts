@@ -1,4 +1,4 @@
-import { Midi } from '../midi/types';
+import { Midi } from '../../core/types';
 import { SynthConfig } from '../oscillator/types';
 
 import { prelude } from './midi';

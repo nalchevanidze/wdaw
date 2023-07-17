@@ -1,9 +1,4 @@
-import { Maybe, Note } from '../../core/types';
-
-export type Midi = {
-  size: number;
-  notes: Record<number, Note[]>;
-};
+import { Maybe} from '../../core/types';
 
 export type Sequence = Record<number, Maybe<number[]>> & { enabled?: boolean };
 

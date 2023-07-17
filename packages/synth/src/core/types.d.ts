@@ -36,3 +36,9 @@ export type EnvelopeConfig = {
 };
 
 export type WAVE_ID = keyof WaveConfig;
+
+
+export type Midi = {
+  size: number;
+  notes: Record<number, Note[]>;
+};

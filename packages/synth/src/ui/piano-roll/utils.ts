@@ -1,12 +1,11 @@
 import { Point } from '@wdaw/svg';
-import { Midi } from '../../engine';
 import {
   getNoteIdByIndex,
   keysToIndexes,
   OCTAVE_SIZE
 } from '../../utils/notes';
 import { GraphNote, NotePoint, SelectZone } from '../types';
-import { Note } from '../../core/types';
+import { Midi, Note } from '../../core/types';
 
 // note height and width
 export const NOTE_SIZE = 10 as const;
