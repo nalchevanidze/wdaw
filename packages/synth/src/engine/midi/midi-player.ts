@@ -1,9 +1,10 @@
-import { Midi, MidiStep, Note, NoteAction, NOTE_ACTION } from './types';
+import { Midi, MidiStep, NoteAction, NOTE_ACTION } from './types';
 import { keysToIndexes } from '../../utils/notes';
 import { Sequencer } from './sequencer';
 import { Tempo } from './tempo';
 import { SAMPLE_RATE } from '../oscillator/utils';
 import { DAWState } from '../state';
+import { Note } from '../../core/types';
 
 const taskAt = (midi: NoteAction[], i: number, key: NOTE_ACTION): number[] => {
   const step = (midi[i] = midi[i] ?? {});

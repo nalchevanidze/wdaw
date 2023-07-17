@@ -1,6 +1,6 @@
 import { Point } from '@wdaw/svg';
-import { Note } from '../engine/midi/types';
-export { Note } from '../engine/midi/types';
+import { Note } from '../core/types';
+
 
 export type GraphNote = {
   position: number;

@@ -1,10 +1,4 @@
-import { Maybe } from '../../types';
-
-export type Note = {
-  id: string;
-  length: number;
-  at: number;
-};
+import { Maybe, Note } from '../../core/types';
 
 export type Midi = {
   size: number;

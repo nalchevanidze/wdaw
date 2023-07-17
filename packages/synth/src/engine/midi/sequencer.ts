@@ -1,5 +1,5 @@
 import { SEQUENCE_LENGTH } from '../state/presets';
-import { Maybe } from '../../types';
+import { Maybe } from '../../core/types';
 import { ARP_NOTE_LOCATION, NoteAction, Sequence } from './types';
 
 const END_INDEX = SEQUENCE_LENGTH * 2;

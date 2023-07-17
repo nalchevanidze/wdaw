@@ -1,5 +1,3 @@
-export type Maybe<T> = T | undefined;
-
 declare class AudioWorkletProcessor {
   process(inputs: number[][][], outputs:number[][][], params: object): boolean;
 }
