@@ -6,7 +6,7 @@ import { MidiStep } from './midi/types';
 import { EngineAction } from './types';
 import { getDAWState } from './state/state';
 
-export { EngineAction, FILTER_ID, WAVE_ID } from './types';
+export { EngineAction, FILTER_ID } from './types';
 export { DAWState, initialState } from './state';
 export { foldMidi } from './midi/midi-player';
 export { Midi } from './midi/types';

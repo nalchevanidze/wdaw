@@ -1,18 +1,5 @@
+import { WaveConfig } from '../../core/types';
 import { Sequence } from '../midi/types';
-
-export type WaveConfig = {
-  sine: number;
-  square: number;
-  saw: number;
-  saw2: number;
-  tech: number;
-  noise: number;
-  fm: number;
-  fmFreq: number;
-  offset: number;
-  voices: number;
-  octave: number;
-};
 
 export type FilterConfig = {
   cutoff: number;
