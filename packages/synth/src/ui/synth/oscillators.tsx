@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { waveFunction, FILTER_ID } from '../../engine';
+import { waveFunction } from '../../engine';
 import { ConfiguratorContext } from '../configurator';
 import { Grid } from '../utils/grid-line';
 import { Panel } from './panel';
 import PanelPresets from './presets';
 import { WaveButton, WaveButtonProps } from './wave-button';
-import { WAVE_ID } from '../../core/types';
+import { FILTER_ID, WAVE_ID } from '../../core/types';
 
 const styles = {
   main: {

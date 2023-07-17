@@ -6,10 +6,9 @@ import { ControlPoint, Point } from './control-point';
 import { MouseEventHandler } from 'react';
 
 import { positive, unitInterval } from '../../../utils/math';
-import { EnvelopeConfig } from '../../../engine';
 import { ConfiguratorContext } from '../../configurator';
 import { colors } from '../../styles';
-import { ENVELOPE_ID } from '../../../core/types';
+import { ENVELOPE_ID, EnvelopeConfig } from '../../../core/types';
 
 type Points = Record<'start' | keyof EnvelopeConfig, Point>;
 type Params = Record<'sustainX' | keyof EnvelopeConfig, number>;

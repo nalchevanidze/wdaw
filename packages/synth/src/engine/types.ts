@@ -1,7 +1,13 @@
 import { DAWState, PresetName } from './state';
 import { ARP_NOTE_LOCATION, Midi } from './midi/types';
-import { EnvelopeConfig, FilterConfig } from './oscillator/types';
-import { ENVELOPE_ID, PANEL_ID, PLAYER_ACTION, WAVE_ID } from '../core/types';
+import {
+  ENVELOPE_ID,
+  EnvelopeConfig,
+  FILTER_ID,
+  PANEL_ID,
+  PLAYER_ACTION,
+  WAVE_ID
+} from '../core/types';
 
 export type SET_TIME = { type: 'SET_TIME'; payload: number };
 
@@ -15,8 +21,6 @@ export type TOGGLE_APR_NOTE = {
 };
 
 export type SYNC = { type: 'SYNC'; payload: DAWState };
-
-export type FILTER_ID = keyof Omit<FilterConfig, 'enabled'>;
 
 export type TOGGLE_PANEL = {
   type: 'TOGGLE_PANEL';

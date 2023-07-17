@@ -12,6 +12,8 @@ export type ENVELOPE_ID = 'gain' | 'filter';
 
 export type PLAYER_ACTION = 'play' | 'pause' | 'stop';
 
+export type FILTER_ID = 'cutoff' | 'envelope' | 'resonance';
+
 export type WaveConfig = {
   sine: number;
   square: number;
@@ -24,6 +26,13 @@ export type WaveConfig = {
   offset: number;
   voices: number;
   octave: number;
+};
+
+export type EnvelopeConfig = {
+  attack: number;
+  decay: number;
+  sustain: number;
+  release: number;
 };
 
 export type WAVE_ID = keyof WaveConfig;

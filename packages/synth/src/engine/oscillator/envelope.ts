@@ -1,4 +1,4 @@
-import { EnvelopeConfig } from './types';
+import { EnvelopeConfig } from '../../core/types';
 import { counter } from './utils';
 
 enum STAGE {

@@ -1,4 +1,4 @@
-import { WaveConfig } from '../../core/types';
+import { EnvelopeConfig, WaveConfig } from '../../core/types';
 import { Sequence } from '../midi/types';
 
 export type FilterConfig = {
@@ -6,13 +6,6 @@ export type FilterConfig = {
   resonance: number;
   envelope: number;
   enabled: boolean;
-};
-
-export type EnvelopeConfig = {
-  attack: number;
-  decay: number;
-  sustain: number;
-  release: number;
 };
 
 export type SynthConfig = {
