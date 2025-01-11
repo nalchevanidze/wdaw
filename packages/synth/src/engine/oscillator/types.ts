@@ -14,3 +14,7 @@ export type SynthConfig = {
   filter: FilterConfig;
   sequence: Sequence;
 };
+
+export type WaveNode<S> = {
+  next(s: S): number;
+};

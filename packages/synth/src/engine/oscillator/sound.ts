@@ -8,13 +8,10 @@ type NotesRegister = {
 
 export class Sound {
   private notes: NotesRegister;
-  private config: SynthConfig;
   private stack: SoundEvent[];
 
-  constructor(config: SynthConfig) {
-    this.notes = {};
-    this.config = config;
-    this.stack = nList(6, () => new SoundEvent(config));
+  constructor() {
+    this.stack = nList(6, () => new SoundEvent());
   }
 
   private osc = (isActive: boolean) =>
@@ -25,24 +22,19 @@ export class Sound {
     this.notes = {};
   };
 
-  public setup(state: SynthConfig) {
-    this.config = state;
-    this.stack.forEach((x) => x.setup(state));
-  }
-
-  public next() {
-    const value = this.osc(true).reduce((v, osc) => v + osc.next(), 0);
+  public next(state: SynthConfig) {
+    const value = this.osc(true).reduce((v, osc) => v + osc.next(state), 0);
 
     return safeWaveValue(value);
   }
 
   newEvent() {
-    const event = new SoundEvent(this.config);
+    const event = new SoundEvent();
     this.stack.push(event);
     return event;
   }
 
-  open = (note: number): void => {
+  open(state: SynthConfig, note: number) {
     if (this.notes[note]) {
       return;
     }
@@ -50,13 +42,13 @@ export class Sound {
     const sound = this.osc(false)[0] ?? this.newEvent();
 
     this.notes[note] = sound;
-    sound.open(note);
-  };
+    sound.open(state, note);
+  }
 
-  close = (note: number): void => {
+  close(state: SynthConfig, note: number) {
     if (this.notes[note]) {
-      this.notes[note].close();
+      this.notes[note].close(state);
       delete this.notes[note];
     }
-  };
+  }
 }

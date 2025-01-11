@@ -1,6 +1,7 @@
 import { WaveConfig } from '../../../core/types';
 import { SAMPLE_RATE, nList, noteToFrequency } from '../utils';
 import { waveFunction } from './wave';
+import { WaveNode } from '../types';
 
 const rescale = (value: number, deep: number): number => {
   deep = 2 / deep ** 2;
@@ -11,22 +12,17 @@ type PhysicWave = {
   phase: number;
 };
 
-export class OSC {
+export class OSC implements WaveNode<WaveConfig> {
   private phase: number;
   private length: number;
   private freq: number;
   private fm: PhysicWave;
-  private config: { fm: number; fmFreq: number } = { fm: 0, fmFreq: 0 };
 
   constructor() {
     this.phase = 0;
     this.length = 0.1;
     this.fm = { phase: 0 };
   }
-
-  setup = (config: WaveConfig) => {
-    this.config = config;
-  };
 
   set(freq: number) {
     this.freq = freq;
@@ -38,8 +34,8 @@ export class OSC {
   next(wave: WaveConfig) {
     const { length, fm } = this;
     let { phase } = this;
-    const fmAmp = this.config.fm;
-    const fmFreq = this.config.fmFreq === 0 ? 1 / 16 : this.config.fmFreq * 4;
+    const fmAmp = wave.fm;
+    const fmFreq = wave.fmFreq === 0 ? 1 / 16 : wave.fmFreq * 4;
     const fmLength = this.length * fmFreq;
 
     // generate new wavePosition
@@ -61,13 +57,10 @@ export class OSC {
 const MAX_OSCILLATORS = 12;
 const MAX_OFFSET = 2;
 
-export class Oscillators {
+export class Oscillators implements WaveNode<WaveConfig> {
   private all = nList(MAX_OSCILLATORS, () => new OSC());
   private poly: OSC[] = [];
 
-  setup(wave: WaveConfig) {
-    this.all.forEach((osc) => osc.setup(wave));
-  }
 
   open(wave: WaveConfig, note: number) {
     const poly = Math.min(MAX_OSCILLATORS - 1, Math.max(1, wave.voices));

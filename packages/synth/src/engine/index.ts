@@ -22,7 +22,7 @@ export class SynthEngine implements SoundIterator {
 
   constructor(state: DAWState) {
     this.state = state;
-    this.sound = new Sound(state);
+    this.sound = new Sound();
     this.player = new MidiPlayer(state);
     this.closeContext = audioProcessor(this);
   }
@@ -35,8 +35,11 @@ export class SynthEngine implements SoundIterator {
   }
 
   private exec = ({ start, end, current, notes }: MidiStep) => {
-    start?.forEach(this.sound.open);
-    end?.forEach(this.sound.close);
+    const open = (n: number) => this.sound.open(this.state, n);
+    const close = (n: number) => this.sound.close(this.state, n);
+
+    start?.forEach(open);
+    end?.forEach(close);
 
     if (current !== undefined) {
       requestAnimationFrame(() =>
@@ -47,7 +50,7 @@ export class SynthEngine implements SoundIterator {
 
   public next() {
     this.exec(this.player.next());
-    return this.sound.next();
+    return this.sound.next(this.state);
   }
 
   public dispatch = (action: EngineAction): Partial<DAWState> | undefined => {
@@ -103,7 +106,6 @@ export class SynthEngine implements SoundIterator {
         return { filter: { ...this.state.filter } };
       case 'SET_PRESET': {
         this.state = getDAWState(action.payload);
-        this.sound.setup(this.state);
         this.player.setup(this.state);
         return { ...this.state };
       }

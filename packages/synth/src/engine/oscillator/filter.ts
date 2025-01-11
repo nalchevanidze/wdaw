@@ -6,20 +6,10 @@ according:
 	https://noisehack.com/custom-audio-effects-javascript-web-audio-api/
 */
 class MoogFilter {
-  private state: FilterConfig = {
-    cutoff: 0,
-    enabled: false,
-    envelope: 0,
-    resonance: 0
-  };
   private frequency = 0;
   private diff = 0;
   private input: Float32Array = new Float32Array(5).fill(0);
   private output: Float32Array = new Float32Array(5).fill(0);
-
-  setup = (state: FilterConfig) => {
-    this.state = state;
-  };
 
   pole = (index: number): number =>
     0.3 * this.input[index] + this.diff * this.output[index];
@@ -42,8 +32,11 @@ class MoogFilter {
     return this.output[4];
   };
 
-  next(input: number, envCutoff: number) {
-    const { enabled, cutoff, envelope, resonance } = this.state;
+  next(
+    { enabled, cutoff, envelope, resonance }: FilterConfig,
+    input: number,
+    envCutoff: number
+  ) {
     if (!enabled) return input;
     const combinedCutoff = cutoff + envCutoff * envelope;
 
