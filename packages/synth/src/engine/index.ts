@@ -1,11 +1,12 @@
 import { audioProcessor, SoundIterator } from './oscillator/audio-processor';
-import { MidiPlayer } from './midi/midi-player';
+import { MidiPlayer, toActions } from './midi/midi-player';
 import { Sound } from './oscillator/sound';
 import { DAWState } from './state';
-import { MidiStep } from './midi/types';
+import { MidiStep, NoteAction } from './midi/types';
 import { EngineAction } from './types';
 import { getDAWState } from './state/state';
 import { Sequencer } from './midi/sequencer';
+import { Midi } from '../core/types';
 
 export { EngineAction } from './types';
 export { DAWState, initialState } from './state';
@@ -18,6 +19,7 @@ export class SynthEngine implements SoundIterator {
   private sound = new Sound();
   private sequencer = new Sequencer();
   private player = new MidiPlayer(this.sequencer);
+  private actions: NoteAction[];
 
   public onChange: Callback;
   private state: DAWState;
@@ -25,7 +27,7 @@ export class SynthEngine implements SoundIterator {
 
   constructor(state: DAWState) {
     this.state = state;
-    this.player.setMidi(state.midi);
+    this.actions = toActions(state.midi);
     this.closeContext = audioProcessor(this);
   }
 
@@ -51,7 +53,7 @@ export class SynthEngine implements SoundIterator {
   };
 
   public next() {
-    this.exec(this.player.next(this.state.sequence));
+    this.exec(this.player.next(this.actions, this.state.sequence));
     return this.sound.next(this.state);
   }
 
@@ -95,7 +97,7 @@ export class SynthEngine implements SoundIterator {
         return { [target]: { ...this.state[target] } };
       }
       case 'SET_MIDI': {
-        this.player.setMidi(action.payload);
+        this.actions = toActions(action.payload);
         return { midi: action.payload };
       }
       case 'SET_ENVELOPE': {
@@ -111,7 +113,6 @@ export class SynthEngine implements SoundIterator {
         return { filter: { ...this.state.filter } };
       case 'SET_PRESET': {
         this.state = getDAWState(action.payload);
-        this.player.setMidi(this.state.midi);
         return { ...this.state };
       }
       case 'REFRESH':

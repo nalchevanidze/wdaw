@@ -1,10 +1,4 @@
-import {
-  MidiStep,
-  NoteAction,
-  NOTE_ACTION,
-  ARP_NOTE_LOCATION,
-  Sequence
-} from './types';
+import { MidiStep, NoteAction, NOTE_ACTION, Sequence } from './types';
 import { keysToIndexes } from '../../utils/notes';
 import { Sequencer } from './sequencer';
 import { Tempo } from './tempo';
@@ -29,7 +23,7 @@ const taskAt = (midi: NoteAction[], i: number, key: NOTE_ACTION): number[] => {
   }
 };
 
-const toActions = (input: Midi): NoteAction[] => {
+export const toActions = (input: Midi): NoteAction[] => {
   const output: NoteAction[] = Array(input.size).fill(undefined);
 
   Object.entries(input.notes).forEach(([i, quarter]) => {
@@ -48,7 +42,6 @@ const toActions = (input: Midi): NoteAction[] => {
 
 class MidiPlayer {
   private current = 0;
-  private actions: NoteAction[];
   private tempo = new Tempo(SAMPLE_RATE);
   private notes: Set<number> = new Set([]);
 
@@ -56,19 +49,19 @@ class MidiPlayer {
 
   public isPlaying = false;
 
-  public next = (seq: Sequence): MidiStep => {
+  public next = (actions: NoteAction[], seq: Sequence): MidiStep => {
     const notes = this.notes;
     if (!this.tempo.next()) {
       return { notes };
     }
 
-    const keyNotes = this.isPlaying ? this.actions[this.current] : undefined;
+    const keyNotes = this.isPlaying ? actions[this.current] : undefined;
 
     keyNotes?.start?.forEach((n) => this.note(true, n));
     keyNotes?.end?.forEach((n) => this.note(false, n));
 
     if (this.isPlaying) {
-      this.current = (this.current + 1) % this.actions.length;
+      this.current = (this.current + 1) % actions.length;
     }
 
     const keyboard = this.sequencer.next(seq, notes) ?? keyNotes;
@@ -79,10 +72,6 @@ class MidiPlayer {
       notes,
       current: this.isPlaying ? this.current : undefined
     };
-  };
-
-  public setMidi = (midi: Midi) => {
-    this.actions = toActions(midi);
   };
 
   public setTime = (time: number) => {
