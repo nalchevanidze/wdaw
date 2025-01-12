@@ -9,19 +9,18 @@ export class SoundEvent implements WaveNode<SynthConfig> {
   private oscillators = new Oscillators();
   private filter = new MoogFilter();
 
-
   public open = (config: SynthConfig, note: number): void => {
     this.oscillators.open(config.wave, note);
     this.gainEnvelope.open(config.envelopes.gain);
     this.filterEnvelope.open(config.envelopes.filter);
   };
 
-  public next = (config: SynthConfig) =>
-    this.gainEnvelope.next(config.envelopes.gain) *
+  public next = ({ filter, wave, envelopes }: SynthConfig) =>
+    this.gainEnvelope.next(envelopes.gain) *
     this.filter.next(
-      config.filter,
-      this.oscillators.next(config.wave),
-      this.filterEnvelope.next(config.envelopes.filter) ** 4
+      filter,
+      this.oscillators.next(wave),
+      this.filterEnvelope.next(envelopes.filter) ** 4
     );
 
   public close = (config: SynthConfig) => {
