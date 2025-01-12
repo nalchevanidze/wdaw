@@ -1,12 +1,7 @@
-import { audioProcessor, SoundIterator } from './oscillator/audio-processor';
-import { MidiPlayer, toActions } from './midi/midi-player';
-import { Sound } from './oscillator/sound';
+import { toActions } from './midi/midi-player';
 import { DAWState } from './state';
-import { MidiStep, NoteAction } from './midi/types';
 import { EngineAction } from './types';
 import { getDAWState } from './state/state';
-import { Sequencer } from './midi/sequencer';
-import { Midi } from '../core/types';
 import { SynthCoreEngine } from './engine';
 
 export { EngineAction } from './types';
