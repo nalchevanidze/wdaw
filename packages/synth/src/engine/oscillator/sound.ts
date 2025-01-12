@@ -12,6 +12,7 @@ export class Sound {
 
   constructor() {
     this.stack = nList(6, () => new SoundEvent());
+    this.notes = {}
   }
 
   private osc = (isActive: boolean) =>
@@ -40,7 +41,6 @@ export class Sound {
     }
 
     const sound = this.osc(false)[0] ?? this.newEvent();
-
     this.notes[note] = sound;
     sound.open(state, note);
   }
