@@ -1,10 +1,10 @@
 import { Midi } from '../../core/types';
-import { SynthConfig } from '../oscillator/types';
+import { Preset } from '../oscillator/types';
 
 import { prelude } from './midi';
 import { PresetName, presets } from './presets';
 
-export type DAWState = SynthConfig & {
+export type DAWState = Preset & {
   name: PresetName;
   midi: Midi;
   isPlaying: boolean;

@@ -1,6 +1,6 @@
-import { SynthConfig } from '../oscillator/types';
+import { Preset } from '../oscillator/types';
 
-const prelude: SynthConfig = {
+const prelude: Preset = {
   wave: {
     sine: 0.2,
     square: 1,
@@ -39,7 +39,7 @@ const prelude: SynthConfig = {
   }
 };
 
-const pluck: SynthConfig = {
+const pluck: Preset = {
   wave: {
     sine: 1,
     square: 0,
@@ -85,7 +85,7 @@ const pluck: SynthConfig = {
   }
 };
 
-const razor: SynthConfig = {
+const razor: Preset = {
   wave: {
     sine: 1,
     square: 0,
@@ -134,7 +134,7 @@ const razor: SynthConfig = {
   }
 };
 
-const wind: SynthConfig = {
+const wind: Preset = {
   wave: {
     sine: 1,
     square: 0.1,

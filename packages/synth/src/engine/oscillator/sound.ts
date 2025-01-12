@@ -1,5 +1,5 @@
 import { SoundEvent } from './sound-event';
-import { SynthConfig } from './types';
+import { Preset } from './types';
 import { nList, safeWaveValue } from './utils';
 
 type NotesRegister = {
@@ -23,7 +23,7 @@ export class Sound {
     this.notes = {};
   };
 
-  public next(state: SynthConfig) {
+  public next(state: Preset) {
     const value = this.osc(true).reduce((v, osc) => v + osc.next(state), 0);
 
     return safeWaveValue(value);
@@ -35,7 +35,7 @@ export class Sound {
     return event;
   }
 
-  open(state: SynthConfig, note: number) {
+  open(state: Preset, note: number) {
     if (this.notes[note]) {
       return;
     }
@@ -45,7 +45,7 @@ export class Sound {
     sound.open(state, note);
   }
 
-  close(state: SynthConfig, note: number) {
+  close(state: Preset, note: number) {
     if (this.notes[note]) {
       this.notes[note].close(state);
       delete this.notes[note];

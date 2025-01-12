@@ -8,7 +8,7 @@ export type FilterConfig = {
   enabled: boolean;
 };
 
-export type SynthConfig = {
+export type Preset = {
   wave: WaveConfig;
   envelopes: Record<'filter' | 'gain', EnvelopeConfig>;
   filter: FilterConfig;
