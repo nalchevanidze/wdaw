@@ -8,48 +8,41 @@ const rescale = (value: number, deep: number): number => {
   return (value + deep) / deep;
 };
 
-type PhysicWave = {
-  phase: number;
-};
-
 export class OSC implements WaveNode<WaveConfig> {
-  private phase: number;
-  private length: number;
+  private phase = 0;
+  private length = 0.1;
+  private fmPhase = 0;
 
   private freq: number;
-  private fm: PhysicWave;
-
-  constructor() {
-    this.phase = 0;
-    this.length = 0.1;
-    this.fm = { phase: 0 };
-  }
 
   set(freq: number) {
     this.freq = freq;
     this.phase = Math.random();
     this.length = this.freq / SAMPLE_RATE;
-    this.fm.phase = Math.random();
+    this.fmPhase = Math.random();
   }
 
   next(wave: WaveConfig) {
-    const { length, fm } = this;
-    let { phase } = this;
+    const { length } = this;
+
     const fmAmp = wave.fm;
     const fmFreq = wave.fmFreq === 0 ? 1 / 16 : wave.fmFreq * 4;
-    const fmLength = this.length * fmFreq;
+    const fmLength = length * fmFreq;
 
     // generate new wavePosition
-    phase += length;
-    this.phase = phase % 1;
+    this.phase = (this.phase + length) % 1;
+
     // new Fm Position
     if (fmAmp === 0) {
-      return waveFunction(phase, wave);
+      return waveFunction(this.phase, wave);
     }
 
-    fm.phase = fm.phase + fmLength;
+    this.fmPhase = (this.fmPhase + fmLength) ;
 
-    return waveFunction(this.phase * rescale(Math.sin(fm.phase), fmAmp), wave);
+    return waveFunction(
+      this.phase * rescale(Math.sin(this.fmPhase), fmAmp),
+      wave
+    );
   }
 }
 
