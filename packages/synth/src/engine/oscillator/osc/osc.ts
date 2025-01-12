@@ -37,7 +37,7 @@ export class OSC implements WaveNode<WaveConfig> {
       return waveFunction(this.phase, wave);
     }
 
-    this.fmPhase = (this.fmPhase + fmLength) ;
+    this.fmPhase = this.fmPhase + fmLength;
 
     return waveFunction(
       this.phase * rescale(Math.sin(this.fmPhase), fmAmp),
