@@ -23,19 +23,18 @@ export class OSC implements WaveNode<WaveConfig> {
 
   next(wave: WaveConfig) {
     const { length } = this;
-
     const fmAmp = wave.fm;
-    const fmFreq = wave.fmFreq === 0 ? 1 / 16 : wave.fmFreq * 4;
-    const fmLength = length * fmFreq;
 
     // generate new wavePosition
     this.phase = (this.phase + length) % 1;
 
-    // new Fm Position
     if (fmAmp === 0) {
       return waveFunction(this.phase, wave);
     }
-
+    
+    // new Fm Position
+    const fmFreq = wave.fmFreq === 0 ? 1 / 16 : wave.fmFreq * 4;
+    const fmLength = length * fmFreq;
     this.fmPhase = this.fmPhase + fmLength;
 
     return waveFunction(
