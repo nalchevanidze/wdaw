@@ -14,7 +14,7 @@ export { waveFunction } from './oscillator/osc/wave';
 export type Callback = (c: { time: number; notes: number[] }) => void;
 
 export class SynthEngine implements SoundIterator {
-  private sound: Sound;
+  private sound = new Sound();
   private player: MidiPlayer;
   public onChange: Callback;
   private state: DAWState;
@@ -22,7 +22,6 @@ export class SynthEngine implements SoundIterator {
 
   constructor(state: DAWState) {
     this.state = state;
-    this.sound = new Sound();
     this.player = new MidiPlayer(state);
     this.closeContext = audioProcessor(this);
   }
