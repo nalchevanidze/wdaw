@@ -1,4 +1,10 @@
-import { MidiStep, NoteAction, NOTE_ACTION, ARP_NOTE_LOCATION } from './types';
+import {
+  MidiStep,
+  NoteAction,
+  NOTE_ACTION,
+  ARP_NOTE_LOCATION,
+  Sequence
+} from './types';
 import { keysToIndexes } from '../../utils/notes';
 import { Sequencer } from './sequencer';
 import { Tempo } from './tempo';
@@ -50,7 +56,7 @@ class MidiPlayer {
 
   public isPlaying = false;
 
-  public next = (): MidiStep => {
+  public next = (seq: Sequence): MidiStep => {
     const notes = this.notes;
     if (!this.tempo.next()) {
       return { notes };
@@ -65,7 +71,7 @@ class MidiPlayer {
       this.current = (this.current + 1) % this.actions.length;
     }
 
-    const keyboard = this.sequencer.next(notes) ?? keyNotes;
+    const keyboard = this.sequencer.next(seq, notes) ?? keyNotes;
 
     return {
       start: keyboard?.start,
@@ -104,20 +110,20 @@ class MidiPlayer {
     }
   };
 
-  public startNote = (note: number): MidiStep => {
+  public startNote = (seq: Sequence, note: number): MidiStep => {
     const { notes, current } = this;
     this.note(true, note);
 
-    const start = this.sequencer.enabled ? undefined : [note];
+    const start = seq.enabled ? undefined : [note];
     return { notes, current, start };
   };
 
-  public endNote = (note: number): MidiStep => {
+  public endNote = (seq: Sequence, note: number): MidiStep => {
     const { notes, current } = this;
 
     this.note(false, note);
 
-    const end = this.sequencer.enabled ? undefined : [note];
+    const end = seq.enabled ? undefined : [note];
     return { notes, current, end };
   };
 }

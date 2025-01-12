@@ -26,7 +26,6 @@ export class SynthEngine implements SoundIterator {
   constructor(state: DAWState) {
     this.state = state;
     this.player.setMidi(state.midi);
-    this.sequencer.setSequence(state.sequence);
     this.closeContext = audioProcessor(this);
   }
 
@@ -52,7 +51,7 @@ export class SynthEngine implements SoundIterator {
   };
 
   public next() {
-    this.exec(this.player.next());
+    this.exec(this.player.next(this.state.sequence));
     return this.sound.next(this.state);
   }
 
@@ -72,17 +71,20 @@ export class SynthEngine implements SoundIterator {
         return { isPlaying };
       }
       case 'KEY_UP':
-        this.exec(this.player.endNote(action.payload));
+        this.exec(this.player.endNote(this.state.sequence, action.payload));
         break;
       case 'KEY_DOWN':
-        this.exec(this.player.startNote(action.payload));
+        this.exec(this.player.startNote(this.state.sequence, action.payload));
         break;
       case 'SET_TIME':
         this.player.setTime(action.payload);
         return { time: action.payload };
       case 'TOGGLE_APR_NOTE':
         return {
-          sequence: this.sequencer.toggleARPNote(action.payload)
+          sequence: this.sequencer.toggleARPNote(
+            this.state.sequence,
+            action.payload
+          )
         };
       case 'TOGGLE_PANEL': {
         const target = action.id;
@@ -110,7 +112,6 @@ export class SynthEngine implements SoundIterator {
       case 'SET_PRESET': {
         this.state = getDAWState(action.payload);
         this.player.setMidi(this.state.midi);
-        this.sequencer.setSequence(this.state.sequence);
         return { ...this.state };
       }
       case 'REFRESH':

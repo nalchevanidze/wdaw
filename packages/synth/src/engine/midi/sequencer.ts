@@ -6,27 +6,14 @@ const END_INDEX = SEQUENCE_LENGTH * 2;
 
 class Sequencer {
   private last: Maybe<number[]>;
-  private sequence: Sequence = {};
   private index: number;
-
-  constructor(sequence: Sequence = {}) {
-    this.sequence = sequence;
-  }
-
-  public setSequence = (seq: Sequence): void => {
-    this.sequence = seq;
-  };
 
   public restart = (): void => {
     this.index = 0;
   };
 
-  get enabled(): boolean {
-    return this.sequence.enabled ?? false;
-  }
-
-  next = (notes: Set<number>): NoteAction | undefined => {
-    if (!this.enabled) {
+  next = (sequence: Sequence, notes: Set<number>): NoteAction | undefined => {
+    if (!sequence.enabled) {
       return undefined;
     }
 
@@ -42,7 +29,7 @@ class Sequencer {
     const maxNotes: number = notes.size;
     const sortedNotes = Array.from(notes).sort((a, b) => (a > b ? 1 : -1));
     const start = maxNotes
-      ? this.sequence[index]?.map((i) => {
+      ? sequence[index]?.map((i) => {
           i--;
           return sortedNotes[i % maxNotes] + 12 * Math.floor(i / maxNotes);
         })
@@ -60,9 +47,14 @@ class Sequencer {
     return { start, end };
   };
 
-  public toggleARPNote = ({ row, column }: ARP_NOTE_LOCATION) => {
-    const chord = this.sequence[row] ?? [];
-    this.sequence[row] = chord;
+  public toggleARPNote = (
+    sequence: Sequence,
+    { row, column }: ARP_NOTE_LOCATION
+  ) => {
+    const chord = sequence[row] ?? [];
+
+    sequence[row] = chord;
+
     const index = chord.indexOf(column);
 
     if (index === -1) {
@@ -71,7 +63,7 @@ class Sequencer {
       chord.splice(index, 1);
     }
 
-    return { ...this.sequence };
+    return { ...sequence };
   };
 }
 
