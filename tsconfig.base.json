@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "ES2024",
+    "module": "ES2022",
     "target": "ES5",
     "composite": true,
     "incremental": true,
@@ -13,7 +13,7 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "jsx": "react",
-    "lib": ["es2017", "dom"],
+    "lib": ["ES2024", "dom"],
     "types": ["@types/jest", "@types/react"]
   },
   "exclude": ["node_modules"]
