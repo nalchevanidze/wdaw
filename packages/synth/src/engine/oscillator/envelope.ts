@@ -19,7 +19,7 @@ export class Envelope implements WaveNode<EnvelopeConfig> {
   live = false;
 
 
-  next = (wave: EnvelopeConfig): number => {
+  next = (env: EnvelopeConfig): number => {
     if (!this.live) return 0;
 
     switch (this.stage) {
@@ -27,9 +27,9 @@ export class Envelope implements WaveNode<EnvelopeConfig> {
         const { value, done } = this.iter.next();
         if (done) {
           this.iter = counter(
-            toMilliseconds(wave.decay),
+            toMilliseconds(env.decay),
             value,
-            wave.sustain
+            env.sustain
           );
           this.stage = STAGE.DEACY;
           this.level = value;
