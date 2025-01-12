@@ -7,6 +7,7 @@ import { EngineAction } from './types';
 import { getDAWState } from './state/state';
 import { Sequencer } from './midi/sequencer';
 import { Midi } from '../core/types';
+import { SynthCoreEngine } from './engine';
 
 export { EngineAction } from './types';
 export { DAWState, initialState } from './state';
@@ -15,47 +16,7 @@ export { waveFunction } from './oscillator/osc/wave';
 
 export type Callback = (c: { time: number; notes: number[] }) => void;
 
-export class SynthEngine implements SoundIterator {
-  private sound = new Sound();
-  private sequencer = new Sequencer();
-  private player = new MidiPlayer(this.sequencer);
-  private actions: NoteAction[];
-
-  public onChange: Callback;
-  private state: DAWState;
-  private closeContext: () => void;
-
-  constructor(state: DAWState) {
-    this.state = state;
-    this.actions = toActions(state.midi);
-    this.closeContext = audioProcessor(this);
-  }
-
-  public destroy() {
-    this.player.setTime(0);
-    this.sound.clear();
-    this.player.clear();
-    this.closeContext();
-  }
-
-  private exec = ({ start, end, current, notes }: MidiStep) => {
-    const open = (n: number) => this.sound.open(this.state, n);
-    const close = (n: number) => this.sound.close(this.state, n);
-
-    start?.forEach(open);
-    end?.forEach(close);
-
-    if (current !== undefined) {
-      requestAnimationFrame(() =>
-        this.onChange({ time: current, notes: Array.from(notes) })
-      );
-    }
-  };
-
-  public next() {
-    this.exec(this.player.next(this.actions, this.state.sequence));
-    return this.sound.next(this.state);
-  }
+export class SynthEngine extends SynthCoreEngine {
 
   public dispatch = (action: EngineAction): Partial<DAWState> | undefined => {
     switch (action.type) {
