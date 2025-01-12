@@ -5,6 +5,7 @@ import { DAWState } from './state';
 import { MidiStep } from './midi/types';
 import { EngineAction } from './types';
 import { getDAWState } from './state/state';
+import { Sequencer } from './midi/sequencer';
 
 export { EngineAction } from './types';
 export { DAWState, initialState } from './state';
@@ -15,14 +16,17 @@ export type Callback = (c: { time: number; notes: number[] }) => void;
 
 export class SynthEngine implements SoundIterator {
   private sound = new Sound();
-  private player: MidiPlayer;
+  private sequencer = new Sequencer();
+  private player = new MidiPlayer(this.sequencer);
+
   public onChange: Callback;
   private state: DAWState;
   private closeContext: () => void;
 
   constructor(state: DAWState) {
     this.state = state;
-    this.player = new MidiPlayer(state);
+    this.player.setMidi(state.midi);
+    this.sequencer.setSequence(state.sequence);
     this.closeContext = audioProcessor(this);
   }
 
@@ -78,7 +82,7 @@ export class SynthEngine implements SoundIterator {
         return { time: action.payload };
       case 'TOGGLE_APR_NOTE':
         return {
-          sequence: this.player.sequencer.toggleARPNote(action.payload)
+          sequence: this.sequencer.toggleARPNote(action.payload)
         };
       case 'TOGGLE_PANEL': {
         const target = action.id;
@@ -105,7 +109,8 @@ export class SynthEngine implements SoundIterator {
         return { filter: { ...this.state.filter } };
       case 'SET_PRESET': {
         this.state = getDAWState(action.payload);
-        this.player.setup(this.state);
+        this.player.setMidi(this.state.midi);
+        this.sequencer.setSequence(this.state.sequence);
         return { ...this.state };
       }
       case 'REFRESH':

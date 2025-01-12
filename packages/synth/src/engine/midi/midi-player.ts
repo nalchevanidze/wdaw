@@ -1,4 +1,4 @@
-import { MidiStep, NoteAction, NOTE_ACTION } from './types';
+import { MidiStep, NoteAction, NOTE_ACTION, ARP_NOTE_LOCATION } from './types';
 import { keysToIndexes } from '../../utils/notes';
 import { Sequencer } from './sequencer';
 import { Tempo } from './tempo';
@@ -46,12 +46,9 @@ class MidiPlayer {
   private tempo = new Tempo(SAMPLE_RATE);
   private notes: Set<number> = new Set([]);
 
-  public isPlaying = false;
-  public sequencer: Sequencer = new Sequencer();
+  constructor(private sequencer: Sequencer) {}
 
-  constructor(state: DAWState) {
-    this.setup(state);
-  }
+  public isPlaying = false;
 
   public next = (): MidiStep => {
     const notes = this.notes;
@@ -80,11 +77,6 @@ class MidiPlayer {
 
   public setMidi = (midi: Midi) => {
     this.actions = toActions(midi);
-  };
-
-  public setup = (state: DAWState): void => {
-    this.setMidi(state.midi);
-    this.sequencer.setSequence(state.sequence);
   };
 
   public setTime = (time: number) => {
