@@ -4,9 +4,7 @@
   "description": "SPA",
   "private": true,
   "main": "dist/server.js",
-  "scripts": {
-    "build": "rescript build; export NODE_ENV=production; webpack --mode production"
-  },
+  "scripts": {},
   "dependencies": {
     "react": "^18.0.15",
     "react-dom": "^18.0.6",
@@ -15,7 +13,7 @@
     "@wdaw/synth": "../packages/synth"
   },
   "devDependencies": {
-    "typescript": "^5.0.4",
+    "typescript": "^5.7.3",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6"
   },
