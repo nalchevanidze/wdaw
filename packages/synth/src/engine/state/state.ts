@@ -12,9 +12,15 @@ export type DAWState = Preset & {
   notes: number[];
 };
 
-export const getDAWState = (name: PresetName = 'pluck'): DAWState => ({
+export const getPreset = (
+  name: PresetName = 'pluck'
+): Preset & { name: PresetName } => ({
   ...presets[name],
-  name,
+  name
+});
+
+export const getDAWState = (name: PresetName = 'pluck'): DAWState => ({
+  ...getPreset(name),
   midi: prelude,
   isPlaying: false,
   time: 0,

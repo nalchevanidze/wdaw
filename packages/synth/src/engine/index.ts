@@ -1,7 +1,7 @@
 import { toActions } from './midi/midi-player';
 import { DAWState } from './state';
 import { EngineAction } from './types';
-import { getDAWState } from './state/state';
+import { getDAWState, getPreset } from './state/state';
 import { SynthCoreEngine } from './engine';
 
 export { EngineAction } from './types';
@@ -12,7 +12,6 @@ export { waveFunction } from './oscillator/osc/wave';
 export type Callback = (c: { time: number; notes: number[] }) => void;
 
 export class SynthEngine extends SynthCoreEngine {
-
   public dispatch = (action: EngineAction): Partial<DAWState> | undefined => {
     switch (action.type) {
       case 'PLAYER': {
@@ -68,7 +67,7 @@ export class SynthEngine extends SynthCoreEngine {
         this.state.filter[action.id] = action.payload;
         return { filter: { ...this.state.filter } };
       case 'SET_PRESET': {
-        this.state = getDAWState(action.payload);
+        this.state = Object.assign(this.state, getPreset(action.payload));
         return { ...this.state };
       }
       case 'REFRESH':
