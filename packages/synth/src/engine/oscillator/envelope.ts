@@ -54,14 +54,14 @@ export class Envelope implements WaveNode<EnvelopeConfig> {
     }
   };
 
-  open = (wave: EnvelopeConfig): void => {
+  open = (env: EnvelopeConfig): void => {
     this.live = true;
     this.stage = STAGE.ATTACK;
-    this.iter = counter(toMilliseconds(wave.attack), 0, 1);
+    this.iter = counter(toMilliseconds(env.attack), 0, 1);
   };
 
-  close = (wave: EnvelopeConfig): void => {
-    const time = toMilliseconds(wave.release);
+  close = (env: EnvelopeConfig): void => {
+    const time = toMilliseconds(env.release);
     this.iter = counter(time, this.level, 0);
     this.stage = STAGE.RELEASE;
   };
