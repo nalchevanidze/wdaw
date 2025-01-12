@@ -15,6 +15,7 @@ type PhysicWave = {
 export class OSC implements WaveNode<WaveConfig> {
   private phase: number;
   private length: number;
+
   private freq: number;
   private fm: PhysicWave;
 
@@ -43,14 +44,12 @@ export class OSC implements WaveNode<WaveConfig> {
     this.phase = phase % 1;
     // new Fm Position
     if (fmAmp === 0) {
-      return phase;
+      return waveFunction(phase, wave);
     }
+
     fm.phase = fm.phase + fmLength;
-    const FMWaveFormPosition = Math.sin(fm.phase);
 
-    this.phase * rescale(FMWaveFormPosition, fmAmp);
-
-    return waveFunction(this.phase, wave);
+    return waveFunction(this.phase * rescale(Math.sin(fm.phase), fmAmp), wave);
   }
 }
 
@@ -60,7 +59,6 @@ const MAX_OFFSET = 2;
 export class Oscillators implements WaveNode<WaveConfig> {
   private all = nList(MAX_OSCILLATORS, () => new OSC());
   private poly: OSC[] = [];
-
 
   open(wave: WaveConfig, note: number) {
     const poly = Math.min(MAX_OSCILLATORS - 1, Math.max(1, wave.voices));
