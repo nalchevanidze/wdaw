@@ -51,4 +51,17 @@ export class Sound {
       delete this.notes[note];
     }
   }
+  
+}
+
+const x = async ()=>{
+  const response = await fetch("url");
+  const reader = response.body.getReader();
+  
+  while (true) {
+    const {value, done} = await reader.read();
+    if (done) break;
+    
+    // process each chunk
+  }
 }
