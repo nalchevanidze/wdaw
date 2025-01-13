@@ -4,6 +4,7 @@ import { EngineAction } from './types';
 import { getPreset } from './state/state';
 import { SynthCoreEngine } from './engine';
 import { PLAYER_ACTION } from '../core/types';
+import { toggleARPNote } from './midi/sequencer';
 
 export { EngineAction } from './types';
 export { DAWState, initialState } from './state';
@@ -31,21 +32,20 @@ export class SynthEngine extends SynthCoreEngine {
     state: DAWState,
     action: EngineAction
   ): Partial<DAWState> | undefined => {
+    const { envelopes, wave, filter, sequence } = state;
     switch (action.type) {
       case 'PLAYER':
         return this.play(action.payload);
       case 'KEY_UP':
-        this.exec(state, this.player.endNote(state.sequence, action.payload));
+        this.exec(state, this.player.endNote(sequence, action.payload));
         break;
       case 'KEY_DOWN':
-        this.exec(state, this.player.startNote(state.sequence, action.payload));
+        this.exec(state, this.player.startNote(sequence, action.payload));
         break;
       case 'SET_TIME':
         return { time: this.player.setTime(action.payload) };
       case 'TOGGLE_APR_NOTE':
-        return {
-          sequence: this.sequencer.toggleARPNote(state.sequence, action.payload)
-        };
+        return { sequence: toggleARPNote(sequence, action.payload) };
       case 'TOGGLE_PANEL':
         return action.id === 'wave'
           ? undefined
@@ -60,13 +60,11 @@ export class SynthEngine extends SynthCoreEngine {
         return { midi: action.payload };
       }
       case 'SET_ENVELOPE':
-        return {
-          envelopes: { ...state.envelopes, [action.id]: action.payload }
-        };
+        return { envelopes: { ...envelopes, [action.id]: action.payload } };
       case 'SET_WAVE':
-        return { wave: { ...state.wave, [action.id]: action.payload } };
+        return { wave: { ...wave, [action.id]: action.payload } };
       case 'SET_FILTER':
-        return { filter: { ...state.filter, [action.id]: action.payload } };
+        return { filter: { ...filter, [action.id]: action.payload } };
       case 'SET_PRESET':
         return getPreset(action.payload);
       case 'REFRESH':
