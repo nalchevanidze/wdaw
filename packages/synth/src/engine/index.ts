@@ -38,8 +38,7 @@ export class SynthEngine extends SynthCoreEngine {
         this.exec(this.player.startNote(this.state.sequence, action.payload));
         break;
       case 'SET_TIME':
-        this.player.setTime(action.payload);
-        return { time: action.payload };
+        return { time: this.player.setTime(action.payload) };
       case 'TOGGLE_APR_NOTE':
         return {
           sequence: this.sequencer.toggleARPNote(
