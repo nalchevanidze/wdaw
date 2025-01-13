@@ -15,8 +15,7 @@ export type Callback = (c: { time: number; notes: number[] }) => void;
 export class SynthEngine extends SynthCoreEngine {
   private play(action: PLAYER_ACTION): Partial<DAWState> {
     const isPlaying = action === 'play';
-    this.player.isPlaying = isPlaying;
-    this.purge();
+    this.setPlay(isPlaying);
 
     if (action === 'stop') {
       this.player.setTime(0);

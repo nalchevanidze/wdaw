@@ -22,8 +22,10 @@ export class SynthCoreEngine implements SoundIterator {
     this.closeContext = audioProcessor(this);
   }
 
-  purge() {
-    if (!this.player.isPlaying) {
+  setPlay(isPlaying: boolean) {
+    this.player.isPlaying = isPlaying;
+
+    if (!isPlaying) {
       this.sound.clear();
       this.player.clear();
     }
