@@ -17,13 +17,13 @@ export class SynthEngine extends SynthCoreEngine {
   private play(action: PLAYER_ACTION): Partial<DAWState> {
     const isPlaying = action === 'play';
     this.player.isPlaying = isPlaying;
-    
+    this.purge();
+
     if (action === 'stop') {
       this.player.setTime(0);
       return { isPlaying, time: 0, notes: [] };
     }
 
-    this.purge();
     return { isPlaying };
   }
 
