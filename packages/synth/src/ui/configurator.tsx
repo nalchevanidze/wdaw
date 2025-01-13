@@ -50,6 +50,23 @@ const dispatcher = (
   }
 };
 
+const engineEffects = (engine: SynthEngine, action: EngineAction): void => {
+  switch (action.type) {
+    case 'PLAYER':
+      return engine.setPlay(action.payload);
+    case 'KEY_UP':
+      engine.endNote(action.payload);
+      break;
+    case 'KEY_DOWN':
+      engine.startNote(action.payload);
+      break;
+    case 'SET_TIME':
+      return engine.setTime(action.payload);
+    case 'SET_MIDI':
+      return engine.setMidi(action.payload);
+  }
+};
+
 const reducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
     const stateChanges = dispatcher(state, action);
@@ -58,7 +75,7 @@ const reducer =
       engine.setPreset({ ...state, ...stateChanges });
     }
 
-    engine.dispatch(action);
+    engineEffects(engine, action);
 
     return stateChanges ? { ...state, ...stateChanges } : state;
   };

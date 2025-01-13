@@ -8,7 +8,7 @@ import { Midi, PLAYER_ACTION } from '../core/types';
 
 export type Callback = (c: { time: number; notes: number[] }) => void;
 
-export class SynthCoreEngine implements SoundIterator {
+export class SynthEngine implements SoundIterator {
   private sound = new Sound();
   private sequencer = new Sequencer();
   private actions: NoteAction[];
