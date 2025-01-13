@@ -6,6 +6,10 @@ const reducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
     const changes = engine.dispatch(state, action);
 
+    if (changes) {
+      engine.setPreset({ ...state, ...changes });
+    }
+
     return changes ? { ...state, ...changes } : state;
   };
 

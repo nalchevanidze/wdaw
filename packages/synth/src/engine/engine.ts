@@ -13,10 +13,10 @@ export class SynthCoreEngine implements SoundIterator {
   protected sequencer = new Sequencer();
   protected player = new MidiPlayer(this.sequencer);
   protected actions: NoteAction[];
+  private closeContext: () => void;
+  private preset: Preset;
 
   public onChange: Callback;
-  private closeContext: () => void;
-  preset: Preset;
 
   constructor() {
     this.closeContext = audioProcessor(this);
@@ -25,6 +25,10 @@ export class SynthCoreEngine implements SoundIterator {
   setup(preset: Preset, midi: Midi) {
     this.preset = preset;
     this.actions = toActions(midi);
+  }
+
+  setPreset(preset: Preset) {
+    this.preset = preset;
   }
 
   public destroy() {

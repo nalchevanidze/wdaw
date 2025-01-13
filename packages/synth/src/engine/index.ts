@@ -31,55 +31,44 @@ export class SynthEngine extends SynthCoreEngine {
     state: DAWState,
     action: EngineAction
   ): Partial<DAWState> | undefined => {
-    const { preset } = this;
-
     switch (action.type) {
       case 'PLAYER':
         return this.play(action.payload);
       case 'KEY_UP':
-        this.exec(preset, this.player.endNote(preset.sequence, action.payload));
+        this.exec(state, this.player.endNote(state.sequence, action.payload));
         break;
       case 'KEY_DOWN':
-        this.exec(
-          preset,
-          this.player.startNote(preset.sequence, action.payload)
-        );
+        this.exec(state, this.player.startNote(state.sequence, action.payload));
         break;
       case 'SET_TIME':
         return { time: this.player.setTime(action.payload) };
       case 'TOGGLE_APR_NOTE':
         return {
-          sequence: this.sequencer.toggleARPNote(
-            preset.sequence,
-            action.payload
-          )
+          sequence: this.sequencer.toggleARPNote(state.sequence, action.payload)
         };
-      case 'TOGGLE_PANEL': {
-        if (action.id === 'wave') {
-          return;
-        }
-        this.preset[action.id].enabled = !this.preset[action.id].enabled;
-        return { [action.id]: { ...this.preset[action.id] } };
-      }
+      case 'TOGGLE_PANEL':
+        return action.id === 'wave'
+          ? undefined
+          : {
+              [action.id]: {
+                ...state[action.id],
+                enabled: !state[action.id].enabled
+              }
+            };
       case 'SET_MIDI': {
         this.actions = toActions(action.payload);
         return { midi: action.payload };
       }
-      case 'SET_ENVELOPE': {
-        Object.assign(this.preset.envelopes[action.id], action.payload);
-        return { envelopes: { ...this.preset.envelopes } };
-      }
-      case 'SET_WAVE': {
-        this.preset.wave[action.id] = action.payload;
-        return { wave: { ...this.preset.wave } };
-      }
+      case 'SET_ENVELOPE':
+        return {
+          envelopes: { ...state.envelopes, [action.id]: action.payload }
+        };
+      case 'SET_WAVE':
+        return { wave: { ...state.wave, [action.id]: action.payload } };
       case 'SET_FILTER':
-        this.preset.filter[action.id] = action.payload;
-        return { filter: { ...this.preset.filter } };
-      case 'SET_PRESET': {
-        this.preset = Object.assign(this.preset, getPreset(action.payload));
-        return { ...this.preset };
-      }
+        return { filter: { ...state.filter, [action.id]: action.payload } };
+      case 'SET_PRESET':
+        return getPreset(action.payload);
       case 'REFRESH':
         return { ...action.payload };
     }
