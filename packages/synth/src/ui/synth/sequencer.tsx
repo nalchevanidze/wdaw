@@ -42,7 +42,7 @@ export const Sequencer: React.FC = () => {
 
   const setNote = (row: number) => (column: number) =>
     dispatch({
-      type: 'SET_APR',
+      type: 'SET_SEQUENCE',
       payload: toggleARPNote(sequence, { row, column })
     });
 

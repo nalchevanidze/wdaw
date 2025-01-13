@@ -9,7 +9,7 @@ const dispatcher = (
 ): Partial<DAWState> | undefined => {
   const { envelopes, wave, filter } = state;
   switch (action.type) {
-    case 'SET_APR':
+    case 'SET_SEQUENCE':
       return { sequence: action.payload };
     case 'TOGGLE_PANEL':
       return action.id === 'wave'

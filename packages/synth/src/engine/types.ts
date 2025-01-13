@@ -16,8 +16,8 @@ export type PLAYER = { type: 'PLAYER'; payload: PLAYER_ACTION };
 
 export type KEY_PRESS = { type: `KEY_${'UP' | 'DOWN'}`; payload: number };
 
-export type SET_APR = {
-  type: 'SET_APR';
+export type SET_SEQUENCE = {
+  type: 'SET_SEQUENCE';
   payload: Sequence;
 };
 
@@ -66,7 +66,7 @@ export type EngineAction =
   | PLAYER
   | KEY_PRESS
   | SET_TIME
-  | SET_APR
+  | SET_SEQUENCE
   | TOGGLE_PANEL
   | SET_MIDI
   | SET_ENVELOPE
