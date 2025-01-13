@@ -75,7 +75,6 @@ class MidiPlayer {
 
   public setTime = (time: number) => {
     this.current = time;
-    return time
   };
 
   public play = (): void => {

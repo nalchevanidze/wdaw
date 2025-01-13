@@ -13,7 +13,7 @@ export class SynthCoreEngine implements SoundIterator {
   private sequencer = new Sequencer();
   private actions: NoteAction[];
   private closeContext: () => void;
-  private preset: Preset;
+  protected preset: Preset;
   protected player = new MidiPlayer(this.sequencer);
 
   public onChange: Callback;
