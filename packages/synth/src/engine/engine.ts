@@ -12,19 +12,12 @@ export type Callback = (c: {
   notes: number[];
 }) => void;
 
-export class SynthEngine implements SoundIterator {
+class CoreEngine {
   private sound = new Sound();
   private sequencer = new Sequencer();
-  private actions: NoteAction[];
-  private closeContext: () => void;
-  private preset: Preset;
   private player = new MidiPlayer(this.sequencer);
 
   public onChange: Callback;
-
-  constructor() {
-    this.closeContext = audioProcessor(this);
-  }
 
   public setPlay(mode: PLAYER_ACTION) {
     const isPlaying = mode === 'play';
@@ -45,27 +38,18 @@ export class SynthEngine implements SoundIterator {
     }
   }
 
-  public endNote(n: number) {
-    this.exec(this.preset, this.player.endNote(this.preset.sequence, n));
+  public endNote(preset: Preset, n: number) {
+    this.exec(preset, this.player.endNote(preset.sequence, n));
   }
 
-  public startNote(n: number) {
-    this.exec(this.preset, this.player.startNote(this.preset.sequence, n));
-  }
-
-  public setMidi(midi: Midi) {
-    this.actions = toActions(midi);
-  }
-
-  public setPreset(preset: Preset) {
-    this.preset = preset;
+  public startNote(preset: Preset, n: number) {
+    this.exec(preset, this.player.startNote(preset.sequence, n));
   }
 
   public destroy() {
     this.player.setTime(0);
     this.sound.clear();
     this.player.clear();
-    this.closeContext();
   }
 
   setTime(t: number) {
@@ -77,12 +61,9 @@ export class SynthEngine implements SoundIterator {
     });
   }
 
-  public next() {
-    this.exec(
-      this.preset,
-      this.player.next(this.actions, this.preset.sequence)
-    );
-    return this.sound.next(this.preset);
+  public next(preset: Preset, actions: NoteAction[]) {
+    this.exec(preset, this.player.next(actions, preset.sequence));
+    return this.sound.next(preset);
   }
 
   private exec = (preset: Preset, { start, end, current, notes }: MidiStep) => {
@@ -102,4 +83,40 @@ export class SynthEngine implements SoundIterator {
       );
     }
   };
+}
+
+export class SynthEngine implements SoundIterator {
+  private engine = new CoreEngine();
+  private actions: NoteAction[];
+  private closeContext: () => void;
+  private preset: Preset;
+  public onChange: Callback;
+
+  constructor() {
+    this.closeContext = audioProcessor(this);
+    this.engine.onChange = (c) => this.onChange(c);
+  }
+
+  public endNote = (n: number) => this.engine.endNote(this.preset, n);
+
+  public startNote = (n: number) => this.engine.startNote(this.preset, n);
+
+  public setMidi(midi: Midi) {
+    this.actions = toActions(midi);
+  }
+
+  public setPreset(preset: Preset) {
+    this.preset = preset;
+  }
+
+  public destroy() {
+    this.engine.destroy();
+    this.closeContext();
+  }
+
+  public setTime = (t: number) => this.engine.setTime(t);
+
+  public next() {
+    return this.engine.next(this.preset, this.actions);
+  }
 }
