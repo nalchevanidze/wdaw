@@ -4,7 +4,7 @@ import { Sound } from './oscillator/sound';
 import { MidiStep, NoteAction } from './midi/types';
 import { Sequencer } from './midi/sequencer';
 import { Preset } from './oscillator/types';
-import { Midi } from '../core/types';
+import { Midi, PLAYER_ACTION } from '../core/types';
 
 export type Callback = (c: { time: number; notes: number[] }) => void;
 
@@ -22,12 +22,17 @@ export class SynthCoreEngine implements SoundIterator {
     this.closeContext = audioProcessor(this);
   }
 
-  setPlay(isPlaying: boolean) {
+  setPlay(mode: PLAYER_ACTION) {
+    const isPlaying = mode === 'play'
     this.player.isPlaying = isPlaying;
 
     if (!isPlaying) {
       this.sound.clear();
       this.player.clear();
+    }
+
+    if (mode === 'stop') {
+      this.player.setTime(0);
     }
   }
 

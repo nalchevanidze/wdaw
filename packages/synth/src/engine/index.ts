@@ -11,13 +11,8 @@ export type Callback = (c: { time: number; notes: number[] }) => void;
 export class SynthEngine extends SynthCoreEngine {
   public dispatch = (action: EngineAction): void => {
     switch (action.type) {
-      case 'PLAYER': {
-        this.setPlay(action.payload === 'play');
-        if (action.payload === 'stop') {
-          this.player.setTime(0);
-        }
-        return;
-      }
+      case 'PLAYER':
+        return this.setPlay(action.payload);
       case 'KEY_UP':
         this.exec(
           this.preset,
