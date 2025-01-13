@@ -2,10 +2,11 @@ import * as React from 'react';
 import { createContext, useEffect, useReducer } from 'react';
 import { DAWState, initialState, SynthEngine, EngineAction } from '../engine';
 import { getPreset } from '../engine/state/state';
+import { initialMidi } from '../engine/state';
 
 const reducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
-    const changes = engine.dispatch(action);
+    const changes = engine.dispatch(state, action);
 
     return changes ? { ...state, ...changes } : state;
   };
@@ -20,13 +21,11 @@ export const ConfiguratorContext = createContext<ConfiguratorAPI>([
 const Configurator: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
-  const engine = React.useMemo(
-    () => new SynthEngine(getPreset(), initialState.midi),
-    []
-  );
+  const engine = React.useMemo(() => new SynthEngine(), []);
   const [config, dispatch] = useReducer(reducer(engine), initialState);
 
   useEffect(() => {
+    engine.setup(config, config.midi);
     engine.onChange = (payload) => dispatch({ type: 'REFRESH', payload });
 
     return () => engine.destroy();

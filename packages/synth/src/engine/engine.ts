@@ -18,10 +18,13 @@ export class SynthCoreEngine implements SoundIterator {
   private closeContext: () => void;
   preset: Preset;
 
-  constructor(preset: Preset, midi: Midi) {
+  constructor() {
+    this.closeContext = audioProcessor(this);
+  }
+
+  setup(preset: Preset, midi: Midi) {
     this.preset = preset;
     this.actions = toActions(midi);
-    this.closeContext = audioProcessor(this);
   }
 
   public destroy() {

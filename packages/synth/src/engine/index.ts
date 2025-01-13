@@ -27,7 +27,10 @@ export class SynthEngine extends SynthCoreEngine {
     return { isPlaying };
   }
 
-  public dispatch = (action: EngineAction): Partial<DAWState> | undefined => {
+  public dispatch = (
+    state: DAWState,
+    action: EngineAction
+  ): Partial<DAWState> | undefined => {
     const { preset } = this;
 
     switch (action.type) {

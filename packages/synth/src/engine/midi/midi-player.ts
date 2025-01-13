@@ -3,7 +3,6 @@ import { keysToIndexes } from '../../utils/notes';
 import { Sequencer } from './sequencer';
 import { Tempo } from './tempo';
 import { SAMPLE_RATE } from '../oscillator/utils';
-import { DAWState } from '../state';
 import { Midi } from '../../core/types';
 
 const taskAt = (midi: NoteAction[], i: number, key: NOTE_ACTION): number[] => {
