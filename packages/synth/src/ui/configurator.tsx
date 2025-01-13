@@ -47,11 +47,9 @@ const engineEffects = (engine: SynthEngine, action: EngineAction): void => {
     case 'PLAYER':
       return engine.setPlay(action.payload);
     case 'KEY_UP':
-      engine.endNote(action.payload);
-      break;
+      return engine.endNote(action.payload);
     case 'KEY_DOWN':
-      engine.startNote(action.payload);
-      break;
+      return engine.startNote(action.payload);
     case 'SET_TIME':
       return engine.setTime(action.payload);
     case 'SET_MIDI':
