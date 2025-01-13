@@ -56,6 +56,8 @@ const engineEffects = (engine: SynthEngine, action: EngineAction): void => {
       return engine.setTime(action.payload);
     case 'SET_MIDI':
       return engine.setMidi(action.payload);
+    default:
+      return;
   }
 };
 
