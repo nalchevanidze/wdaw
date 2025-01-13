@@ -46,14 +46,12 @@ export class SynthEngine extends SynthCoreEngine {
       case 'TOGGLE_APR_NOTE':
         return { sequence: toggleARPNote(sequence, action.payload) };
       case 'TOGGLE_PANEL':
-        return action.id === 'wave'
-          ? undefined
-          : {
-              [action.id]: {
-                ...state[action.id],
-                enabled: !state[action.id].enabled
-              }
-            };
+        return {
+          [action.id]: {
+            ...state[action.id],
+            enabled: !state[action.id].enabled
+          }
+        };
       case 'SET_MIDI': {
         this.actions = toActions(action.payload);
         return { midi: action.payload };
