@@ -4,22 +4,22 @@ import { Sound } from './oscillator/sound';
 import { DAWState } from './state';
 import { MidiStep, NoteAction } from './midi/types';
 import { Sequencer } from './midi/sequencer';
+import { Preset } from './oscillator/types';
 
 export type Callback = (c: { time: number; notes: number[] }) => void;
 
 export class SynthCoreEngine implements SoundIterator {
-
   protected sound = new Sound();
   protected sequencer = new Sequencer();
   protected player = new MidiPlayer(this.sequencer);
   protected actions: NoteAction[];
-  protected state: DAWState;
 
   public onChange: Callback;
   private closeContext: () => void;
+  preset: Preset;
 
   constructor(state: DAWState) {
-    this.state = state;
+    this.preset = state;
     this.actions = toActions(state.midi);
     this.closeContext = audioProcessor(this);
   }
@@ -31,9 +31,12 @@ export class SynthCoreEngine implements SoundIterator {
     this.closeContext();
   }
 
-  protected exec = ({ start, end, current, notes }: MidiStep) => {
-    const open = (n: number) => this.sound.open(this.state, n);
-    const close = (n: number) => this.sound.close(this.state, n);
+  protected exec = (
+    preset: Preset,
+    { start, end, current, notes }: MidiStep
+  ) => {
+    const open = (n: number) => this.sound.open(preset, n);
+    const close = (n: number) => this.sound.close(preset, n);
 
     start?.forEach(open);
     end?.forEach(close);
@@ -46,7 +49,10 @@ export class SynthCoreEngine implements SoundIterator {
   };
 
   public next() {
-    this.exec(this.player.next(this.actions, this.state.sequence));
-    return this.sound.next(this.state);
+    this.exec(
+      this.preset,
+      this.player.next(this.actions, this.preset.sequence)
+    );
+    return this.sound.next(this.preset);
   }
 }
