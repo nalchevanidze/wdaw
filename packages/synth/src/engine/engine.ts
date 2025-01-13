@@ -11,10 +11,10 @@ export type Callback = (c: { time: number; notes: number[] }) => void;
 export class SynthCoreEngine implements SoundIterator {
   private sound = new Sound();
   private sequencer = new Sequencer();
-  protected player = new MidiPlayer(this.sequencer);
-  protected actions: NoteAction[];
+  private actions: NoteAction[];
   private closeContext: () => void;
   private preset: Preset;
+  protected player = new MidiPlayer(this.sequencer);
 
   public onChange: Callback;
 
@@ -29,8 +29,7 @@ export class SynthCoreEngine implements SoundIterator {
     }
   }
 
-  setup(preset: Preset, midi: Midi) {
-    this.preset = preset;
+  setMidi( midi: Midi) {
     this.actions = toActions(midi);
   }
 

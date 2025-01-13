@@ -54,7 +54,7 @@ export class SynthEngine extends SynthCoreEngine {
               }
             };
       case 'SET_MIDI': {
-        this.actions = toActions(action.payload);
+        this.setMidi(action.payload);
         return { midi: action.payload };
       }
       case 'SET_ENVELOPE':

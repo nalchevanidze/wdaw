@@ -27,7 +27,7 @@ const Configurator: React.FC<{ children: React.ReactNode }> = ({
   const [config, dispatch] = useReducer(reducer(engine), initialState);
 
   useEffect(() => {
-    engine.setup(config, config.midi);
+    dispatch({ type: 'SET_MIDI', payload: config.midi });
     engine.onChange = (payload) => dispatch({ type: 'REFRESH', payload });
 
     return () => engine.destroy();
