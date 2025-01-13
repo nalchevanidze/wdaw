@@ -90,12 +90,12 @@ export class SynthEngine implements SoundIterator {
   private actions: NoteAction[];
   private closeContext: () => void;
   private preset: Preset;
-  public onChange: Callback;
 
   constructor() {
     this.closeContext = audioProcessor(this);
-    this.engine.onChange = (c) => this.onChange(c);
   }
+
+  public setPlay = (mode: PLAYER_ACTION) => this.engine.setPlay(mode);
 
   public endNote = (n: number) => this.engine.endNote(this.preset, n);
 
@@ -103,6 +103,10 @@ export class SynthEngine implements SoundIterator {
 
   public setMidi(midi: Midi) {
     this.actions = toActions(midi);
+  }
+
+  public setCallback(f: Callback) {
+    this.engine.onChange = f;
   }
 
   public setPreset(preset: Preset) {
