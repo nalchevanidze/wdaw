@@ -1,5 +1,5 @@
 import { PresetName } from './state';
-import { ARP_NOTE_LOCATION } from './midi/types';
+import { ARP_NOTE_LOCATION, Sequence } from './midi/types';
 import {
   ENVELOPE_ID,
   EnvelopeConfig,
@@ -16,9 +16,9 @@ export type PLAYER = { type: 'PLAYER'; payload: PLAYER_ACTION };
 
 export type KEY_PRESS = { type: `KEY_${'UP' | 'DOWN'}`; payload: number };
 
-export type TOGGLE_APR_NOTE = {
-  type: 'TOGGLE_APR_NOTE';
-  payload: ARP_NOTE_LOCATION;
+export type SET_APR = {
+  type: 'SET_APR';
+  payload: Sequence;
 };
 
 export type TOGGLE_PANEL = {
@@ -66,7 +66,7 @@ export type EngineAction =
   | PLAYER
   | KEY_PRESS
   | SET_TIME
-  | TOGGLE_APR_NOTE
+  | SET_APR
   | TOGGLE_PANEL
   | SET_MIDI
   | SET_ENVELOPE

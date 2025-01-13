@@ -15,7 +15,6 @@ export type PLAYER_ACTION = 'play' | 'pause' | 'stop';
 export type FILTER_ID = 'cutoff' | 'envelope' | 'resonance';
 
 export type WaveConfig = {
-  enabled?: boolean;
   sine: number;
   square: number;
   saw: number;

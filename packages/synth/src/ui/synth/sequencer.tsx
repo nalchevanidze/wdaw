@@ -3,6 +3,7 @@ import { ConfiguratorContext } from '../configurator';
 import { colors } from '../styles';
 import { Panel } from './panel';
 import { SEQUENCE_LENGTH } from '../../core/defs';
+import { toggleARPNote } from '../../utils/arp';
 
 const STEP_SIZE = 10;
 
@@ -40,7 +41,10 @@ export const Sequencer: React.FC = () => {
   const [{ sequence }, dispatch] = React.useContext(ConfiguratorContext);
 
   const setNote = (row: number) => (column: number) =>
-    dispatch({ type: 'TOGGLE_APR_NOTE', payload: { row, column } });
+    dispatch({
+      type: 'SET_APR',
+      payload: toggleARPNote(sequence, { row, column })
+    });
 
   return (
     <Panel label="sequencer" size={3} optional id="sequence">

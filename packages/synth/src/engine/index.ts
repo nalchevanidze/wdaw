@@ -4,7 +4,6 @@ import { EngineAction } from './types';
 import { getPreset } from './state/state';
 import { SynthCoreEngine } from './engine';
 import { PLAYER_ACTION } from '../core/types';
-import { toggleARPNote } from './midi/sequencer';
 
 export { EngineAction } from './types';
 export { DAWState, initialState } from './state';
@@ -43,21 +42,28 @@ export class SynthEngine extends SynthCoreEngine {
         break;
       case 'SET_TIME':
         return { time: this.player.setTime(action.payload) };
-      case 'TOGGLE_APR_NOTE':
-        return { sequence: toggleARPNote(sequence, action.payload) };
+      case 'SET_APR':
+        return { sequence: action.payload };
       case 'TOGGLE_PANEL':
-        return {
-          [action.id]: {
-            ...state[action.id],
-            enabled: !state[action.id].enabled
-          }
-        };
+        return action.id === 'wave'
+          ? undefined
+          : {
+              [action.id]: {
+                ...state[action.id],
+                enabled: !state[action.id].enabled
+              }
+            };
       case 'SET_MIDI': {
         this.actions = toActions(action.payload);
         return { midi: action.payload };
       }
       case 'SET_ENVELOPE':
-        return { envelopes: { ...envelopes, [action.id]: action.payload } };
+        return {
+          envelopes: {
+            ...envelopes,
+            [action.id]: { ...envelopes[action.id], ...action.payload }
+          }
+        };
       case 'SET_WAVE':
         return { wave: { ...wave, [action.id]: action.payload } };
       case 'SET_FILTER':
