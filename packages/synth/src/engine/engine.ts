@@ -6,7 +6,11 @@ import { Sequencer } from './midi/sequencer';
 import { Preset } from './oscillator/types';
 import { Midi, PLAYER_ACTION } from '../core/types';
 
-export type Callback = (c: { time: number; notes: number[] }) => void;
+export type Callback = (c: {
+  isPlaying: boolean;
+  time: number;
+  notes: number[];
+}) => void;
 
 export class SynthEngine implements SoundIterator {
   private sound = new Sound();
@@ -33,6 +37,11 @@ export class SynthEngine implements SoundIterator {
 
     if (mode === 'stop') {
       this.player.setTime(0);
+      this.onChange({
+        isPlaying: false,
+        time: 0,
+        notes: []
+      });
     }
   }
 
@@ -61,6 +70,11 @@ export class SynthEngine implements SoundIterator {
 
   setTime(t: number) {
     this.player.setTime(t);
+    this.onChange({
+      isPlaying: this.player.isPlaying,
+      time: t,
+      notes: Array.from(this.player.notes)
+    });
   }
 
   public next() {
@@ -80,7 +94,11 @@ export class SynthEngine implements SoundIterator {
 
     if (current !== undefined) {
       requestAnimationFrame(() =>
-        this.onChange({ time: current, notes: Array.from(notes) })
+        this.onChange({
+          isPlaying: this.player.isPlaying,
+          time: current,
+          notes: Array.from(notes)
+        })
       );
     }
   };

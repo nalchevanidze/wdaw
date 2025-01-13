@@ -42,7 +42,7 @@ export const toActions = (input: Midi): NoteAction[] => {
 class MidiPlayer {
   private current = 0;
   private tempo = new Tempo(SAMPLE_RATE);
-  private notes: Set<number> = new Set([]);
+  public notes: Set<number> = new Set([]);
 
   constructor(private sequencer: Sequencer) {}
 

@@ -9,14 +9,6 @@ const dispatcher = (
 ): Partial<DAWState> | undefined => {
   const { envelopes, wave, filter } = state;
   switch (action.type) {
-    case 'PLAYER': {
-      const isPlaying = action.payload === 'play';
-      return action.payload === 'stop'
-        ? { isPlaying, time: 0, notes: [] }
-        : { isPlaying };
-    }
-    case 'SET_TIME':
-      return { time: action.payload };
     case 'SET_APR':
       return { sequence: action.payload };
     case 'TOGGLE_PANEL':
