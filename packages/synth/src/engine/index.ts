@@ -47,12 +47,11 @@ export class SynthEngine extends SynthCoreEngine {
           )
         };
       case 'TOGGLE_PANEL': {
-        const target = action.id;
-        if (target === 'wave') {
+        if (action.id === 'wave') {
           return;
         }
-        this.state[target].enabled = !this.state[target].enabled;
-        return { [target]: { ...this.state[target] } };
+        this.state[action.id].enabled = !this.state[action.id].enabled;
+        return { [action.id]: { ...this.state[action.id] } };
       }
       case 'SET_MIDI': {
         this.actions = toActions(action.payload);
