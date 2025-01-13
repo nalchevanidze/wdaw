@@ -1,10 +1,10 @@
 import { audioProcessor, SoundIterator } from './oscillator/audio-processor';
 import { MidiPlayer, toActions } from './midi/midi-player';
 import { Sound } from './oscillator/sound';
-import { DAWState } from './state';
 import { MidiStep, NoteAction } from './midi/types';
 import { Sequencer } from './midi/sequencer';
 import { Preset } from './oscillator/types';
+import { Midi } from '../core/types';
 
 export type Callback = (c: { time: number; notes: number[] }) => void;
 
@@ -18,9 +18,9 @@ export class SynthCoreEngine implements SoundIterator {
   private closeContext: () => void;
   preset: Preset;
 
-  constructor(state: DAWState) {
-    this.preset = state;
-    this.actions = toActions(state.midi);
+  constructor(preset: Preset, midi: Midi) {
+    this.preset = preset;
+    this.actions = toActions(midi);
     this.closeContext = audioProcessor(this);
   }
 

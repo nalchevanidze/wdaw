@@ -1,4 +1,4 @@
-import { DAWState, PresetName } from './state';
+import { PresetName } from './state';
 import { ARP_NOTE_LOCATION } from './midi/types';
 import {
   ENVELOPE_ID,
@@ -20,8 +20,6 @@ export type TOGGLE_APR_NOTE = {
   type: 'TOGGLE_APR_NOTE';
   payload: ARP_NOTE_LOCATION;
 };
-
-export type SYNC = { type: 'SYNC'; payload: DAWState };
 
 export type TOGGLE_PANEL = {
   type: 'TOGGLE_PANEL';
@@ -66,7 +64,6 @@ export type REFRESH = {
 
 export type EngineAction =
   | PLAYER
-  | SYNC
   | KEY_PRESS
   | SET_TIME
   | TOGGLE_APR_NOTE

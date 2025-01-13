@@ -1,7 +1,7 @@
 import { toActions } from './midi/midi-player';
 import { DAWState } from './state';
 import { EngineAction } from './types';
-import { getDAWState, getPreset } from './state/state';
+import { getPreset } from './state/state';
 import { SynthCoreEngine } from './engine';
 import { PLAYER_ACTION } from '../core/types';
 

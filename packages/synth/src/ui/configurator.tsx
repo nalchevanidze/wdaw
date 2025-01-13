@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { createContext, useEffect, useReducer } from 'react';
 import { DAWState, initialState, SynthEngine, EngineAction } from '../engine';
+import { getPreset } from '../engine/state/state';
 
 const reducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
@@ -19,7 +20,10 @@ export const ConfiguratorContext = createContext<ConfiguratorAPI>([
 const Configurator: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
-  const engine = React.useMemo(() => new SynthEngine(initialState), []);
+  const engine = React.useMemo(
+    () => new SynthEngine(getPreset(), initialState.midi),
+    []
+  );
   const [config, dispatch] = useReducer(reducer(engine), initialState);
 
   useEffect(() => {
