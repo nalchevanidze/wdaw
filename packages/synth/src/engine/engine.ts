@@ -13,8 +13,8 @@ export class SynthCoreEngine implements SoundIterator {
   private sequencer = new Sequencer();
   private actions: NoteAction[];
   private closeContext: () => void;
-  protected preset: Preset;
-  protected player = new MidiPlayer(this.sequencer);
+  private preset: Preset;
+  private player = new MidiPlayer(this.sequencer);
 
   public onChange: Callback;
 
@@ -22,8 +22,8 @@ export class SynthCoreEngine implements SoundIterator {
     this.closeContext = audioProcessor(this);
   }
 
-  setPlay(mode: PLAYER_ACTION) {
-    const isPlaying = mode === 'play'
+  public setPlay(mode: PLAYER_ACTION) {
+    const isPlaying = mode === 'play';
     this.player.isPlaying = isPlaying;
 
     if (!isPlaying) {
@@ -36,11 +36,19 @@ export class SynthCoreEngine implements SoundIterator {
     }
   }
 
-  setMidi( midi: Midi) {
+  public endNote(n: number) {
+    this.exec(this.preset, this.player.endNote(this.preset.sequence, n));
+  }
+
+  public startNote(n: number) {
+    this.exec(this.preset, this.player.startNote(this.preset.sequence, n));
+  }
+
+  public setMidi(midi: Midi) {
     this.actions = toActions(midi);
   }
 
-  setPreset(preset: Preset) {
+  public setPreset(preset: Preset) {
     this.preset = preset;
   }
 
@@ -51,10 +59,19 @@ export class SynthCoreEngine implements SoundIterator {
     this.closeContext();
   }
 
-  protected exec = (
-    preset: Preset,
-    { start, end, current, notes }: MidiStep
-  ) => {
+  setTime(t: number) {
+    this.player.setTime(t);
+  }
+
+  public next() {
+    this.exec(
+      this.preset,
+      this.player.next(this.actions, this.preset.sequence)
+    );
+    return this.sound.next(this.preset);
+  }
+
+  private exec = (preset: Preset, { start, end, current, notes }: MidiStep) => {
     const open = (n: number) => this.sound.open(preset, n);
     const close = (n: number) => this.sound.close(preset, n);
 
@@ -67,12 +84,4 @@ export class SynthCoreEngine implements SoundIterator {
       );
     }
   };
-
-  public next() {
-    this.exec(
-      this.preset,
-      this.player.next(this.actions, this.preset.sequence)
-    );
-    return this.sound.next(this.preset);
-  }
 }

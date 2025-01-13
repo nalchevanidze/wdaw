@@ -14,19 +14,13 @@ export class SynthEngine extends SynthCoreEngine {
       case 'PLAYER':
         return this.setPlay(action.payload);
       case 'KEY_UP':
-        this.exec(
-          this.preset,
-          this.player.endNote(this.preset.sequence, action.payload)
-        );
+        this.endNote(action.payload);
         break;
       case 'KEY_DOWN':
-        this.exec(
-          this.preset,
-          this.player.startNote(this.preset.sequence, action.payload)
-        );
+        this.startNote(action.payload);
         break;
       case 'SET_TIME':
-        return this.player.setTime(action.payload);
+        return this.setTime(action.payload);
       case 'SET_MIDI':
         return this.setMidi(action.payload);
     }
