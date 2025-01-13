@@ -3,6 +3,7 @@ import { DAWState } from './state';
 import { EngineAction } from './types';
 import { getDAWState, getPreset } from './state/state';
 import { SynthCoreEngine } from './engine';
+import { PLAYER_ACTION } from '../core/types';
 
 export { EngineAction } from './types';
 export { DAWState, initialState } from './state';
@@ -12,21 +13,24 @@ export { waveFunction } from './oscillator/osc/wave';
 export type Callback = (c: { time: number; notes: number[] }) => void;
 
 export class SynthEngine extends SynthCoreEngine {
+  private play(action: PLAYER_ACTION): Partial<DAWState> {
+    const isPlaying = action === 'play';
+    this.player.isPlaying = isPlaying;
+    if (!isPlaying) {
+      this.sound.clear();
+      this.player.clear();
+    }
+    if (action === 'stop') {
+      this.player.setTime(0);
+      return { isPlaying, time: 0, notes: [] };
+    }
+    return { isPlaying };
+  }
+
   public dispatch = (action: EngineAction): Partial<DAWState> | undefined => {
     switch (action.type) {
-      case 'PLAYER': {
-        const isPlaying = action.payload === 'play';
-        this.player.isPlaying = isPlaying;
-        if (!isPlaying) {
-          this.sound.clear();
-          this.player.clear();
-        }
-        if (action.payload === 'stop') {
-          this.player.setTime(0);
-          return { isPlaying, time: 0, notes: [] };
-        }
-        return { isPlaying };
-      }
+      case 'PLAYER':
+        return this.play(action.payload);
       case 'KEY_UP':
         this.exec(this.player.endNote(this.state.sequence, action.payload));
         break;
