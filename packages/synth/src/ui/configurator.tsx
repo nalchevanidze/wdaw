@@ -87,7 +87,7 @@ const Configurator: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     dispatch({ type: 'SET_MIDI', payload: config.midi });
-    engine.setCallback((payload) => dispatch({ type: 'REFRESH', payload }));
+    engine.setMidiCallback((payload) => dispatch({ type: 'REFRESH', payload }));
 
     return () => engine.destroy();
   }, []);

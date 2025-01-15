@@ -5,6 +5,14 @@ import { Tempo } from './tempo';
 import { SAMPLE_RATE } from '../oscillator/utils';
 import { Midi } from '../../core/types';
 
+export type MidiState = {
+  isPlaying: boolean;
+  time: number;
+  notes: number[];
+};
+
+export type MidiCallback = (s: MidiState) => void;
+
 const taskAt = (midi: NoteAction[], i: number, key: NOTE_ACTION): number[] => {
   const step = (midi[i] = midi[i] ?? {});
 
@@ -43,10 +51,21 @@ class MidiPlayer {
   private current = 0;
   private tempo = new Tempo(SAMPLE_RATE);
   public notes: Set<number> = new Set([]);
+  onChange: MidiCallback;
 
   constructor(private sequencer: Sequencer) {}
 
   public isPlaying = false;
+
+  private refresh() {
+    requestAnimationFrame(() =>
+      this.onChange({
+        isPlaying: this.isPlaying,
+        time: this.current,
+        notes: Array.from(this.notes)
+      })
+    );
+  }
 
   public next = (actions: NoteAction[], seq: Sequence): MidiStep => {
     const notes = this.notes;
@@ -75,6 +94,11 @@ class MidiPlayer {
 
   public setTime = (time: number) => {
     this.current = time;
+    this.onChange({
+      isPlaying: this.isPlaying,
+      time,
+      notes: Array.from(this.notes)
+    });
   };
 
   public play = (): void => {
@@ -100,20 +124,31 @@ class MidiPlayer {
 
   public startNote = (seq: Sequence, note: number): MidiStep => {
     const { notes, current } = this;
-    this.note(true, note);
-
     const start = seq.enabled ? undefined : [note];
+
+    this.note(true, note);
+    this.refresh();
     return { notes, current, start };
   };
 
   public endNote = (seq: Sequence, note: number): MidiStep => {
     const { notes, current } = this;
+    const end = seq.enabled ? undefined : [note];
 
     this.note(false, note);
-
-    const end = seq.enabled ? undefined : [note];
+    this.refresh();
     return { notes, current, end };
   };
+
+  stop() {
+    const time = 0;
+    this.current = time;
+    this.onChange({
+      isPlaying: false,
+      time: time,
+      notes: []
+    });
+  }
 }
 
 export { MidiPlayer };
