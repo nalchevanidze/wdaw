@@ -31,12 +31,12 @@ class CoreEngine {
 
   public startNote(preset: Preset, n: number) {
     const { start, end } = this.player.startNote(preset.sequence, n);
-    this.sound.run(preset, start, end);
+    this.sound.setNotes(preset, start, end);
   }
 
   public endNote(preset: Preset, n: number) {
     const { start, end } = this.player.endNote(preset.sequence, n);
-    this.sound.run(preset, start, end);
+    this.sound.setNotes(preset, start, end);
   }
 
   public destroy() {
@@ -50,7 +50,7 @@ class CoreEngine {
   public next(preset: Preset, actions: NoteAction[]) {
     const { start, end } = this.player.next(actions, preset.sequence);
 
-    this.sound.run(preset, start, end);
+    this.sound.setNotes(preset, start, end);
     return this.sound.next(preset);
   }
 }
