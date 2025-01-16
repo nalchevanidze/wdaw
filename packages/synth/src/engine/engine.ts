@@ -29,13 +29,13 @@ class CoreEngine {
     }
   }
 
-  public endNote(preset: Preset, n: number) {
-    const { start, end } = this.player.endNote(preset.sequence, n);
+  public startNote(preset: Preset, n: number) {
+    const { start, end } = this.player.startNote(preset.sequence, n);
     this.sound.run(preset, start, end);
   }
 
-  public startNote(preset: Preset, n: number) {
-    const { start, end } = this.player.startNote(preset.sequence, n);
+  public endNote(preset: Preset, n: number) {
+    const { start, end } = this.player.endNote(preset.sequence, n);
     this.sound.run(preset, start, end);
   }
 
