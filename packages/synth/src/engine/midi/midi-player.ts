@@ -84,6 +84,7 @@ class MidiPlayer {
 
     const keyboard = this.sequencer.next(seq, notes) ?? keyNotes;
 
+    this.refresh()
     return {
       start: keyboard?.start,
       end: keyboard?.end,
