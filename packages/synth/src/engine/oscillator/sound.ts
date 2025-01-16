@@ -29,7 +29,7 @@ export class Sound {
     return safeWaveValue(value);
   }
 
-  public run = (preset: Preset, start?: number[], end?: number[]) => {
+  public setNotes = (preset: Preset, start?: number[], end?: number[]) => {
     const open = (n: number) => this.open(preset, n);
     const close = (n: number) => this.close(preset, n);
     start?.forEach(open);
