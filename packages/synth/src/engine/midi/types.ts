@@ -14,7 +14,6 @@ export type NoteAction = {
 
 export type MidiStep = NoteAction & {
   current?: number;
-  notes: Set<number>;
 };
 
 export type ARP_NOTE_LOCATION = {

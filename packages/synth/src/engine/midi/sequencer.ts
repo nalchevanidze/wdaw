@@ -7,12 +7,17 @@ const END_INDEX = SEQUENCE_LENGTH * 2;
 class Sequencer {
   private last: Maybe<number[]>;
   private index: number;
+  public notes: Set<number> = new Set([]);
 
   public restart = (): void => {
     this.index = 0;
   };
 
-  next = (sequence: Sequence, notes: Set<number>): NoteAction | undefined => {
+  public getNotes = () => Array.from(this.notes);
+
+  next = (sequence: Sequence): NoteAction | undefined => {
+    const { notes } = this;
+
     if (!sequence.enabled) {
       return undefined;
     }
@@ -46,8 +51,11 @@ class Sequencer {
 
     return { start, end };
   };
+
+
+  clear(){
+    this.notes.clear();
+  }
 }
-
-
 
 export { Sequencer };

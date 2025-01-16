@@ -50,7 +50,6 @@ export const toActions = (input: Midi): NoteAction[] => {
 class MidiPlayer {
   private current = 0;
   private tempo = new Tempo(SAMPLE_RATE);
-  public notes: Set<number> = new Set([]);
   onChange: MidiCallback;
 
   constructor(private sequencer: Sequencer) {}
@@ -62,15 +61,14 @@ class MidiPlayer {
       this.onChange({
         isPlaying: this.isPlaying,
         time: this.current,
-        notes: Array.from(this.notes)
+        notes: this.sequencer.getNotes()
       })
     );
   }
 
-  public next = (actions: NoteAction[], seq: Sequence): MidiStep => {
-    const notes = this.notes;
+  public next = (actions: NoteAction[], seq: Sequence): NoteAction => {
     if (!this.tempo.next()) {
-      return { notes };
+      return {};
     }
 
     const keyNotes = this.isPlaying ? actions[this.current] : undefined;
@@ -82,14 +80,12 @@ class MidiPlayer {
       this.current = (this.current + 1) % actions.length;
     }
 
-    const keyboard = this.sequencer.next(seq, notes) ?? keyNotes;
+    const keyboard = this.sequencer.next(seq) ?? keyNotes;
 
-    this.refresh()
+    this.refresh();
     return {
       start: keyboard?.start,
-      end: keyboard?.end,
-      notes,
-      current: this.isPlaying ? this.current : undefined
+      end: keyboard?.end
     };
   };
 
@@ -98,7 +94,7 @@ class MidiPlayer {
     this.onChange({
       isPlaying: this.isPlaying,
       time,
-      notes: Array.from(this.notes)
+      notes: this.sequencer.getNotes()
     });
   };
 
@@ -106,12 +102,10 @@ class MidiPlayer {
     this.isPlaying = true;
   };
 
-  public clear = () => {
-    this.notes.clear();
-  };
+  public clear = () => this.sequencer.clear();
 
   private note = (start: boolean, note: number) => {
-    const { notes } = this;
+    const { notes } = this.sequencer;
 
     if (start) {
       if (!notes.has(note)) {
@@ -119,26 +113,26 @@ class MidiPlayer {
       }
       notes.add(note);
     } else {
-      this.notes.delete(note);
+      notes.delete(note);
     }
   };
 
   public startNote = (seq: Sequence, note: number): MidiStep => {
-    const { notes, current } = this;
+    const { current } = this;
     const start = seq.enabled ? undefined : [note];
 
     this.note(true, note);
     this.refresh();
-    return { notes, current, start };
+    return { current, start };
   };
 
   public endNote = (seq: Sequence, note: number): MidiStep => {
-    const { notes, current } = this;
+    const { current } = this;
     const end = seq.enabled ? undefined : [note];
 
     this.note(false, note);
     this.refresh();
-    return { notes, current, end };
+    return { current, end };
   };
 
   stop() {
