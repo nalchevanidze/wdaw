@@ -12,7 +12,7 @@ export class Sound {
 
   constructor() {
     this.stack = nList(6, () => new SoundEvent());
-    this.notes = {}
+    this.notes = {};
   }
 
   private osc = (isActive: boolean) =>
@@ -29,13 +29,20 @@ export class Sound {
     return safeWaveValue(value);
   }
 
+  public run = (preset: Preset, start?: number[], end?: number[]) => {
+    const open = (n: number) => this.open(preset, n);
+    const close = (n: number) => this.close(preset, n);
+    start?.forEach(open);
+    end?.forEach(close);
+  };
+
   newEvent() {
     const event = new SoundEvent();
     this.stack.push(event);
     return event;
   }
 
-  open(state: Preset, note: number) {
+  private open(state: Preset, note: number) {
     if (this.notes[note]) {
       return;
     }
@@ -45,11 +52,10 @@ export class Sound {
     sound.open(state, note);
   }
 
-  close(state: Preset, note: number) {
+  private close(state: Preset, note: number) {
     if (this.notes[note]) {
       this.notes[note].close(state);
       delete this.notes[note];
     }
   }
-  
 }

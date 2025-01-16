@@ -30,11 +30,13 @@ class CoreEngine {
   }
 
   public endNote(preset: Preset, n: number) {
-    this.exec(preset, this.player.endNote(preset.sequence, n));
+    const { start, end } = this.player.endNote(preset.sequence, n);
+    this.sound.run(preset, start, end);
   }
 
   public startNote(preset: Preset, n: number) {
-    this.exec(preset, this.player.startNote(preset.sequence, n));
+    const { start, end } = this.player.startNote(preset.sequence, n);
+    this.sound.run(preset, start, end);
   }
 
   public destroy() {
@@ -43,20 +45,14 @@ class CoreEngine {
     this.player.clear();
   }
 
-  public setTime = (t: number) =>  this.player.setTime(t);
-
+  public setTime = (t: number) => this.player.setTime(t);
 
   public next(preset: Preset, actions: NoteAction[]) {
-    this.exec(preset, this.player.next(actions, preset.sequence));
+    const { start, end } = this.player.next(actions, preset.sequence);
+
+    this.sound.run(preset, start, end);
     return this.sound.next(preset);
   }
-
-  private exec = (preset: Preset, { start, end }: MidiStep) => {
-    const open = (n: number) => this.sound.open(preset, n);
-    const close = (n: number) => this.sound.close(preset, n);
-    start?.forEach(open);
-    end?.forEach(close);
-  };
 }
 
 export class SynthEngine implements SoundIterator {
