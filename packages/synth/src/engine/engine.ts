@@ -30,15 +30,13 @@ export class SynthEngine implements SoundIterator {
   }
 
   public setPlay(mode: PLAYER_ACTION) {
-    const isPlaying = mode === 'play';
-    this.player.isPlaying = isPlaying;
-
-    if (!isPlaying) {
-      this.synth.clear();
-    }
-
-    if (mode === 'stop') {
-      this.player.stop();
+    switch (mode) {
+      case 'play':
+        return this.player.play();
+      case 'pause':
+        return this.player.pause();
+      case 'stop':
+        return this.player.stop();
     }
   }
 

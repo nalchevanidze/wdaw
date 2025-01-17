@@ -93,7 +93,13 @@ class MidiPlayer {
     this.isPlaying = true;
   };
 
+  public pause = (): void => {
+    this.isPlaying = false;
+    this.synth.clear();
+  };
+
   stop() {
+    this.synth.clear();
     const time = 0;
     this.current = time;
     this.onChange({
