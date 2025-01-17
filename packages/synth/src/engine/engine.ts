@@ -5,8 +5,7 @@ import { MidiCallback, MidiPlayer, Track } from './player';
 import { Tracks } from './player/tracks';
 
 export class SynthEngine implements SoundIterator {
-  private synth = new Synth();
-  private tracks = new Tracks([new Track(this.synth)]);
+  private tracks = new Tracks([new Track(new Synth())]);
   private player = new MidiPlayer(this.tracks);
 
   private closeContext: () => void;
@@ -46,7 +45,7 @@ export class SynthEngine implements SoundIterator {
 
   public destroy() {
     this.player.setTime(0);
-    this.synth.clear();
+    this.tracks.clear();
     this.closeContext();
   }
 
