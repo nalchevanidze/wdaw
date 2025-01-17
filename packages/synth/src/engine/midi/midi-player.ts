@@ -73,8 +73,8 @@ class MidiPlayer {
 
     const keyNotes = this.isPlaying ? actions[this.current] : undefined;
 
-    keyNotes?.start?.forEach((n) => this.note(true, n));
-    keyNotes?.end?.forEach((n) => this.note(false, n));
+    keyNotes?.start?.forEach((n) => this.sequencer.startNote(n));
+    keyNotes?.end?.forEach((n) => this.sequencer.endNote(n));
 
     if (this.isPlaying) {
       this.current = (this.current + 1) % actions.length;
