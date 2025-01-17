@@ -1,6 +1,5 @@
-import { MidiStep, NoteAction, NOTE_ACTION, Sequence } from './types';
+import {  NoteAction, NOTE_ACTION, Sequence } from './types';
 import { keysToIndexes } from '../../utils/notes';
-import { Sequencer } from './sequencer';
 import { Tempo } from './tempo';
 import { SAMPLE_RATE } from '../oscillator/utils';
 import { Midi } from '../../core/types';
@@ -78,9 +77,8 @@ class MidiPlayer {
       this.current = (this.current + 1) % actions.length;
     }
 
-    keyNotes?.start?.forEach((n) => this.synth.sequencer.startNote(n));
-    keyNotes?.end?.forEach((n) => this.synth.sequencer.endNote(n));   
-    const keyboard = this.synth.sequencer.next(seq) ?? keyNotes;
+
+    const keyboard = this.synth.prepareNext(seq, keyNotes)
 
     this.refresh();
     return {

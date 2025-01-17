@@ -1,4 +1,5 @@
 import { Sequencer } from './midi/sequencer';
+import { NoteAction, Sequence } from './midi/types';
 import { Sound } from './oscillator/sound';
 import { Preset } from './oscillator/types';
 
@@ -34,6 +35,13 @@ export class Synth {
   public setNotes = (preset: Preset, start?: number[], end?: number[]) => {
     this.sound.setNotes(preset, start, end);
   };
+
+
+  public prepareNext(seq: Sequence, action?: NoteAction){
+    action?.start?.forEach((n) => this.sequencer.startNote(n));
+    action?.end?.forEach((n) => this.sequencer.endNote(n));   
+    return this.sequencer.next(seq) ?? action;
+  }
 
   public next(preset: Preset, start?: number[], end?: number[]) {
     this.sound.setNotes(preset, start, end);
