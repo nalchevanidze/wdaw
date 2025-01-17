@@ -1,1 +1,2 @@
-export { MidiCallback, MidiPlayer, toActions } from './player';
+export { MidiCallback, MidiPlayer } from './player';
+export { toActions } from './utils/actions';
