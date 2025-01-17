@@ -17,10 +17,9 @@ import {
 import { Background } from './background';
 import { StageContext, SvgStage, Point } from '@wdaw/svg';
 import { MouseEventHandler, useContext, useState } from 'react';
-import { EditActionType, NotePoint, SelectZone } from '../types';
+import { EditActionType, Maybe, NotePoint, SelectZone } from '../types';
 import { ConfiguratorContext } from '../configurator';
 import { useKeyAction } from '../utils';
-import { Maybe } from '../../engine/common/types';
 
 const viewBox = [
   -KEYBOARD_WIDTH,

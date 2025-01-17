@@ -20,3 +20,5 @@ export type NotePoint = BaseNote & {
 };
 
 export type EditActionType = 'select' | 'draw';
+
+export type Maybe<T> = T | undefined;
