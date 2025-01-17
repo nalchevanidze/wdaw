@@ -13,19 +13,22 @@ class Track {
 
   constructor(private synth: Synth) {}
 
-  public next = (current: number) => this.actions[current];
+  public next = (isPlaying: boolean, current: number) =>
+    this.synth.next(this.preset, isPlaying ? this.actions[current] : {});
+
+  public background = () => this.synth.next(this.preset);
 
   public notes = () => this.synth.getNotes();
 
   public clear = () => this.synth.clear();
 
-  public done = (current: number) => current > this.actions.length;
+  public isDone = (current: number) => current >= this.actions.length;
 
   public setMidi = (midi: Midi): void => {
     this.actions = toActions(midi);
   };
 
-  public setPreset(preset: Preset) {
+  public setPreset = (preset: Preset) => {
     this.preset = preset;
   }
 }

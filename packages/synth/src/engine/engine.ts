@@ -41,6 +41,8 @@ export class SynthEngine implements SoundIterator {
     this.player.refresh();
   }
 
+  public setPreset = this.track.setPreset;
+
   public destroy() {
     this.player.setTime(0);
     this.synth.clear();
@@ -51,6 +53,6 @@ export class SynthEngine implements SoundIterator {
 
   public next() {
     this.player.refresh();
-    return this.synth.next(this.preset, this.player.next());
+    return this.player.next();
   }
 }

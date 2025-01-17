@@ -32,20 +32,21 @@ class MidiPlayer {
 
   public next = () => {
     if (!this.tempo.next()) {
-      return undefined;
+      return this.track.background();
     }
 
-    const result = this.isPlaying ? this.track.next(this.current) : undefined;
+    const { current, isPlaying } = this;
+    
 
-    if (this.isPlaying) {
-      this.current = this.current + 1;
+    if (isPlaying) {
+      this.current = current + 1;
     }
 
-    if (this.track.done(this.current)) {
+    if (this.track.isDone(this.current)) {
       this.current = 0;
     }
 
-    return result ?? {};
+    return this.track.next(isPlaying, current);
   };
 
   public setTime = (time: number) => {
