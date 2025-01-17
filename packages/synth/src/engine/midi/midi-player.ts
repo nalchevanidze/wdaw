@@ -71,13 +71,13 @@ class MidiPlayer {
       return undefined;
     }
 
-    const result = this.isPlaying ? actions[this.current] : undefined;
+    const result = this.isPlaying ? actions[this.current] : {};
 
     if (this.isPlaying) {
       this.current = (this.current + 1) % actions.length;
     }
 
-    return this.synth.prepareNext(seq, result)
+    return this.synth.nextSequence(seq, result)
   };
 
   public setTime = (time: number) => {

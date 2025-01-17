@@ -37,7 +37,7 @@ export class Synth {
   };
 
 
-  public prepareNext(seq: Sequence, action?: NoteAction){
+  public nextSequence(seq: Sequence, action: NoteAction){
     action?.start?.forEach((n) => this.sequencer.startNote(n));
     action?.end?.forEach((n) => this.sequencer.endNote(n));   
     return this.sequencer.next(seq) ?? action;
