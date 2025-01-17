@@ -2,6 +2,7 @@ export type Maybe<T> = T | undefined;
 
 
 // SYNTH
+
 export type Sequence = Record<number, Maybe<number[]>> & { enabled?: boolean };
 
 export type FilterConfig = {
@@ -39,4 +40,7 @@ export type EnvelopeConfig = {
   release: number;
 };
 
+
 export type WAVE_ID = keyof WaveConfig;
+
+export type ENVELOPE_ID = 'gain' | 'filter';

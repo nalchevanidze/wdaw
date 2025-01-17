@@ -1,7 +1,8 @@
 import { audioProcessor, SoundIterator } from './audio-processor';
 import { Midi, NoteAction, PLAYER_ACTION } from './types';
-import { Preset, Synth } from './synth';
+import {  Synth } from './synth';
 import { MidiCallback, MidiPlayer, toActions } from './player';
+import { Preset } from './common/types';
 
 export class SynthEngine implements SoundIterator {
   private synth = new Synth();

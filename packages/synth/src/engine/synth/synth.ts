@@ -1,7 +1,7 @@
+import { Preset } from '../common/types';
 import { NoteAction } from '../types';
 import { Arpeggiator } from './arp/arpeggiator';
 import { Sound } from './oscillator/sound';
-import { Preset } from './oscillator/types';
 
 const toSequence = (preset: Preset, note: number) =>
   preset.sequence.enabled ? undefined : [note];
