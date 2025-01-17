@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ConfiguratorContext } from '../configurator';
 import { colors } from '../styles';
 import { Panel } from './panel';
-import { SEQUENCE_LENGTH } from '../../core/defs';
+import { SEQUENCE_LENGTH } from '../../engine';
 import { toggleARPNote } from '../../utils/arp';
 
 const STEP_SIZE = 10;

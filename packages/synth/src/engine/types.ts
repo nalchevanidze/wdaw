@@ -1,13 +1,4 @@
 import { PresetName } from './state';
-import {
-  ENVELOPE_ID,
-  EnvelopeConfig,
-  FILTER_ID,
-  Midi,
-  PANEL_ID,
-  PLAYER_ACTION,
-  WAVE_ID
-} from './types';
 import { Sequence } from './synth/arp/arpeggiator';
 
 export type SET_TIME = { type: 'SET_TIME'; payload: number };
@@ -74,3 +65,54 @@ export type EngineAction =
   | SET_FILTER
   | SET_PRESET
   | REFRESH;
+
+
+  export type Maybe<T> = T | undefined;
+
+  export type NoteAction = {
+    start?: number[];
+    end?: number[];
+  };
+  
+  export type Note = {
+    id: string;
+    length: number;
+    at: number;
+  };
+  
+  export type PANEL_ID = 'filter' | 'sequence' | 'wave';
+  
+  export type ENVELOPE_ID = 'gain' | 'filter';
+  
+  export type PLAYER_ACTION = 'play' | 'pause' | 'stop';
+  
+  export type FILTER_ID = 'cutoff' | 'envelope' | 'resonance';
+  
+  export type WaveConfig = {
+    sine: number;
+    square: number;
+    saw: number;
+    saw2: number;
+    tech: number;
+    noise: number;
+    fm: number;
+    fmFreq: number;
+    offset: number;
+    voices: number;
+    octave: number;
+  };
+  
+  export type EnvelopeConfig = {
+    attack: number;
+    decay: number;
+    sustain: number;
+    release: number;
+  };
+  
+  export type WAVE_ID = keyof WaveConfig;
+  
+  export type Midi = {
+    size: number;
+    notes: Record<number, Note[]>;
+  };
+  
