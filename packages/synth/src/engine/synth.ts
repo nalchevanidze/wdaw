@@ -43,8 +43,8 @@ export class Synth {
     return this.sequencer.next(seq) ?? action;
   }
 
-  public next(preset: Preset, start?: number[], end?: number[]) {
-    this.sound.setNotes(preset, start, end);
+  public next(preset: Preset, action?: NoteAction) {
+    this.sound.setNotes(preset, action?.start, action?.end);
     return this.sound.next(preset);
   }
 }
