@@ -1,5 +1,4 @@
-import { Maybe, NoteAction } from '../types';
-
+import { NoteAction } from '../types';
 
 export enum NOTE_ACTION {
   START,

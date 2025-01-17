@@ -3,7 +3,7 @@ import { keysToIndexes } from '../../utils/notes';
 import { Tempo } from './tempo';
 import { SAMPLE_RATE } from '../synth/oscillator/utils';
 import { Midi, NoteAction } from '../types';
-import { Synth } from '../synth/synth';
+import { Synth } from '../synth';
 
 export type MidiState = {
   isPlaying: boolean;

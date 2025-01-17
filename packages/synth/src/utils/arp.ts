@@ -1,4 +1,4 @@
-import { Sequence } from '../engine/synth/arp/arpeggiator';
+import { Sequence } from '../engine/common/types';
 
 type Location = {
   row: number;
