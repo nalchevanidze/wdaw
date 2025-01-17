@@ -1,6 +1,7 @@
 import { Tempo } from './tempo';
 import { NoteAction } from '../types';
 import { SAMPLE_RATE } from '../common/defs';
+import { Track } from './track';
 
 export type MidiState = {
   isPlaying: boolean;
@@ -10,17 +11,12 @@ export type MidiState = {
 
 export type MidiCallback = (s: MidiState) => void;
 
-type ISynth = {
-  getNotes(): number[];
-  clear(): void;
-};
-
 class MidiPlayer {
   private current = 0;
   private tempo = new Tempo(SAMPLE_RATE);
   onChange: MidiCallback;
 
-  constructor(private synth: ISynth) {}
+  constructor(private track: Track) {}
 
   public isPlaying = false;
 
@@ -29,20 +25,24 @@ class MidiPlayer {
       this.onChange({
         isPlaying: this.isPlaying,
         time: this.current,
-        notes: this.synth.getNotes()
+        notes: this.track.notes()
       })
     );
   }
 
-  public next = (actions: NoteAction[]) => {
+  public next = () => {
     if (!this.tempo.next()) {
       return undefined;
     }
 
-    const result = this.isPlaying ? actions[this.current] : undefined;
+    const result = this.isPlaying ? this.track.next(this.current) : undefined;
 
     if (this.isPlaying) {
-      this.current = (this.current + 1) % actions.length;
+      this.current = this.current + 1;
+    }
+
+    if (this.track.done(this.current)) {
+      this.current = 0;
     }
 
     return result ?? {};
@@ -53,7 +53,7 @@ class MidiPlayer {
     this.onChange({
       isPlaying: this.isPlaying,
       time,
-      notes: this.synth.getNotes()
+      notes: this.track.notes()
     });
   };
 
@@ -63,7 +63,7 @@ class MidiPlayer {
 
   public pause = (): void => {
     this.isPlaying = false;
-    this.synth.clear();
+    this.track.clear();
   };
 
   stop() {

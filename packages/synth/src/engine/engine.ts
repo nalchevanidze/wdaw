@@ -1,14 +1,14 @@
 import { audioProcessor, SoundIterator } from './audio-processor';
-import { Midi, NoteAction, PLAYER_ACTION } from './types';
-import {  Synth } from './synth';
-import { MidiCallback, MidiPlayer, toActions } from './player';
+import { Midi, PLAYER_ACTION } from './types';
+import { Synth } from './synth';
+import { MidiCallback, MidiPlayer, Track } from './player';
 import { Preset } from './common/types';
 
 export class SynthEngine implements SoundIterator {
   private synth = new Synth();
-  private player = new MidiPlayer(this.synth);
+  private track = new Track(this.synth);
+  private player = new MidiPlayer(this.track);
 
-  private actions: NoteAction[];
   private preset: Preset;
   private closeContext: () => void;
 
@@ -20,9 +20,7 @@ export class SynthEngine implements SoundIterator {
     this.player.onChange = f;
   }
 
-  public setMidi = (midi: Midi): void => {
-    this.actions = toActions(midi);
-  };
+  public setMidi = this.track.setMidi;
 
   public setPreset(preset: Preset) {
     this.preset = preset;
@@ -59,6 +57,6 @@ export class SynthEngine implements SoundIterator {
 
   public next() {
     this.player.refresh();
-    return this.synth.next(this.preset, this.player.next(this.actions));
+    return this.synth.next(this.preset, this.player.next());
   }
 }
