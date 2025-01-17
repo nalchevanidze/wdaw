@@ -1,4 +1,4 @@
-import { EnvelopeConfig } from '../../core/types';
+import { EnvelopeConfig } from '../../../core/types';
 import { WaveNode } from './types';
 import { counter } from './utils';
 

@@ -1,5 +1,5 @@
-import { Sequencer } from './midi/sequencer';
-import { NoteAction, Sequence } from './midi/types';
+import { NoteAction } from '../../core/types';
+import { Arpeggiator } from './arp/arpeggiator';
 import { Sound } from './oscillator/sound';
 import { Preset } from './oscillator/types';
 
@@ -8,15 +8,15 @@ const toSequence = (preset: Preset, note: number) =>
 
 export class Synth {
   private sound = new Sound();
-  private sequencer = new Sequencer();
+  private arp = new Arpeggiator();
 
   public startNote(preset: Preset, note: number) {
-    this.sequencer.startNote(note);
+    this.arp.startNote(note);
     this.sound.setNotes(preset, toSequence(preset, note));
   }
 
   public endNote(preset: Preset, note: number) {
-    this.sequencer.endNote(note);
+    this.arp.endNote(note);
     this.sound.setNotes(preset, undefined, toSequence(preset, note));
   }
 
@@ -26,20 +26,20 @@ export class Synth {
 
   public clear() {
     this.sound.clear();
-    this.sequencer.clear();
+    this.arp.clear();
   }
 
-  public getNotes = () => this.sequencer.getNotes();
+  public getNotes = () => this.arp.getNotes();
 
   public next(preset: Preset, action?: NoteAction): number {
     if (!action) {
       return this.sound.next(preset);
     }
 
-    action.start?.forEach((n) => this.sequencer.startNote(n));
-    action.end?.forEach((n) => this.sequencer.endNote(n));
+    action.start?.forEach((n) => this.arp.startNote(n));
+    action.end?.forEach((n) => this.arp.endNote(n));
 
-    const arpActions = this.sequencer.next(preset.sequence) ?? action;
+    const arpActions = this.arp.next(preset.sequence) ?? action;
 
     this.sound.setNotes(preset, arpActions?.start, arpActions?.end);
 

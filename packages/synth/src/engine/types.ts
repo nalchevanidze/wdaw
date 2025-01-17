@@ -1,5 +1,4 @@
 import { PresetName } from './state';
-import { ARP_NOTE_LOCATION, Sequence } from './midi/types';
 import {
   ENVELOPE_ID,
   EnvelopeConfig,
@@ -9,6 +8,7 @@ import {
   PLAYER_ACTION,
   WAVE_ID
 } from '../core/types';
+import { Sequence } from './synth/arp/arpeggiator';
 
 export type SET_TIME = { type: 'SET_TIME'; payload: number };
 

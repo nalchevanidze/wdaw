@@ -1,5 +1,5 @@
-import { EnvelopeConfig, WaveConfig } from '../../core/types';
-import { Sequence } from '../midi/types';
+import { EnvelopeConfig, WaveConfig } from '../../../core/types';
+import { Sequence } from '../arp/arpeggiator';
 
 export type FilterConfig = {
   cutoff: number;

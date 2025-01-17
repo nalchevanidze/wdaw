@@ -1,9 +1,9 @@
-import { NoteAction, NOTE_ACTION } from './types';
+import { NOTE_ACTION } from './types';
 import { keysToIndexes } from '../../utils/notes';
 import { Tempo } from './tempo';
-import { SAMPLE_RATE } from '../oscillator/utils';
-import { Midi } from '../../core/types';
-import { Synth } from '../synth';
+import { SAMPLE_RATE } from '../synth/oscillator/utils';
+import { Midi, NoteAction } from '../../core/types';
+import { Synth } from '../synth/synth';
 
 export type MidiState = {
   isPlaying: boolean;

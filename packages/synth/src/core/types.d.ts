@@ -1,5 +1,10 @@
 export type Maybe<T> = T | undefined;
 
+export type NoteAction = {
+  start?: number[];
+  end?: number[];
+};
+
 export type Note = {
   id: string;
   length: number;
@@ -36,7 +41,6 @@ export type EnvelopeConfig = {
 };
 
 export type WAVE_ID = keyof WaveConfig;
-
 
 export type Midi = {
   size: number;

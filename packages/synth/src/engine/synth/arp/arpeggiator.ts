@@ -1,10 +1,11 @@
-import { SEQUENCE_LENGTH } from '../../core/defs';
-import { Maybe } from '../../core/types';
-import { ARP_NOTE_LOCATION, NoteAction, Sequence } from './types';
+import { SEQUENCE_LENGTH } from '../../../core/defs';
+import { Maybe, NoteAction } from '../../../core/types';
+
+export type Sequence = Record<number, Maybe<number[]>> & { enabled?: boolean };
 
 const END_INDEX = SEQUENCE_LENGTH * 2;
 
-class Sequencer {
+class Arpeggiator {
   private last: Maybe<number[]>;
   private index: number;
   public notes: Set<number> = new Set([]);
@@ -65,4 +66,4 @@ class Sequencer {
   }
 }
 
-export { Sequencer };
+export { Arpeggiator };

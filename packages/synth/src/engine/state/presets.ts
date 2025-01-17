@@ -1,4 +1,4 @@
-import { Preset } from '../oscillator/types';
+import { Preset } from '../synth/oscillator/types';
 
 const prelude: Preset = {
   wave: {
