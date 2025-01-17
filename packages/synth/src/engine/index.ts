@@ -11,3 +11,4 @@ export {
   Sequence
 } from './common/types';
 export { getPreset } from './state';
+export { Note, Midi, PLAYER_ACTION, PANEL_ID } from './types';

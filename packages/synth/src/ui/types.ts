@@ -1,5 +1,5 @@
 import { Point } from '@wdaw/svg';
-import { Note } from '../engine/types';
+import { Note } from '../engine';
 
 export type GraphNote = {
   position: number;

@@ -5,7 +5,7 @@ import {
   OCTAVE_SIZE
 } from '../../utils/notes';
 import { GraphNote, NotePoint, SelectZone } from '../types';
-import { Midi, Note } from '../../engine/types';
+import { Midi, Note } from '../../engine';
 
 // note height and width
 export const NOTE_SIZE = 10 as const;
