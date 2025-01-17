@@ -14,7 +14,7 @@ class Track {
   constructor(private synth: Synth) {}
 
   public next = (isPlaying: boolean, current: number) =>
-    this.synth.next(this.preset, isPlaying ? this.actions[current] : {});
+    this.synth.next(this.preset, (isPlaying ? this.actions[current] : {}) ?? {});
 
   public background = () => this.synth.next(this.preset);
 
