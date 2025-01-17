@@ -68,7 +68,7 @@ class MidiPlayer {
 
   public next = (actions: NoteAction[], seq: Sequence) => {
     if (!this.tempo.next()) {
-      return {};
+      return undefined;
     }
 
     const result = this.isPlaying ? actions[this.current] : undefined;
