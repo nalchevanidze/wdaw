@@ -74,13 +74,12 @@ class MidiPlayer {
 
     const keyNotes = this.isPlaying ? actions[this.current] : undefined;
 
-    keyNotes?.start?.forEach((n) => this.synth.sequencer.startNote(n));
-    keyNotes?.end?.forEach((n) => this.synth.sequencer.endNote(n));
-
     if (this.isPlaying) {
       this.current = (this.current + 1) % actions.length;
     }
 
+    keyNotes?.start?.forEach((n) => this.synth.sequencer.startNote(n));
+    keyNotes?.end?.forEach((n) => this.synth.sequencer.endNote(n));   
     const keyboard = this.synth.sequencer.next(seq) ?? keyNotes;
 
     this.refresh();
