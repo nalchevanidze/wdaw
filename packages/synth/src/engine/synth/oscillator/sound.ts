@@ -23,7 +23,7 @@ export class Sound {
     this.notes = {};
   };
 
-  public next(state: Preset) {
+  public next = (state: Preset) => {
     const value = this.osc(true).reduce((v, osc) => v + osc.next(state), 0);
 
     return safeWaveValue(value);

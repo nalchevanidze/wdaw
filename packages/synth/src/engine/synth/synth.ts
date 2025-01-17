@@ -31,18 +31,12 @@ export class Synth {
 
   public getNotes = () => this.arp.getNotes();
 
-  public next(preset: Preset, action?: NoteAction): number {
-    if (!action) {
-      return this.sound.next(preset);
-    }
-
-    action.start?.forEach((n) => this.arp.startNote(n));
-    action.end?.forEach((n) => this.arp.endNote(n));
-
+  public nextActions(preset: Preset, action?: NoteAction) {
+    action?.start?.forEach((n) => this.arp.startNote(n));
+    action?.end?.forEach((n) => this.arp.endNote(n));
     const arpActions = this.arp.next(preset.sequence) ?? action;
-
     this.sound.setNotes(preset, arpActions?.start, arpActions?.end);
-
-    return this.sound.next(preset);
   }
+
+  public next = this.sound.next;
 }

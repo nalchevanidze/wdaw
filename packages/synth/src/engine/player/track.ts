@@ -13,10 +13,14 @@ class Track {
 
   constructor(private synth: Synth) {}
 
-  public next = (isPlaying: boolean, current: number) =>
-    this.synth.next(this.preset, (isPlaying ? this.actions[current] : {}) ?? {});
+  public nextActions = (isPlaying: boolean, current: number) => {
+    this.synth.nextActions(
+      this.preset,
+      isPlaying ? this.actions[current] : undefined
+    );
+  };
 
-  public background = () => this.synth.next(this.preset);
+  public next = () => this.synth.next(this.preset);
 
   public notes = () => this.synth.getNotes();
 
@@ -30,7 +34,7 @@ class Track {
 
   public setPreset = (preset: Preset) => {
     this.preset = preset;
-  }
+  };
 }
 
 export { Track };

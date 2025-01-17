@@ -31,22 +31,19 @@ class MidiPlayer {
   }
 
   public next = () => {
-    if (!this.tempo.next()) {
-      return this.track.background();
+    if (this.tempo.next()) {
+      this.track.nextActions(this.isPlaying, this.current);
+
+      if (this.isPlaying) {
+        this.current = this.current + 1;
+      }
+
+      if (this.track.isDone(this.current)) {
+        this.current = 0;
+      }
     }
 
-    const { current, isPlaying } = this;
-    
-
-    if (isPlaying) {
-      this.current = current + 1;
-    }
-
-    if (this.track.isDone(this.current)) {
-      this.current = 0;
-    }
-
-    return this.track.next(isPlaying, current);
+    return this.track.next();
   };
 
   public setTime = (time: number) => {
