@@ -9,11 +9,19 @@ class Sequencer {
   private index: number;
   public notes: Set<number> = new Set([]);
 
-  public restart = (): void => {
-    this.index = 0;
-  };
-
   public getNotes = () => Array.from(this.notes);
+
+  startNote(note: number) {
+    if (!this.notes.has(note)) {
+      this.index = 0;
+    }
+
+    this.notes.add(note);
+  }
+
+  endNote(note: number) {
+    this.notes.delete(note);
+  }
 
   next = (sequence: Sequence): NoteAction | undefined => {
     const { notes } = this;
@@ -52,8 +60,7 @@ class Sequencer {
     return { start, end };
   };
 
-
-  clear(){
+  clear() {
     this.notes.clear();
   }
 }

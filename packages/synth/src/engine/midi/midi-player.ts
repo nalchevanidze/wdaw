@@ -104,24 +104,11 @@ class MidiPlayer {
 
   public clear = () => this.sequencer.clear();
 
-  private note = (start: boolean, note: number) => {
-    const { notes } = this.sequencer;
-
-    if (start) {
-      if (!notes.has(note)) {
-        this.sequencer.restart();
-      }
-      notes.add(note);
-    } else {
-      notes.delete(note);
-    }
-  };
-
   public startNote = (seq: Sequence, note: number): MidiStep => {
     const { current } = this;
     const start = seq.enabled ? undefined : [note];
 
-    this.note(true, note);
+    this.sequencer.startNote(note);
     this.refresh();
     return { current, start };
   };
@@ -130,7 +117,7 @@ class MidiPlayer {
     const { current } = this;
     const end = seq.enabled ? undefined : [note];
 
-    this.note(false, note);
+    this.sequencer.endNote(note);
     this.refresh();
     return { current, end };
   };
