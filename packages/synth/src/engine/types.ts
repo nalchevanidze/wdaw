@@ -1,5 +1,5 @@
 import { PresetName } from './state';
-import { ENVELOPE_ID, EnvelopeConfig, Sequence, WAVE_ID } from './common/types';
+import { ENVELOPE_ID, EnvelopeConfig, FILTER_ID, Sequence, WAVE_ID } from './common/types';
 
 export type SET_TIME = { type: 'SET_TIME'; payload: number };
 
@@ -81,7 +81,6 @@ export type PANEL_ID = 'filter' | 'sequence' | 'wave';
 
 export type PLAYER_ACTION = 'play' | 'pause' | 'stop';
 
-export type FILTER_ID = 'cutoff' | 'envelope' | 'resonance';
 
 export type Midi = {
   size: number;

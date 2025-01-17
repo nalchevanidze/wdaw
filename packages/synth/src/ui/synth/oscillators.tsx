@@ -5,7 +5,8 @@ import { Grid } from '../utils/grid-line';
 import { Panel } from './panel';
 import PanelPresets from './presets';
 import { WaveButton, WaveButtonProps } from './wave-button';
-import { FILTER_ID, WAVE_ID } from '../../engine/types';
+import { WAVE_ID } from '../../engine/common/types';
+import { FILTER_ID } from '../../engine';
 
 const styles = {
   main: {
