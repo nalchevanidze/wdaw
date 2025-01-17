@@ -105,21 +105,19 @@ class MidiPlayer {
   public clear = () => this.sequencer.clear();
 
   public startNote = (seq: Sequence, note: number): MidiStep => {
-    const { current } = this;
     const start = seq.enabled ? undefined : [note];
 
     this.sequencer.startNote(note);
     this.refresh();
-    return { current, start };
+    return { current: this.current, start };
   };
 
   public endNote = (seq: Sequence, note: number): MidiStep => {
-    const { current } = this;
     const end = seq.enabled ? undefined : [note];
 
     this.sequencer.endNote(note);
     this.refresh();
-    return { current, end };
+    return { current: this.current, end };
   };
 
   stop() {
