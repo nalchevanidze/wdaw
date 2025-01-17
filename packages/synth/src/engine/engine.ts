@@ -2,14 +2,12 @@ import { audioProcessor, SoundIterator } from './audio-processor';
 import { Midi, PLAYER_ACTION } from './types';
 import { Synth } from './synth';
 import { MidiCallback, MidiPlayer, Track } from './player';
-import { Preset } from './common/types';
 
 export class SynthEngine implements SoundIterator {
   private synth = new Synth();
   private track = new Track(this.synth);
   private player = new MidiPlayer(this.track);
 
-  private preset: Preset;
   private closeContext: () => void;
 
   constructor() {
@@ -21,10 +19,6 @@ export class SynthEngine implements SoundIterator {
   }
 
   public setMidi = this.track.setMidi;
-
-  public setPreset(preset: Preset) {
-    this.preset = preset;
-  }
 
   public setPlay(mode: PLAYER_ACTION) {
     switch (mode) {
@@ -38,12 +32,12 @@ export class SynthEngine implements SoundIterator {
   }
 
   public startNote(n: number) {
-    this.synth.startNote(this.preset, n);
+    this.track.startNote(n);
     this.player.refresh();
   }
 
   public endNote(n: number) {
-    this.synth.endNote(this.preset, n);
+    this.track.endNote(n);
     this.player.refresh();
   }
 
