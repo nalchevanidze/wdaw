@@ -1,4 +1,4 @@
-import { EnvelopeConfig } from '../../types';
+import { EnvelopeConfig } from '../../common/types';
 import { WaveNode } from './types';
 import { counter } from './utils';
 
@@ -18,7 +18,6 @@ export class Envelope implements WaveNode<EnvelopeConfig> {
 
   live = false;
 
-
   next = (env: EnvelopeConfig): number => {
     if (!this.live) return 0;
 
@@ -26,11 +25,7 @@ export class Envelope implements WaveNode<EnvelopeConfig> {
       case STAGE.ATTACK: {
         const { value, done } = this.iter.next();
         if (done) {
-          this.iter = counter(
-            toMilliseconds(env.decay),
-            value,
-            env.sustain
-          );
+          this.iter = counter(toMilliseconds(env.decay), value, env.sustain);
           this.stage = STAGE.DEACY;
           this.level = value;
         }

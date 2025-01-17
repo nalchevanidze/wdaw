@@ -1,5 +1,5 @@
+import { Preset } from '../../common/types';
 import { SoundEvent } from './sound-event';
-import { Preset } from './types';
 import { nList, safeWaveValue } from './utils';
 
 type NotesRegister = {

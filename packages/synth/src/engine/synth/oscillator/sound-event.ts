@@ -1,7 +1,8 @@
 import { Envelope } from './envelope';
 import { Oscillators } from './osc/osc';
 import { MoogFilter } from './filter';
-import { Preset, WaveNode } from './types';
+import { WaveNode } from './types';
+import { Preset } from '../../common/types';
 
 export class SoundEvent implements WaveNode<Preset> {
   private gainEnvelope = new Envelope();

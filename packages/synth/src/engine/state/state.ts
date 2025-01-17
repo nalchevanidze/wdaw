@@ -1,5 +1,5 @@
+import { Preset } from '../common/types';
 import { Midi } from '../types';
-import { Preset } from '../synth/oscillator/types';
 
 import { prelude } from './midi';
 import { PresetName, presets } from './presets';

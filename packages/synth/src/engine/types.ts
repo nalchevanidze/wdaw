@@ -1,5 +1,5 @@
 import { PresetName } from './state';
-import { Sequence } from './common/types';
+import { EnvelopeConfig, Sequence, WAVE_ID } from './common/types';
 
 export type SET_TIME = { type: 'SET_TIME'; payload: number };
 
@@ -84,29 +84,6 @@ export type ENVELOPE_ID = 'gain' | 'filter';
 export type PLAYER_ACTION = 'play' | 'pause' | 'stop';
 
 export type FILTER_ID = 'cutoff' | 'envelope' | 'resonance';
-
-export type WaveConfig = {
-  sine: number;
-  square: number;
-  saw: number;
-  saw2: number;
-  tech: number;
-  noise: number;
-  fm: number;
-  fmFreq: number;
-  offset: number;
-  voices: number;
-  octave: number;
-};
-
-export type EnvelopeConfig = {
-  attack: number;
-  decay: number;
-  sustain: number;
-  release: number;
-};
-
-export type WAVE_ID = keyof WaveConfig;
 
 export type Midi = {
   size: number;

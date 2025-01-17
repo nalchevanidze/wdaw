@@ -1,8 +1,8 @@
-import { WaveConfig } from '../../../types';
 import { nList, noteToFrequency } from '../utils';
 import { waveFunction } from './wave';
 import { WaveNode } from '../types';
 import { SAMPLE_RATE } from '../../../common/defs';
+import { WaveConfig } from '../../../common/types';
 
 const rescale = (value: number, deep: number): number => {
   deep = 2 / deep ** 2;
