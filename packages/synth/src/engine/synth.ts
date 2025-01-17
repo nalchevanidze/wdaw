@@ -36,15 +36,17 @@ export class Synth {
     this.sound.setNotes(preset, start, end);
   };
 
+  public next(preset: Preset, action?: NoteAction) : number {
+    if (!action) {
+        return this.sound.next(preset);
+    }
 
-  public nextSequence(seq: Sequence, action: NoteAction){
-    action?.start?.forEach((n) => this.sequencer.startNote(n));
-    action?.end?.forEach((n) => this.sequencer.endNote(n));   
-    return this.sequencer.next(seq) ?? action;
-  }
+    action.start?.forEach((n) => this.sequencer.startNote(n));
+    action.end?.forEach((n) => this.sequencer.endNote(n));
 
-  public next(preset: Preset, action?: NoteAction) {
-    this.sound.setNotes(preset, action?.start, action?.end);
+    const a = this.sequencer.next(preset.sequence) ?? action;
+
+    this.sound.setNotes(preset, a?.start, a?.end);
     return this.sound.next(preset);
   }
 }

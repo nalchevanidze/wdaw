@@ -1,4 +1,4 @@
-import {  NoteAction, NOTE_ACTION, Sequence } from './types';
+import { NoteAction, NOTE_ACTION } from './types';
 import { keysToIndexes } from '../../utils/notes';
 import { Tempo } from './tempo';
 import { SAMPLE_RATE } from '../oscillator/utils';
@@ -66,18 +66,18 @@ class MidiPlayer {
     );
   }
 
-  public next = (actions: NoteAction[], seq: Sequence) => {
+  public next = (actions: NoteAction[]) => {
     if (!this.tempo.next()) {
       return undefined;
     }
 
-    const result = this.isPlaying ? actions[this.current] : {};
+    const result = this.isPlaying ? actions[this.current] : undefined;
 
     if (this.isPlaying) {
       this.current = (this.current + 1) % actions.length;
     }
 
-    return this.synth.nextSequence(seq, result)
+    return result ?? {};
   };
 
   public setTime = (time: number) => {
