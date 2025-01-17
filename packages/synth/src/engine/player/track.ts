@@ -26,7 +26,7 @@ class Track {
 
   public clear = () => this.synth.clear();
 
-  public isDone = (current: number) => current >= this.actions.length;
+  public size = () => this.actions.length;
 
   public setMidi = (midi: Midi): void => {
     this.actions = toActions(midi);

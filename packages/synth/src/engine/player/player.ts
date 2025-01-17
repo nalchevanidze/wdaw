@@ -1,7 +1,6 @@
 import { Tempo } from './tempo';
-import { NoteAction } from '../types';
 import { SAMPLE_RATE } from '../common/defs';
-import { Track } from './track';
+import { Tracks } from './tracks';
 
 export type MidiState = {
   isPlaying: boolean;
@@ -16,7 +15,7 @@ class MidiPlayer {
   private tempo = new Tempo(SAMPLE_RATE);
   onChange: MidiCallback;
 
-  constructor(private track: Track) {}
+  constructor(private track: Tracks) {}
 
   public isPlaying = false;
 
