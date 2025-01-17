@@ -1,11 +1,9 @@
 import { audioProcessor, SoundIterator } from './oscillator/audio-processor';
 import { MidiCallback, MidiPlayer, toActions } from './midi/midi-player';
-import { Sound } from './oscillator/sound';
-import { MidiStep, NoteAction } from './midi/types';
-import { Sequencer } from './midi/sequencer';
 import { Preset } from './oscillator/types';
 import { Midi, PLAYER_ACTION } from '../core/types';
 import { Synth } from './synth';
+import { NoteAction } from './midi/types';
 
 class CoreEngine {
   private synth = new Synth();
