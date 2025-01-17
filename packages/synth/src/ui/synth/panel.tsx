@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ConfiguratorContext } from '../configurator';
 
 import { colors } from '../styles';
-import { PANEL_ID } from '../../core/types';
+import { PANEL_ID } from '../../engine/types';
 
 const styles = {
   label: {

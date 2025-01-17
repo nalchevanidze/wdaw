@@ -1,4 +1,4 @@
-import { WaveConfig } from '../../../../core/types';
+import { WaveConfig } from '../../../types';
 import { SAMPLE_RATE, nList, noteToFrequency } from '../utils';
 import { waveFunction } from './wave';
 import { WaveNode } from '../types';

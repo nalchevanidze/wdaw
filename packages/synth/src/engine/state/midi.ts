@@ -1,4 +1,4 @@
-import { Midi } from '../../core/types';
+import { Midi } from '../types';
 
 const prelude: Midi = {
   size: 16,

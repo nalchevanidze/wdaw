@@ -1,4 +1,4 @@
-import { EnvelopeConfig, WaveConfig } from '../../../core/types';
+import { EnvelopeConfig, WaveConfig } from '../../types';
 import { Sequence } from '../arp/arpeggiator';
 
 export type FilterConfig = {

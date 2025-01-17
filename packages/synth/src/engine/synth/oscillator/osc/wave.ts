@@ -1,4 +1,4 @@
-import { WaveConfig } from '../../../../core/types';
+import { WaveConfig } from '../../../types';
 
 export const waveFunction = (
   i: number,

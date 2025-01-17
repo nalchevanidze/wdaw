@@ -19,7 +19,7 @@ import { StageContext, SvgStage, Point } from '@wdaw/svg';
 import { MouseEventHandler, useContext, useState } from 'react';
 import { EditActionType, NotePoint, SelectZone } from '../types';
 import { ConfiguratorContext } from '../configurator';
-import { Maybe } from '../../core/types';
+import { Maybe } from '../../engine/types';
 import { useKeyAction } from '../utils';
 
 const viewBox = [

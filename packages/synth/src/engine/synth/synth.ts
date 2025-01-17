@@ -1,4 +1,4 @@
-import { NoteAction } from '../../core/types';
+import { NoteAction } from '../types';
 import { Arpeggiator } from './arp/arpeggiator';
 import { Sound } from './oscillator/sound';
 import { Preset } from './oscillator/types';

@@ -7,7 +7,7 @@ import {
   PANEL_ID,
   PLAYER_ACTION,
   WAVE_ID
-} from '../core/types';
+} from './types';
 import { Sequence } from './synth/arp/arpeggiator';
 
 export type SET_TIME = { type: 'SET_TIME'; payload: number };

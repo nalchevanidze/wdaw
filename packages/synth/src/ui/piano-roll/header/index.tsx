@@ -4,7 +4,7 @@ import HeaderButton from './header-button';
 import { EditActionType } from '../../types';
 import { ConfiguratorContext } from '../../configurator';
 import { colors } from '../../styles';
-import { PLAYER_ACTION } from '../../../core/types';
+import { PLAYER_ACTION } from '../../../engine/types';
 
 const containerStyle = {
   display: 'flex',
