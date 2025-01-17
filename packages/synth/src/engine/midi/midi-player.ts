@@ -71,16 +71,13 @@ class MidiPlayer {
       return {};
     }
 
-    const keyNotes = this.isPlaying ? actions[this.current] : undefined;
+    const result = this.isPlaying ? actions[this.current] : undefined;
 
     if (this.isPlaying) {
       this.current = (this.current + 1) % actions.length;
     }
 
-
-    this.refresh();
-    
-    return this.synth.prepareNext(seq, keyNotes)
+    return this.synth.prepareNext(seq, result)
   };
 
   public setTime = (time: number) => {

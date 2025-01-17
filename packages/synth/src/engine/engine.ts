@@ -47,7 +47,7 @@ class CoreEngine {
 
   public next(preset: Preset, actions: NoteAction[]) {
     const action = this.player.next(actions, preset.sequence);
-
+    this.player.refresh();
     return this.synth.next(preset, action?.start, action?.end);
   }
 }
