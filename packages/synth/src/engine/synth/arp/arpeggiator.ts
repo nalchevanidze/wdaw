@@ -1,5 +1,6 @@
+import { Maybe } from '../../common/types';
 import { SEQUENCE_LENGTH } from '../../defs';
-import { Maybe, NoteAction } from '../../types';
+import { NoteAction } from '../../types';
 
 export type Sequence = Record<number, Maybe<number[]>> & { enabled?: boolean };
 
