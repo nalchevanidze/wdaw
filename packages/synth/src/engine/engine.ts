@@ -46,9 +46,9 @@ class CoreEngine {
   public setTime = (t: number) => this.player.setTime(t);
 
   public next(preset: Preset, actions: NoteAction[]) {
-    const { start, end } = this.player.next(actions, preset.sequence);
+    const action = this.player.next(actions, preset.sequence);
 
-    return this.synth.next(preset, start, end);
+    return this.synth.next(preset, action?.start, action?.end);
   }
 }
 

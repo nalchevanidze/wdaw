@@ -5,7 +5,7 @@ import { Preset } from './oscillator/types';
 
 export class Synth {
   private sound = new Sound();
-  public sequencer = new Sequencer();
+  private sequencer = new Sequencer();
 
   private toSequence(preset: Preset, note: number) {
     return preset.sequence.enabled ? undefined : [note];

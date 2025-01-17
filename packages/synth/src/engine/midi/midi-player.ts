@@ -66,7 +66,7 @@ class MidiPlayer {
     );
   }
 
-  public next = (actions: NoteAction[], seq: Sequence): NoteAction => {
+  public next = (actions: NoteAction[], seq: Sequence) => {
     if (!this.tempo.next()) {
       return {};
     }
@@ -78,13 +78,9 @@ class MidiPlayer {
     }
 
 
-    const keyboard = this.synth.prepareNext(seq, keyNotes)
-
     this.refresh();
-    return {
-      start: keyboard?.start,
-      end: keyboard?.end
-    };
+    
+    return this.synth.prepareNext(seq, keyNotes)
   };
 
   public setTime = (time: number) => {
