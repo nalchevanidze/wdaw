@@ -1,9 +1,9 @@
 import { NOTE_ACTION } from './types';
 import { keysToIndexes } from '../../utils/notes';
 import { Tempo } from './tempo';
-import { SAMPLE_RATE } from '../synth/oscillator/utils';
 import { Midi, NoteAction } from '../types';
 import { Synth } from '../synth';
+import { SAMPLE_RATE } from '../common/defs';
 
 export type MidiState = {
   isPlaying: boolean;
@@ -99,7 +99,7 @@ class MidiPlayer {
   };
 
   stop() {
-    this.pause()
+    this.pause();
     const time = 0;
     this.current = time;
     this.onChange({

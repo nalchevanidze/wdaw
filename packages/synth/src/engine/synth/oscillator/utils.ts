@@ -31,5 +31,3 @@ export function* counter(
 
   return endValue;
 }
-
-export const SAMPLE_RATE = 44100;

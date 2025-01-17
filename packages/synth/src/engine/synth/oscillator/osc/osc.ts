@@ -1,7 +1,8 @@
 import { WaveConfig } from '../../../types';
-import { SAMPLE_RATE, nList, noteToFrequency } from '../utils';
+import { nList, noteToFrequency } from '../utils';
 import { waveFunction } from './wave';
 import { WaveNode } from '../types';
+import { SAMPLE_RATE } from '../../../common/defs';
 
 const rescale = (value: number, deep: number): number => {
   deep = 2 / deep ** 2;
@@ -31,7 +32,7 @@ export class OSC implements WaveNode<WaveConfig> {
     if (fmAmp === 0) {
       return waveFunction(this.phase, wave);
     }
-    
+
     // new Fm Position
     const fmFreq = wave.fmFreq === 0 ? 1 / 16 : wave.fmFreq * 4;
     const fmLength = length * fmFreq;
