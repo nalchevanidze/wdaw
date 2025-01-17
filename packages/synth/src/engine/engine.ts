@@ -21,6 +21,10 @@ export class SynthEngine implements SoundIterator {
     this.player.onChange = f;
   }
 
+  public setMidi = (midi: Midi): void => {
+    this.actions = toActions(midi);
+  };
+
   public setPreset(preset: Preset) {
     this.preset = preset;
   }
@@ -60,8 +64,4 @@ export class SynthEngine implements SoundIterator {
     this.player.refresh();
     return this.synth.next(this.preset, this.player.next(this.actions));
   }
-
-  public setMidi = (midi: Midi): void => {
-    this.actions = toActions(midi);
-  };
 }
