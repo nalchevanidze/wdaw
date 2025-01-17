@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createContext, useEffect, useReducer } from 'react';
 import { DAWState, initialState, SynthEngine, EngineAction } from '../engine';
-import { getPreset } from '../engine/state/state';
+import { getPreset } from '../engine';
 
 const dispatcher = (
   state: DAWState,

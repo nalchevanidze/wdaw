@@ -4,3 +4,4 @@ export { waveFunction } from './synth';
 export { SynthEngine } from './engine';
 export { SEQUENCE_LENGTH } from './common/defs';
 export { ENVELOPE_ID, EnvelopeConfig, FILTER_ID } from './common/types';
+export { getPreset } from './state';
