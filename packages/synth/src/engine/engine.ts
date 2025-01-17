@@ -1,5 +1,5 @@
 import { audioProcessor, SoundIterator } from './audio-processor';
-import { MidiCallback, MidiPlayer, toActions } from './midi/player';
+import { MidiCallback, MidiPlayer, toActions } from './player/player';
 import { Preset, Synth } from './synth';
 import { Midi, NoteAction, PLAYER_ACTION } from '../core/types';
 
