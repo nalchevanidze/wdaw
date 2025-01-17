@@ -4,6 +4,7 @@ import { Sequencer } from './sequencer';
 import { Tempo } from './tempo';
 import { SAMPLE_RATE } from '../oscillator/utils';
 import { Midi } from '../../core/types';
+import { Synth } from '../synth';
 
 export type MidiState = {
   isPlaying: boolean;
@@ -52,16 +53,16 @@ class MidiPlayer {
   private tempo = new Tempo(SAMPLE_RATE);
   onChange: MidiCallback;
 
-  constructor(private sequencer: Sequencer) {}
+  constructor(private synth: Synth) {}
 
   public isPlaying = false;
 
-  private refresh() {
+  public refresh() {
     requestAnimationFrame(() =>
       this.onChange({
         isPlaying: this.isPlaying,
         time: this.current,
-        notes: this.sequencer.getNotes()
+        notes: this.synth.getNotes()
       })
     );
   }
@@ -73,14 +74,14 @@ class MidiPlayer {
 
     const keyNotes = this.isPlaying ? actions[this.current] : undefined;
 
-    keyNotes?.start?.forEach((n) => this.sequencer.startNote(n));
-    keyNotes?.end?.forEach((n) => this.sequencer.endNote(n));
+    keyNotes?.start?.forEach((n) => this.synth.sequencer.startNote(n));
+    keyNotes?.end?.forEach((n) => this.synth.sequencer.endNote(n));
 
     if (this.isPlaying) {
       this.current = (this.current + 1) % actions.length;
     }
 
-    const keyboard = this.sequencer.next(seq) ?? keyNotes;
+    const keyboard = this.synth.sequencer.next(seq) ?? keyNotes;
 
     this.refresh();
     return {
@@ -94,30 +95,12 @@ class MidiPlayer {
     this.onChange({
       isPlaying: this.isPlaying,
       time,
-      notes: this.sequencer.getNotes()
+      notes: this.synth.getNotes()
     });
   };
 
   public play = (): void => {
     this.isPlaying = true;
-  };
-
-  public clear = () => this.sequencer.clear();
-
-  public startNote = (seq: Sequence, note: number): MidiStep => {
-    const start = seq.enabled ? undefined : [note];
-
-    this.sequencer.startNote(note);
-    this.refresh();
-    return { current: this.current, start };
-  };
-
-  public endNote = (seq: Sequence, note: number): MidiStep => {
-    const end = seq.enabled ? undefined : [note];
-
-    this.sequencer.endNote(note);
-    this.refresh();
-    return { current: this.current, end };
   };
 
   stop() {
