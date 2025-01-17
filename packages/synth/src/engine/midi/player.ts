@@ -99,7 +99,7 @@ class MidiPlayer {
   };
 
   stop() {
-    this.synth.clear();
+    this.pause()
     const time = 0;
     this.current = time;
     this.onChange({
