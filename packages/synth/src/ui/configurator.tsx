@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createContext, useEffect, useReducer } from 'react';
-import { DAWState, initialState, SynthEngine, EngineAction } from '../engine';
+import {  initialState, SynthEngine, EngineAction } from '../engine';
 import { getPreset } from '../engine';
 import { toUIState, UIState } from '../engine/state';
 
@@ -12,6 +12,7 @@ const dispatcher = (
   switch (action.type) {
     case 'SET_TRACK':
       return {
+        midi: initialState.tracks[action.payload].midi,
         tracks: state.tracks.map((t, i) => ({
           ...t,
           active: i == action.payload

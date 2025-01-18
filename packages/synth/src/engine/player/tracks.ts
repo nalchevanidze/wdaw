@@ -19,7 +19,7 @@ export class Tracks {
 
       track.setMidi(s.midi);
       track.setPreset(s.preset);
-      track.setGain(s.gain)
+      track.setGain(s.gain);
 
       return track;
     });

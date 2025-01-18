@@ -28,10 +28,10 @@ const DAW: React.FC = () => (
       <section style={styles.synth}>
         <Synth />
         <Keyboard />
-        <Tracks />
       </section>
       <div style={{ position: 'relative' }}>
         <PianoRoll />
+        <Tracks />
       </div>
     </div>
   </Configurator>
