@@ -29,10 +29,10 @@ const prelude: Midi = {
 const bass: Midi = {
   size: 16,
   notes: {
-    '0': [{ at: 0, id: 'D#1', length: 32 }],
-    '4': [{ at: 0, id: 'D#1', length: 32 }],
-    '8': [{ at: 0, id: 'C#1', length: 32 }],
-    '12': [{ at: 0, id: 'B0', length: 32 }]
+    '0': [{ at: 0, id: 'D#1', length: 8 }],
+    '4': [{ at: 0, id: 'D#1', length: 8 }],
+    '8': [{ at: 0, id: 'C#1', length: 8 }],
+    '12': [{ at: 0, id: 'B0', length: 8 }]
   }
 };
 

@@ -53,14 +53,14 @@ export const getDAWState = (): DAWState => ({
   isPlaying: false,
   time: 0,
   notes: [],
-  currentTrack: 0,
+  currentTrack: 1,
   tracks: [
     {
       preset: getPreset('pluck'),
       midi: prelude
     },
     {
-      preset: getPreset('razor'),
+      preset: getPreset('prelude'),
       midi: prelude
     }
   ]
