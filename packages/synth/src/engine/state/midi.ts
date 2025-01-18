@@ -1,6 +1,7 @@
 import { Midi } from '../types';
 
 const prelude: Midi = {
+  name: "prelude",
   size: 16,
   notes: {
     '0': [
@@ -27,6 +28,7 @@ const prelude: Midi = {
 };
 
 const bass: Midi = {
+  name: "bass",
   size: 16,
   notes: {
     '0': [{ at: 0, id: 'D#2', length: 32 }],

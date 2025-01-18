@@ -11,6 +11,7 @@ const dispatcher = (
   const { envelopes, wave, filter } = state;
   switch (action.type) {
     case 'SET_TRACK':
+      console.log(initialState.tracks[action.payload].midi)
       return {
         midi: initialState.tracks[action.payload].midi,
         tracks: state.tracks.map((t, i) => ({
