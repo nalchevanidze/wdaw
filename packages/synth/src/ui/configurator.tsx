@@ -11,7 +11,12 @@ const dispatcher = (
   const { envelopes, wave, filter } = state;
   switch (action.type) {
     case 'SET_TRACK':
-      return {};
+      return {
+        tracks: state.tracks.map((t, i) => ({
+          ...t,
+          active: i == action.payload
+        }))
+      };
     case 'SET_SEQUENCE':
       return { sequence: action.payload };
     case 'TOGGLE_PANEL':
