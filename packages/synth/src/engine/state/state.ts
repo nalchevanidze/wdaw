@@ -61,7 +61,7 @@ export const toUIState = ({
 
 export const getDAWState = (): DAWState => ({
   player: { isPlaying: false, time: 0, notes: [] },
-  currentTrack: 1,
+  currentTrack: 0,
   tracks: [
     {
       preset: getPreset('pluck'),

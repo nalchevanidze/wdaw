@@ -9,12 +9,13 @@ export class Tracks {
   private size: number;
 
   constructor(private tracks: Track[]) {
-    this.current = tracks[0];
-    this.refresh();
+    this.setTrack(0)
   }
 
   public setTrack = (n: number) => {
+    console.log(n)
     this.current = this.tracks[n];
+    this.refresh();
   };
 
   public set = ({ currentTrack, tracks }: TracksState) => {
@@ -27,13 +28,13 @@ export class Tracks {
 
       return track;
     });
-    this.current = this.tracks[currentTrack];
-    this.refresh();
+
+    this.setTrack(currentTrack)
   };
 
-  public nextActions = (isPlaying: boolean, current: number) => {
+  public nextActions = (isPlaying: boolean, index: number) => {
     for (const track of this.tracks) {
-      track.nextActions(isPlaying, current);
+      track.nextActions(isPlaying, index);
     }
   };
 
