@@ -48,7 +48,7 @@ export const toUIState = ({
   return {
     tracks: tracks.map(
       (t, i): UITrack => ({
-        name: track.midi.name,
+        name: t.midi.name,
         id: i,
         active: currentTrack == i
       })
