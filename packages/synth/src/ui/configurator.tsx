@@ -9,13 +9,16 @@ const dispatcher = (
   action: EngineAction
 ): Partial<DAWState> | undefined => {
   const { tracks } = state;
+  const track = tracks.tracks[tracks.currentTrack];
+
   switch (action.type) {
     case 'SET_TRACK':
       return {
         tracks: { ...tracks, currentTrack: action.payload }
       };
     case 'SET_SEQUENCE':
-      return { sequence: action.payload };
+      track.preset.sequence = action.payload;
+      return { tracks: tracks };
     case 'TOGGLE_PANEL':
       return action.id === 'wave'
         ? undefined
