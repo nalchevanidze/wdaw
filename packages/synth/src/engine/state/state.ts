@@ -1,7 +1,7 @@
 import { Preset } from '../common/types';
 import { Midi } from '../types';
 
-import { prelude } from './midi';
+import { bass, prelude } from './midi';
 import { PresetName, presets } from './presets';
 
 type PlayerState = {
@@ -60,8 +60,8 @@ export const getDAWState = (): DAWState => ({
       midi: prelude
     },
     {
-      preset: getPreset('prelude'),
-      midi: prelude
+      preset: getPreset('wind'),
+      midi: bass
     }
   ]
 });

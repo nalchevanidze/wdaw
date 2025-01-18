@@ -23,6 +23,8 @@ export class Tracks {
       return track;
     });
     this.current = this.tracks[currentTrack];
+    this.refresh();
+
   };
 
   public nextActions = (isPlaying: boolean, current: number) => {
