@@ -12,6 +12,8 @@ type PlayerState = {
 
 export type DAWState = PlayerState & Tracks;
 
+export type UIState = PlayerState & Tracks;
+
 type Tracks = {
   current: number;
   tracks: Track[];

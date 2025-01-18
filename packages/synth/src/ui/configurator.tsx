@@ -2,11 +2,12 @@ import * as React from 'react';
 import { createContext, useEffect, useReducer } from 'react';
 import { DAWState, initialState, SynthEngine, EngineAction } from '../engine';
 import { getPreset } from '../engine';
+import { UIState } from '../engine/state/state';
 
 const dispatcher = (
-  state: DAWState,
+  state: UIState,
   action: EngineAction
-): Partial<DAWState> | undefined => {
+): Partial<UIState> | undefined => {
   const { envelopes, wave, filter } = state;
   switch (action.type) {
     case 'SET_SEQUENCE':
@@ -72,7 +73,7 @@ const reducer =
     return stateChanges ? { ...state, ...stateChanges } : state;
   };
 
-type ConfiguratorAPI = [DAWState, React.Dispatch<EngineAction>];
+type ConfiguratorAPI = [UIState, React.Dispatch<EngineAction>];
 
 export const ConfiguratorContext = createContext<ConfiguratorAPI>([
   initialState,
