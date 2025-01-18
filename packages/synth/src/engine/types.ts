@@ -1,5 +1,11 @@
 import { PresetName } from './state';
-import { ENVELOPE_ID, EnvelopeConfig, FILTER_ID, Sequence, WAVE_ID } from './common/types';
+import {
+  ENVELOPE_ID,
+  EnvelopeConfig,
+  FILTER_ID,
+  Sequence,
+  WAVE_ID
+} from './common/types';
 
 export type SET_TIME = { type: 'SET_TIME'; payload: number };
 
@@ -53,6 +59,11 @@ export type REFRESH = {
   };
 };
 
+export type SET_TRACK = {
+  type: 'SET_TRACK';
+  payload: number;
+};
+
 export type EngineAction =
   | PLAYER
   | KEY_PRESS
@@ -64,6 +75,7 @@ export type EngineAction =
   | SET_WAVE
   | SET_FILTER
   | SET_PRESET
+  | SET_TRACK
   | REFRESH;
 
 export type NoteAction = {
@@ -80,7 +92,6 @@ export type Note = {
 export type PANEL_ID = 'filter' | 'sequence' | 'wave';
 
 export type PLAYER_ACTION = 'play' | 'pause' | 'stop';
-
 
 export type Midi = {
   size: number;

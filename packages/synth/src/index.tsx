@@ -4,6 +4,7 @@ import { PianoRoll } from './ui/piano-roll';
 import { Keyboard } from './ui/keyboard';
 import { Configurator } from './ui/configurator';
 import { colors } from './ui/styles';
+import { Tracks } from './ui/tracks';
 
 const styles = {
   daw: {
@@ -27,6 +28,7 @@ const DAW: React.FC = () => (
       <section style={styles.synth}>
         <Synth />
         <Keyboard />
+        <Tracks />
       </section>
       <div style={{ position: 'relative' }}>
         <PianoRoll />

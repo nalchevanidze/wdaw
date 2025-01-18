@@ -10,6 +10,8 @@ const dispatcher = (
 ): Partial<UIState> | undefined => {
   const { envelopes, wave, filter } = state;
   switch (action.type) {
+    case 'SET_TRACK':
+      return {};
     case 'SET_SEQUENCE':
       return { sequence: action.payload };
     case 'TOGGLE_PANEL':
