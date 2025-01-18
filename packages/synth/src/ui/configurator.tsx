@@ -84,7 +84,10 @@ const Configurator: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
   const engine = React.useMemo(() => new SynthEngine(), []);
-  const [config, dispatch] = useReducer(reducer(engine), initialState);
+  const [config, dispatch] = useReducer(
+    reducer(engine),
+    toUIState(initialState)
+  );
 
   useEffect(() => {
     dispatch({ type: 'SET_MIDI', payload: config.midi });

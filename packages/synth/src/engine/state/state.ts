@@ -31,11 +31,23 @@ export const getPreset = (name: PresetName = 'pluck'): NamedPreset => ({
   name
 });
 
-export const toUIState = ({ isPlaying, time, notes }: DAWState): UIState => ({
+export const toUIState = ({
   isPlaying,
   time,
-  notes
-});
+  notes,
+  currentTrack,
+  tracks
+}: DAWState): UIState => {
+  const track = tracks[currentTrack];
+
+  return {
+    isPlaying,
+    time,
+    notes,
+    ...track.preset,
+    midi: track.midi
+  };
+};
 
 export const getDAWState = (): DAWState => ({
   isPlaying: false,
