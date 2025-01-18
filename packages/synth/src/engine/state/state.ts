@@ -14,7 +14,7 @@ type NamedPreset = Preset & { name: PresetName };
 
 export type DAWState = { player: PlayerState } & TracksState;
 
-type UITrack = { id: number; active: boolean };
+type UITrack = { name: string; id: number; active: boolean };
 
 export type UIState = PlayerState &
   NamedPreset & {
@@ -47,7 +47,11 @@ export const toUIState = ({
 
   return {
     tracks: tracks.map(
-      (t, i): UITrack => ({ id: i, active: currentTrack == i })
+      (t, i): UITrack => ({
+        name: track.midi.name,
+        id: i,
+        active: currentTrack == i
+      })
     ),
     ...player,
     ...track.preset,
