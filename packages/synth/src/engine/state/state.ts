@@ -60,7 +60,7 @@ export const getDAWState = (): DAWState => ({
       midi: prelude
     },
     {
-      preset: getPreset('wind'),
+      preset: getPreset('razor'),
       midi: bass
     }
   ]
