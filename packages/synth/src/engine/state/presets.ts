@@ -120,7 +120,7 @@ const razor: Preset = {
     envelope: 0.6
   },
   sequence: {
-    enabled: true,
+    enabled: false,
     0: [3],
     1: [1],
     3: [3],
