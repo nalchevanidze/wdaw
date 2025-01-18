@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { createContext, useEffect, useReducer } from 'react';
-import { initialState, SynthEngine, EngineAction } from '../engine';
+import { dawState, SynthEngine, EngineAction } from '../engine';
 import { getPreset } from '../engine';
-import { toUIState, UIState } from '../engine/state';
+import { DAWState, toUIState, UIState } from '../engine/state';
 
 const dispatcher = (
-  state: UIState,
+  state: DAWState,
   action: EngineAction
-): Partial<UIState> | undefined => {
+): Partial<DAWState> | undefined => {
   const { envelopes, wave, filter } = state;
   switch (action.type) {
     case 'SET_TRACK':
@@ -73,7 +73,7 @@ const engineEffects = (engine: SynthEngine, action: EngineAction): void => {
 };
 
 const reducer =
-  (engine: SynthEngine) => (state: UIState, action: EngineAction) => {
+  (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
     const stateChanges = dispatcher(state, action);
 
     if (stateChanges) {
@@ -85,10 +85,10 @@ const reducer =
     return stateChanges ? { ...state, ...stateChanges } : state;
   };
 
-type ConfiguratorAPI = [UIState, React.Dispatch<EngineAction>];
+type ConfiguratorAPI = [DAWState, React.Dispatch<EngineAction>];
 
 export const ConfiguratorContext = createContext<ConfiguratorAPI>([
-  toUIState(initialState),
+  dawState(),
   () => undefined
 ]);
 
@@ -96,13 +96,10 @@ const Configurator: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
   const engine = React.useMemo(() => new SynthEngine(), []);
-  const [config, dispatch] = useReducer(
-    reducer(engine),
-    toUIState(initialState)
-  );
+  const [config, dispatch] = useReducer(reducer(engine), dawState());
 
   useEffect(() => {
-    engine.setTracks(initialState);
+    engine.setTracks(config.tracks);
     engine.setMidiCallback((payload) => dispatch({ type: 'REFRESH', payload }));
 
     return () => engine.destroy();

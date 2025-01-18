@@ -13,7 +13,6 @@ export class Tracks {
   }
 
   public setTrack = (n: number) => {
-    console.log(n)
     this.current = this.tracks[n];
     this.refresh();
   };
