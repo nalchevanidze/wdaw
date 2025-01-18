@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createContext, useEffect, useReducer } from 'react';
 import { DAWState, initialState, SynthEngine, EngineAction } from '../engine';
 import { getPreset } from '../engine';
-import { UIState } from '../engine/state/state';
+import { toUIState, UIState } from '../engine/state';
 
 const dispatcher = (
   state: UIState,
@@ -61,7 +61,7 @@ const engineEffects = (engine: SynthEngine, action: EngineAction): void => {
 };
 
 const reducer =
-  (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
+  (engine: SynthEngine) => (state: UIState, action: EngineAction) => {
     const stateChanges = dispatcher(state, action);
 
     if (stateChanges) {
@@ -76,7 +76,7 @@ const reducer =
 type ConfiguratorAPI = [UIState, React.Dispatch<EngineAction>];
 
 export const ConfiguratorContext = createContext<ConfiguratorAPI>([
-  initialState,
+  toUIState(initialState),
   () => undefined
 ]);
 

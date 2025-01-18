@@ -2,8 +2,8 @@ import { getDAWState } from './state';
 
 export { presetNames } from './presets';
 export type { PresetName } from './presets';
-export type { DAWState } from './state';
-export { getPreset } from './state';
+export type { DAWState , UIState} from './state';
+export { getPreset, toUIState } from './state';
 
 export const initialState = getDAWState();
 
