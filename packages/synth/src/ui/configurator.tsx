@@ -2,23 +2,17 @@ import * as React from 'react';
 import { createContext, useEffect, useReducer } from 'react';
 import { dawState, SynthEngine, EngineAction } from '../engine';
 import { getPreset } from '../engine';
-import { DAWState, toUIState, UIState } from '../engine/state';
+import { DAWState } from '../engine/state';
 
 const dispatcher = (
   state: DAWState,
   action: EngineAction
 ): Partial<DAWState> | undefined => {
-  const { envelopes, wave, filter } = state;
+  const { tracks } = state;
   switch (action.type) {
     case 'SET_TRACK':
-      const track = initialState.tracks[action.payload];
       return {
-        ...track.preset,
-        midi: track.midi,
-        tracks: state.tracks.map((t, i) => ({
-          ...t,
-          active: i == action.payload
-        }))
+        tracks: { ...tracks, currentTrack: action.payload }
       };
     case 'SET_SEQUENCE':
       return { sequence: action.payload };
