@@ -13,6 +13,10 @@ export class Tracks {
     this.refresh();
   }
 
+  public setTrack = (n: number) => {
+    this.current = this.tracks[n];
+  };
+
   public set = ({ currentTrack, tracks }: TracksState) => {
     this.tracks = tracks.map((s) => {
       const track = new Track(new Synth());
