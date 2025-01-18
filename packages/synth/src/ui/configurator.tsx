@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createContext, useEffect, useReducer } from 'react';
-import {  initialState, SynthEngine, EngineAction } from '../engine';
+import { initialState, SynthEngine, EngineAction } from '../engine';
 import { getPreset } from '../engine';
 import { toUIState, UIState } from '../engine/state';
 
