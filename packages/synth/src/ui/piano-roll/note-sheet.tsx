@@ -64,6 +64,13 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     inactive: flatten(midi)
   });
 
+  React.useEffect(() => {
+    setNotes({
+      selected: [],
+      inactive: flatten(midi)
+    });
+  }, [midi]);
+
   const allNotes = [...notes.selected, ...notes.inactive];
 
   const onMouseMove: MouseEventHandler<SVGGElement> = (e) => {
