@@ -19,12 +19,12 @@ export class Tracks {
 
       track.setMidi(s.midi);
       track.setPreset(s.preset);
+      track.setGain(s.gain)
 
       return track;
     });
     this.current = this.tracks[currentTrack];
     this.refresh();
-
   };
 
   public nextActions = (isPlaying: boolean, current: number) => {

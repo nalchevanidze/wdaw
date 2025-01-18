@@ -6,6 +6,7 @@ import { toActions } from './utils/actions';
 class Track {
   private actions: NoteAction[] = [];
   private preset: Preset;
+  private gain: number = 1;
 
   public startNote = (n: number) => this.synth.startNote(this.preset, n);
 
@@ -20,7 +21,11 @@ class Track {
     );
   };
 
-  public next = () => this.synth.next(this.preset);
+  public setGain(n: number) {
+    this.gain = n;
+  }
+
+  public next = () => this.synth.next(this.preset) * this.gain;
 
   public notes = () => this.synth.getNotes();
 

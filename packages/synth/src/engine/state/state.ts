@@ -19,6 +19,7 @@ export type UIState = PlayerState & NamedPreset & { midi: Midi };
 export type TrackState = {
   preset: NamedPreset;
   midi: Midi;
+  gain: number;
 };
 
 export type TracksState = {
@@ -57,11 +58,13 @@ export const getDAWState = (): DAWState => ({
   tracks: [
     {
       preset: getPreset('pluck'),
-      midi: prelude
+      midi: prelude,
+      gain: 1
     },
     {
       preset: getPreset('razor'),
-      midi: bass
+      midi: bass,
+      gain: 0.2
     }
   ]
 });
