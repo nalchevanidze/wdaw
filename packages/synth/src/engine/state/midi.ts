@@ -26,4 +26,14 @@ const prelude: Midi = {
   }
 };
 
-export { prelude };
+const bass: Midi = {
+  size: 16,
+  notes: {
+    '0': [{ at: 0, id: 'D#1', length: 32 }],
+    '4': [{ at: 0, id: 'D#1', length: 32 }],
+    '8': [{ at: 0, id: 'C#1', length: 32 }],
+    '12': [{ at: 0, id: 'B0', length: 32 }]
+  }
+};
+
+export { prelude, bass };
