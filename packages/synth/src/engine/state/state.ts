@@ -12,18 +12,18 @@ type PlayerState = {
 
 type NamedPreset = Preset & { name: PresetName };
 
-export type DAWState = PlayerState & Tracks;
+export type DAWState = PlayerState & TracksState;
 
 export type UIState = PlayerState & NamedPreset & { midi: Midi };
 
-type Track = {
+export type TrackState = {
   preset: NamedPreset;
   midi: Midi;
 };
 
-type Tracks = {
+export type TracksState = {
   currentTrack: number;
-  tracks: Track[];
+  tracks: TrackState[];
 };
 
 export const getPreset = (name: PresetName = 'pluck'): NamedPreset => ({

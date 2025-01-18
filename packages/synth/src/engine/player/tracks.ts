@@ -1,4 +1,6 @@
 import { Preset } from '../common/types';
+import { TracksState } from '../state/state';
+import { Synth } from '../synth';
 import { Midi } from '../types';
 import { Track } from './track';
 
@@ -10,6 +12,18 @@ export class Tracks {
     this.current = tracks[0];
     this.refresh();
   }
+
+  public set = ({ currentTrack, tracks }: TracksState) => {
+    this.tracks = tracks.map((s) => {
+      const track = new Track(new Synth());
+
+      track.setMidi(s.midi);
+      track.setPreset(s.preset);
+
+      return track;
+    });
+    this.current = this.tracks[currentTrack];
+  };
 
   public nextActions = (isPlaying: boolean, current: number) => {
     for (const track of this.tracks) {

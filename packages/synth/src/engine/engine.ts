@@ -1,11 +1,11 @@
 import { audioProcessor, SoundIterator } from './audio-processor';
 import { Midi, PLAYER_ACTION } from './types';
-import { Synth } from './synth';
-import { MidiCallback, MidiPlayer, Track } from './player';
+import { MidiCallback, MidiPlayer } from './player';
 import { Tracks } from './player/tracks';
+import { TracksState } from './state/state';
 
 export class SynthEngine implements SoundIterator {
-  private tracks = new Tracks([new Track(new Synth())]);
+  private tracks = new Tracks([]);
   private player = new MidiPlayer(this.tracks);
 
   private closeContext: () => void;
@@ -42,6 +42,8 @@ export class SynthEngine implements SoundIterator {
   }
 
   public setPreset = this.tracks.setPreset;
+
+  public setTracks = this.tracks.set;
 
   public destroy() {
     this.player.setTime(0);
