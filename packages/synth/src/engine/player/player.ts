@@ -75,7 +75,7 @@ class MidiPlayer {
     this.current = time;
     this.onChange({
       isPlaying: false,
-      time: time,
+      time,
       notes: []
     });
   }
