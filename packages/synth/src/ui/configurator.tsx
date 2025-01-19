@@ -3,13 +3,34 @@ import { createContext, useEffect, useReducer } from 'react';
 import { dawState, SynthEngine, EngineAction } from '../engine';
 import { getPreset } from '../engine';
 import { DAWState } from '../engine/state';
+import { NamedPreset, TrackState } from '../engine/state/state';
+
+const mapCurrentTrack = (
+  { tracks: { tracks, currentTrack } }: DAWState,
+  f: (a: TrackState) => TrackState
+) => {
+  return {
+    tracks: {
+      currentTrack: currentTrack,
+      tracks: tracks.map((t) => f(t))
+    }
+  };
+};
+
+const mapPreset = (
+  state: DAWState,
+  f: (a: NamedPreset) => Partial<NamedPreset>
+) =>
+  mapCurrentTrack(state, ({ preset, ...rest }) => ({
+    ...rest,
+    preset: { ...preset, ...f(preset) }
+  }));
 
 const dispatcher = (
   state: DAWState,
   action: EngineAction
 ): Partial<DAWState> | undefined => {
   const { tracks } = state;
-  const track = tracks.tracks[tracks.currentTrack];
 
   switch (action.type) {
     case 'SET_TRACK':
@@ -17,34 +38,42 @@ const dispatcher = (
         tracks: { ...tracks, currentTrack: action.payload }
       };
     case 'SET_SEQUENCE':
-      track.preset.sequence = action.payload;
-      return { tracks: tracks };
+      return mapPreset(state, () => ({ sequence: action.payload }));
     case 'TOGGLE_PANEL':
-      return action.id === 'wave'
-        ? undefined
-        : {
-            [action.id]: {
-              ...state[action.id],
-              enabled: !state[action.id].enabled
+      return mapPreset(state, (preset) =>
+        action.id === 'wave'
+          ? {}
+          : {
+              [action.id]: {
+                ...preset[action.id],
+                enabled: !preset[action.id].enabled
+              }
             }
-          };
+      );
     case 'SET_MIDI':
-      return { midi: action.payload };
+      return mapCurrentTrack(state, ({ midi, ...rest }) => ({
+        ...rest,
+        midi: action.payload
+      }));
     case 'SET_ENVELOPE':
-      return {
+      return mapPreset(state, ({ envelopes }) => ({
         envelopes: {
           ...envelopes,
           [action.id]: { ...envelopes[action.id], ...action.payload }
         }
-      };
+      }));
     case 'SET_WAVE':
-      return { wave: { ...wave, [action.id]: action.payload } };
+      return mapPreset(state, ({ wave }) => ({
+        wave: { ...wave, [action.id]: action.payload }
+      }));
     case 'SET_FILTER':
-      return { filter: { ...filter, [action.id]: action.payload } };
+      return mapPreset(state, ({ filter }) => ({
+        filter: { ...filter, [action.id]: action.payload }
+      }));
     case 'SET_PRESET':
-      return getPreset(action.payload);
+      return mapPreset(state, () => getPreset(action.payload));
     case 'REFRESH':
-      return { ...action.payload };
+      return { player: { ...state.player, ...action.payload } };
     default:
       return;
   }
@@ -74,7 +103,8 @@ const reducer =
     const stateChanges = dispatcher(state, action);
 
     if (stateChanges) {
-      engine.setPreset({ ...state, ...stateChanges });
+      const track = state.tracks.tracks[state.tracks.currentTrack];
+      engine.setPreset(track.preset);
     }
 
     engineEffects(engine, action);

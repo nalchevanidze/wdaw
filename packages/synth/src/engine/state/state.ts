@@ -10,7 +10,7 @@ type PlayerState = {
   notes: number[];
 };
 
-type NamedPreset = Preset & { name: PresetName };
+export type NamedPreset = Preset & { name: PresetName };
 
 export type DAWState = { player: PlayerState; tracks: TracksState };
 
