@@ -59,8 +59,8 @@ export class Tracks {
 
   public isDone = (current: number) => current >= this.size;
 
-  public setMidi = (midi: Midi) => {
-    this.current.setMidi(midi);
+  public setMidi = (i: number, midi: Midi) => {
+    this.tracks[i].setMidi(midi);
     this.refresh();
   };
 

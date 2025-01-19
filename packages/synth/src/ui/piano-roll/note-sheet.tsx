@@ -75,7 +75,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       selected: [],
       inactive: flatten(tracks[currentTrack].midi)
     });
-  }, [currentTrack]);
+  }, [tracks[currentTrack].midi]);
 
   const allNotes = [...notes.selected, ...notes.inactive];
 

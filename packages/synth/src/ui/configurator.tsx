@@ -80,7 +80,11 @@ const dispatcher = (
   }
 };
 
-const engineEffects = (engine: SynthEngine, action: EngineAction): void => {
+const engineEffects = (
+  currentTrack: number,
+  engine: SynthEngine,
+  action: EngineAction
+): void => {
   switch (action.type) {
     case 'PLAYER':
       return engine.setPlay(action.payload);
@@ -91,7 +95,7 @@ const engineEffects = (engine: SynthEngine, action: EngineAction): void => {
     case 'SET_TIME':
       return engine.setTime(action.payload);
     case 'SET_MIDI':
-      return engine.setMidi(action.payload);
+      return engine.setMidi(currentTrack, action.payload);
     case 'SET_TRACK':
       return engine.setTrack(action.payload);
     default:
@@ -103,12 +107,16 @@ const reducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
     const stateChanges = dispatcher(state, action);
 
+    
     if (stateChanges) {
       const track = state.tracks.tracks[state.tracks.currentTrack];
       engine.setPreset(track.preset);
     }
 
-    engineEffects(engine, action);
+    console.log(action)
+
+
+    engineEffects(state.tracks.currentTrack, engine, action);
 
     return stateChanges ? { ...state, ...stateChanges } : state;
   };
@@ -152,7 +160,7 @@ const Configurator: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     engine.setTracks(config.tracks);
-    engine.setMidiCallback((payload) => dispatch({ type: 'REFRESH', payload }));
+   engine.setMidiCallback((payload) => dispatch({ type: 'REFRESH', payload }));
 
     return () => engine.destroy();
   }, []);
