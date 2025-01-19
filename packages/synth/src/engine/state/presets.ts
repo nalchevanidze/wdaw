@@ -185,7 +185,7 @@ const kick: Preset = {
     fmFreq: 0,
     offset: 0.5,
     voices: 1,
-    octave: 1
+    octave: 0
   },
   envelopes: {
     filter: {
