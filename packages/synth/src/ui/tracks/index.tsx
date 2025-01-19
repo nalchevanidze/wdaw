@@ -9,6 +9,7 @@ const Tracks: React.FC = () => {
     <div style={{ width: '100%' }}>
       {tracks.tracks.map(({ midi, name }, i) => (
         <div
+          key={i}
           style={{
             width: '100%',
             height: '40px',
@@ -17,7 +18,6 @@ const Tracks: React.FC = () => {
           }}
         >
           <button
-            key={i}
             style={{
               color: colors.button(i === tracks.currentTrack),
               width: '60px',
