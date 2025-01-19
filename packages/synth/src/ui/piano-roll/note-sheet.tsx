@@ -47,7 +47,13 @@ type Props = {
 };
 
 const NoteSheet: React.FC<Props> = ({ actionType }) => {
-  const [{ time, midi }, dispatch] = useContext(ConfiguratorContext);
+  const [
+    {
+      player: { time },
+      tracks: { currentTrack, tracks }
+    },
+    dispatch
+  ] = useContext(ConfiguratorContext);
   const getCoordinates = React.useContext(StageContext);
   const refreshMidi = (ns: Selected<NotePoint>): void =>
     dispatch({
@@ -61,15 +67,15 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
 
   const [notes, setNotes] = useState<Selected<NotePoint>>({
     selected: [],
-    inactive: flatten(midi)
+    inactive: flatten(tracks[currentTrack].midi)
   });
 
   React.useEffect(() => {
     setNotes({
       selected: [],
-      inactive: flatten(midi)
+      inactive: flatten(tracks[currentTrack].midi)
     });
-  }, [midi]);
+  }, [tracks.currentTrack]);
 
   const allNotes = [...notes.selected, ...notes.inactive];
 

@@ -19,7 +19,12 @@ type Props = {
 };
 
 const NoteComposerHeader: React.FC<Props> = ({ actionType, dispatch }) => {
-  const [{ isPlaying }, action] = useContext(ConfiguratorContext);
+  const [
+    {
+      player: { isPlaying }
+    },
+    action
+  ] = useContext(ConfiguratorContext);
 
   const player = (payload: PLAYER_ACTION) =>
     action({ type: 'PLAYER', payload });
