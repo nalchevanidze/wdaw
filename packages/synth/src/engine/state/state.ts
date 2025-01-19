@@ -1,7 +1,7 @@
 import { Preset } from '../common/types';
 import { Midi } from '../types';
 
-import { bass, prelude } from './midi';
+import { bass, drum, prelude } from './midi';
 import { PresetName, presets } from './presets';
 
 type PlayerState = {
@@ -37,13 +37,19 @@ export const dawState = (): DAWState => {
       name: "piano",
       preset: getPreset('pluck'),
       midi: prelude,
-      gain: 1
+      gain: 0.5
     },
     {
       name: "bass",
       preset: getPreset('razor'),
       midi: bass,
       gain: 0.2
+    },
+    {
+      name: "drum",
+      preset: getPreset('kick'),
+      midi: drum,
+      gain: 1
     }
   ];
 
