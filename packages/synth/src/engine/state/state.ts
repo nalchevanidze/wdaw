@@ -37,13 +37,13 @@ export const dawState = (): DAWState => {
       name: "piano",
       preset: getPreset('pluck'),
       midi: prelude,
-      gain: 0.5
+      gain: 0
     },
     {
       name: "bass",
       preset: getPreset('razor'),
       midi: bass,
-      gain: 0.2
+      gain: 0.1
     },
     {
       name: "drum",

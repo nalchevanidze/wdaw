@@ -29,10 +29,30 @@ const prelude: Midi = {
 const bass: Midi = {
   size: 16,
   notes: {
-    '0': [{ at: 0, id: 'D#2', length: 8 }],
-    '4': [{ at: 0, id: 'D#2', length: 8 }],
-    '8': [{ at: 0, id: 'C#2', length: 8 }],
-    '12': [{ at: 0, id: 'F#2', length: 8 }]
+    '0': [
+      { at: 4, id: 'D#2', length: 4 },
+      { at: 12, id: 'D#2', length: 4 },
+      { at: 20, id: 'D#2', length: 4 },
+      { at: 28, id: 'D#2', length: 4 }
+    ],
+    '4': [
+      { at: 4, id: 'D#2', length: 4 },
+      { at: 12, id: 'D#2', length: 4 },
+      { at: 20, id: 'D#2', length: 4 },
+      { at: 28, id: 'D#2', length: 4 }
+    ],
+    '8': [
+      { at: 4, id: 'C#2', length: 4 },
+      { at: 12, id: 'C#2', length: 4 },
+      { at: 20, id: 'C#2', length: 4 },
+      { at: 28, id: 'C#2', length: 4 }
+    ],
+    '12': [
+      { at: 4, id: 'F#2', length: 4 },
+      { at: 12, id: 'F#2', length: 4 },
+      { at: 20, id: 'F#2', length: 4 },
+      { at: 28, id: 'F#2', length: 4 }
+    ]
   }
 };
 

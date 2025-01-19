@@ -177,28 +177,28 @@ const kick: Preset = {
   wave: {
     sine: 1,
     square: 0.1,
-    saw: 0.4,
-    saw2: 0.125,
+    saw: 0.2,
+    saw2: 0,
     tech: 0,
-    noise: 0,
+    noise: 0.5,
     fm: 0,
     fmFreq: 0,
     offset: 0.5,
     voices: 1,
-    octave: 0
+    octave: 1
   },
   envelopes: {
     filter: {
       attack: 0,
-      decay: 0.1,
+      decay: 0.15,
       sustain: 0.08,
       release: 0.1
     },
     gain: {
       attack: 0,
-      decay: 0.2,
-      sustain: 1,
-      release: 0.3
+      decay: 0.20,
+      sustain: 0.05,
+      release: 0.1
     }
   },
   filter: {
