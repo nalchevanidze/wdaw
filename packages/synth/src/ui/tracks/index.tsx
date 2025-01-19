@@ -7,7 +7,7 @@ const Tracks: React.FC = () => {
 
   return (
     <div style={{ width: '100%' }}>
-      {tracks.tracks.map(({ midi }, i) => (
+      {tracks.tracks.map(({ midi, name }, i) => (
         <div
           style={{
             width: '100%',
@@ -25,7 +25,7 @@ const Tracks: React.FC = () => {
             }}
             onClick={() => dispatch({ type: 'SET_TRACK', payload: i })}
           >
-            {midi.name}
+            {name}
           </button>
         </div>
       ))}

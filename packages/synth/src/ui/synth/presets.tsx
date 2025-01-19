@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ConfiguratorContext } from '../configurator';
+import { ConfiguratorContext, usePreset } from '../configurator';
 import { colors } from '../styles';
 import { presetNames } from '../../engine';
 
@@ -31,7 +31,7 @@ const styles = {
 } as const;
 
 const PanelPresets: React.FC = () => {
-  const [{ name: active }, dispatch] = React.useContext(ConfiguratorContext);
+  const [{ name: active }, dispatch] = usePreset();
   const [hover, setHover] = React.useState<string | undefined>(undefined);
 
   return (

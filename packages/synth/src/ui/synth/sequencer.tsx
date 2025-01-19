@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ConfiguratorContext } from '../configurator';
+import { ConfiguratorContext, usePreset } from '../configurator';
 import { colors } from '../styles';
 import { Panel } from './panel';
 import { SEQUENCE_LENGTH } from '../../engine';
@@ -38,7 +38,7 @@ const Sequence: React.FC<Props> = ({ chord, onClick }) => (
 const range = Array.from({ length: SEQUENCE_LENGTH }, (_, i) => i);
 
 export const Sequencer: React.FC = () => {
-  const [{ sequence }, dispatch] = React.useContext(ConfiguratorContext);
+  const [{ sequence }, dispatch] = usePreset();
 
   const setNote = (row: number) => (column: number) =>
     dispatch({

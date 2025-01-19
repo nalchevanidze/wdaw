@@ -6,7 +6,7 @@ import { ControlPoint, Point } from './control-point';
 import { MouseEventHandler } from 'react';
 
 import { positive, unitInterval } from '../../../utils/math';
-import { ConfiguratorContext } from '../../configurator';
+import { usePreset } from '../../configurator';
 import { colors } from '../../styles';
 import { EnvelopeConfig, ENVELOPE_ID } from '../../../engine';
 
@@ -50,7 +50,7 @@ type Props = {
 
 const type = 'SET_ENVELOPE';
 const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
-  const [{ envelopes }, dispatch] = React.useContext(ConfiguratorContext);
+  const [{ envelopes }, dispatch] = usePreset();
   const getCoordinates = useContext(StageContext);
   const [target, setCurrent] = useState<Target | undefined>();
 

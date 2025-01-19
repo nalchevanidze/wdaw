@@ -15,6 +15,7 @@ export type NamedPreset = Preset & { name: PresetName };
 export type DAWState = { player: PlayerState; tracks: TracksState };
 
 export type TrackState = {
+  name: string;
   preset: NamedPreset;
   midi: Midi;
   gain: number;
@@ -33,11 +34,13 @@ export const getPreset = (name: PresetName = 'pluck'): NamedPreset => ({
 export const dawState = (): DAWState => {
   const tracks = [
     {
+      name: "piano",
       preset: getPreset('pluck'),
       midi: prelude,
       gain: 1
     },
     {
+      name: "bass",
       preset: getPreset('razor'),
       midi: bass,
       gain: 0.2

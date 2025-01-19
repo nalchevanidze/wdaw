@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { waveFunction } from '../../engine';
-import { ConfiguratorContext } from '../configurator';
+import { ConfiguratorContext, usePreset } from '../configurator';
 import { Grid } from '../utils/grid-line';
 import { Panel } from './panel';
 import PanelPresets from './presets';
@@ -48,7 +48,7 @@ const filters: Controllers<FILTER_ID> = [
 ];
 
 const Oscillators: React.FC = () => {
-  const [{ wave, filter }, dispatch] = React.useContext(ConfiguratorContext);
+  const [{ wave, filter }, dispatch] = usePreset();
   const wavePoint = (index: number) =>
     (1 - waveFunction((index + wave.offset) % 1, wave)) * 100;
 

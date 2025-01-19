@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ConfiguratorContext } from '../configurator';
+import { ConfiguratorContext, usePreset } from '../configurator';
 
 import { colors } from '../styles';
 import { PANEL_ID } from '../../engine';
@@ -53,7 +53,7 @@ const Panel: React.FC<Props> = ({
   optional,
   id
 }) => {
-  const [config, dispatch] = React.useContext(ConfiguratorContext);
+  const [config, dispatch] = usePreset();
   const target = id ? config[id] : undefined;
 
   const toggle = () =>

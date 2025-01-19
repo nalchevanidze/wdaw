@@ -4,6 +4,7 @@ import { dawState, SynthEngine, EngineAction } from '../engine';
 import { getPreset } from '../engine';
 import { DAWState } from '../engine/state';
 import { NamedPreset, TrackState } from '../engine/state/state';
+import { Preset } from '../engine/common/types';
 
 const mapCurrentTrack = (
   { tracks: { tracks, currentTrack } }: DAWState,
@@ -118,6 +119,30 @@ export const ConfiguratorContext = createContext<ConfiguratorAPI>([
   dawState(),
   () => undefined
 ]);
+
+export const useTrack = (): [TrackState, React.Dispatch<EngineAction>] => {
+  const [
+    {
+      tracks: { currentTrack, tracks }
+    },
+    dispatch
+  ] = React.useContext(ConfiguratorContext);
+
+  const track = tracks[currentTrack];
+  return [track, dispatch];
+};
+
+export const usePreset = (): [NamedPreset, React.Dispatch<EngineAction>] => {
+  const [
+    {
+      tracks: { currentTrack, tracks }
+    },
+    dispatch
+  ] = React.useContext(ConfiguratorContext);
+
+  const track = tracks[currentTrack];
+  return [track.preset, dispatch];
+};
 
 const Configurator: React.FC<{ children: React.ReactNode }> = ({
   children
