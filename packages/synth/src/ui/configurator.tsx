@@ -4,7 +4,6 @@ import { dawState, SynthEngine, EngineAction } from '../engine';
 import { getPreset } from '../engine';
 import { DAWState } from '../engine/state';
 import { NamedPreset, TrackState } from '../engine/state/state';
-import { Preset } from '../engine/common/types';
 
 const mapCurrentTrack = (
   { tracks: { tracks, currentTrack } }: DAWState,
@@ -13,7 +12,7 @@ const mapCurrentTrack = (
   return {
     tracks: {
       currentTrack: currentTrack,
-      tracks: tracks.map((t) => f(t))
+      tracks: tracks.map((t, i) => (currentTrack === i ? f(t) : t))
     }
   };
 };
@@ -31,12 +30,10 @@ const dispatcher = (
   state: DAWState,
   action: EngineAction
 ): Partial<DAWState> | undefined => {
-  const { tracks } = state;
-
   switch (action.type) {
     case 'SET_TRACK':
       return {
-        tracks: { ...tracks, currentTrack: action.payload }
+        tracks: { ...state.tracks, currentTrack: action.payload }
       };
     case 'SET_SEQUENCE':
       return mapPreset(state, () => ({ sequence: action.payload }));
@@ -107,7 +104,6 @@ const reducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
     const stateChanges = dispatcher(state, action);
 
-    
     if (stateChanges) {
       const track = state.tracks.tracks[state.tracks.currentTrack];
       engine.setPreset(track.preset);
@@ -157,7 +153,7 @@ const Configurator: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     engine.setTracks(config.tracks);
-   engine.setMidiCallback((payload) => dispatch({ type: 'REFRESH', payload }));
+    engine.setMidiCallback((payload) => dispatch({ type: 'REFRESH', payload }));
 
     return () => engine.destroy();
   }, []);
