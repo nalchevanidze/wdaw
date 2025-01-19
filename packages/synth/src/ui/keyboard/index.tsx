@@ -5,7 +5,7 @@ import { KEY_EVENT_TYPE, useKeyAction } from '../utils';
 import { KeyHandler, Octave } from './octave';
 
 const Keyboard: React.FC = () => {
-  const [{ notes }, dispatch] = React.useContext(ConfiguratorContext);
+  const [{ player }, dispatch] = React.useContext(ConfiguratorContext);
 
   const handler =
     (type: KEY_EVENT_TYPE): KeyHandler =>
@@ -33,7 +33,7 @@ const Keyboard: React.FC = () => {
           index={i}
           keyPress={handler('KEY_DOWN')}
           keyUp={handler('KEY_UP')}
-          active={notes}
+          active={player.notes}
         />
       ))}
     </ul>
