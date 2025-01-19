@@ -86,7 +86,7 @@ const foldMidi =
 export const flatten = foldMidi<NotePoint>((note, i) => ({
   ...note,
   index: i,
-  i: keysToIndexes(note.id),
+  i: keysToIndexes(note.id) + 1,
   position: notePosition(i, note.at)
 }));
 
