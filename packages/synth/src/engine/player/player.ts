@@ -34,6 +34,10 @@ class MidiPlayer {
       this.track.nextActions(this.isPlaying, this.current);
 
       if (this.isPlaying) {
+        this.refresh();
+      }
+
+      if (this.isPlaying) {
         this.current = this.current + 1;
       }
 
@@ -56,11 +60,13 @@ class MidiPlayer {
 
   public play = (): void => {
     this.isPlaying = true;
+    this.refresh();
   };
 
   public pause = (): void => {
     this.isPlaying = false;
     this.track.clear();
+    this.refresh();
   };
 
   stop() {

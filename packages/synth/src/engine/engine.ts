@@ -55,8 +55,5 @@ export class SynthEngine implements SoundIterator {
 
   public setTime = (t: number) => this.player.setTime(t);
 
-  public next() {
-    this.player.refresh();
-    return this.player.next();
-  }
+  public next = this.player.next;
 }
