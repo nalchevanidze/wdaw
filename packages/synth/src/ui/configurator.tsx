@@ -113,9 +113,6 @@ const reducer =
       engine.setPreset(track.preset);
     }
 
-    console.log(action)
-
-
     engineEffects(state.tracks.currentTrack, engine, action);
 
     return stateChanges ? { ...state, ...stateChanges } : state;
