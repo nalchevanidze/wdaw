@@ -94,7 +94,7 @@ export type PANEL_ID = 'filter' | 'sequence' | 'wave';
 export type PLAYER_ACTION = 'play' | 'pause' | 'stop';
 
 export type Midi = {
-  name: string,
+  name?: string,
   size: number;
   notes: Record<number, Note[]>;
 };
