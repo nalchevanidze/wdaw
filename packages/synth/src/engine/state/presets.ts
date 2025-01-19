@@ -196,7 +196,7 @@ const kick: Preset = {
     },
     gain: {
       attack: 0,
-      decay: 0.20,
+      decay: 0.2,
       sustain: 0.05,
       release: 0.1
     }
@@ -212,7 +212,46 @@ const kick: Preset = {
   }
 };
 
-export const presets = { prelude, pluck, razor, wind, kick };
+const bass: Preset = {
+  wave: {
+    sine: 1,
+    square: 0,
+    saw: 0,
+    saw2: 0.125,
+    tech: 1,
+    noise: 0,
+    fm: 0.7,
+    fmFreq: 0.53125,
+    offset: 0,
+    voices: 3,
+    octave: 0
+  },
+  envelopes: {
+    filter: {
+      attack: 0,
+      decay: 0.4,
+      sustain: 0.08,
+      release: 0.1
+    },
+    gain: {
+      attack: 0,
+      decay: 0.3,
+      sustain: 0.8,
+      release: 0.1
+    }
+  },
+  filter: {
+    enabled: true,
+    cutoff: 0.2,
+    resonance: 0.3,
+    envelope: 0.6
+  },
+  sequence: {
+    enabled: false
+  }
+};
+
+export const presets = { prelude, pluck, razor, wind, kick, bass };
 
 export type PresetName = keyof typeof presets;
 

@@ -41,9 +41,9 @@ export const dawState = (): DAWState => {
     },
     {
       name: "bass",
-      preset: getPreset('razor'),
+      preset: getPreset('bass'),
       midi: bass,
-      gain: 0.1
+      gain: 0.2
     },
     {
       name: "drum",
