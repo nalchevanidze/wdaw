@@ -1,4 +1,4 @@
-import { Midi } from '../types';
+import { Midi, Note } from '../types';
 
 const prelude: Midi = {
   size: 16,
@@ -56,34 +56,14 @@ const bass: Midi = {
   }
 };
 
-const drum: Midi = {
+const midiLoop = (f: () => Note[]) => ({
   size: 16,
   notes: {
-    '0': [
-      { at: 0, id: 'C#1', length: 4 },
-      { at: 8, id: 'C#1', length: 4 },
-      { at: 16, id: 'C#1', length: 4 },
-      { at: 24, id: 'C#1', length: 4 }
-    ],
-    '4': [
-      { at: 0, id: 'C#1', length: 4 },
-      { at: 8, id: 'C#1', length: 4 },
-      { at: 16, id: 'C#1', length: 4 },
-      { at: 24, id: 'C#1', length: 4 }
-    ],
-    '8': [
-      { at: 0, id: 'C#1', length: 4 },
-      { at: 8, id: 'C#1', length: 4 },
-      { at: 16, id: 'C#1', length: 4 },
-      { at: 24, id: 'C#1', length: 4 }
-    ],
-    '12': [
-      { at: 0, id: 'C#1', length: 4 },
-      { at: 8, id: 'C#1', length: 4 },
-      { at: 16, id: 'C#1', length: 4 },
-      { at: 24, id: 'C#1', length: 4 }
-    ]
+    '0': f(),
+    '4': f(),
+    '8': f(),
+    '12': f()
   }
-};
+});
 
-export { prelude, bass, drum };
+export { prelude, bass, midiLoop };
