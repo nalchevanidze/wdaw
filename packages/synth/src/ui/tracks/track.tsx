@@ -1,10 +1,18 @@
 import * as React from 'react';
 import { Notes } from '../piano-roll/notes';
-import { flatten, STAGE_WIDTH, STAGE_HEIGHT } from '../piano-roll/utils';
+import {
+  flatten,
+  STAGE_WIDTH,
+  STAGE_HEIGHT,
+  CANVAS_HEIGHT,
+  NOTE_SIZE,
+  NOTE_STEP
+} from '../piano-roll/utils';
 import { SvgStage } from '@wdaw/svg';
 import { useState } from 'react';
 import { NotePoint } from '../types';
 import { Midi } from '../../engine';
+import { colors } from '../styles';
 
 const viewBox = [0, 60, STAGE_WIDTH - 20, STAGE_HEIGHT - 60].join(' ');
 
@@ -15,7 +23,22 @@ const TrackNotes: React.FC<Props> = ({ midi }) => {
 
   React.useEffect(() => setNotes(flatten(midi)), [midi]);
 
-  return <Notes notes={notes} />;
+  return (
+    <g fill={colors.notes}>
+      {notes.map((note, noteIndex) => (
+        <g key={noteIndex}>
+          <rect
+            width={NOTE_STEP * note.length}
+            height={NOTE_SIZE}
+            stroke="#000"
+            strokeWidth={0.25}
+            x={note.position * 5}
+            y={CANVAS_HEIGHT - note.i * NOTE_SIZE}
+          />
+        </g>
+      ))}
+    </g>
+  );
 };
 
 const Track: React.FC<Props> = (props) => (
