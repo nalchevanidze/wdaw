@@ -46,14 +46,13 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
 
       <g fill={colors.notes}>
         {notes.map((note, noteIndex) => (
-          <g key={noteIndex}>
-            <rect
-              width={NOTE_WIDTH * note.length}
-              height={NOTE_HEIGHT}
-              x={note.position}
-              y={STAGE_HEIGHT - note.i * NOTE_HEIGHT}
-            />
-          </g>
+          <rect
+            key={noteIndex}
+            width={note.length}
+            height={NOTE_HEIGHT}
+            x={note.position}
+            y={STAGE_HEIGHT - note.i * NOTE_HEIGHT}
+          />
         ))}
       </g>
     </>
