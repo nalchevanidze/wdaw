@@ -4,8 +4,6 @@ import {
   flatten,
   STAGE_WIDTH,
   STAGE_HEIGHT,
-  KEYBOARD_WIDTH,
-  TIMELINE_HEIGHT
 } from '../piano-roll/utils';
 import { SvgStage } from '@wdaw/svg';
 import { useState } from 'react';
