@@ -26,7 +26,8 @@ const Tracks: React.FC = () => {
               width: '50px',
               height: '40px',
               border: "none",
-              borderRight: "1px solid gray"
+              borderRight: "1px solid gray",
+              cursor: 'pointer',
             }}
             onClick={() => dispatch({ type: 'SET_TRACK', payload: i })}
           >
