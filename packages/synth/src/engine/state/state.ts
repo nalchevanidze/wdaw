@@ -112,7 +112,7 @@ export const dawState = (): DAWState => {
       name: 'clap',
       preset: getPreset('clap'),
       midi: midiLoop(() => [
-        { at: 8, id: 'C#1', length: 4 },
+        { at: 12, id: 'C#1', length: 4 },
         { at: 24, id: 'C#1', length: 4 }
       ]),
       gain: 0.5
