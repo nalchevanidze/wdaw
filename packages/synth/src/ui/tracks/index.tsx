@@ -12,19 +12,21 @@ const Tracks: React.FC = () => {
         <div
           key={i}
           style={{
-            width: '100%',
+            width: 'auto',
             height: '40px',
-            background: 'gray',
             margin: '1px',
             display: "flex",
-            alignItems:"flex-start"
+            alignItems:"flex-start",
+            border: "1px solid #DDD"
           }}
         >
           <button
             style={{
               color: colors.button(i === tracks.currentTrack),
               width: '60px',
-              height: '40px'
+              height: '40px',
+              border: "none",
+              borderRight: "1px solid gray"
             }}
             onClick={() => dispatch({ type: 'SET_TRACK', payload: i })}
           >
