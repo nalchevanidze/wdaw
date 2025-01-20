@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { Notes } from '../piano-roll/notes';
-import {
-  flatten,
-  STAGE_WIDTH,
-  STAGE_HEIGHT,
-} from '../piano-roll/utils';
+import { flatten, STAGE_WIDTH, STAGE_HEIGHT } from '../piano-roll/utils';
 import { SvgStage } from '@wdaw/svg';
 import { useState } from 'react';
 import { NotePoint } from '../types';
@@ -19,11 +15,7 @@ const TrackNotes: React.FC<Props> = ({ midi }) => {
 
   React.useEffect(() => setNotes(flatten(midi)), [midi]);
 
-  return (
-    <g>
-      <Notes notes={notes} />
-    </g>
-  );
+  return <Notes notes={notes} />;
 };
 
 const Track: React.FC<Props> = (props) => (
