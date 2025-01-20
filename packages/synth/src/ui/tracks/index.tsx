@@ -12,7 +12,7 @@ const Tracks: React.FC = () => {
         <div
           key={i}
           style={{
-            width: 'auto',
+            width: '200px',
             height: '40px',
             margin: '1px',
             display: "flex",
@@ -23,7 +23,7 @@ const Tracks: React.FC = () => {
           <button
             style={{
               color: colors.button(i === tracks.currentTrack),
-              width: '60px',
+              width: '50px',
               height: '40px',
               border: "none",
               borderRight: "1px solid gray"
