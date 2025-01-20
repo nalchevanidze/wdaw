@@ -181,7 +181,6 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       onMouseMove={onMouseMove}
       onMouseLeave={handleEventEnd}
       onMouseUp={handleEventEnd}
-      onKeyDown={(x) => console.log('DOWN', x)}
     >
       <Background onMouseDown={clickOnBackground} />
       <g>

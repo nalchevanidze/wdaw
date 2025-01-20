@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ConfiguratorContext } from '../configurator';
 import { colors } from '../styles';
+import Track from './track';
 
 const Tracks: React.FC = () => {
   const [{ tracks }, dispatch] = React.useContext(ConfiguratorContext);
@@ -14,7 +15,9 @@ const Tracks: React.FC = () => {
             width: '100%',
             height: '40px',
             background: 'gray',
-            margin: '1px'
+            margin: '1px',
+            display: "flex",
+            alignItems:"flex-start"
           }}
         >
           <button
@@ -27,6 +30,7 @@ const Tracks: React.FC = () => {
           >
             {name}
           </button>
+          <Track midi={midi} />
         </div>
       ))}
     </div>
