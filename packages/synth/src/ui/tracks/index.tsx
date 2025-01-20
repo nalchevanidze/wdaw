@@ -12,7 +12,7 @@ const Tracks: React.FC = () => {
         <div
           key={i}
           style={{
-            width: '200px',
+            width: '100px',
             height: '40px',
             margin: '1px',
             display: "flex",
@@ -32,8 +32,6 @@ const Tracks: React.FC = () => {
           >
             {name}
           </button>
-          <Track midi={midi} />
-          <Track midi={midi} />
           <Track midi={midi} />
         </div>
       ))}
