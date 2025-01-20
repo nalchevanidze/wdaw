@@ -33,6 +33,8 @@ const Tracks: React.FC = () => {
             {name}
           </button>
           <Track midi={midi} />
+          <Track midi={midi} />
+          <Track midi={midi} />
         </div>
       ))}
     </div>
