@@ -11,8 +11,9 @@ type Props = { midi: Midi; name: string; i: number };
 
 const PANEL = 50 as const;
 
+const BLOCK_SIZE = 128
+const STAGE_WIDTH = BLOCK_SIZE * 3;
 const STAGE_HEIGHT = 64;
-const STAGE_WIDTH = 128;
 
 const WIDTH = STAGE_WIDTH + PANEL;
 
@@ -41,7 +42,6 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
         onClick={() => dispatch({ type: 'SET_TRACK', payload: i })}
         style={{ border: 'none', cursor: 'pointer' }}
       />
-
       <g fill={colors.notes}>
         {notes.map((note, noteIndex) => (
           <rect
