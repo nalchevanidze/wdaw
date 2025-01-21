@@ -6,11 +6,13 @@ import { NotePoint } from '../types';
 import { Midi } from '../../engine';
 import { colors } from '../styles';
 import { ConfiguratorContext } from '../configurator';
+import { MidiLoop } from './midi-loop';
 
 type Props = { midi: Midi; name: string; i: number };
 
 const PANEL = 50 as const;
 
+const MIDI_STEP = 8;
 const BLOCK_SIZE = 128;
 const STAGE_WIDTH = BLOCK_SIZE * 4;
 const STAGE_HEIGHT = 64;
@@ -27,9 +29,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
 
   const active = i === tracks.currentTrack;
 
-  const MIDI_STEP = 8;
-
-  const { start, end, size } = midi;
+  const { end, size } = midi;
 
   return (
     <>
@@ -46,25 +46,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
         onClick={() => dispatch({ type: 'SET_TRACK', payload: i })}
         style={{ border: 'none', cursor: 'pointer' }}
       />
-      <rect
-        fill={colors.notesBackground}
-        opacity={0.3}
-        x={0}
-        y={0}
-        width={size * MIDI_STEP}
-        height={STAGE_HEIGHT}
-      />
-      <g fill={colors.notes}>
-        {notes.map((note, noteIndex) => (
-          <rect
-            key={noteIndex}
-            width={note.length}
-            height={1}
-            x={start * MIDI_STEP + note.position}
-            y={STAGE_HEIGHT - note.i}
-          />
-        ))}
-      </g>
+      <MidiLoop notes={notes} name={name} />
     </>
   );
 };
