@@ -27,8 +27,9 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
 
   const active = i === tracks.currentTrack;
 
-  const starts = 0;
-  const ends = 16 * 8 * 4
+  const MIDI_STEP = 8;
+
+  const { start, end, size } = midi;
 
   return (
     <>
@@ -50,7 +51,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
         opacity={0.3}
         x={0}
         y={0}
-        width={midi.size * 8}
+        width={size * MIDI_STEP}
         height={STAGE_HEIGHT}
       />
       <g fill={colors.notes}>
@@ -59,7 +60,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
             key={noteIndex}
             width={note.length}
             height={1}
-            x={note.position}
+            x={start * MIDI_STEP + note.position}
             y={STAGE_HEIGHT - note.i}
           />
         ))}
