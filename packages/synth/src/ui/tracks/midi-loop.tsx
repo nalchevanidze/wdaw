@@ -4,11 +4,16 @@ import { NotePoint } from '../types';
 
 export const BLOCK_SIZE = 128;
 export const STAGE_HEIGHT = 64;
+export const STEP = 8;
 
-type Props = { notes: NotePoint[]; name: string };
+type Props = { start: number; end: number; notes: NotePoint[]; name: string };
 
-const MidiLoop: React.FC<Props> = ({ notes, name }) => {
+const MidiLoop: React.FC<Props> = ({ start, end, notes, name }) => {
   const id = `MidiLoop_B_Q_T_D_V_B_D_${name}`;
+
+  const width = (end - start) * STEP;
+
+  console.log(width)
 
   return (
     <g>
@@ -30,14 +35,19 @@ const MidiLoop: React.FC<Props> = ({ notes, name }) => {
               />
             ))}
           </g>
+          <rect
+            fill={colors.notesBackground}
+            opacity={0.3}
+            width="100%"
+            height="100%"
+          />
         </pattern>
       </defs>
-      <rect width="100%" height="100%" fill={'url(#' + id + ')'} />
       <rect
-        fill={colors.notesBackground}
-        opacity={0.3}
-        width="100%"
+        x={start * STEP}
+        width={width}
         height="100%"
+        fill={'url(#' + id + ')'}
       />
     </g>
   );

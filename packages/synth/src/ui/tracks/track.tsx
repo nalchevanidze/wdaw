@@ -6,7 +6,7 @@ import { NotePoint } from '../types';
 import { Midi } from '../../engine';
 import { colors } from '../styles';
 import { ConfiguratorContext } from '../configurator';
-import { BLOCK_SIZE, MidiLoop } from './midi-loop';
+import { BLOCK_SIZE, MidiLoop, STAGE_HEIGHT } from './midi-loop';
 
 type Props = { midi: Midi; name: string; i: number };
 
@@ -27,7 +27,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
 
   const active = i === tracks.currentTrack;
 
-  const { end, size } = midi;
+  const { start, end, size } = midi;
 
   return (
     <>
@@ -44,7 +44,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
         onClick={() => dispatch({ type: 'SET_TRACK', payload: i })}
         style={{ border: 'none', cursor: 'pointer' }}
       />
-      <MidiLoop notes={notes} name={name} />
+      <MidiLoop start={start} end={end} notes={notes} name={name} />
     </>
   );
 };
