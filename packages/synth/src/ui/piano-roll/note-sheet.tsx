@@ -183,7 +183,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       onMouseLeave={handleEventEnd}
       onMouseUp={handleEventEnd}
     >
-      <Background onMouseDown={clickOnBackground} />
+      <Background onMouseDown={clickOnBackground} loop={tracks[currentTrack].midi.loop}/>
       <g>
         <Notes notes={notes.inactive} mouseDown={clickOnNote} />
         <Notes

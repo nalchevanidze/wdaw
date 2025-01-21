@@ -9,6 +9,7 @@ import {
   STAGE_WIDTH,
   SUB_QUARTER
 } from './utils';
+import { STAGE_HEIGHT } from '../tracks/midi-loop';
 
 type KeysProps = {
   width: number;
@@ -94,18 +95,50 @@ const Grid = () => (
 );
 
 const Background = ({
-  onMouseDown
-}: Pick<React.SVGProps<SVGRectElement>, 'onMouseDown'>) => (
-  <>
-    <Grid />
-    <Keyboard />
-    <rect
-      fillOpacity={0}
-      width={STAGE_WIDTH}
-      height={CANVAS_HEIGHT}
-      onMouseDown={onMouseDown}
-    />
-  </>
-);
+  onMouseDown,
+  loop: [loopStart, loopEnd]
+}: Pick<React.SVGProps<SVGRectElement>, 'onMouseDown'> & {
+  loop: [number, number];
+}) => {
+  const start = loopStart * 40
+  const size = (loopEnd - loopStart) * 40;
+
+  return (
+    <>
+      <Grid />
+      <Keyboard />
+      <rect
+        fillOpacity={0.5}
+        x={start}
+        width={size}
+        height={4}
+        onMouseDown={onMouseDown}
+        fill='red'
+      />
+      <rect
+        fillOpacity={0.3}
+        x={start + size}
+        width={1}
+        height={CANVAS_HEIGHT}
+        onMouseDown={onMouseDown}
+        fill='red'
+      />
+      <rect
+        fillOpacity={0.3}
+        x={start}
+        width={1}
+        height={CANVAS_HEIGHT}
+        onMouseDown={onMouseDown}
+        fill='red'
+      />
+      <rect
+        fillOpacity={0}
+        width={STAGE_WIDTH}
+        height={CANVAS_HEIGHT}
+        onMouseDown={onMouseDown}
+      />
+    </>
+  );
+};
 
 export { Background };
