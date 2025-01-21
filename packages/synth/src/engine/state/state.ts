@@ -42,12 +42,12 @@ export const dawState = (): DAWState => {
         size: 16,
         notes: {
           '0': [
-            { at: 0, id: 'C#3', length: 32 },
+            { at: 0, id: 'G#2', length: 32 },
             { at: 0, id: 'F#2', length: 32 },
             { at: 0, id: 'D#1', length: 32 }
           ],
           '4': [
-            { at: 0, id: 'C#3', length: 32 },
+            { at: 0, id: 'G#2', length: 32 },
             { at: 0, id: 'F#2', length: 32 },
             { at: 0, id: 'D#1', length: 32 }
           ],
