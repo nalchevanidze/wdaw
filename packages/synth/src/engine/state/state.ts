@@ -1,7 +1,6 @@
 import { Preset } from '../common/types';
 import { Midi } from '../types';
 
-import { midiLoop } from './midi';
 import { PresetName, presets } from './presets';
 
 type PlayerState = {
@@ -104,21 +103,35 @@ export const dawState = (): DAWState => {
     {
       name: 'kick',
       preset: getPreset('kick'),
-      midi: midiLoop(() => [
-        { at: 0, id: 'C#1', length: 4 },
-        { at: 8, id: 'C#1', length: 4 },
-        { at: 16, id: 'C#1', length: 4 },
-        { at: 24, id: 'C#1', length: 4 }
-      ]),
+      midi: {
+        loop: [0, 4],
+        start: 0,
+        end: 64,
+        notes: {
+          0: [
+            { at: 0, id: 'C#1', length: 4 },
+            { at: 8, id: 'C#1', length: 4 },
+            { at: 16, id: 'C#1', length: 4 },
+            { at: 24, id: 'C#1', length: 4 }
+          ]
+        }
+      },
       gain: 1
     },
     {
       name: 'clap',
       preset: getPreset('clap'),
-      midi: midiLoop(() => [
-        { at: 12, id: 'C#1', length: 4 },
-        { at: 24, id: 'C#1', length: 4 }
-      ]),
+      midi: {
+        loop: [0, 4],
+        start: 0,
+        end: 64,
+        notes: {
+          0: [
+            { at: 12, id: 'C#1', length: 4 },
+            { at: 24, id: 'C#1', length: 4 }
+          ]
+        }
+      },
       gain: 0.5
     }
   ];
