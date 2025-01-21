@@ -21,16 +21,18 @@ const taskAt = (midi: NoteAction[], i: number, key: NOTE_ACTION): number[] => {
 
 type NoteLoop = NoteAction[];
 
+export const NOTE_SIZE = 8;
+
 export const toActions = ({
   notes,
   loop: [loopStart, loopEnd]
 }: Midi): NoteLoop => {
-  const size = loopEnd - loopStart;
+  const size = (loopEnd - loopStart) * NOTE_SIZE;
   const output: NoteLoop = Array(size).fill(undefined);
 
   Object.entries(notes).forEach(([i, quarter]) => {
     quarter.forEach((note) => {
-      const start = parseInt(i, 10) * 8 + note.at;
+      const start = parseInt(i, 10) * NOTE_SIZE + note.at;
       const end = start + note.length - 1;
       const key = keysToIndexes(note.id);
 
