@@ -44,7 +44,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
         onClick={() => dispatch({ type: 'SET_TRACK', payload: i })}
         style={{ border: 'none', cursor: 'pointer' }}
       />
-      <MidiLoop start={start} end={end} notes={notes} name={name} />
+      <MidiLoop start={start} end={end} notes={notes} name={name} loop={loop} />
     </>
   );
 };

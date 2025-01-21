@@ -6,18 +6,32 @@ export const BLOCK_SIZE = 128;
 export const STAGE_HEIGHT = 64;
 export const STEP = 8;
 
-type Props = { start: number; end: number; notes: NotePoint[]; name: string };
+type Props = {
+  start: number;
+  end: number;
+  notes: NotePoint[];
+  name: string;
+  loop: [number, number];
+};
 
-const MidiLoop: React.FC<Props> = ({ start, end, notes, name }) => {
+const MidiLoop: React.FC<Props> = ({
+  start,
+  end,
+  notes,
+  name,
+  loop: [loopStart, loopEnd]
+}) => {
   const id = `MidiLoop_B_Q_T_D_V_B_D_${name}`;
 
+  const loopSize = loopEnd - loopStart;
   const width = (end - start) * STEP;
 
+  console.log(loopSize);
   return (
     <g>
       <defs>
         <pattern
-          width={BLOCK_SIZE}
+          width={loopSize * STEP}
           height={STAGE_HEIGHT}
           patternUnits="userSpaceOnUse"
           id={id}
