@@ -13,7 +13,6 @@ const PANEL = 50 as const;
 
 const STAGE_HEIGHT = 64;
 const STAGE_WIDTH = 128;
-const NOTE_SIZE = 1;
 
 const WIDTH = STAGE_WIDTH + PANEL;
 
@@ -48,9 +47,9 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
           <rect
             key={noteIndex}
             width={note.length}
-            height={NOTE_SIZE}
+            height={1}
             x={note.position}
-            y={STAGE_HEIGHT - note.i * NOTE_SIZE}
+            y={STAGE_HEIGHT - note.i}
           />
         ))}
       </g>
