@@ -9,7 +9,6 @@ import {
   STAGE_WIDTH,
   SUB_QUARTER
 } from './utils';
-import { STAGE_HEIGHT } from '../tracks/midi-loop';
 
 type KeysProps = {
   width: number;
