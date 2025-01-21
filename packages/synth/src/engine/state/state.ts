@@ -122,11 +122,11 @@ export const dawState = (): DAWState => {
       name: 'clap',
       preset: getPreset('clap'),
       midi: {
-        loop: [0, 4],
+        loop: [4, 8],
         start: 0,
         end: 64,
         notes: {
-          0: [
+          4: [
             { at: 12, id: 'C#1', length: 4 },
             { at: 24, id: 'C#1', length: 4 }
           ]

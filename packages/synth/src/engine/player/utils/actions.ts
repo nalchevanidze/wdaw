@@ -32,7 +32,8 @@ export const toActions = ({
 
   Object.entries(notes).forEach(([i, quarter]) => {
     quarter.forEach((note) => {
-      const start = parseInt(i, 10) * NOTE_SIZE + note.at;
+      const start = parseInt(i, 10) * NOTE_SIZE + note.at - loopStart * NOTE_SIZE;
+      if(start < 0) return 
       const end = start + note.length - 1;
       const key = keysToIndexes(note.id);
 
