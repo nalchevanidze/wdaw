@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { StageContext } from '@wdaw/svg';
 import { colors } from '../styles';
 import { NotePoint } from '../types';
 
