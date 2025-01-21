@@ -13,8 +13,6 @@ const MidiLoop: React.FC<Props> = ({ start, end, notes, name }) => {
 
   const width = (end - start) * STEP;
 
-  console.log(width)
-
   return (
     <g>
       <defs>
