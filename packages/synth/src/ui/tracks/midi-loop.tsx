@@ -4,7 +4,6 @@ import { NotePoint } from '../types';
 
 const BLOCK_SIZE = 128;
 const STAGE_HEIGHT = 64;
-const MIDI_STEP = 8;
 
 type Props = { notes: NotePoint[]; name: string };
 
