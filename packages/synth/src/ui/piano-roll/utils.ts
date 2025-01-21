@@ -101,7 +101,7 @@ export const deepen = (flat: NotePoint[], old: Midi): Midi => {
     notes[index].push({ at, id, length });
   });
 
-  return { ...old, size: 16, notes };
+  return { ...old, notes };
 };
 
 export const editNotes = (

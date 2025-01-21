@@ -27,7 +27,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
 
   const active = i === tracks.currentTrack;
 
-  const { start, end, size } = midi;
+  const { start, end, loop } = midi;
 
   return (
     <>

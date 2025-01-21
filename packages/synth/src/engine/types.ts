@@ -96,6 +96,6 @@ export type PLAYER_ACTION = 'play' | 'pause' | 'stop';
 export type Midi = {
   start: number;
   end: number;
-  size: number;
+  loop: [number,number];
   notes: Record<number, Note[]>;
 };

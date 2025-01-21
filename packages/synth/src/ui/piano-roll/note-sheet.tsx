@@ -172,8 +172,6 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         setNotes(changes);
         return refreshMidi(changes);
       }
-      case 'Enter':
-        console.log(JSON.stringify(deepen(allNotes)));
     }
   };
 

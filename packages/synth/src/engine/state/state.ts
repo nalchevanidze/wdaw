@@ -32,14 +32,14 @@ export const getPreset = (name: PresetName = 'pluck'): NamedPreset => ({
 });
 
 export const dawState = (): DAWState => {
-  const tracks = [
+  const tracks: TrackState[] = [
     {
       name: 'piano',
       preset: getPreset('pluck'),
       midi: {
         start: 32,
         end: 64,
-        size: 16,
+        loop: [0, 16],
         notes: {
           '0': [
             { at: 0, id: 'G#2', length: 32 },
@@ -71,7 +71,7 @@ export const dawState = (): DAWState => {
       midi: {
         start: 16,
         end: 64,
-        size: 16,
+        loop: [0, 16],
         notes: {
           '0': [
             { at: 4, id: 'D#2', length: 4 },

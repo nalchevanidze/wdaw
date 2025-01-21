@@ -19,10 +19,16 @@ const taskAt = (midi: NoteAction[], i: number, key: NOTE_ACTION): number[] => {
   }
 };
 
-export const toActions = (input: Midi): NoteAction[] => {
-  const output: NoteAction[] = Array(input.size).fill(undefined);
+type NoteLoop = NoteAction[];
 
-  Object.entries(input.notes).forEach(([i, quarter]) => {
+export const toActions = ({
+  notes,
+  loop: [loopStart, loopEnd]
+}: Midi): NoteLoop => {
+  const size = loopEnd - loopStart;
+  const output: NoteLoop = Array(size).fill(undefined);
+
+  Object.entries(notes).forEach(([i, quarter]) => {
     quarter.forEach((note) => {
       const start = parseInt(i, 10) * 8 + note.at;
       const end = start + note.length - 1;
