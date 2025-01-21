@@ -37,8 +37,8 @@ export const dawState = (): DAWState => {
       name: 'piano',
       preset: getPreset('pluck'),
       midi: {
-        start: 16,
-        end: 32,
+        start: 32,
+        end: 64,
         size: 16,
         notes: {
           '0': [
@@ -69,8 +69,8 @@ export const dawState = (): DAWState => {
       name: 'bass',
       preset: getPreset('bass'),
       midi: {
-        start: 8,
-        end: 32,
+        start: 16,
+        end: 64,
         size: 16,
         notes: {
           '0': [
