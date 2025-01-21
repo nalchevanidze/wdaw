@@ -2,8 +2,8 @@ import * as React from 'react';
 import { colors } from '../styles';
 import { NotePoint } from '../types';
 
-const BLOCK_SIZE = 128;
-const STAGE_HEIGHT = 64;
+export const BLOCK_SIZE = 128;
+export const STAGE_HEIGHT = 64;
 
 type Props = { notes: NotePoint[]; name: string };
 

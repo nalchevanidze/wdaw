@@ -6,16 +6,14 @@ import { NotePoint } from '../types';
 import { Midi } from '../../engine';
 import { colors } from '../styles';
 import { ConfiguratorContext } from '../configurator';
-import { MidiLoop } from './midi-loop';
+import { BLOCK_SIZE, MidiLoop } from './midi-loop';
 
 type Props = { midi: Midi; name: string; i: number };
 
 const PANEL = 50 as const;
 
-const MIDI_STEP = 8;
-const BLOCK_SIZE = 128;
+
 const STAGE_WIDTH = BLOCK_SIZE * 4;
-const STAGE_HEIGHT = 64;
 
 const WIDTH = STAGE_WIDTH + PANEL;
 
