@@ -27,6 +27,8 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
 
   const active = i === tracks.currentTrack;
 
+  const starts = 0;
+  const ends = 16 * 8 * 4
 
   return (
     <>
