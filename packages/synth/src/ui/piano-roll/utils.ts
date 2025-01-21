@@ -90,7 +90,7 @@ export const flatten = foldMidi<NotePoint>((note, i) => ({
   position: notePosition(i, note.at)
 }));
 
-export const deepen = (flat: NotePoint[]): Midi => {
+export const deepen = (flat: NotePoint[], old: Midi): Midi => {
   const notes: Midi['notes'] = {};
 
   flat.forEach(({ length, position, i }: NotePoint) => {
@@ -101,7 +101,7 @@ export const deepen = (flat: NotePoint[]): Midi => {
     notes[index].push({ at, id, length });
   });
 
-  return { size: 16, notes };
+  return { ...old, size: 16, notes };
 };
 
 export const editNotes = (

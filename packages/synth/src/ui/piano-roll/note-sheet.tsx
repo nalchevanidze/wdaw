@@ -58,7 +58,10 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const refreshMidi = (ns: Selected<NotePoint>): void =>
     dispatch({
       type: 'SET_MIDI',
-      payload: deepen([...ns.selected, ...ns.inactive])
+      payload: deepen(
+        [...ns.selected, ...ns.inactive],
+        tracks[currentTrack].midi
+      )
     });
 
   const [mode, setMode] = React.useState<MODE | undefined>(undefined);
