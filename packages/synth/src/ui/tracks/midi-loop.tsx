@@ -23,15 +23,15 @@ const MidiLoop: React.FC<Props> = ({
 }) => {
   const id = `MidiLoop_B_Q_T_D_V_B_D_${name}`;
 
-  const loopSize = loopEnd - loopStart;
+  const size = loopEnd - loopStart;
   const width = (end - start) * STEP;
+  const offset = loopStart * STEP;
 
-  console.log(loopSize);
   return (
     <g>
       <defs>
         <pattern
-          width={loopSize * STEP}
+          width={size * STEP}
           height={STAGE_HEIGHT}
           patternUnits="userSpaceOnUse"
           id={id}
@@ -42,7 +42,7 @@ const MidiLoop: React.FC<Props> = ({
                 key={noteIndex}
                 width={note.length}
                 height={1}
-                x={note.position}
+                x={note.position - offset}
                 y={STAGE_HEIGHT - note.i}
               />
             ))}
