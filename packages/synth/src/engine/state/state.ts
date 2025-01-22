@@ -38,23 +38,39 @@ export const dawState = (): DAWState => {
       midi: {
         start: 32,
         end: 64,
-        loop: [0, 16],
+        loop: [0, 32],
         notes: {
-          '0': [
+          0: [
             { at: 0, id: 'F#2', length: 32 },
             { at: 0, id: 'A#1', length: 32 }
           ],
-          '4': [
+          4: [
             { at: 0, id: 'F#2', length: 32 },
             { at: 0, id: 'A#1', length: 32 }
           ],
-          '8': [
+          8: [
             { at: 0, id: 'D#2', length: 32 },
             { at: 0, id: 'C#1', length: 32 }
           ],
-          '12': [
+          12: [
             { at: 0, id: 'D#2', length: 32 },
             { at: 0, id: 'F#1', length: 32 }
+          ],
+          16: [
+            { at: 0, id: 'F#3', length: 32 },
+            { at: 0, id: 'A#2', length: 32 }
+          ],
+          20: [
+            { at: 0, id: 'F#3', length: 32 },
+            { at: 0, id: 'A#2', length: 32 }
+          ],
+          24: [
+            { at: 0, id: 'D#3', length: 32 },
+            { at: 0, id: 'C#2', length: 32 }
+          ],
+          28: [
+            { at: 0, id: 'D#3', length: 32 },
+            { at: 0, id: 'F#2', length: 32 }
           ]
         }
       },
@@ -109,7 +125,7 @@ export const dawState = (): DAWState => {
       preset: getPreset('clap'),
       midi: {
         loop: [4, 8],
-        start: 0,
+        start: 16,
         end: 64,
         notes: {
           4: [
@@ -118,7 +134,7 @@ export const dawState = (): DAWState => {
           ]
         }
       },
-      gain: 0.5
+      gain: 0.3
     }
   ];
 
