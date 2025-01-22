@@ -29,8 +29,8 @@ const UI: React.FC = () => (
         <Keyboard />
       </section>
       <div style={{ position: 'relative' }}>
-        <PianoRoll />
         <Tracks />
+        <PianoRoll />
       </div>
     </div>
   </>

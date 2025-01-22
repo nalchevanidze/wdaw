@@ -3,12 +3,12 @@ import { colors } from '../styles';
 import {
   CANVAS_HEIGHT,
   KEYBOARD_WIDTH,
-  NOTE_SIZE,
   OCTAVE_HEIGHT,
   QUARTER,
   STAGE_WIDTH,
   SUB_QUARTER
 } from './utils';
+import { NOTE_SIZE } from '../common/defs';
 
 type KeysProps = {
   width: number;

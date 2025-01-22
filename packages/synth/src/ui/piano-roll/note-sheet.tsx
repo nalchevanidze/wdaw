@@ -7,9 +7,7 @@ import {
   deepen,
   Selected,
   selectNotesIn,
-  NOTE_SIZE,
   KEYBOARD_WIDTH,
-  TIMELINE_HEIGHT,
   editNotes,
   STAGE_WIDTH,
   STAGE_HEIGHT
@@ -20,6 +18,7 @@ import { MouseEventHandler, useContext, useState } from 'react';
 import { EditActionType, Maybe, NotePoint, SelectZone } from '../types';
 import { ConfiguratorContext } from '../configurator';
 import { useKeyAction } from '../utils';
+import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
 
 const viewBox = [
   -KEYBOARD_WIDTH,

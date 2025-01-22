@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { colors } from '../styles';
 import { GraphNote } from '../types';
-import { CANVAS_HEIGHT, NOTE_SIZE, NOTE_STEP } from './utils';
+import { CANVAS_HEIGHT } from './utils';
+import { NOTE_SIZE, NOTE_STEP } from '../common/defs';
 
 type Props = {
   notes: GraphNote[];

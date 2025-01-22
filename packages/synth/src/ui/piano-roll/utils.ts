@@ -6,12 +6,8 @@ import {
 } from '../../utils/notes';
 import { GraphNote, NotePoint, SelectZone } from '../types';
 import { Midi, Note } from '../../engine';
+import { NOTE_SIZE, NOTE_STEP, TIMELINE_HEIGHT } from '../common/defs';
 
-// note height and width
-export const NOTE_SIZE = 10 as const;
-
-// support half note rhythm
-export const NOTE_STEP = NOTE_SIZE / 2;
 
 export const SUB_QUARTER = NOTE_SIZE * 4;
 
@@ -24,8 +20,6 @@ export const CANVAS_WIDTH = QUARTER * 4;
 export const OCTAVE_HEIGHT = NOTE_SIZE * OCTAVE_SIZE;
 
 export const KEYBOARD_WIDTH = 20;
-
-export const TIMELINE_HEIGHT = 20;
 
 export const STAGE_WIDTH = KEYBOARD_WIDTH + CANVAS_WIDTH;
 
