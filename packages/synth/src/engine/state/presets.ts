@@ -228,22 +228,22 @@ const bass: Preset = {
   envelopes: {
     filter: {
       attack: 0,
-      decay: 0.4,
+      decay: 0.5,
       sustain: 0.08,
       release: 0.1
     },
     gain: {
       attack: 0,
-      decay: 0.3,
+      decay: 0.6,
       sustain: 0.8,
       release: 0.1
     }
   },
   filter: {
     enabled: true,
-    cutoff: 0.2,
+    cutoff: 0.1,
     resonance: 0.3,
-    envelope: 0.6
+    envelope: 0.3
   },
   sequence: {
     enabled: false
