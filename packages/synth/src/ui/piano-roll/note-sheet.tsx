@@ -177,13 +177,23 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
 
   useKeyAction(deleteNotes, [notes]);
 
+  const track = tracks[currentTrack].midi;
+
+  const loopSize = (track.loop[1] - track.loop[0]) * 8;
+
+  const current =
+    time < track.start * 8 ? 0 : track.loop[0] * 8 + (time % loopSize);
+
   return (
     <g
       onMouseMove={onMouseMove}
       onMouseLeave={handleEventEnd}
       onMouseUp={handleEventEnd}
     >
-      <Background onMouseDown={clickOnBackground} loop={tracks[currentTrack].midi.loop}/>
+      <Background
+        onMouseDown={clickOnBackground}
+        loop={tracks[currentTrack].midi.loop}
+      />
       <g>
         <Notes notes={notes.inactive} mouseDown={clickOnNote} />
         <Notes
@@ -194,7 +204,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         />
       </g>
       <Timeline
-        time={(time * NOTE_SIZE) / 2}
+        time={(current * NOTE_SIZE) / 2}
         height={STAGE_HEIGHT}
         width={STAGE_WIDTH}
         setTime={(payload) => dispatch({ type: 'SET_TIME', payload })}
