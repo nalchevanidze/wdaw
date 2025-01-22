@@ -13,11 +13,11 @@ type Props = { midi: Midi; name: string; i: number };
 export const PANEL = 50 as const;
 
 
-const STAGE_WIDTH = BLOCK_SIZE * 4;
+export const STAGE_WIDTH = BLOCK_SIZE * 4;
 
-const WIDTH = STAGE_WIDTH + PANEL;
+export const WIDTH = STAGE_WIDTH + PANEL;
 
-const viewBox = [-PANEL, 0, WIDTH, STAGE_HEIGHT].join(' ');
+export const viewBox = [-PANEL, 0, WIDTH, STAGE_HEIGHT].join(' ');
 
 const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
   const [notes, setNotes] = useState<NotePoint[]>(flatten(midi));
