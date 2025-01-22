@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import HeaderButton from '../../common/header-button';
-import { ConfiguratorContext } from '../../configurator';
-import { colors } from '../../styles';
-import { PLAYER_ACTION } from '../../../engine';
+import HeaderButton from '../common/header-button';
+import { ConfiguratorContext } from '../configurator';
+import { colors } from '../styles';
+import { PLAYER_ACTION } from '../../engine';
 
 const containerStyle = {
   display: 'flex',

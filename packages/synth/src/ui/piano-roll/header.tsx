@@ -1,10 +1,7 @@
 import * as React from 'react';
-import { useContext } from 'react';
-import { EditActionType } from '../../types';
-import { ConfiguratorContext } from '../../configurator';
-import { colors } from '../../styles';
-import { PLAYER_ACTION } from '../../../engine';
-import HeaderButton from '../../common/header-button';
+import { EditActionType } from '../types';
+import { colors } from '../styles';
+import HeaderButton from '../common/header-button';
 
 const containerStyle = {
   display: 'flex',
@@ -19,16 +16,6 @@ type Props = {
 };
 
 const NoteComposerHeader: React.FC<Props> = ({ actionType, dispatch }) => {
-  const [
-    {
-      player: { isPlaying }
-    },
-    action
-  ] = useContext(ConfiguratorContext);
-
-  const player = (payload: PLAYER_ACTION) =>
-    action({ type: 'PLAYER', payload });
-
   return (
     <section style={containerStyle}>
       <HeaderButton
