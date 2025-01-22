@@ -205,8 +205,6 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       <Timeline
         time={(current * NOTE_SIZE) / 2}
         height={STAGE_HEIGHT}
-        width={STAGE_WIDTH}
-        setTime={(payload) => dispatch({ type: 'SET_TIME', payload })}
       />
       {selectionArea ? <SelectionCover {...selectionArea} /> : null}
     </g>
