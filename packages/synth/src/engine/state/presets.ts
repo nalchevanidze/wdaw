@@ -68,17 +68,16 @@ const pluck: Preset = {
     }
   },
   filter: {
-    cutoff: 0.1,
+    cutoff: 0.15,
     resonance: 0.3,
     envelope: 0.5,
     enabled: true
   },
   sequence: {
     enabled: true,
-    0: [1, 3],
-    3: [1, 3],
-    6: [1, 2],
-    10: [1, 3],
+    0: [1],
+    2: [2],
+    6: [1],
     12: [2],
     13: [3],
     14: [1]

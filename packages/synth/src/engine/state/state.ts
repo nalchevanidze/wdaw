@@ -41,24 +41,20 @@ export const dawState = (): DAWState => {
         loop: [0, 16],
         notes: {
           '0': [
-            { at: 0, id: 'G#2', length: 32 },
             { at: 0, id: 'F#2', length: 32 },
-            { at: 0, id: 'D#1', length: 32 }
+            { at: 0, id: 'A#1', length: 32 }
           ],
           '4': [
-            { at: 0, id: 'G#2', length: 32 },
             { at: 0, id: 'F#2', length: 32 },
-            { at: 0, id: 'D#1', length: 32 }
+            { at: 0, id: 'A#1', length: 32 }
           ],
           '8': [
-            { at: 0, id: 'F#2', length: 32 },
             { at: 0, id: 'D#2', length: 32 },
             { at: 0, id: 'C#1', length: 32 }
           ],
           '12': [
-            { at: 0, id: 'F#2', length: 32 },
             { at: 0, id: 'D#2', length: 32 },
-            { at: 0, id: 'B0', length: 32 }
+            { at: 0, id: 'F#1', length: 32 }
           ]
         }
       },
@@ -67,38 +63,28 @@ export const dawState = (): DAWState => {
     {
       name: 'bass',
       preset: getPreset('bass'),
+      gain: 0.3,
       midi: {
-        start: 16,
+        start: 0,
         end: 64,
         loop: [0, 16],
         notes: {
-          '0': [
-            { at: 4, id: 'D#2', length: 4 },
-            { at: 12, id: 'D#2', length: 4 },
-            { at: 20, id: 'D#2', length: 4 },
-            { at: 28, id: 'D#2', length: 4 }
-          ],
-          '4': [
-            { at: 4, id: 'D#2', length: 4 },
-            { at: 12, id: 'D#2', length: 4 },
-            { at: 20, id: 'D#2', length: 4 },
-            { at: 28, id: 'D#2', length: 4 }
-          ],
-          '8': [
-            { at: 4, id: 'C#2', length: 4 },
-            { at: 12, id: 'C#2', length: 4 },
-            { at: 20, id: 'C#2', length: 4 },
-            { at: 28, id: 'C#2', length: 4 }
-          ],
-          '12': [
-            { at: 4, id: 'F#2', length: 4 },
-            { at: 12, id: 'F#2', length: 4 },
-            { at: 20, id: 'F#2', length: 4 },
-            { at: 28, id: 'F#2', length: 4 }
-          ]
+          0: [{ at: 4, id: 'A#1', length: 4 }],
+          1: [{ at: 4, id: 'A#1', length: 4 }],
+          2: [{ at: 4, id: 'A#1', length: 4 }],
+          4: [{ at: 4, id: 'A#1', length: 4 }],
+          5: [{ at: 4, id: 'A#1', length: 4 }],
+          6: [{ at: 4, id: 'A#1', length: 4 }],
+          8: [{ at: 4, id: 'C#2', length: 4 }],
+          9: [{ at: 4, id: 'C#2', length: 4 }],
+          10: [{ at: 4, id: 'C#2', length: 4 }],
+          11: [{ at: 4, id: 'G#1', length: 4 }],
+          12: [{ at: 4, id: 'F#2', length: 4 }],
+          13: [{ at: 4, id: 'F#2', length: 4 }],
+          14: [{ at: 4, id: 'F#2', length: 4 }],
+          15: [{ at: 4, id: 'D#2', length: 4 }]
         }
-      },
-      gain: 0.2
+      }
     },
     {
       name: 'kick',

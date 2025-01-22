@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { StageContext, SvgStage } from '@wdaw/svg';
 import { Tapeline } from '../common/tapeline';
-import { TIMELINE_HEIGHT } from '../common/defs';
-import { PANEL, viewBox, WIDTH } from './track';
-import { STAGE_HEIGHT } from './midi-loop';
+import { PANEL, WIDTH } from './track';
 import { ConfiguratorContext } from '../configurator';
 
 const HEIGHT = 20;
