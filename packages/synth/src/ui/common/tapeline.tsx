@@ -7,7 +7,7 @@ const id = 'TimelinePattern_B_Q_T_D_V_B_D';
 const parent = `${id}_PARENT`;
 const child = `${id}_CHILD`;
 
-const TimeTapeline = () => (
+export const Tapeline = () => (
   <g>
     <defs>
       <pattern
@@ -60,12 +60,3 @@ const TimeTapeline = () => (
     />
   </g>
 );
-
-type TimelineProps = {
-  time: number;
-  height: number;
-  width: number;
-  setTime: (e: number) => void;
-};
-
-export { TimeTapeline };

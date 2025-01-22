@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StageContext } from '@wdaw/svg';
-import { TimeTapeline } from '../common/time-tapeline';
+import { Tapeline } from '../common/tapeline';
 import { TIMELINE_HEIGHT } from '../common/defs';
 
 type TimelineProps = {
@@ -20,7 +20,7 @@ const Timeline: React.FC<TimelineProps> = ({
 
   return (
     <g>
-      <TimeTapeline />
+      <Tapeline />
       <line
         x1={time}
         x2={time}
