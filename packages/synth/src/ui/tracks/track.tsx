@@ -10,7 +10,7 @@ import { BLOCK_SIZE, MidiLoop, STAGE_HEIGHT } from './midi-loop';
 
 type Props = { midi: Midi; name: string; i: number };
 
-const PANEL = 50 as const;
+export const PANEL = 50 as const;
 
 
 const STAGE_WIDTH = BLOCK_SIZE * 4;
