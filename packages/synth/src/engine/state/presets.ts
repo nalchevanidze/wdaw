@@ -189,21 +189,21 @@ const kick: Preset = {
   envelopes: {
     filter: {
       attack: 0,
-      decay: 0.15,
-      sustain: 0.08,
-      release: 0.1
+      decay: 0.05,
+      sustain: 0.0,
+      release: 0
     },
     gain: {
       attack: 0,
-      decay: 0.2,
-      sustain: 0.05,
-      release: 0.1
+      decay: 0.3,
+      sustain: 0.1,
+      release: 0.2
     }
   },
   filter: {
-    cutoff: 0.5,
-    resonance: 0.2,
-    envelope: 0.6,
+    cutoff: 0.1,
+    resonance: 0.6,
+    envelope: 0.8,
     enabled: true
   },
   sequence: {

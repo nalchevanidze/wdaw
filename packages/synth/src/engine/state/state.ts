@@ -134,7 +134,7 @@ export const dawState = (): DAWState => {
           ]
         }
       },
-      gain: 0.3
+      gain: 0.25
     }
   ];
 
