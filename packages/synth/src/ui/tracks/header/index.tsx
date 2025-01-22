@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import { EditActionType } from '../../types';
+import HeaderButton from '../../common/header-button';
 import { ConfiguratorContext } from '../../configurator';
 import { colors } from '../../styles';
 import { PLAYER_ACTION } from '../../../engine';
-import HeaderButton from '../../common/header-button';
 
 const containerStyle = {
   display: 'flex',
@@ -12,13 +11,7 @@ const containerStyle = {
   padding: '5px',
   border: '0.05em solid #BBB'
 };
-
-type Props = {
-  actionType: EditActionType;
-  dispatch(x: EditActionType): void;
-};
-
-const NoteComposerHeader: React.FC<Props> = ({ actionType, dispatch }) => {
+const Header: React.FC = () => {
   const [
     {
       player: { isPlaying }
@@ -32,17 +25,12 @@ const NoteComposerHeader: React.FC<Props> = ({ actionType, dispatch }) => {
   return (
     <section style={containerStyle}>
       <HeaderButton
-        id={'draw'}
-        color={colors.button(actionType === 'draw')}
-        onClick={() => dispatch('draw')}
+        id={isPlaying ? 'pause' : 'play'}
+        onClick={() => player(isPlaying ? 'pause' : 'play')}
       />
-      <HeaderButton
-        id={'select'}
-        color={colors.button(actionType === 'select')}
-        onClick={() => dispatch('select')}
-      />
+      <HeaderButton id={'stop'} onClick={() => player('stop')} />
     </section>
   );
 };
 
-export { NoteComposerHeader };
+export { Header };

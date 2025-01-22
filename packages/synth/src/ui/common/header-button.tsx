@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { colors } from '../../styles';
+import { colors } from '../styles';
 
 const iconLib = {
   play: 'M20 0 L 90 50 20 100Z',
