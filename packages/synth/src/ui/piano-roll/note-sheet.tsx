@@ -53,14 +53,6 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     dispatch
   ] = useContext(ConfiguratorContext);
   const getCoordinates = React.useContext(StageContext);
-  const refreshMidi = (ns: Selected<NotePoint>): void =>
-    dispatch({
-      type: 'SET_MIDI',
-      payload: deepen(
-        [...ns.selected, ...ns.inactive],
-        tracks[currentTrack].midi
-      )
-    });
 
   const [selectionArea, setSelectionArea] = useState<SelectZone | undefined>();
 
@@ -71,6 +63,19 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     selected: [],
     inactive: flatten(tracks[currentTrack].midi)
   });
+
+  const updateNotes = (ns: Selected<NotePoint>) => {
+    setNotes(ns);
+    if (ns.selected.length === 0) {
+      dispatch({
+        type: 'SET_MIDI',
+        payload: deepen(
+          [...ns.selected, ...ns.inactive],
+          tracks[currentTrack].midi
+        )
+      });
+    }
+  };
 
   React.useEffect(() => {
     setNotes({
@@ -89,12 +94,12 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       case 'SELECT': {
         const area = dragging ? ([dragging, point] as const) : undefined;
         setSelectionArea(area);
-        return setNotes(selectNotesIn(notes, area));
+        return updateNotes(selectNotesIn(notes, area));
       }
       case 'MOVE':
       case 'SCALE': {
         return dragging
-          ? setNotes({
+          ? updateNotes({
               selected: editNotes(mode, selected, dragging, point),
               inactive
             })
@@ -107,8 +112,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     if (mode && ['MOVE', 'RESIZE'].includes(mode)) {
       allNotes.forEach((x) => (x.old = undefined));
       const changes = { selected: [], inactive: allNotes };
-      setNotes(changes);
-      refreshMidi(changes);
+      updateNotes(changes);
     }
     setSelectionArea(undefined);
     endDraggingEvent();
@@ -119,7 +123,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       case 'draw': {
         const selection = insertNoteAt(notes, getCoordinates(e));
         startDragging('SCALE', e, selection);
-        refreshMidi(selection);
+        selection;
         return;
       }
       case 'select':
@@ -133,13 +137,10 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   ): void => {
     switch (actionType) {
       case 'draw': {
-        // delete notes
-        const changes = {
+        return updateNotes({
           selected: [],
           inactive: allNotes.filter((arrayNote) => arrayNote !== note)
-        };
-        refreshMidi(changes);
-        return setNotes(changes);
+        });
       }
       case 'select': {
         return startDragging('MOVE', e, {
@@ -153,10 +154,12 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const startDragging = (
     name: MODE,
     e: React.MouseEvent<SVGGElement, MouseEvent>,
-    { selected, inactive }: Selected<NotePoint> = notes
+    ns?: Selected<NotePoint>
   ) => {
     startDraggingEvent(name, e);
-    setNotes({
+
+    const { selected, inactive } = ns ?? notes;
+    updateNotes({
       selected: selected.map((note) => ({ ...note, old: { ...note } })),
       inactive
     });
@@ -165,9 +168,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const deleteNotes = () => (e: KeyboardEvent) => {
     switch (e.key) {
       case 'Backspace': {
-        const changes = { selected: [], inactive: notes.inactive };
-        setNotes(changes);
-        return refreshMidi(changes);
+        return updateNotes({ selected: [], inactive: notes.inactive });
       }
     }
   };
