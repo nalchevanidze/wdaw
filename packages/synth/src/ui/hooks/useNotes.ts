@@ -4,6 +4,10 @@ import { useContext, useState } from 'react';
 import { NotePoint } from '../types';
 import { ConfiguratorContext } from '../configurator';
 
+
+const addOrigin = (note:NotePoint):NotePoint => ({ ...note, old: { ...note } }))
+const dropOrigin = ({ old, ...n }:NotePoint):NotePoint => n
+
 export const useNotes = () => {
   const [
     {
@@ -42,28 +46,35 @@ export const useNotes = () => {
   const clearSelection = () =>
     updateNotes({
       selected: [],
-      inactive: allNotes.map(({ old, ...n }) => n)
+      inactive: allNotes.map(dropOrigin)
     });
 
   const removeNote = (note: NotePoint) =>
     updateNotes({
       selected: [],
-      inactive: allNotes.filter((n) => n !== note)
+      inactive: allNotes.filter((n) => n !== note).map(dropOrigin)
     });
 
   const selectNote = (note: NotePoint) =>
     updateNotes({
-      selected: [note],
+      selected: [note].map(addOrigin),
       inactive: allNotes.filter((n) => n !== note)
     });
 
   const addNote = (note: NotePoint) =>
     updateNotes({
-      selected: [note],
-      inactive: allNotes.map(({ old, ...n }) => n)
+      selected: [note].map(addOrigin),
+      inactive: allNotes.map(dropOrigin)
+    });
+
+  const trackOrigin = () =>
+    updateNotes({
+      selected: notes.selected.map(addOrigin),
+      inactive: notes.inactive
     });
 
   return {
+    trackOrigin,
     notes,
     updateNotes,
     clearSelection,

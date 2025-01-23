@@ -85,7 +85,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     selectNote,
     clearSelection,
     removeNote,
-    addNote
+    addNote,
+    trackOrigin
   } = useNotes();
 
   const clickOnBackground: MouseEventHandler<SVGGElement> = (e) => {
@@ -118,11 +119,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const startDraggingSelected =
     (name: MODE) => (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
       startDragging(name, e);
-
-      updateNotes({
-        selected: notes.selected.map((note) => ({ ...note, old: { ...note } })),
-        inactive: notes.inactive
-      });
+      trackOrigin()
     };
 
   const deleteNotes = () => (e: KeyboardEvent) => {
