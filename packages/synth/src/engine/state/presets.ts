@@ -273,9 +273,9 @@ const clap: Preset = {
     },
     gain: {
       attack: 0,
-      decay: 0.4,
-      sustain: 0.2,
-      release: 0.3
+      decay: 0.2,
+      sustain: 0,
+      release: 0
     }
   },
   filter: {
