@@ -19,7 +19,7 @@ import { EditActionType, Maybe, NotePoint, SelectZone } from '../types';
 import { ConfiguratorContext } from '../configurator';
 import { useKeyAction } from '../utils';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
-import { MODE, useDragging } from '../hooks/useDragging';
+import { MEvent, MODE, useDragging } from '../hooks/useDragging';
 import { useNotes } from '../hooks/useNotes';
 
 const viewBox = [
@@ -55,7 +55,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const getCoordinates = React.useContext(StageContext);
 
   const [selectionArea, setSelectionArea] = useState<SelectZone | undefined>();
-  const { mode, dragging, startDraggingE, endDraggingE } = useDragging();
+  const { mode, dragging, startDragging, endDragging } = useDragging();
   const { notes, updateNotes } = useNotes();
 
   const allNotes = [...notes.selected, ...notes.inactive];
@@ -90,20 +90,23 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       });
     }
     setSelectionArea(undefined);
-    endDraggingE();
+    endDragging();
   };
 
   const clickOnBackground: MouseEventHandler<SVGGElement> = (e) => {
     switch (actionType) {
       case 'draw': {
-        return startDragging(
+        return startDraggingAndSelect(
           'SCALE',
           e,
           insertNoteAt(notes, getCoordinates(e))
         );
       }
       case 'select':
-        return startDragging('SELECT', e, { selected: [], inactive: allNotes });
+        return startDraggingAndSelect('SELECT', e, {
+          selected: [],
+          inactive: allNotes
+        });
     }
   };
 
@@ -119,7 +122,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         });
       }
       case 'select': {
-        return startDragging('MOVE', e, {
+        return startDraggingAndSelect('MOVE', e, {
           selected: [note],
           inactive: allNotes.filter((e) => e !== note)
         });
@@ -127,18 +130,21 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     }
   };
 
-  const startDragging = (
+  const startDraggingAndSelect = (
     name: MODE,
     e: React.MouseEvent<SVGGElement, MouseEvent>,
-    ns?: Selected<NotePoint>
+    { inactive, selected }: Selected<NotePoint>
   ) => {
-    startDraggingE(name, e);
+    startDragging(name, e);
 
-    const { selected, inactive } = ns ?? notes;
     updateNotes({
       selected: selected.map((note) => ({ ...note, old: { ...note } })),
       inactive
     });
+  };
+
+  const startDraggingSelected = (name: MODE) => (e: MEvent) => {
+    startDraggingAndSelect(name, e, notes);
   };
 
   const deleteNotes = () => (e: KeyboardEvent) => {
@@ -173,8 +179,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         <Notes
           notes={notes.selected}
           color="#03A9F4"
-          mouseDown={(e) => startDragging('MOVE', e)}
-          resize={(e) => startDragging('SCALE', e)}
+          mouseDown={startDraggingSelected('MOVE')}
+          resize={startDraggingSelected('SCALE')}
         />
       </g>
       <Timeline time={(current * NOTE_SIZE) / 2} height={STAGE_HEIGHT} />
