@@ -115,21 +115,15 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     }
   };
 
-  const startDraggingNotes = (
-    name: MODE,
-    e: React.MouseEvent<SVGGElement, MouseEvent>,
-    { inactive, selected }: Selected<NotePoint>
-  ) => {
-    startDragging(name, e);
+  const startDraggingSelected =
+    (name: MODE) => (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
+      startDragging(name, e);
 
-    updateNotes({
-      selected: selected.map((note) => ({ ...note, old: { ...note } })),
-      inactive
-    });
-  };
-
-  const startDraggingSelected = (name: MODE) => (e: MEvent) =>
-    startDraggingNotes(name, e, notes);
+      updateNotes({
+        selected: notes.selected.map((note) => ({ ...note, old: { ...note } })),
+        inactive: notes.inactive
+      });
+    };
 
   const deleteNotes = () => (e: KeyboardEvent) => {
     switch (e.key) {
