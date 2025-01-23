@@ -5,8 +5,13 @@ import { Maybe } from '../types';
 export type MODE = 'SCALE' | 'MOVE' | 'SELECT';
 
 export type MEvent = React.MouseEvent<SVGGElement, MouseEvent>;
+export type MHandler = React.MouseEventHandler<SVGGElement>;
 
-export const useDragging = () => {
+type Optins = {
+  onMouseMove(mode: string, point: Point, dragging?: Point): void;
+};
+
+export const useDragging = (ops: Optins) => {
   const getCoordinates = React.useContext(StageContext);
 
   const [mode, setMode] = React.useState<MODE | undefined>(undefined);
@@ -21,11 +26,16 @@ export const useDragging = () => {
     setDragging(undefined);
   };
 
+  const onMouseMove: MHandler = (e) => {
+    if (mode) {
+      ops.onMouseMove(mode, getCoordinates(e), dragging);
+    }
+  };
+
   return {
     mode,
-    dragging,
-    setMode,
     startDragging,
-    endDragging
+    endDragging,
+    onMouseMove
   };
 };

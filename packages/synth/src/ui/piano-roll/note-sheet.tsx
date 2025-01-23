@@ -55,32 +55,29 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const getCoordinates = React.useContext(StageContext);
 
   const [selectionArea, setSelectionArea] = useState<SelectZone | undefined>();
-  const { mode, dragging, startDragging, endDragging } = useDragging();
+  const { mode, startDragging, endDragging, onMouseMove } = useDragging({
+    onMouseMove: (mode, point, dragging) => {
+      switch (mode) {
+        case 'SELECT': {
+          const area = dragging ? ([dragging, point] as const) : undefined;
+          setSelectionArea(area);
+          return updateNotes(selectNotesIn(notes, area));
+        }
+        case 'MOVE':
+        case 'SCALE': {
+          return dragging
+            ? updateNotes({
+                selected: editNotes(mode, notes.selected, dragging, point),
+                inactive: notes.inactive
+              })
+            : undefined;
+        }
+      }
+    }
+  });
   const { notes, updateNotes } = useNotes();
 
   const allNotes = [...notes.selected, ...notes.inactive];
-
-  const onMouseMove: MouseEventHandler<SVGGElement> = (e) => {
-    const point = getCoordinates(e);
-    const { selected, inactive } = notes;
-
-    switch (mode) {
-      case 'SELECT': {
-        const area = dragging ? ([dragging, point] as const) : undefined;
-        setSelectionArea(area);
-        return updateNotes(selectNotesIn(notes, area));
-      }
-      case 'MOVE':
-      case 'SCALE': {
-        return dragging
-          ? updateNotes({
-              selected: editNotes(mode, selected, dragging, point),
-              inactive
-            })
-          : undefined;
-      }
-    }
-  };
 
   const handleEventEnd = (): void => {
     if (mode && ['MOVE', 'RESIZE'].includes(mode)) {
@@ -143,7 +140,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     });
   };
 
-  const startDraggingSelected = (name: MODE) => (e: MEvent) => startDraggingNotes(name, e, notes);
+  const startDraggingSelected = (name: MODE) => (e: MEvent) =>
+    startDraggingNotes(name, e, notes);
 
   const deleteNotes = () => (e: KeyboardEvent) => {
     switch (e.key) {
