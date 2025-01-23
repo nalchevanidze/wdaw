@@ -84,7 +84,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       setSelectionArea(undefined);
     }
   });
-  const { notes, updateNotes, allNotes } = useNotes();
+  const { notes, updateNotes, allNotes, clearSelection } = useNotes();
 
   const clickOnBackground: MouseEventHandler<SVGGElement> = (e) => {
     switch (actionType) {
@@ -96,10 +96,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         );
       }
       case 'select':
-        return startDraggingNotes('SELECT', e, {
-          selected: [],
-          inactive: allNotes
-        });
+        startDragging('SELECT', e);
+        return clearSelection();
     }
   };
 

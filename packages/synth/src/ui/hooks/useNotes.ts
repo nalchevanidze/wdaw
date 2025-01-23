@@ -17,6 +17,8 @@ export const useNotes = () => {
     inactive: flatten(tracks[currentTrack].midi)
   });
 
+  const allNotes = [...notes.selected, ...notes.inactive];
+
   const updateNotes = (ns: Selected<NotePoint>) => {
     setNotes(ns);
     if (ns.selected.length === 0) {
@@ -37,9 +39,11 @@ export const useNotes = () => {
     });
   }, [tracks[currentTrack].midi]);
 
+  const clearSelection = () =>
+    updateNotes({
+      selected: [],
+      inactive: allNotes
+    });
 
-
-  const allNotes = [...notes.selected, ...notes.inactive];
-
-  return { notes, updateNotes , allNotes };
+  return { notes, updateNotes, allNotes, clearSelection };
 };
