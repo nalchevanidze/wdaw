@@ -19,6 +19,7 @@ import { EditActionType, Maybe, NotePoint, SelectZone } from '../types';
 import { ConfiguratorContext } from '../configurator';
 import { useKeyAction } from '../utils';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
+import { MODE, useDragging } from '../hooks/useDragging';
 
 const viewBox = [
   -KEYBOARD_WIDTH,
@@ -38,8 +39,6 @@ const SelectionCover: React.FC<SelectZone> = ([start, end]) => (
     height={Math.abs(end.y - start.y)}
   />
 );
-
-type MODE = 'SCALE' | 'MOVE' | 'SELECT';
 
 type Props = {
   actionType: EditActionType;
@@ -63,9 +62,10 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       )
     });
 
-  const [mode, setMode] = React.useState<MODE | undefined>(undefined);
   const [selectionArea, setSelectionArea] = useState<SelectZone | undefined>();
-  const [dragging, setDragging] = useState<Maybe<Point>>(undefined);
+
+  const { mode, dragging, startDraggingEvent, endDraggingEvent } =
+    useDragging();
 
   const [notes, setNotes] = useState<Selected<NotePoint>>({
     selected: [],
@@ -110,9 +110,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       setNotes(changes);
       refreshMidi(changes);
     }
-    setMode(undefined);
     setSelectionArea(undefined);
-    setDragging(undefined);
+    endDraggingEvent();
   };
 
   const clickOnBackground: MouseEventHandler<SVGGElement> = (e) => {
@@ -156,8 +155,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     e: React.MouseEvent<SVGGElement, MouseEvent>,
     { selected, inactive }: Selected<NotePoint> = notes
   ) => {
-    setMode(name);
-    setDragging(getCoordinates(e));
+    startDraggingEvent(name, e);
     setNotes({
       selected: selected.map((note) => ({ ...note, old: { ...note } })),
       inactive
@@ -202,10 +200,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
           resize={(e) => startDragging('SCALE', e)}
         />
       </g>
-      <Timeline
-        time={(current * NOTE_SIZE) / 2}
-        height={STAGE_HEIGHT}
-      />
+      <Timeline time={(current * NOTE_SIZE) / 2} height={STAGE_HEIGHT} />
       {selectionArea ? <SelectionCover {...selectionArea} /> : null}
     </g>
   );
