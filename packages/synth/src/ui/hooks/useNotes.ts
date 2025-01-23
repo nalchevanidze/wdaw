@@ -42,7 +42,7 @@ export const useNotes = () => {
   const clearSelection = () =>
     updateNotes({
       selected: [],
-      inactive: allNotes
+      inactive: allNotes.map(({ old, ...n }) => n)
     });
 
   return { notes, updateNotes, allNotes, clearSelection };
