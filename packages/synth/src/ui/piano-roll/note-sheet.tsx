@@ -20,6 +20,7 @@ import { ConfiguratorContext } from '../configurator';
 import { useKeyAction } from '../utils';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
 import { MODE, useDragging } from '../hooks/useDragging';
+import { useNotes } from '../hooks/useNotes';
 
 const viewBox = [
   -KEYBOARD_WIDTH,
@@ -42,43 +43,6 @@ const SelectionCover: React.FC<SelectZone> = ([start, end]) => (
 
 type Props = {
   actionType: EditActionType;
-};
-
-const useNotes = () => {
-  const [
-    {
-      player: { time },
-      tracks: { currentTrack, tracks }
-    },
-    dispatch
-  ] = useContext(ConfiguratorContext);
-
-  const [notes, setNotes] = useState<Selected<NotePoint>>({
-    selected: [],
-    inactive: flatten(tracks[currentTrack].midi)
-  });
-
-  const updateNotes = (ns: Selected<NotePoint>) => {
-    setNotes(ns);
-    if (ns.selected.length === 0) {
-      dispatch({
-        type: 'SET_MIDI',
-        payload: deepen(
-          [...ns.selected, ...ns.inactive],
-          tracks[currentTrack].midi
-        )
-      });
-    }
-  };
-
-  React.useEffect(() => {
-    setNotes({
-      selected: [],
-      inactive: flatten(tracks[currentTrack].midi)
-    });
-  }, [tracks[currentTrack].midi]);
-
-  return { notes, updateNotes };
 };
 
 const NoteSheet: React.FC<Props> = ({ actionType }) => {
