@@ -8,7 +8,6 @@ import { GraphNote, NotePoint, SelectZone } from '../types';
 import { Midi, Note } from '../../engine';
 import { NOTE_SIZE, NOTE_STEP, TIMELINE_HEIGHT } from '../common/defs';
 
-
 export const SUB_QUARTER = NOTE_SIZE * 4;
 
 export const QUARTER = SUB_QUARTER * 4;
@@ -49,21 +48,16 @@ export const isInArea = (
   return xIsInArea && yIsInArea;
 };
 
-export const insertNoteAt = (
-  { selected, inactive }: Selected<NotePoint>,
-  { x, y }: Point
-): Selected<NotePoint> => {
+export const genNoteAt = ({ x, y }: Point): NotePoint => {
   const i = Math.floor(1 + (CANVAS_HEIGHT - y) / NOTE_SIZE);
   const position = Math.floor(x / NOTE_STEP);
-  const note = {
+  return {
     length: 2,
     i,
     position,
     id: getNoteIdByIndex(i - 1),
     at: position % 8
   };
-
-  return { selected: [note], inactive: [...selected, ...inactive] };
 };
 
 const foldMidi =

@@ -2,9 +2,7 @@ import * as React from 'react';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
 import {
-  insertNoteAt,
-  flatten,
-  deepen,
+  genNoteAt,
   Selected,
   selectNotesIn,
   KEYBOARD_WIDTH,
@@ -81,17 +79,20 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       setSelectionArea(undefined);
     }
   });
-  const { notes, updateNotes, allNotes, clearSelection, removeNote } =
-    useNotes();
+  const {
+    notes,
+    updateNotes,
+    selectNote,
+    clearSelection,
+    removeNote,
+    addNote
+  } = useNotes();
 
   const clickOnBackground: MouseEventHandler<SVGGElement> = (e) => {
     switch (actionType) {
       case 'draw': {
-        return startDraggingNotes(
-          'SCALE',
-          e,
-          insertNoteAt(notes, getCoordinates(e))
-        );
+        startDragging('SCALE', e);
+        return addNote(genNoteAt(getCoordinates(e)));
       }
       case 'select':
         startDragging('SELECT', e);
@@ -108,10 +109,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         return removeNote(note);
       }
       case 'select': {
-        return startDraggingNotes('MOVE', e, {
-          selected: [note],
-          inactive: allNotes.filter((n) => n !== note)
-        });
+        startDragging('MOVE', e);
+        return selectNote(note);
       }
     }
   };
