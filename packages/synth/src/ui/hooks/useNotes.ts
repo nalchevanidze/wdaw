@@ -4,9 +4,12 @@ import { useContext, useState } from 'react';
 import { NotePoint } from '../types';
 import { ConfiguratorContext } from '../configurator';
 
+const addOrigin = ({ old, ...note }: NotePoint): NotePoint => ({
+  ...note,
+  old: { ...note }
+});
 
-const addOrigin = (note:NotePoint):NotePoint => ({ ...note, old: { ...note } }))
-const dropOrigin = ({ old, ...n }:NotePoint):NotePoint => n
+const dropOrigin = ({ old, ...n }: NotePoint): NotePoint => n;
 
 export const useNotes = () => {
   const [

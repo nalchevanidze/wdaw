@@ -72,12 +72,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         }
       }
     },
-    onEndDragging(mode) {
-      if (mode && ['MOVE', 'RESIZE'].includes(mode)) {
-        clearSelection();
-      }
-      setSelectionArea(undefined);
-    }
+    onEndDragging: () => setSelectionArea(undefined)
   });
   const {
     notes,
@@ -119,7 +114,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const startDraggingSelected =
     (name: MODE) => (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
       startDragging(name, e);
-      trackOrigin()
+      trackOrigin();
     };
 
   const deleteNotes = () => (e: KeyboardEvent) => {
