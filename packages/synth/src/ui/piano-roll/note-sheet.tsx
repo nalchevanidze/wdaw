@@ -96,14 +96,14 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const clickOnBackground: MouseEventHandler<SVGGElement> = (e) => {
     switch (actionType) {
       case 'draw': {
-        return startDraggingAndSelect(
+        return startDraggingNotes(
           'SCALE',
           e,
           insertNoteAt(notes, getCoordinates(e))
         );
       }
       case 'select':
-        return startDraggingAndSelect('SELECT', e, {
+        return startDraggingNotes('SELECT', e, {
           selected: [],
           inactive: allNotes
         });
@@ -122,7 +122,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         });
       }
       case 'select': {
-        return startDraggingAndSelect('MOVE', e, {
+        return startDraggingNotes('MOVE', e, {
           selected: [note],
           inactive: allNotes.filter((e) => e !== note)
         });
@@ -130,7 +130,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     }
   };
 
-  const startDraggingAndSelect = (
+  const startDraggingNotes = (
     name: MODE,
     e: React.MouseEvent<SVGGElement, MouseEvent>,
     { inactive, selected }: Selected<NotePoint>
@@ -143,8 +143,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     });
   };
 
-  const startDraggingSelected = (name: MODE) => (e: MEvent) =>  startDraggingAndSelect(name, e, notes);
-
+  const startDraggingSelected = (name: MODE) => (e: MEvent) =>
+    startDraggingNotes(name, e, notes);
 
   const deleteNotes = () => (e: KeyboardEvent) => {
     switch (e.key) {
