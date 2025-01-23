@@ -55,7 +55,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const getCoordinates = React.useContext(StageContext);
 
   const [selectionArea, setSelectionArea] = useState<SelectZone | undefined>();
-  const { mode, startDragging, endDragging, onMouseMove } = useDragging({
+  const { startDragging, endDragging, onMouseMove } = useDragging({
     onMouseMove: (mode, point, dragging) => {
       switch (mode) {
         case 'SELECT': {
@@ -73,22 +73,20 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
             : undefined;
         }
       }
+    },
+    onEndDragging(mode) {
+      if (mode && ['MOVE', 'RESIZE'].includes(mode)) {
+        updateNotes({
+          selected: [],
+          inactive: allNotes.map(({ old, ...n }) => n)
+        });
+      }
+      setSelectionArea(undefined);
     }
   });
   const { notes, updateNotes } = useNotes();
 
   const allNotes = [...notes.selected, ...notes.inactive];
-
-  const handleEventEnd = (): void => {
-    if (mode && ['MOVE', 'RESIZE'].includes(mode)) {
-      updateNotes({
-        selected: [],
-        inactive: allNotes.map(({ old, ...n }) => n)
-      });
-    }
-    setSelectionArea(undefined);
-    endDragging();
-  };
 
   const clickOnBackground: MouseEventHandler<SVGGElement> = (e) => {
     switch (actionType) {
@@ -163,8 +161,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   return (
     <g
       onMouseMove={onMouseMove}
-      onMouseLeave={handleEventEnd}
-      onMouseUp={handleEventEnd}
+      onMouseLeave={endDragging}
+      onMouseUp={endDragging}
     >
       <Background
         onMouseDown={clickOnBackground}

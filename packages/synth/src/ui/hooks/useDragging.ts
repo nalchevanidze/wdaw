@@ -8,7 +8,8 @@ export type MEvent = React.MouseEvent<SVGGElement, MouseEvent>;
 export type MHandler = React.MouseEventHandler<SVGGElement>;
 
 type Optins = {
-  onMouseMove(mode: string, point: Point, dragging?: Point): void;
+  onMouseMove(mode: MODE, point: Point, dragging?: Point): void;
+  onEndDragging(mode?: MODE): void;
 };
 
 export const useDragging = (ops: Optins) => {
@@ -22,6 +23,7 @@ export const useDragging = (ops: Optins) => {
     setDragging(getCoordinates(e));
   };
   const endDragging = () => {
+    ops.onEndDragging(mode);
     setMode(undefined);
     setDragging(undefined);
   };
@@ -32,10 +34,5 @@ export const useDragging = (ops: Optins) => {
     }
   };
 
-  return {
-    mode,
-    startDragging,
-    endDragging,
-    onMouseMove
-  };
+  return { startDragging, endDragging, onMouseMove };
 };
