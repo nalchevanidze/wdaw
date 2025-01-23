@@ -143,9 +143,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     });
   };
 
-  const startDraggingSelected = (name: MODE) => (e: MEvent) => {
-    startDraggingAndSelect(name, e, notes);
-  };
+  const startDraggingSelected = (name: MODE) => (e: MEvent) =>  startDraggingAndSelect(name, e, notes);
+
 
   const deleteNotes = () => (e: KeyboardEvent) => {
     switch (e.key) {
