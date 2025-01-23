@@ -95,13 +95,14 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const clickOnBackground: MouseEventHandler<SVGGElement> = (e) => {
     switch (actionType) {
       case 'draw': {
-        const selection = insertNoteAt(notes, getCoordinates(e));
-        startDragging('SCALE', e, selection);
-        selection;
-        return;
+        return startDragging(
+          'SCALE',
+          e,
+          insertNoteAt(notes, getCoordinates(e))
+        );
       }
       case 'select':
-        startDragging('SELECT', e, { selected: [], inactive: allNotes });
+        return startDragging('SELECT', e, { selected: [], inactive: allNotes });
     }
   };
 
