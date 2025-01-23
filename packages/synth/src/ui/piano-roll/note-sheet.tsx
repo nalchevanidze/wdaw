@@ -84,9 +84,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       setSelectionArea(undefined);
     }
   });
-  const { notes, updateNotes } = useNotes();
-
-  const allNotes = [...notes.selected, ...notes.inactive];
+  const { notes, updateNotes, allNotes } = useNotes();
 
   const clickOnBackground: MouseEventHandler<SVGGElement> = (e) => {
     switch (actionType) {
@@ -113,13 +111,13 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       case 'draw': {
         return updateNotes({
           selected: [],
-          inactive: allNotes.filter((arrayNote) => arrayNote !== note)
+          inactive: allNotes.filter((n) => n !== note)
         });
       }
       case 'select': {
         return startDraggingNotes('MOVE', e, {
           selected: [note],
-          inactive: allNotes.filter((e) => e !== note)
+          inactive: allNotes.filter((n) => n !== note)
         });
       }
     }

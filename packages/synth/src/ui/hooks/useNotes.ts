@@ -37,5 +37,9 @@ export const useNotes = () => {
     });
   }, [tracks[currentTrack].midi]);
 
-  return { notes, updateNotes };
+
+
+  const allNotes = [...notes.selected, ...notes.inactive];
+
+  return { notes, updateNotes , allNotes };
 };
