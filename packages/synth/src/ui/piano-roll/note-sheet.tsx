@@ -12,8 +12,8 @@ import {
 } from './utils';
 import { Background } from './background';
 import { StageContext, SvgStage, Point } from '@wdaw/svg';
-import { MouseEventHandler, useContext, useState } from 'react';
-import { EditActionType, Maybe, NotePoint, SelectZone } from '../types';
+import {  useContext, useState } from 'react';
+import { EditActionType, NotePoint, SelectZone } from '../types';
 import { ConfiguratorContext } from '../configurator';
 import { useKeyAction } from '../utils';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
@@ -74,6 +74,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     },
     onEndDragging: () => setSelectionArea(undefined)
   });
+
   const {
     notes,
     updateNotes,
@@ -84,30 +85,22 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     trackOrigin
   } = useNotes();
 
-  const clickOnBackground: MouseEventHandler<SVGGElement> = (e) => {
-    switch (actionType) {
-      case 'draw': {
-        startDragging('SCALE', e);
-        return addNote(genNoteAt(getCoordinates(e)));
-      }
-      case 'select':
-        startDragging('SELECT', e);
-        return clearSelection();
+  const backgroundClickHandlers = {
+    draw: (e: MEvent) => {
+      startDragging('SCALE', e);
+      addNote(genNoteAt(getCoordinates(e)));
+    },
+    select: (e: MEvent) => {
+      startDragging('SELECT', e);
+      return clearSelection();
     }
   };
 
-  const clickOnNote = (
-    e: React.MouseEvent<SVGGElement, MouseEvent>,
-    note: NotePoint
-  ): void => {
-    switch (actionType) {
-      case 'draw': {
-        return removeNote(note);
-      }
-      case 'select': {
-        startDragging('MOVE', e);
-        return selectNote(note);
-      }
+  const clickOnNoteHanlers = {
+    draw: (_: MEvent, note: NotePoint) => removeNote(note),
+    select: (e: MEvent, note: NotePoint) => {
+      startDragging('MOVE', e);
+      selectNote(note);
     }
   };
 
@@ -141,11 +134,14 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       onMouseUp={endDragging}
     >
       <Background
-        onMouseDown={clickOnBackground}
+        onMouseDown={backgroundClickHandlers[actionType]}
         loop={tracks[currentTrack].midi.loop}
       />
       <g>
-        <Notes notes={notes.inactive} mouseDown={clickOnNote} />
+        <Notes
+          notes={notes.inactive}
+          mouseDown={clickOnNoteHanlers[actionType]}
+        />
         <Notes
           notes={notes.selected}
           color="#03A9F4"
