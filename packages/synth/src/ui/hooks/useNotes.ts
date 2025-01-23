@@ -45,5 +45,11 @@ export const useNotes = () => {
       inactive: allNotes.map(({ old, ...n }) => n)
     });
 
-  return { notes, updateNotes, allNotes, clearSelection };
+  const removeNote = (note: NotePoint) =>
+    updateNotes({
+      selected: [],
+      inactive: allNotes.filter((n) => n !== note)
+    });
+
+  return { notes, updateNotes, allNotes, clearSelection, removeNote };
 };

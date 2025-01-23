@@ -76,12 +76,13 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     },
     onEndDragging(mode) {
       if (mode && ['MOVE', 'RESIZE'].includes(mode)) {
-        clearSelection()
+        clearSelection();
       }
       setSelectionArea(undefined);
     }
   });
-  const { notes, updateNotes, allNotes, clearSelection } = useNotes();
+  const { notes, updateNotes, allNotes, clearSelection, removeNote } =
+    useNotes();
 
   const clickOnBackground: MouseEventHandler<SVGGElement> = (e) => {
     switch (actionType) {
@@ -104,10 +105,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   ): void => {
     switch (actionType) {
       case 'draw': {
-        return updateNotes({
-          selected: [],
-          inactive: allNotes.filter((n) => n !== note)
-        });
+        return removeNote(note);
       }
       case 'select': {
         return startDraggingNotes('MOVE', e, {
