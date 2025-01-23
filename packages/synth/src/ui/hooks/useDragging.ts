@@ -12,11 +12,11 @@ export const useDragging = () => {
   const [mode, setMode] = React.useState<MODE | undefined>(undefined);
   const [dragging, setDragging] = React.useState<Maybe<Point>>(undefined);
 
-  const startDraggingEvent = (name: MODE, e: MEvent) => {
+  const startDraggingE = (name: MODE, e: MEvent) => {
     setMode(name);
     setDragging(getCoordinates(e));
   };
-  const endDraggingEvent = () => {
+  const endDraggingE = () => {
     setMode(undefined);
     setDragging(undefined);
   };
@@ -25,7 +25,7 @@ export const useDragging = () => {
     mode,
     dragging,
     setMode,
-    startDraggingEvent,
-    endDraggingEvent
+    startDraggingE,
+    endDraggingE
   };
 };

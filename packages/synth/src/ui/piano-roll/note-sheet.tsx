@@ -44,7 +44,7 @@ type Props = {
   actionType: EditActionType;
 };
 
-const NoteSheet: React.FC<Props> = ({ actionType }) => {
+const useNotes = () => {
   const [
     {
       player: { time },
@@ -52,12 +52,6 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     },
     dispatch
   ] = useContext(ConfiguratorContext);
-  const getCoordinates = React.useContext(StageContext);
-
-  const [selectionArea, setSelectionArea] = useState<SelectZone | undefined>();
-
-  const { mode, dragging, startDraggingEvent, endDraggingEvent } =
-    useDragging();
 
   const [notes, setNotes] = useState<Selected<NotePoint>>({
     selected: [],
@@ -83,6 +77,22 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       inactive: flatten(tracks[currentTrack].midi)
     });
   }, [tracks[currentTrack].midi]);
+
+  return { notes, updateNotes };
+};
+
+const NoteSheet: React.FC<Props> = ({ actionType }) => {
+  const [
+    {
+      player: { time },
+      tracks: { currentTrack, tracks }
+    }
+  ] = useContext(ConfiguratorContext);
+  const getCoordinates = React.useContext(StageContext);
+
+  const [selectionArea, setSelectionArea] = useState<SelectZone | undefined>();
+  const { mode, dragging, startDraggingE, endDraggingE } = useDragging();
+  const { notes, updateNotes } = useNotes();
 
   const allNotes = [...notes.selected, ...notes.inactive];
 
@@ -115,7 +125,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       updateNotes(changes);
     }
     setSelectionArea(undefined);
-    endDraggingEvent();
+    endDraggingE();
   };
 
   const clickOnBackground: MouseEventHandler<SVGGElement> = (e) => {
@@ -156,7 +166,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     e: React.MouseEvent<SVGGElement, MouseEvent>,
     ns?: Selected<NotePoint>
   ) => {
-    startDraggingEvent(name, e);
+    startDraggingE(name, e);
 
     const { selected, inactive } = ns ?? notes;
     updateNotes({
