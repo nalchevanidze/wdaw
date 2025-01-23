@@ -84,9 +84,10 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
 
   const handleEventEnd = (): void => {
     if (mode && ['MOVE', 'RESIZE'].includes(mode)) {
-      allNotes.forEach((x) => (x.old = undefined));
-      const changes = { selected: [], inactive: allNotes };
-      updateNotes(changes);
+      updateNotes({
+        selected: [],
+        inactive: allNotes.map(({ old, ...n }) => n)
+      });
     }
     setSelectionArea(undefined);
     endDraggingE();
