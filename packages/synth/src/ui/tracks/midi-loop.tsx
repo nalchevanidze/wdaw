@@ -50,7 +50,7 @@ const MidiLoop: React.FC<Props> = ({ name, midi }) => {
         </pattern>
       </defs>
       <rect
-        x={start * STEP}
+        x={midi.start * STEP}
         width={width}
         height="100%"
         fill={'url(#' + id + ')'}
