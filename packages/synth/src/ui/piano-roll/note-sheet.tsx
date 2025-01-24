@@ -54,7 +54,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     },
     select: (e: MEvent) => {
       startDragging('SELECT', e);
-      return notes.clearSelection();
+      return notes.clear();
     }
   };
 

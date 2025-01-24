@@ -49,7 +49,7 @@ export const useNotes = () => {
     });
   }, [tracks[currentTrack].midi]);
 
-  const clearSelection = () =>
+  const clear = () =>
     update({
       selected: [],
       inactive: allNotes.map(dropOrigin)
@@ -96,7 +96,7 @@ export const useNotes = () => {
     removeSelected,
     selectIn,
     track,
-    clearSelection,
+    clear,
     remove,
     select,
     add,
