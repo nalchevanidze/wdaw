@@ -2,7 +2,7 @@ import { Point, StageContext } from '@wdaw/svg';
 import * as React from 'react';
 import { Area, Maybe } from '../types';
 
-export type MODE = 'SCALE' | 'MOVE' | 'SELECT';
+export type MODE = 'scale' | 'move' | 'select';
 
 export type MEvent = React.MouseEvent<SVGGElement, MouseEvent>;
 export type MHandler = React.MouseEventHandler<SVGGElement>;
@@ -36,7 +36,7 @@ export const useDragging = (ops: Optins) => {
         ? [dragging, getCoordinates(e)]
         : undefined;
 
-      if (mode == 'SELECT') {
+      if (mode == 'select') {
         setSelectionArea(area);
       }
       ops.onMove[mode](area);

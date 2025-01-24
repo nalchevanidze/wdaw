@@ -30,19 +30,19 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const notes = useNotes();
   const dragging = useDragging({
     onMove: {
-      SELECT: notes.selectIn,
-      MOVE: (area) => (area ? notes.move(area) : undefined),
-      SCALE: (area) => (area ? notes.scale(area) : undefined)
+      select: notes.selectIn,
+      move: (area) => (area ? notes.move(area) : undefined),
+      scale: (area) => (area ? notes.scale(area) : undefined)
     }
   });
 
   const backgroundClickHandlers = {
     draw: (e: MEvent) => {
-      dragging.start('SCALE', e);
+      dragging.start('scale', e);
       notes.add(getCoordinates(e));
     },
     select: (e: MEvent) => {
-      dragging.start('SELECT', e);
+      dragging.start('select', e);
       notes.clear();
     }
   };
@@ -50,7 +50,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const noteClickHanlers = {
     draw: (_: MEvent, note: NotePoint) => notes.remove(note),
     select: (e: MEvent, note: NotePoint) => {
-      dragging.start('MOVE', e);
+      dragging.start('move', e);
       notes.select(note);
     }
   };
@@ -97,8 +97,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         <Notes
           notes={notes.selected}
           color="#03A9F4"
-          mouseDown={startDragging('MOVE')}
-          resize={startDragging('SCALE')}
+          mouseDown={startDragging('move')}
+          resize={startDragging('scale')}
         />
       </g>
       <Timeline time={time} height={STAGE_HEIGHT} />
