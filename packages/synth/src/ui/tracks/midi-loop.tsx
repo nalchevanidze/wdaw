@@ -9,21 +9,23 @@ export const STAGE_HEIGHT = 64;
 export const STEP = 8;
 
 type Props = {
+  start: number;
+  end: number;
   name: string;
   midi: Midi;
   startMove?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
   startScale?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
 };
 
-const MidiLoop: React.FC<Props> = ({ name, midi, startMove, startScale }) => {
+const MidiLoop: React.FC<Props> = ({ name, midi, start, end, startMove, startScale }) => {
   const notes = React.useMemo<NotePoint[]>(() => flatten(midi), [midi]);
   const [loopStart, loopEnd] = midi.loop;
   const id = `MidiLoop_B_Q_T_D_V_B_D_${name}`;
   const size = loopEnd - loopStart;
-  const width = (midi.end - midi.start) * STEP;
+  const width = (end - start) * STEP;
   const offset = loopStart * STEP;
 
-  const containerStart = midi.start * STEP;
+  const containerStart = start * STEP;
   const scaleWidth = 5;
 
   return (

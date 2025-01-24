@@ -17,9 +17,36 @@ export const WIDTH = STAGE_WIDTH + PANEL;
 
 export const viewBox = [-PANEL, 0, WIDTH, STAGE_HEIGHT].join(' ');
 
+type State = { start: number; end: number };
+type TrackedState = State & { origin?: State };
+
 const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
   const [{ tracks }, dispatch] = React.useContext(ConfiguratorContext);
-  const [state, setState] = React.useState(midi);
+  const [state, setState] = React.useState<TrackedState>({
+    start: midi.start,
+    end: midi.end
+  });
+
+  React.useEffect(() => {
+    setState({ start: midi.start, end: midi.end });
+  }, [midi.start, midi.end]);
+
+  const update = (f: (s: State) => State) => {
+    const origin = state.origin ?? state;
+
+    setState({
+      ...f(origin),
+      origin
+    });
+  };
+
+  const clear = () => {
+    setState({
+      start: state.start,
+      end: state.end
+    });
+    dispatch({ type: 'SET_TRACK_STATE', payload: { id: i, ...state } });
+  };
 
   const dragging = useDragging({
     onMove: {
@@ -27,12 +54,21 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
         // console.log(area);
       },
       move: (area) => {
-        const time = area ? distanceX(area, 1) : undefined;
+        if (!area) return;
 
-        console.log(time);
+        const time = distanceX(area, 8);
+        update(({ start, end }) => ({
+          start: start + time,
+          end: end + time
+        }));
       },
       scale: (area) => {
-        // console.log(area);
+        if (!area) return;
+        const time = distanceX(area, 8);
+        update(({ start, end }) => ({
+          start: start,
+          end: end + time
+        }));
       }
     },
     onBackground: () => {
@@ -43,7 +79,8 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
     onInactive: () => {
       //notes.select(note);
       return 'move';
-    }
+    },
+    onEnd: clear
   });
 
   const active = i === tracks.currentTrack;
@@ -74,6 +111,8 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
         opacity={0}
       />
       <MidiLoop
+        start={state.start}
+        end={state.end}
         midi={midi}
         name={name}
         startMove={dragging.onSelected('move')}

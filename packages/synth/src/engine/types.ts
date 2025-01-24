@@ -64,6 +64,15 @@ export type SET_TRACK = {
   payload: number;
 };
 
+export type SET_TRACK_STATE = {
+  type: 'SET_TRACK_STATE';
+  payload: {
+    id: number;
+    start: number;
+    end: number;
+  };
+};
+
 export type EngineAction =
   | PLAYER
   | KEY_PRESS
@@ -76,7 +85,8 @@ export type EngineAction =
   | SET_FILTER
   | SET_PRESET
   | SET_TRACK
-  | REFRESH;
+  | REFRESH
+  | SET_TRACK_STATE;
 
 export type NoteAction = {
   start?: number[];
@@ -96,6 +106,6 @@ export type PLAYER_ACTION = 'play' | 'pause' | 'stop';
 export type Midi = {
   start: number;
   end: number;
-  loop: [number,number];
+  loop: [number, number];
   notes: Record<number, Note[]>;
 };
