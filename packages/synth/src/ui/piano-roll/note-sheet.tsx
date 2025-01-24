@@ -5,10 +5,10 @@ import { KEYBOARD_WIDTH, STAGE_WIDTH, STAGE_HEIGHT } from './utils';
 import { Background } from './background';
 import { Point, StageContext, SvgStage } from '@wdaw/svg';
 import { useContext } from 'react';
-import { EditActionType, NotePoint } from '../types';
+import { EditActionType, Maybe, NotePoint } from '../types';
 import { ConfiguratorContext } from '../configurator';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
-import { MEvent, MODE, useDragging } from '../hooks/useDragging';
+import { HandlerMap, MEvent, MODE, useDragging } from '../hooks/useDragging';
 import { useNotes } from '../hooks/useNotes';
 import { SelectionArea } from './selection-area';
 
@@ -27,14 +27,25 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const [{ player, tracks }] = useContext(ConfiguratorContext);
   const notes = useNotes();
 
-  const mouseDownBackground = {
-    draw: (p: Point): MODE => {
-      notes.add(p);
+  const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
+    draw: (point) => {
+      notes.addAt(point);
       return 'scale';
     },
-    select: (_: Point): MODE => {
+    select: () => {
       notes.clear();
       return 'select';
+    }
+  };
+
+  const mouseDownInactive: HandlerMap<EditActionType, NotePoint> = {
+    draw: (note) => {
+      notes.remove(note);
+      return undefined;
+    },
+    select: (note) => {
+      notes.select(note);
+      return 'move';
     }
   };
 
@@ -44,17 +55,10 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       move: (area) => (area ? notes.move(area) : undefined),
       scale: (area) => (area ? notes.scale(area) : undefined)
     },
-    onBackground: mouseDownBackground[actionType],
-    onSelected: () => notes.track()
+    onBackground: onBackgroundHandler[actionType],
+    onSelected: notes.track,
+    onInactive: mouseDownInactive[actionType]
   });
-
-  const mouseDownInactive = {
-    draw: (_: MEvent, note: NotePoint) => notes.remove(note),
-    select: (e: MEvent, note: NotePoint) => {
-      dragging.start('move', e);
-      notes.select(note);
-    }
-  };
 
   const midi = tracks.tracks[tracks.currentTrack].midi;
   const loopSize = (midi.loop[1] - midi.loop[0]) * 8;
@@ -73,10 +77,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     >
       <Background onMouseDown={dragging.onBackground} loop={midi.loop} />
       <g>
-        <Notes
-          notes={notes.inactive}
-          mouseDown={mouseDownInactive[actionType]}
-        />
+        <Notes notes={notes.inactive} mouseDown={dragging.onInactive} />
         <Notes
           notes={notes.selected}
           color="#03A9F4"

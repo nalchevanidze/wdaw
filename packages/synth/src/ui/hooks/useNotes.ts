@@ -68,7 +68,7 @@ export const useNotes = () => {
       inactive: allNotes.filter((n) => n !== note)
     });
 
-  const add = (point: Point) =>
+  const addAt = (point: Point) =>
     update({
       selected: [genNoteAt(point)].map(addOrigin),
       inactive: allNotes.map(dropOrigin)
@@ -107,7 +107,7 @@ export const useNotes = () => {
     clear,
     remove,
     select,
-    add,
+    addAt,
     move,
     scale
   };

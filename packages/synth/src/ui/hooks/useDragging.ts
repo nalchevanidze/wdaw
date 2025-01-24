@@ -8,15 +8,19 @@ export type MEvent = React.MouseEvent<SVGGElement, MouseEvent>;
 export type MHandler = React.MouseEventHandler<SVGGElement>;
 
 type OnBackgroundHandler = (p: Point) => Maybe<MODE>;
+type onInactiveHandler<T> = (p: T) => Maybe<MODE>;
 
-type Optins = {
+type Optins<T> = {
   onMove: Record<MODE, (a: Maybe<Area>) => void>;
   onEnd?(mode?: MODE): void;
   onBackground: OnBackgroundHandler;
   onSelected?: () => void;
+  onInactive: onInactiveHandler<T>;
 };
 
-export const useDragging = (ops: Optins) => {
+export type HandlerMap<K extends string, T> = Record<K, (note: T) => Maybe<MODE>>;
+
+export const useDragging = <T>(ops: Optins<T>) => {
   const getCoordinates = React.useContext(StageContext);
 
   const [area, setSelectionArea] = React.useState<Area | undefined>();
@@ -60,5 +64,21 @@ export const useDragging = (ops: Optins) => {
       ops.onSelected?.();
     };
 
-  return { area, start, end, onMouseMove, onBackground, onSelected };
+  const onInactive = (e: MEvent, t: T) => {
+    const name = ops.onInactive(t);
+
+    if (name) {
+      start(name, e);
+    }
+  };
+
+  return {
+    area,
+    start,
+    end,
+    onMouseMove,
+    onBackground,
+    onSelected,
+    onInactive
+  };
 };
