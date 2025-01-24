@@ -25,12 +25,7 @@ type Props = {
 };
 
 const NoteSheet: React.FC<Props> = ({ actionType }) => {
-  const [
-    {
-      player: { time },
-      tracks: { currentTrack, tracks }
-    }
-  ] = useContext(ConfiguratorContext);
+  const [{ player, tracks }] = useContext(ConfiguratorContext);
   const getCoordinates = React.useContext(StageContext);
   const notes = useNotes();
 
@@ -81,10 +76,12 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
 
   useKeyAction(deleteNotes, [notes.selected, notes.inactive]);
 
-  const midi = tracks[currentTrack].midi;
+  const midi = tracks.tracks[tracks.currentTrack].midi;
   const loopSize = (midi.loop[1] - midi.loop[0]) * 8;
-  const current =
-    ((time < midi.start * 8 ? 0 : midi.loop[0] * 8 + (time % loopSize)) *
+  const time =
+    ((player.time < midi.start * 8
+      ? 0
+      : midi.loop[0] * 8 + (player.time % loopSize)) *
       NOTE_SIZE) /
     2;
 
@@ -110,7 +107,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
           resize={startDraggingHandler('SCALE')}
         />
       </g>
-      <Timeline time={current} height={STAGE_HEIGHT} />
+      <Timeline time={time} height={STAGE_HEIGHT} />
       {selectionArea ? <SelectionArea area={selectionArea} /> : null}
     </g>
   );
