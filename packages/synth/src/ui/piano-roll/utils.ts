@@ -95,11 +95,10 @@ export const deepen = (flat: NotePoint[], old: Midi): Midi => {
 export const editNotes = (
   mode: 'MOVE' | 'SCALE',
   notes: NotePoint[],
-  dragging: Point,
-  current: Point
+  [start, current]: Aera
 ) => {
-  const time = Math.round((current.x - (dragging?.x ?? 0)) / NOTE_STEP);
-  const tune = Math.round((current.y - (dragging?.y ?? 0)) / NOTE_SIZE);
+  const time = Math.round((current.x - (start?.x ?? 0)) / NOTE_STEP);
+  const tune = Math.round((current.y - (start?.y ?? 0)) / NOTE_SIZE);
 
   switch (mode) {
     case 'SCALE':

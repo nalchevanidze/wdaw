@@ -53,21 +53,17 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
 
   const [selectionArea, setSelectionArea] = useState<Aera | undefined>();
   const { startDragging, endDragging, onMouseMove } = useDragging({
-    onMouseMove: (mode, currentPoint, startPoint) => {
-      const points: Maybe<Trajectory> = startPoint
-        ? [startPoint, currentPoint]
-        : undefined;
-
+    onMouseMove: (mode, area) => {
       switch (mode) {
         case 'SELECT': {
-          setSelectionArea(points);
-          return updateNotes(selectNotesIn(notes, points));
+          setSelectionArea(area);
+          return updateNotes(selectNotesIn(notes, area));
         }
         case 'MOVE':
         case 'SCALE': {
-          return points
+          return area
             ? updateNotes({
-                selected: editNotes(mode, notes.selected, points[0], points[1]),
+                selected: editNotes(mode, notes.selected, area),
                 inactive: notes.inactive
               })
             : undefined;
