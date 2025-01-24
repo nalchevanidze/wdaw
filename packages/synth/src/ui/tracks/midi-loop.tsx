@@ -1,30 +1,25 @@
 import * as React from 'react';
 import { colors } from '../styles';
 import { NotePoint } from '../types';
+import { flatten } from '../piano-roll/utils';
+import { Midi } from '../../engine';
 
 export const BLOCK_SIZE = 128;
 export const STAGE_HEIGHT = 64;
 export const STEP = 8;
 
 type Props = {
-  start: number;
-  end: number;
-  notes: NotePoint[];
   name: string;
-  loop: [number, number];
+  midi: Midi;
 };
 
-const MidiLoop: React.FC<Props> = ({
-  start,
-  end,
-  notes,
-  name,
-  loop: [loopStart, loopEnd]
-}) => {
-  const id = `MidiLoop_B_Q_T_D_V_B_D_${name}`;
+const MidiLoop: React.FC<Props> = ({ name, midi }) => {
+  const notes = React.useMemo<NotePoint[]>(() => flatten(midi), [midi]);
+  const [loopStart, loopEnd] = midi.loop;
 
+  const id = `MidiLoop_B_Q_T_D_V_B_D_${name}`;
   const size = loopEnd - loopStart;
-  const width = (end - start) * STEP;
+  const width = (midi.end - midi.start) * STEP;
   const offset = loopStart * STEP;
 
   return (

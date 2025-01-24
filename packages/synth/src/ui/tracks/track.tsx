@@ -1,17 +1,15 @@
 import * as React from 'react';
 import { flatten } from '../piano-roll/utils';
 import { SvgStage } from '@wdaw/svg';
-import { useState } from 'react';
-import { NotePoint } from '../types';
 import { Midi } from '../../engine';
 import { colors } from '../styles';
 import { ConfiguratorContext } from '../configurator';
 import { BLOCK_SIZE, MidiLoop, STAGE_HEIGHT } from './midi-loop';
+import { useDragging } from '../hooks/useDragging';
 
 type Props = { midi: Midi; name: string; i: number };
 
 export const PANEL = 50 as const;
-
 
 export const STAGE_WIDTH = BLOCK_SIZE * 4;
 
@@ -20,14 +18,29 @@ export const WIDTH = STAGE_WIDTH + PANEL;
 export const viewBox = [-PANEL, 0, WIDTH, STAGE_HEIGHT].join(' ');
 
 const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
-  const [notes, setNotes] = useState<NotePoint[]>(flatten(midi));
   const [{ tracks }, dispatch] = React.useContext(ConfiguratorContext);
 
-  React.useEffect(() => setNotes(flatten(midi)), [midi]);
+  const dragging = useDragging({
+    onMove: {
+      select: () => {
+        // notes.selectIn
+      },
+      move: (area) => {},
+      scale: (area) => {}
+    },
+    onBackground: (point) => {
+      // notes.addAt(point);
+      return 'scale';
+    },
+    onInactive: (note) => {
+      //notes.select(note);
+      return 'move';
+    }
+  });
 
   const active = i === tracks.currentTrack;
 
-  const { start, end, loop } = midi;
+
 
   return (
     <>
@@ -44,7 +57,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
         onClick={() => dispatch({ type: 'SET_TRACK', payload: i })}
         style={{ border: 'none', cursor: 'pointer' }}
       />
-      <MidiLoop start={start} end={end} notes={notes} name={name} loop={loop} />
+      <MidiLoop  midi={midi} name={name} />
     </>
   );
 };
