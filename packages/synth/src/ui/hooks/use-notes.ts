@@ -34,6 +34,7 @@ export const useNotes = () => {
     setNotes(ns);
     if (ns.selected.length === 0) {
       dispatch({
+        id: currentTrack,
         type: 'SET_MIDI',
         payload: deepen(
           [...ns.selected, ...ns.inactive],

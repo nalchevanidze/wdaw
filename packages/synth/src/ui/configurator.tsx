@@ -51,14 +51,9 @@ const dispatcher = (
             }
       );
     case 'SET_MIDI':
-      return mapCurrentTrack(state, ({ midi, ...rest }) => ({
-        ...rest,
-        midi: action.payload
-      }));
-    case 'SET_TRACK_STATE':
       return mapTrack(action.id, state, ({ midi, ...rest }) => ({
         ...rest,
-        midi: { ...midi, ...action.payload }
+        midi: action.payload
       }));
     case 'SET_ENVELOPE':
       return mapPreset(state, ({ envelopes }) => ({

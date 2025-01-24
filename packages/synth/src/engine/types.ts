@@ -26,6 +26,7 @@ export type TOGGLE_PANEL = {
 export type SET_MIDI = {
   type: 'SET_MIDI';
   payload: Midi;
+  id: number;
 };
 
 export type SET_ENVELOPE = {
@@ -64,15 +65,6 @@ export type SET_TRACK = {
   payload: number;
 };
 
-export type SET_TRACK_STATE = {
-  type: 'SET_TRACK_STATE';
-  id: number;
-  payload: {
-    start: number;
-    end: number;
-  };
-};
-
 export type EngineAction =
   | PLAYER
   | KEY_PRESS
@@ -86,7 +78,6 @@ export type EngineAction =
   | SET_PRESET
   | SET_TRACK
   | REFRESH
-  | SET_TRACK_STATE;
 
 export type NoteAction = {
   start?: number[];
