@@ -18,7 +18,10 @@ type Optins<T> = {
   onInactive: onInactiveHandler<T>;
 };
 
-export type HandlerMap<K extends string, T> = Record<K, (note: T) => Maybe<MODE>>;
+export type HandlerMap<K extends string, T> = Record<
+  K,
+  (note: T) => Maybe<MODE>
+>;
 
 export const useDragging = <T>(ops: Optins<T>) => {
   const getCoordinates = React.useContext(StageContext);
@@ -38,7 +41,7 @@ export const useDragging = <T>(ops: Optins<T>) => {
     ops.onEnd?.(mode);
   };
 
-  const onMouseMove: MHandler = (e) => {
+  const onMove: MHandler = (e) => {
     if (mode) {
       const area: Maybe<Area> = dragging
         ? [dragging, getCoordinates(e)]
@@ -76,7 +79,7 @@ export const useDragging = <T>(ops: Optins<T>) => {
     area,
     start,
     end,
-    onMouseMove,
+    onMove,
     onBackground,
     onSelected,
     onInactive

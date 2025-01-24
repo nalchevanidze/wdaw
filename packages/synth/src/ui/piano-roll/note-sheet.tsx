@@ -54,7 +54,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
 
   return (
     <g
-      onMouseMove={dragging.onMouseMove}
+      onMouseMove={dragging.onMove}
       onMouseLeave={dragging.end}
       onMouseUp={dragging.end}
     >
