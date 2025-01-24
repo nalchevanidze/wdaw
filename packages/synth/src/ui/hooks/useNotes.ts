@@ -4,7 +4,8 @@ import { useContext, useState } from 'react';
 import { Area, NotePoint } from '../types';
 import { ConfiguratorContext } from '../configurator';
 import { selectNotesIn } from '../utils/select-notes';
-import { editNotes } from '../utils/edit-notes';
+import { editNotes, genNoteAt } from '../utils/edit-notes';
+import { Point } from '@wdaw/svg';
 
 const addOrigin = ({ old, ...note }: NotePoint): NotePoint => ({
   ...note,
@@ -66,9 +67,9 @@ export const useNotes = () => {
       inactive: allNotes.filter((n) => n !== note)
     });
 
-  const add = (note: NotePoint) =>
+  const add = (point: Point) =>
     update({
-      selected: [note].map(addOrigin),
+      selected: [genNoteAt(point)].map(addOrigin),
       inactive: allNotes.map(dropOrigin)
     });
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
-import { genNoteAt, KEYBOARD_WIDTH, STAGE_WIDTH, STAGE_HEIGHT } from './utils';
+import { KEYBOARD_WIDTH, STAGE_WIDTH, STAGE_HEIGHT } from './utils';
 import { Background } from './background';
 import { StageContext, SvgStage } from '@wdaw/svg';
 import { useContext } from 'react';
@@ -51,7 +51,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const backgroundClickHandlers = {
     draw: (e: MEvent) => {
       startDragging('SCALE', e);
-      notes.add(genNoteAt(getCoordinates(e)));
+      notes.add(getCoordinates(e));
     },
     select: (e: MEvent) => {
       startDragging('SELECT', e);

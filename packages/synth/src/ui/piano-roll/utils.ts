@@ -26,18 +26,6 @@ export const STAGE_HEIGHT = TIMELINE_HEIGHT + CANVAS_HEIGHT;
 
 const notePosition = (index: number, at: number): number => index * 8 + at;
 
-export const genNoteAt = ({ x, y }: Point): NotePoint => {
-  const i = Math.floor(1 + (CANVAS_HEIGHT - y) / NOTE_SIZE);
-  const position = Math.floor(x / NOTE_STEP);
-  return {
-    length: 2,
-    i,
-    position,
-    id: getNoteIdByIndex(i - 1),
-    at: position % 8
-  };
-};
-
 const foldMidi =
   <T>(f: (n: Note, i: number) => T) =>
   (midi: Midi): T[] =>
