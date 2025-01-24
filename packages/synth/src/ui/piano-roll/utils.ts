@@ -4,7 +4,7 @@ import {
   keysToIndexes,
   OCTAVE_SIZE
 } from '../../utils/notes';
-import { GraphNote, NotePoint, Trajectory } from '../types';
+import { GraphNote, NotePoint, Aera } from '../types';
 import { Midi, Note } from '../../engine';
 import { NOTE_SIZE, NOTE_STEP, TIMELINE_HEIGHT } from '../common/defs';
 
@@ -30,7 +30,7 @@ export const sortNumbers = (n1: number, n2: number): number[] =>
   [n1, n2].sort((a, b) => (a > b ? 1 : -1));
 
 export const isInArea = (
-  [start, end]: Trajectory,
+  [start, end]: Aera,
   { position, i, length }: GraphNote
 ): boolean => {
   const minX = Math.min(start.x, end.x);
@@ -137,7 +137,7 @@ const clusterArray = <T>(list: T[], func: (_: T) => boolean): Selected<T> => {
 
 export const selectNotesIn = (
   { selected, inactive }: Selected<NotePoint>,
-  zone?: Trajectory
+  zone?: Aera
 ) =>
   clusterArray([...selected, ...inactive], (note) =>
     zone ? isInArea(zone, note) : false

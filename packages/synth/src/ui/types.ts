@@ -7,7 +7,6 @@ export type GraphNote = {
   i: number;
 };
 
-export type Trajectory = readonly [Point, Point];
 export type Aera = readonly [Point, Point];
 
 type BaseNote = Note & {

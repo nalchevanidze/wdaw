@@ -10,9 +10,9 @@ import {
   STAGE_HEIGHT
 } from './utils';
 import { Background } from './background';
-import { StageContext, SvgStage, Point } from '@wdaw/svg';
+import { StageContext, SvgStage } from '@wdaw/svg';
 import { useContext, useState } from 'react';
-import { EditActionType, Maybe, NotePoint, Trajectory, Aera } from '../types';
+import { EditActionType, Maybe, NotePoint, Aera } from '../types';
 import { ConfiguratorContext } from '../configurator';
 import { useKeyAction } from '../utils';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
