@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 import { Area, NotePoint } from '../types';
 import { ConfiguratorContext } from '../configurator';
 import { selectNotesIn } from '../utils/select-notes';
-import { editNotes, genNoteAt } from '../utils/edit-notes';
+import { genNoteAt, scaleNotes, moveNotes } from '../utils/edit-notes';
 import { Point } from '@wdaw/svg';
 
 const addOrigin = ({ old, ...note }: NotePoint): NotePoint => ({
@@ -86,13 +86,13 @@ export const useNotes = () => {
 
   const scale = (area: Area) =>
     update({
-      selected: editNotes('SCALE', notes.selected, area),
+      selected: scaleNotes(notes.selected, area),
       inactive: notes.inactive
     });
 
   const move = (area: Area) =>
     update({
-      selected: editNotes('MOVE', notes.selected, area),
+      selected: moveNotes(notes.selected, area),
       inactive: notes.inactive
     });
 
