@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { flatten, deepen, Selected } from '../piano-roll/utils';
 import { useContext, useState } from 'react';
-import { Aera, NotePoint } from '../types';
+import { Area, NotePoint } from '../types';
 import { ConfiguratorContext } from '../configurator';
 import { selectNotesIn } from '../utils/select-notes';
 import { editNotes } from '../utils/edit-notes';
@@ -78,12 +78,12 @@ export const useNotes = () => {
       inactive: notes.inactive
     });
 
-  const selectIn = (area?: Aera) => update(selectNotesIn(notes, area));
+  const selectIn = (area?: Area) => update(selectNotesIn(notes, area));
 
   const removeSelected = () =>
     update({ selected: [], inactive: notes.inactive });
 
-  const edit = (mode: 'MOVE' | 'SCALE', area: Aera) =>
+  const edit = (mode: 'MOVE' | 'SCALE', area: Area) =>
     update({
       selected: editNotes(mode, notes.selected, area),
       inactive: notes.inactive

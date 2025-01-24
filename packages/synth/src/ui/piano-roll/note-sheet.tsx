@@ -4,14 +4,14 @@ import { Notes } from './notes';
 import { genNoteAt, KEYBOARD_WIDTH, STAGE_WIDTH, STAGE_HEIGHT } from './utils';
 import { Background } from './background';
 import { StageContext, SvgStage } from '@wdaw/svg';
-import { useContext, useState } from 'react';
-import { EditActionType, NotePoint, Aera } from '../types';
+import { useContext } from 'react';
+import { EditActionType, NotePoint, Area } from '../types';
 import { ConfiguratorContext } from '../configurator';
 import { useKeyAction } from '../utils';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
 import { MEvent, MODE, useDragging } from '../hooks/useDragging';
 import { useNotes } from '../hooks/useNotes';
-import { editNotes } from '../utils/edit-notes';
+import { SelectionArea } from './selection-area';
 
 const viewBox = [
   -KEYBOARD_WIDTH,
@@ -19,18 +19,6 @@ const viewBox = [
   STAGE_WIDTH,
   STAGE_HEIGHT
 ].join(' ');
-
-const SelectionCover: React.FC<Aera> = ([start, end]) => (
-  <rect
-    stroke="red"
-    fill="red"
-    fillOpacity={0.1}
-    x={Math.min(start.x, end.x)}
-    y={Math.min(start.y, end.y)}
-    width={Math.abs(end.x - start.x)}
-    height={Math.abs(end.y - start.y)}
-  />
-);
 
 type Props = {
   actionType: EditActionType;
@@ -94,12 +82,12 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
 
   useKeyAction(deleteNotes, [notes.selected, notes.inactive]);
 
-  const track = tracks[currentTrack].midi;
-
-  const loopSize = (track.loop[1] - track.loop[0]) * 8;
-
+  const midi = tracks[currentTrack].midi;
+  const loopSize = (midi.loop[1] - midi.loop[0]) * 8;
   const current =
-    time < track.start * 8 ? 0 : track.loop[0] * 8 + (time % loopSize);
+    ((time < midi.start * 8 ? 0 : midi.loop[0] * 8 + (time % loopSize)) *
+      NOTE_SIZE) /
+    2;
 
   return (
     <g
@@ -109,7 +97,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     >
       <Background
         onMouseDown={backgroundClickHandlers[actionType]}
-        loop={tracks[currentTrack].midi.loop}
+        loop={midi.loop}
       />
       <g>
         <Notes
@@ -123,8 +111,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
           resize={startDraggingSelected('SCALE')}
         />
       </g>
-      <Timeline time={(current * NOTE_SIZE) / 2} height={STAGE_HEIGHT} />
-      {selectionArea ? <SelectionCover {...selectionArea} /> : null}
+      <Timeline time={current} height={STAGE_HEIGHT} />
+      {selectionArea ? <SelectionArea area={selectionArea} /> : null}
     </g>
   );
 };

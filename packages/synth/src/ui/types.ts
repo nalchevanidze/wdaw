@@ -7,7 +7,7 @@ export type GraphNote = {
   i: number;
 };
 
-export type Aera = readonly [Point, Point];
+export type Area = readonly [Point, Point];
 
 type BaseNote = Note & {
   position: number;
