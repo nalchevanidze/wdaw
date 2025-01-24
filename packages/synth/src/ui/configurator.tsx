@@ -80,7 +80,6 @@ const dispatcher = (
 };
 
 const engineEffects = (
-  currentTrack: number,
   engine: SynthEngine,
   action: EngineAction
 ): void => {
@@ -94,7 +93,7 @@ const engineEffects = (
     case 'SET_TIME':
       return engine.setTime(action.payload);
     case 'SET_MIDI':
-      return engine.setMidi(currentTrack, action.payload);
+      return engine.setMidi(action.id, action.payload);
     case 'SET_TRACK':
       return engine.setTrack(action.payload);
     default:
@@ -111,7 +110,7 @@ const reducer =
       engine.setPreset(track.preset);
     }
 
-    engineEffects(state.tracks.currentTrack, engine, action);
+    engineEffects(engine, action);
 
     return stateChanges ? { ...state, ...stateChanges } : state;
   };
