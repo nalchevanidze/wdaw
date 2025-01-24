@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { flatten, deepen, Selected } from '../piano-roll/utils';
 import { useContext, useState } from 'react';
-import { NotePoint } from '../types';
+import { Aera, NotePoint } from '../types';
 import { ConfiguratorContext } from '../configurator';
+import { selectNotesIn } from '../utils/select-notes';
 
 const addOrigin = ({ old, ...note }: NotePoint): NotePoint => ({
   ...note,
@@ -76,7 +77,11 @@ export const useNotes = () => {
       inactive: notes.inactive
     });
 
+  const selectNotesByArea = (area?: Aera) =>
+    updateNotes(selectNotesIn(notes, area));
+
   return {
+    selectNotesByArea,
     trackOrigin,
     notes,
     updateNotes,

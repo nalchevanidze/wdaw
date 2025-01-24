@@ -57,7 +57,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       switch (mode) {
         case 'SELECT': {
           setSelectionArea(area);
-          return updateNotes(selectNotesIn(notes, area));
+          return selectNotesByArea(area);
         }
         case 'MOVE':
         case 'SCALE': {
@@ -80,7 +80,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     clearSelection,
     removeNote,
     addNote,
-    trackOrigin
+    trackOrigin,
+    selectNotesByArea
   } = useNotes();
 
   const backgroundClickHandlers = {
