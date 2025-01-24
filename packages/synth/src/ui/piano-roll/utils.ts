@@ -29,8 +29,6 @@ const notePosition = (index: number, at: number): number => index * 8 + at;
 export const sortNumbers = (n1: number, n2: number): number[] =>
   [n1, n2].sort((a, b) => (a > b ? 1 : -1));
 
-
-
 export const genNoteAt = ({ x, y }: Point): NotePoint => {
   const i = Math.floor(1 + (CANVAS_HEIGHT - y) / NOTE_SIZE);
   const position = Math.floor(x / NOTE_STEP);

@@ -17,7 +17,7 @@ import { useKeyAction } from '../utils';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
 import { MEvent, MODE, useDragging } from '../hooks/useDragging';
 import { useNotes } from '../hooks/useNotes';
-import { selectNotesIn } from '../utils/selectNotesIn';
+import { selectNotesIn } from '../utils/select-notes';
 
 const viewBox = [
   -KEYBOARD_WIDTH,
