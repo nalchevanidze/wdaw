@@ -16,7 +16,6 @@ type Props = {
 const MidiLoop: React.FC<Props> = ({ name, midi }) => {
   const notes = React.useMemo<NotePoint[]>(() => flatten(midi), [midi]);
   const [loopStart, loopEnd] = midi.loop;
-
   const id = `MidiLoop_B_Q_T_D_V_B_D_${name}`;
   const size = loopEnd - loopStart;
   const width = (midi.end - midi.start) * STEP;
