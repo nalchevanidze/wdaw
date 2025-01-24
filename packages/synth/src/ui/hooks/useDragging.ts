@@ -9,12 +9,13 @@ export type MHandler = React.MouseEventHandler<SVGGElement>;
 
 type Optins = {
   onMouseMove(mode: MODE, area: Maybe<Aera>): void;
-  onEndDragging(mode?: MODE): void;
+  onEndDragging?(mode?: MODE): void;
 };
 
 export const useDragging = (ops: Optins) => {
   const getCoordinates = React.useContext(StageContext);
 
+  const [selectionArea, setSelectionArea] = React.useState<Aera | undefined>();
   const [mode, setMode] = React.useState<MODE | undefined>(undefined);
   const [dragging, setDragging] = React.useState<Maybe<Point>>(undefined);
 
@@ -23,9 +24,10 @@ export const useDragging = (ops: Optins) => {
     setDragging(getCoordinates(e));
   };
   const endDragging = () => {
-    ops.onEndDragging(mode);
+    setSelectionArea(undefined);
     setMode(undefined);
     setDragging(undefined);
+    ops.onEndDragging?.(mode);
   };
 
   const onMouseMove: MHandler = (e) => {
@@ -34,9 +36,10 @@ export const useDragging = (ops: Optins) => {
         ? [dragging, getCoordinates(e)]
         : undefined;
 
+      setSelectionArea(area);
       ops.onMouseMove(mode, area);
     }
   };
 
-  return { startDragging, endDragging, onMouseMove };
+  return { selectionArea, startDragging, endDragging, onMouseMove };
 };

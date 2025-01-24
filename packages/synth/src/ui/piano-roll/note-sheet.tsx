@@ -50,26 +50,21 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   ] = useContext(ConfiguratorContext);
   const getCoordinates = React.useContext(StageContext);
 
-  const [selectionArea, setSelectionArea] = useState<Aera | undefined>();
-  const { startDragging, endDragging, onMouseMove } = useDragging({
+  const { selectionArea, startDragging, endDragging, onMouseMove } = useDragging({
     onMouseMove: (mode, area) => {
       switch (mode) {
-        case 'SELECT': {
-          setSelectionArea(area);
+        case 'SELECT':
           return selectNotesByArea(area);
-        }
         case 'MOVE':
-        case 'SCALE': {
+        case 'SCALE':
           return area
             ? updateNotes({
                 selected: editNotes(mode, notes.selected, area),
                 inactive: notes.inactive
               })
             : undefined;
-        }
       }
-    },
-    onEndDragging: () => setSelectionArea(undefined)
+    }
   });
 
   const {
