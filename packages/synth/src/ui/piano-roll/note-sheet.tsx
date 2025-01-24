@@ -1,13 +1,7 @@
 import * as React from 'react';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
-import {
-  genNoteAt,
-  KEYBOARD_WIDTH,
-  editNotes,
-  STAGE_WIDTH,
-  STAGE_HEIGHT
-} from './utils';
+import { genNoteAt, KEYBOARD_WIDTH, STAGE_WIDTH, STAGE_HEIGHT } from './utils';
 import { Background } from './background';
 import { StageContext, SvgStage } from '@wdaw/svg';
 import { useContext, useState } from 'react';
@@ -17,6 +11,7 @@ import { useKeyAction } from '../utils';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
 import { MEvent, MODE, useDragging } from '../hooks/useDragging';
 import { useNotes } from '../hooks/useNotes';
+import { editNotes } from '../utils/edit-notes';
 
 const viewBox = [
   -KEYBOARD_WIDTH,
@@ -50,68 +45,54 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   ] = useContext(ConfiguratorContext);
   const getCoordinates = React.useContext(StageContext);
 
-  const { selectionArea, startDragging, endDragging, onMouseMove } = useDragging({
-    onMouseMove: (mode, area) => {
-      switch (mode) {
-        case 'SELECT':
-          return selectNotesByArea(area);
-        case 'MOVE':
-        case 'SCALE':
-          return area
-            ? updateNotes({
-                selected: editNotes(mode, notes.selected, area),
-                inactive: notes.inactive
-              })
-            : undefined;
+  const { selectionArea, startDragging, endDragging, onMouseMove } =
+    useDragging({
+      onMouseMove: (mode, area) => {
+        switch (mode) {
+          case 'SELECT':
+            return notes.selectIn(area);
+          case 'MOVE':
+          case 'SCALE':
+            return area ? notes.edit(mode, area) : undefined;
+        }
       }
-    }
-  });
+    });
 
-  const {
-    notes,
-    updateNotes,
-    selectNote,
-    clearSelection,
-    removeNote,
-    addNote,
-    trackOrigin,
-    selectNotesByArea,
-    removeSelectedNotes
-  } = useNotes();
+  const notes = useNotes();
 
   const backgroundClickHandlers = {
     draw: (e: MEvent) => {
       startDragging('SCALE', e);
-      addNote(genNoteAt(getCoordinates(e)));
+      notes.add(genNoteAt(getCoordinates(e)));
     },
     select: (e: MEvent) => {
       startDragging('SELECT', e);
-      return clearSelection();
+      return notes.clearSelection();
     }
   };
 
   const clickOnNoteHanlers = {
-    draw: (_: MEvent, note: NotePoint) => removeNote(note),
+    draw: (_: MEvent, note: NotePoint) => notes.remove(note),
     select: (e: MEvent, note: NotePoint) => {
       startDragging('MOVE', e);
-      selectNote(note);
+      notes.select(note);
     }
   };
 
   const startDraggingSelected =
     (name: MODE) => (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
       startDragging(name, e);
-      trackOrigin();
+      notes.track();
     };
 
   const deleteNotes = () => (e: KeyboardEvent) => {
     switch (e.key) {
       case 'Backspace':
-        return removeSelectedNotes();
+        return notes.removeSelected();
     }
   };
 
-  useKeyAction(deleteNotes, [notes]);
+  useKeyAction(deleteNotes, [notes.selected, notes.inactive]);
 
   const track = tracks[currentTrack].midi;
 

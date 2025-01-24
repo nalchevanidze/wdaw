@@ -4,6 +4,7 @@ import { useContext, useState } from 'react';
 import { Aera, NotePoint } from '../types';
 import { ConfiguratorContext } from '../configurator';
 import { selectNotesIn } from '../utils/select-notes';
+import { editNotes } from '../utils/edit-notes';
 
 const addOrigin = ({ old, ...note }: NotePoint): NotePoint => ({
   ...note,
@@ -27,7 +28,7 @@ export const useNotes = () => {
 
   const allNotes = [...notes.selected, ...notes.inactive];
 
-  const updateNotes = (ns: Selected<NotePoint>) => {
+  const update = (ns: Selected<NotePoint>) => {
     setNotes(ns);
     if (ns.selected.length === 0) {
       dispatch({
@@ -48,50 +49,56 @@ export const useNotes = () => {
   }, [tracks[currentTrack].midi]);
 
   const clearSelection = () =>
-    updateNotes({
+    update({
       selected: [],
       inactive: allNotes.map(dropOrigin)
     });
 
-  const removeNote = (note: NotePoint) =>
-    updateNotes({
+  const remove = (note: NotePoint) =>
+    update({
       selected: [],
       inactive: allNotes.filter((n) => n !== note).map(dropOrigin)
     });
 
-  const selectNote = (note: NotePoint) =>
-    updateNotes({
+  const select = (note: NotePoint) =>
+    update({
       selected: [note].map(addOrigin),
       inactive: allNotes.filter((n) => n !== note)
     });
 
-  const addNote = (note: NotePoint) =>
-    updateNotes({
+  const add = (note: NotePoint) =>
+    update({
       selected: [note].map(addOrigin),
       inactive: allNotes.map(dropOrigin)
     });
 
-  const trackOrigin = () =>
-    updateNotes({
+  const track = () =>
+    update({
       selected: notes.selected.map(addOrigin),
       inactive: notes.inactive
     });
 
-  const selectNotesByArea = (area?: Aera) =>
-    updateNotes(selectNotesIn(notes, area));
+  const selectIn = (area?: Aera) => update(selectNotesIn(notes, area));
 
-  const removeSelectedNotes = () =>
-    updateNotes({ selected: [], inactive: notes.inactive });
+  const removeSelected = () =>
+    update({ selected: [], inactive: notes.inactive });
+
+  const edit = (mode: 'MOVE' | 'SCALE', area: Aera) =>
+    update({
+      selected: editNotes(mode, notes.selected, area),
+      inactive: notes.inactive
+    });
 
   return {
-    removeSelectedNotes,
-    selectNotesByArea,
-    trackOrigin,
-    notes,
-    updateNotes,
+    selected: notes.selected,
+    inactive: notes.inactive,
+    removeSelected,
+    selectIn,
+    track,
     clearSelection,
-    removeNote,
-    selectNote,
-    addNote
+    remove,
+    select,
+    add,
+    edit
   };
 };

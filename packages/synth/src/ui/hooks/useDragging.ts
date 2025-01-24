@@ -36,7 +36,9 @@ export const useDragging = (ops: Optins) => {
         ? [dragging, getCoordinates(e)]
         : undefined;
 
-      setSelectionArea(area);
+      if (mode == 'SELECT') {
+        setSelectionArea(area);
+      }
       ops.onMouseMove(mode, area);
     }
   };

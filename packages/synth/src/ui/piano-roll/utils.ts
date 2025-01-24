@@ -4,7 +4,7 @@ import {
   keysToIndexes,
   OCTAVE_SIZE
 } from '../../utils/notes';
-import { GraphNote, NotePoint, Aera } from '../types';
+import { NotePoint } from '../types';
 import { Midi, Note } from '../../engine';
 import { NOTE_SIZE, NOTE_STEP, TIMELINE_HEIGHT } from '../common/defs';
 
@@ -25,9 +25,6 @@ export const STAGE_WIDTH = KEYBOARD_WIDTH + CANVAS_WIDTH;
 export const STAGE_HEIGHT = TIMELINE_HEIGHT + CANVAS_HEIGHT;
 
 const notePosition = (index: number, at: number): number => index * 8 + at;
-
-export const sortNumbers = (n1: number, n2: number): number[] =>
-  [n1, n2].sort((a, b) => (a > b ? 1 : -1));
 
 export const genNoteAt = ({ x, y }: Point): NotePoint => {
   const i = Math.floor(1 + (CANVAS_HEIGHT - y) / NOTE_SIZE);
@@ -71,32 +68,6 @@ export const deepen = (flat: NotePoint[], old: Midi): Midi => {
   });
 
   return { ...old, notes };
-};
-
-export const editNotes = (
-  mode: 'MOVE' | 'SCALE',
-  notes: NotePoint[],
-  [start, current]: Aera
-) => {
-  const time = Math.round((current.x - (start?.x ?? 0)) / NOTE_STEP);
-  const tune = Math.round((current.y - (start?.y ?? 0)) / NOTE_SIZE);
-
-  switch (mode) {
-    case 'SCALE':
-      return notes.map((note) =>
-        note.old ? { ...note, length: note.old.length + time } : note
-      );
-    case 'MOVE':
-      return notes.map((note) =>
-        note.old
-          ? {
-              ...note,
-              position: note.old.position + time,
-              i: note.old.i - tune
-            }
-          : note
-      );
-  }
 };
 
 export type Selected<T> = {
