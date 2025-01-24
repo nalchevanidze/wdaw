@@ -3,16 +3,11 @@ import { NOTE_SIZE, NOTE_STEP } from '../common/defs';
 import { Point } from '@wdaw/svg';
 import { getNoteIdByIndex } from '../../utils/notes';
 import { CANVAS_HEIGHT } from '../piano-roll/utils';
-
-const getTime = ([start, current]: Area) =>
-  Math.round((current.x - (start?.x ?? 0)) / NOTE_STEP);
-
-const getTune = ([start, current]: Area) =>
-  Math.round((current.y - (start?.y ?? 0)) / NOTE_SIZE);
+import { distanceX, distanceY } from './area';
 
 export const moveNotes = (notes: NotePoint[], area: Area) => {
-  const time = getTime(area);
-  const tune = getTune(area);
+  const time = distanceX(area, NOTE_STEP);
+  const tune = distanceY(area, NOTE_SIZE);
 
   return notes.map((note) =>
     note.old
@@ -26,7 +21,7 @@ export const moveNotes = (notes: NotePoint[], area: Area) => {
 };
 
 export const scaleNotes = (notes: NotePoint[], area: Area) => {
-  const time = getTime(area);
+  const time = distanceX(area, NOTE_STEP);
 
   return notes.map((note) =>
     note.old ? { ...note, length: note.old.length + time } : note

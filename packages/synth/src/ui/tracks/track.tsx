@@ -6,6 +6,8 @@ import { colors } from '../styles';
 import { ConfiguratorContext } from '../configurator';
 import { BLOCK_SIZE, MidiLoop, STAGE_HEIGHT } from './midi-loop';
 import { useDragging } from '../hooks/use-dragging';
+import { Area } from '../types';
+import { distanceX } from '../utils/area';
 
 type Props = { midi: Midi; name: string; i: number };
 
@@ -26,14 +28,16 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
         // console.log(area);
       },
       move: (area) => {
-        console.log(area);
+        const time = area ? distanceX(area, 1) : undefined;
+
+        console.log(time);
       },
       scale: (area) => {
         // console.log(area);
       }
     },
     onBackground: () => {
-      console.log('background')
+      console.log('background');
       // notes.addAt(point);
       return 'scale';
     },
@@ -64,8 +68,8 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
         onClick={() => dispatch({ type: 'SET_TRACK', payload: i })}
         style={{ border: 'none', cursor: 'pointer' }}
       />
-      <rect 
-        onMouseDown={dragging.onBackground} 
+      <rect
+        onMouseDown={dragging.onBackground}
         height={STAGE_HEIGHT}
         width={WIDTH}
         opacity={0}
