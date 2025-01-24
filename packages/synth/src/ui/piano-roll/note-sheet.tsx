@@ -32,6 +32,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     }
   ] = useContext(ConfiguratorContext);
   const getCoordinates = React.useContext(StageContext);
+  const notes = useNotes();
 
   const { selectionArea, startDragging, endDragging, onMouseMove } =
     useDragging({
@@ -45,8 +46,6 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         }
       }
     });
-
-  const notes = useNotes();
 
   const backgroundClickHandlers = {
     draw: (e: MEvent) => {
