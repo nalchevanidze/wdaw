@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { flatten } from '../piano-roll/utils';
 import { SvgStage } from '@wdaw/svg';
 import { Midi } from '../../engine';
 import { colors } from '../styles';
 import { ConfiguratorContext } from '../configurator';
 import { BLOCK_SIZE, MidiLoop, STAGE_HEIGHT } from './midi-loop';
 import { useDragging } from '../hooks/use-dragging';
-import { Area } from '../types';
 import { distanceX } from '../utils/area';
 
 type Props = { midi: Midi; name: string; i: number };
@@ -21,6 +19,7 @@ export const viewBox = [-PANEL, 0, WIDTH, STAGE_HEIGHT].join(' ');
 
 const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
   const [{ tracks }, dispatch] = React.useContext(ConfiguratorContext);
+  const [state, setState] = React.useState(midi);
 
   const dragging = useDragging({
     onMove: {
