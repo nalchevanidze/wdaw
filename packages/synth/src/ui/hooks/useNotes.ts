@@ -80,7 +80,11 @@ export const useNotes = () => {
   const selectNotesByArea = (area?: Aera) =>
     updateNotes(selectNotesIn(notes, area));
 
+  const removeSelectedNotes = () =>
+    updateNotes({ selected: [], inactive: notes.inactive });
+
   return {
+    removeSelectedNotes,
     selectNotesByArea,
     trackOrigin,
     notes,

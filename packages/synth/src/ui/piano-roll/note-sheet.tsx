@@ -17,7 +17,6 @@ import { useKeyAction } from '../utils';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
 import { MEvent, MODE, useDragging } from '../hooks/useDragging';
 import { useNotes } from '../hooks/useNotes';
-import { selectNotesIn } from '../utils/select-notes';
 
 const viewBox = [
   -KEYBOARD_WIDTH,
@@ -81,7 +80,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     removeNote,
     addNote,
     trackOrigin,
-    selectNotesByArea
+    selectNotesByArea,
+    removeSelectedNotes
   } = useNotes();
 
   const backgroundClickHandlers = {
@@ -111,9 +111,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
 
   const deleteNotes = () => (e: KeyboardEvent) => {
     switch (e.key) {
-      case 'Backspace': {
-        return updateNotes({ selected: [], inactive: notes.inactive });
-      }
+      case 'Backspace':
+        return removeSelectedNotes();
     }
   };
 
