@@ -3,7 +3,7 @@ import { Timeline } from './timeline';
 import { Notes } from './notes';
 import { KEYBOARD_WIDTH, STAGE_WIDTH, STAGE_HEIGHT } from './utils';
 import { Background } from './background';
-import { StageContext, SvgStage } from '@wdaw/svg';
+import { Point, StageContext, SvgStage } from '@wdaw/svg';
 import { useContext } from 'react';
 import { EditActionType, NotePoint } from '../types';
 import { ConfiguratorContext } from '../configurator';
@@ -25,26 +25,28 @@ type Props = {
 
 const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const [{ player, tracks }] = useContext(ConfiguratorContext);
-  const getCoordinates = React.useContext(StageContext);
   const notes = useNotes();
+
+  const mouseDownBackground = {
+    draw: (p: Point): MODE => {
+      notes.add(p);
+      return 'scale';
+    },
+    select: (_: Point): MODE => {
+      notes.clear();
+      return 'select';
+    }
+  };
+
   const dragging = useDragging({
     onMove: {
       select: notes.selectIn,
       move: (area) => (area ? notes.move(area) : undefined),
       scale: (area) => (area ? notes.scale(area) : undefined)
-    }
-  });
-
-  const mouseDownBackground = {
-    draw: (e: MEvent) => {
-      dragging.start('scale', e);
-      notes.add(getCoordinates(e));
     },
-    select: (e: MEvent) => {
-      dragging.start('select', e);
-      notes.clear();
-    }
-  };
+    onBackground: mouseDownBackground[actionType],
+    onSelected: () => notes.track()
+  });
 
   const mouseDownInactive = {
     draw: (_: MEvent, note: NotePoint) => notes.remove(note),
@@ -53,12 +55,6 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       notes.select(note);
     }
   };
-
-  const mouseDownSelected =
-    (name: MODE) => (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
-      dragging.start(name, e);
-      notes.track();
-    };
 
   const midi = tracks.tracks[tracks.currentTrack].midi;
   const loopSize = (midi.loop[1] - midi.loop[0]) * 8;
@@ -75,10 +71,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       onMouseLeave={dragging.end}
       onMouseUp={dragging.end}
     >
-      <Background
-        onMouseDown={mouseDownBackground[actionType]}
-        loop={midi.loop}
-      />
+      <Background onMouseDown={dragging.onBackground} loop={midi.loop} />
       <g>
         <Notes
           notes={notes.inactive}
@@ -87,8 +80,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         <Notes
           notes={notes.selected}
           color="#03A9F4"
-          mouseDown={mouseDownSelected('move')}
-          resize={mouseDownSelected('scale')}
+          mouseDown={dragging.onSelected('move')}
+          resize={dragging.onSelected('scale')}
         />
       </g>
       <Timeline time={time} height={STAGE_HEIGHT} />

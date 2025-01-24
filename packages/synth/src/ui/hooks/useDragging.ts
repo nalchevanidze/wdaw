@@ -7,9 +7,13 @@ export type MODE = 'scale' | 'move' | 'select';
 export type MEvent = React.MouseEvent<SVGGElement, MouseEvent>;
 export type MHandler = React.MouseEventHandler<SVGGElement>;
 
+type OnBackgroundHandler = (p: Point) => Maybe<MODE>;
+
 type Optins = {
   onMove: Record<MODE, (a: Maybe<Area>) => void>;
   onEnd?(mode?: MODE): void;
+  onBackground: OnBackgroundHandler;
+  onSelected?: () => void;
 };
 
 export const useDragging = (ops: Optins) => {
@@ -43,5 +47,18 @@ export const useDragging = (ops: Optins) => {
     }
   };
 
-  return { area, start, end, onMouseMove };
+  const onBackground = (e: MEvent) => {
+    const name = ops.onBackground(getCoordinates(e));
+    if (name) {
+      start(name, e);
+    }
+  };
+
+  const onSelected =
+    (name: MODE) => (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
+      start(name, e);
+      ops.onSelected?.();
+    };
+
+  return { area, start, end, onMouseMove, onBackground, onSelected };
 };
