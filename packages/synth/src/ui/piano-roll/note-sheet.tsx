@@ -3,7 +3,6 @@ import { Timeline } from './timeline';
 import { Notes } from './notes';
 import {
   genNoteAt,
-  Selected,
   selectNotesIn,
   KEYBOARD_WIDTH,
   editNotes,
@@ -12,8 +11,8 @@ import {
 } from './utils';
 import { Background } from './background';
 import { StageContext, SvgStage, Point } from '@wdaw/svg';
-import {  useContext, useState } from 'react';
-import { EditActionType, NotePoint, SelectZone } from '../types';
+import { useContext, useState } from 'react';
+import { EditActionType, Maybe, NotePoint, Trajectory, Aera } from '../types';
 import { ConfiguratorContext } from '../configurator';
 import { useKeyAction } from '../utils';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
@@ -27,7 +26,7 @@ const viewBox = [
   STAGE_HEIGHT
 ].join(' ');
 
-const SelectionCover: React.FC<SelectZone> = ([start, end]) => (
+const SelectionCover: React.FC<Aera> = ([start, end]) => (
   <rect
     stroke="red"
     fill="red"
@@ -52,20 +51,23 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   ] = useContext(ConfiguratorContext);
   const getCoordinates = React.useContext(StageContext);
 
-  const [selectionArea, setSelectionArea] = useState<SelectZone | undefined>();
+  const [selectionArea, setSelectionArea] = useState<Aera | undefined>();
   const { startDragging, endDragging, onMouseMove } = useDragging({
-    onMouseMove: (mode, point, dragging) => {
+    onMouseMove: (mode, currentPoint, startPoint) => {
+      const points: Maybe<Trajectory> = startPoint
+        ? [startPoint, currentPoint]
+        : undefined;
+
       switch (mode) {
         case 'SELECT': {
-          const area = dragging ? ([dragging, point] as const) : undefined;
-          setSelectionArea(area);
-          return updateNotes(selectNotesIn(notes, area));
+          setSelectionArea(points);
+          return updateNotes(selectNotesIn(notes, points));
         }
         case 'MOVE':
         case 'SCALE': {
-          return dragging
+          return points
             ? updateNotes({
-                selected: editNotes(mode, notes.selected, dragging, point),
+                selected: editNotes(mode, notes.selected, points[0], points[1]),
                 inactive: notes.inactive
               })
             : undefined;
