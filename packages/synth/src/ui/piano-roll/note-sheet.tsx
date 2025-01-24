@@ -5,7 +5,7 @@ import { KEYBOARD_WIDTH, STAGE_WIDTH, STAGE_HEIGHT } from './utils';
 import { Background } from './background';
 import { StageContext, SvgStage } from '@wdaw/svg';
 import { useContext } from 'react';
-import { EditActionType, NotePoint, Area } from '../types';
+import { EditActionType, NotePoint } from '../types';
 import { ConfiguratorContext } from '../configurator';
 import { useKeyAction } from '../utils';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
@@ -59,7 +59,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     }
   };
 
-  const clickOnNoteHanlers = {
+  const noteClickHanlers = {
     draw: (_: MEvent, note: NotePoint) => notes.remove(note),
     select: (e: MEvent, note: NotePoint) => {
       startDragging('MOVE', e);
@@ -67,7 +67,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     }
   };
 
-  const startDraggingSelected =
+  const startDraggingHandler =
     (name: MODE) => (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
       startDragging(name, e);
       notes.track();
@@ -102,13 +102,13 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       <g>
         <Notes
           notes={notes.inactive}
-          mouseDown={clickOnNoteHanlers[actionType]}
+          mouseDown={noteClickHanlers[actionType]}
         />
         <Notes
           notes={notes.selected}
           color="#03A9F4"
-          mouseDown={startDraggingSelected('MOVE')}
-          resize={startDraggingSelected('SCALE')}
+          mouseDown={startDraggingHandler('MOVE')}
+          resize={startDraggingHandler('SCALE')}
         />
       </g>
       <Timeline time={current} height={STAGE_HEIGHT} />
