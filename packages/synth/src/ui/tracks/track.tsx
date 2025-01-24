@@ -33,6 +33,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
       }
     },
     onBackground: () => {
+      console.log('background')
       // notes.addAt(point);
       return 'scale';
     },
@@ -62,6 +63,12 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
         height={STAGE_HEIGHT}
         onClick={() => dispatch({ type: 'SET_TRACK', payload: i })}
         style={{ border: 'none', cursor: 'pointer' }}
+      />
+      <rect 
+        onMouseDown={dragging.onBackground} 
+        height={STAGE_HEIGHT}
+        width={WIDTH}
+        opacity={0}
       />
       <MidiLoop
         midi={midi}

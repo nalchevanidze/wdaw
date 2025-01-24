@@ -1,4 +1,3 @@
-import { Point } from '@wdaw/svg';
 import {
   getNoteIdByIndex,
   keysToIndexes,
@@ -6,7 +5,7 @@ import {
 } from '../../utils/notes';
 import { NotePoint } from '../types';
 import { Midi, Note } from '../../engine';
-import { NOTE_SIZE, NOTE_STEP, TIMELINE_HEIGHT } from '../common/defs';
+import { NOTE_SIZE,  TIMELINE_HEIGHT } from '../common/defs';
 
 export const SUB_QUARTER = NOTE_SIZE * 4;
 
