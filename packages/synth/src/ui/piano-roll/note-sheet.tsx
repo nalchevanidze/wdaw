@@ -7,7 +7,6 @@ import { StageContext, SvgStage } from '@wdaw/svg';
 import { useContext } from 'react';
 import { EditActionType, NotePoint } from '../types';
 import { ConfiguratorContext } from '../configurator';
-import { useKeyAction } from '../utils';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
 import { MEvent, MODE, useDragging } from '../hooks/useDragging';
 import { useNotes } from '../hooks/useNotes';
@@ -36,7 +35,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     }
   });
 
-  const backgroundClickHandlers = {
+  const mouseDownBackground = {
     draw: (e: MEvent) => {
       dragging.start('scale', e);
       notes.add(getCoordinates(e));
@@ -47,7 +46,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     }
   };
 
-  const noteClickHanlers = {
+  const mouseDownInactive = {
     draw: (_: MEvent, note: NotePoint) => notes.remove(note),
     select: (e: MEvent, note: NotePoint) => {
       dragging.start('move', e);
@@ -55,20 +54,11 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     }
   };
 
-  const startDragging =
+  const mouseDownSelected =
     (name: MODE) => (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
       dragging.start(name, e);
       notes.track();
     };
-
-  const deleteNotes = () => (e: KeyboardEvent) => {
-    switch (e.key) {
-      case 'Backspace':
-        return notes.removeSelected();
-    }
-  };
-
-  useKeyAction(deleteNotes, [notes.selected, notes.inactive]);
 
   const midi = tracks.tracks[tracks.currentTrack].midi;
   const loopSize = (midi.loop[1] - midi.loop[0]) * 8;
@@ -86,19 +76,19 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       onMouseUp={dragging.end}
     >
       <Background
-        onMouseDown={backgroundClickHandlers[actionType]}
+        onMouseDown={mouseDownBackground[actionType]}
         loop={midi.loop}
       />
       <g>
         <Notes
           notes={notes.inactive}
-          mouseDown={noteClickHanlers[actionType]}
+          mouseDown={mouseDownInactive[actionType]}
         />
         <Notes
           notes={notes.selected}
           color="#03A9F4"
-          mouseDown={startDragging('move')}
-          resize={startDragging('scale')}
+          mouseDown={mouseDownSelected('move')}
+          resize={mouseDownSelected('scale')}
         />
       </g>
       <Timeline time={time} height={STAGE_HEIGHT} />

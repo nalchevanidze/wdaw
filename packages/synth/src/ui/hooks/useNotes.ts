@@ -6,6 +6,7 @@ import { ConfiguratorContext } from '../configurator';
 import { selectNotesIn } from '../utils/select-notes';
 import { genNoteAt, scaleNotes, moveNotes } from '../utils/edit-notes';
 import { Point } from '@wdaw/svg';
+import { useOnDelete } from '../utils';
 
 const addOrigin = ({ old, ...note }: NotePoint): NotePoint => ({
   ...note,
@@ -96,10 +97,11 @@ export const useNotes = () => {
       inactive: notes.inactive
     });
 
+  useOnDelete(removeSelected, [notes.selected, notes.inactive]);
+
   return {
     selected: notes.selected,
     inactive: notes.inactive,
-    removeSelected,
     selectIn,
     track,
     clear,
