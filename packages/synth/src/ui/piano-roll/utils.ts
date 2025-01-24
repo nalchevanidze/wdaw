@@ -29,24 +29,7 @@ const notePosition = (index: number, at: number): number => index * 8 + at;
 export const sortNumbers = (n1: number, n2: number): number[] =>
   [n1, n2].sort((a, b) => (a > b ? 1 : -1));
 
-export const isInArea = (
-  [start, end]: Aera,
-  { position, i, length }: GraphNote
-): boolean => {
-  const minX = Math.min(start.x, end.x);
-  const maxX = Math.max(start.x, end.x);
-  const startX = position * NOTE_STEP;
-  const endX = startX + length * NOTE_STEP;
-  const xIsInArea =
-    (minX < startX && maxX > startX) ||
-    (minX < endX && maxX > endX) ||
-    (minX > startX && maxX < endX);
-  const minY = Math.min(start.y, end.y);
-  const maxY = Math.max(start.y, end.y);
-  const y = CANVAS_HEIGHT - NOTE_SIZE * i;
-  const yIsInArea = minY < y && maxY > y;
-  return xIsInArea && yIsInArea;
-};
+
 
 export const genNoteAt = ({ x, y }: Point): NotePoint => {
   const i = Math.floor(1 + (CANVAS_HEIGHT - y) / NOTE_SIZE);
@@ -122,22 +105,3 @@ export type Selected<T> = {
   selected: T[];
   inactive: T[];
 };
-
-const clusterArray = <T>(list: T[], func: (_: T) => boolean): Selected<T> => {
-  const selected: T[] = [];
-  const inactive: T[] = [];
-
-  list.forEach((elem) =>
-    func(elem) ? selected.push(elem) : inactive.push(elem)
-  );
-
-  return { selected, inactive };
-};
-
-export const selectNotesIn = (
-  { selected, inactive }: Selected<NotePoint>,
-  zone?: Aera
-) =>
-  clusterArray([...selected, ...inactive], (note) =>
-    zone ? isInArea(zone, note) : false
-  );

@@ -3,7 +3,6 @@ import { Timeline } from './timeline';
 import { Notes } from './notes';
 import {
   genNoteAt,
-  selectNotesIn,
   KEYBOARD_WIDTH,
   editNotes,
   STAGE_WIDTH,
@@ -12,12 +11,13 @@ import {
 import { Background } from './background';
 import { StageContext, SvgStage } from '@wdaw/svg';
 import { useContext, useState } from 'react';
-import { EditActionType, Maybe, NotePoint, Aera } from '../types';
+import { EditActionType, NotePoint, Aera } from '../types';
 import { ConfiguratorContext } from '../configurator';
 import { useKeyAction } from '../utils';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
 import { MEvent, MODE, useDragging } from '../hooks/useDragging';
 import { useNotes } from '../hooks/useNotes';
+import { selectNotesIn } from '../utils/selectNotesIn';
 
 const viewBox = [
   -KEYBOARD_WIDTH,
