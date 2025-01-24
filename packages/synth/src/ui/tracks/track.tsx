@@ -45,7 +45,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
       start: state.start,
       end: state.end
     });
-    dispatch({ type: 'SET_TRACK_STATE', payload: { id: i, ...state } });
+    dispatch({ type: 'SET_TRACK_STATE', id: i, payload: { ...state } });
   };
 
   const dragging = useDragging({

@@ -66,8 +66,8 @@ export type SET_TRACK = {
 
 export type SET_TRACK_STATE = {
   type: 'SET_TRACK_STATE';
+  id: number;
   payload: {
-    id: number;
     start: number;
     end: number;
   };

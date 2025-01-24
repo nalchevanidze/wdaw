@@ -5,17 +5,19 @@ import { getPreset } from '../engine';
 import { DAWState } from '../engine/state';
 import { NamedPreset, TrackState } from '../engine/state/state';
 
-const mapCurrentTrack = (
+const mapCurrentTrack = (state: DAWState, f: (a: TrackState) => TrackState) =>
+  mapTrack(state.tracks.currentTrack, state, f);
+
+const mapTrack = (
+  target: number,
   { tracks: { tracks, currentTrack } }: DAWState,
   f: (a: TrackState) => TrackState
-) => {
-  return {
-    tracks: {
-      currentTrack: currentTrack,
-      tracks: tracks.map((t, i) => (currentTrack === i ? f(t) : t))
-    }
-  };
-};
+) => ({
+  tracks: {
+    currentTrack: currentTrack,
+    tracks: tracks.map((t, i) => (target === i ? f(t) : t))
+  }
+});
 
 const mapPreset = (
   state: DAWState,
@@ -52,6 +54,11 @@ const dispatcher = (
       return mapCurrentTrack(state, ({ midi, ...rest }) => ({
         ...rest,
         midi: action.payload
+      }));
+    case 'SET_TRACK_STATE':
+      return mapTrack(action.id, state, ({ midi, ...rest }) => ({
+        ...rest,
+        midi: { ...midi, ...action.payload }
       }));
     case 'SET_ENVELOPE':
       return mapPreset(state, ({ envelopes }) => ({
