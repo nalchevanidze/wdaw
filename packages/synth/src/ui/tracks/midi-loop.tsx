@@ -11,15 +11,20 @@ export const STEP = 8;
 type Props = {
   name: string;
   midi: Midi;
+  startMove?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
+  startScale?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
 };
 
-const MidiLoop: React.FC<Props> = ({ name, midi }) => {
+const MidiLoop: React.FC<Props> = ({ name, midi, startMove, startScale }) => {
   const notes = React.useMemo<NotePoint[]>(() => flatten(midi), [midi]);
   const [loopStart, loopEnd] = midi.loop;
   const id = `MidiLoop_B_Q_T_D_V_B_D_${name}`;
   const size = loopEnd - loopStart;
   const width = (midi.end - midi.start) * STEP;
   const offset = loopStart * STEP;
+
+  const containerStart = midi.start * STEP;
+  const scaleWidth = 5;
 
   return (
     <g>
@@ -50,10 +55,20 @@ const MidiLoop: React.FC<Props> = ({ name, midi }) => {
         </pattern>
       </defs>
       <rect
-        x={midi.start * STEP}
+        onMouseDown={(event) => startMove?.(event)}
+        x={containerStart}
         width={width}
         height="100%"
         fill={'url(#' + id + ')'}
+      />
+      <rect
+        x={containerStart + width - scaleWidth}
+        width={scaleWidth}
+        height="100%"
+        fill={'gray'}
+        fillOpacity={0.1}
+        onMouseDown={(event) => startScale?.(event)}
+        style={{ cursor: 'e-resize' }}
       />
     </g>
   );

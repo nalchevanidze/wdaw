@@ -22,11 +22,15 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
 
   const dragging = useDragging({
     onMove: {
-      select: () => {
-        // notes.selectIn
+      select: (area) => {
+        // console.log(area);
       },
-      move: () => {},
-      scale: () => {}
+      move: (area) => {
+        console.log(area);
+      },
+      scale: (area) => {
+        // console.log(area);
+      }
     },
     onBackground: () => {
       // notes.addAt(point);
@@ -41,7 +45,11 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
   const active = i === tracks.currentTrack;
 
   return (
-    <>
+    <g
+      onMouseMove={dragging.onMove}
+      onMouseLeave={dragging.end}
+      onMouseUp={dragging.end}
+    >
       <text x={5 - PANEL} y={32} fill={active ? colors.notes : 'gray'}>
         {name}
       </text>
@@ -55,8 +63,13 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
         onClick={() => dispatch({ type: 'SET_TRACK', payload: i })}
         style={{ border: 'none', cursor: 'pointer' }}
       />
-      <MidiLoop midi={midi} name={name} />
-    </>
+      <MidiLoop
+        midi={midi}
+        name={name}
+        startMove={dragging.onSelected('move')}
+        startScale={dragging.onSelected('scale')}
+      />
+    </g>
   );
 };
 
