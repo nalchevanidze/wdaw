@@ -6,8 +6,8 @@ import { Notes } from './notes';
 import { KEYBOARD_WIDTH, STAGE_WIDTH, STAGE_HEIGHT } from './utils';
 import { Background } from './background';
 import { EditActionType, NotePoint } from '../types';
-import { HandlerMap, useDragging } from '../hooks/useDragging';
-import { useNotes } from '../hooks/useNotes';
+import { HandlerMap, useDragging } from '../hooks/use-dragging';
+import { useNotes } from '../hooks/use-notes';
 import { useTime } from '../hooks/use-time';
 import { SelectionArea } from './selection-area';
 

@@ -5,7 +5,7 @@ import { Midi } from '../../engine';
 import { colors } from '../styles';
 import { ConfiguratorContext } from '../configurator';
 import { BLOCK_SIZE, MidiLoop, STAGE_HEIGHT } from './midi-loop';
-import { useDragging } from '../hooks/useDragging';
+import { useDragging } from '../hooks/use-dragging';
 
 type Props = { midi: Midi; name: string; i: number };
 
