@@ -23,8 +23,22 @@ type Props = {
   actionType: EditActionType;
 };
 
-const NoteSheet: React.FC<Props> = ({ actionType }) => {
+const useTime = () => {
   const [{ player, tracks }] = useContext(ConfiguratorContext);
+
+  const midi = tracks.tracks[tracks.currentTrack].midi;
+  const loopSize = (midi.loop[1] - midi.loop[0]) * 8;
+  const time =
+    ((player.time < midi.start * 8
+      ? 0
+      : midi.loop[0] * 8 + (player.time % loopSize)) *
+      NOTE_SIZE) /
+    2;
+  return { time, loop: midi.loop };
+};
+
+const NoteSheet: React.FC<Props> = ({ actionType }) => {
+  const { time, loop } = useTime();
   const notes = useNotes();
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
@@ -60,22 +74,13 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     onInactive: mouseDownInactive[actionType]
   });
 
-  const midi = tracks.tracks[tracks.currentTrack].midi;
-  const loopSize = (midi.loop[1] - midi.loop[0]) * 8;
-  const time =
-    ((player.time < midi.start * 8
-      ? 0
-      : midi.loop[0] * 8 + (player.time % loopSize)) *
-      NOTE_SIZE) /
-    2;
-
   return (
     <g
       onMouseMove={dragging.onMouseMove}
       onMouseLeave={dragging.end}
       onMouseUp={dragging.end}
     >
-      <Background onMouseDown={dragging.onBackground} loop={midi.loop} />
+      <Background onMouseDown={dragging.onBackground} loop={loop} />
       <g>
         <Notes notes={notes.inactive} mouseDown={dragging.onInactive} />
         <Notes
