@@ -1,6 +1,6 @@
 import { Point, StageContext } from '@wdaw/svg';
 import * as React from 'react';
-import { Aera, Maybe } from '../types';
+import { Area, Maybe } from '../types';
 
 export type MODE = 'SCALE' | 'MOVE' | 'SELECT';
 
@@ -8,14 +8,14 @@ export type MEvent = React.MouseEvent<SVGGElement, MouseEvent>;
 export type MHandler = React.MouseEventHandler<SVGGElement>;
 
 type Optins = {
-  onMouseMove(mode: MODE, area: Maybe<Aera>): void;
+  onMouseMove(mode: MODE, area: Maybe<Area>): void;
   onEndDragging?(mode?: MODE): void;
 };
 
 export const useDragging = (ops: Optins) => {
   const getCoordinates = React.useContext(StageContext);
 
-  const [selectionArea, setSelectionArea] = React.useState<Aera | undefined>();
+  const [selectionArea, setSelectionArea] = React.useState<Area | undefined>();
   const [mode, setMode] = React.useState<MODE | undefined>(undefined);
   const [dragging, setDragging] = React.useState<Maybe<Point>>(undefined);
 
@@ -32,7 +32,7 @@ export const useDragging = (ops: Optins) => {
 
   const onMouseMove: MHandler = (e) => {
     if (mode) {
-      const area: Maybe<Aera> = dragging
+      const area: Maybe<Area> = dragging
         ? [dragging, getCoordinates(e)]
         : undefined;
 

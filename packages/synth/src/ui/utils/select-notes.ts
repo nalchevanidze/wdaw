@@ -1,10 +1,10 @@
 import { CANVAS_HEIGHT, Selected } from '../piano-roll/utils';
-import { GraphNote, NotePoint, Aera } from '../types';
+import { GraphNote, NotePoint, Area } from '../types';
 
 import { NOTE_SIZE, NOTE_STEP } from '../common/defs';
 
 export const isInArea = (
-  [start, end]: Aera,
+  [start, end]: Area,
   { position, i, length }: GraphNote
 ): boolean => {
   const minX = Math.min(start.x, end.x);
@@ -35,7 +35,7 @@ const clusterArray = <T>(list: T[], func: (_: T) => boolean): Selected<T> => {
   
   export const selectNotesIn = (
     { selected, inactive }: Selected<NotePoint>,
-    zone?: Aera
+    zone?: Area
   ) =>
     clusterArray([...selected, ...inactive], (note) =>
       zone ? isInArea(zone, note) : false
