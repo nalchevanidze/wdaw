@@ -25,22 +25,20 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
       select: () => {
         // notes.selectIn
       },
-      move: (area) => {},
-      scale: (area) => {}
+      move: () => {},
+      scale: () => {}
     },
-    onBackground: (point) => {
+    onBackground: () => {
       // notes.addAt(point);
       return 'scale';
     },
-    onInactive: (note) => {
+    onInactive: () => {
       //notes.select(note);
       return 'move';
     }
   });
 
   const active = i === tracks.currentTrack;
-
-
 
   return (
     <>
@@ -57,7 +55,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
         onClick={() => dispatch({ type: 'SET_TRACK', payload: i })}
         style={{ border: 'none', cursor: 'pointer' }}
       />
-      <MidiLoop  midi={midi} name={name} />
+      <MidiLoop midi={midi} name={name} />
     </>
   );
 };
