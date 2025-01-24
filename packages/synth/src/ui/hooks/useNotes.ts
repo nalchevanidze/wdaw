@@ -84,9 +84,15 @@ export const useNotes = () => {
   const removeSelected = () =>
     update({ selected: [], inactive: notes.inactive });
 
-  const edit = (mode: 'MOVE' | 'SCALE', area: Area) =>
+  const scale = (area: Area) =>
     update({
-      selected: editNotes(mode, notes.selected, area),
+      selected: editNotes('SCALE', notes.selected, area),
+      inactive: notes.inactive
+    });
+
+  const move = (area: Area) =>
+    update({
+      selected: editNotes('MOVE', notes.selected, area),
       inactive: notes.inactive
     });
 
@@ -100,6 +106,7 @@ export const useNotes = () => {
     remove,
     select,
     add,
-    edit
+    move,
+    scale
   };
 };

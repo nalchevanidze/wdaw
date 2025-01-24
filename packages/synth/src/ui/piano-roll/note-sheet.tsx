@@ -28,42 +28,36 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const [{ player, tracks }] = useContext(ConfiguratorContext);
   const getCoordinates = React.useContext(StageContext);
   const notes = useNotes();
-
-  const { selectionArea, startDragging, endDragging, onMouseMove } =
-    useDragging({
-      onMouseMove: (mode, area) => {
-        switch (mode) {
-          case 'SELECT':
-            return notes.selectIn(area);
-          case 'MOVE':
-          case 'SCALE':
-            return area ? notes.edit(mode, area) : undefined;
-        }
-      }
-    });
+  const dragging = useDragging({
+    onMove: {
+      SELECT: notes.selectIn,
+      MOVE: (area) => (area ? notes.move(area) : undefined),
+      SCALE: (area) => (area ? notes.scale(area) : undefined)
+    }
+  });
 
   const backgroundClickHandlers = {
     draw: (e: MEvent) => {
-      startDragging('SCALE', e);
+      dragging.start('SCALE', e);
       notes.add(getCoordinates(e));
     },
     select: (e: MEvent) => {
-      startDragging('SELECT', e);
-      return notes.clear();
+      dragging.start('SELECT', e);
+      notes.clear();
     }
   };
 
   const noteClickHanlers = {
     draw: (_: MEvent, note: NotePoint) => notes.remove(note),
     select: (e: MEvent, note: NotePoint) => {
-      startDragging('MOVE', e);
+      dragging.start('MOVE', e);
       notes.select(note);
     }
   };
 
-  const startDraggingHandler =
+  const startDragging =
     (name: MODE) => (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
-      startDragging(name, e);
+      dragging.start(name, e);
       notes.track();
     };
 
@@ -87,9 +81,9 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
 
   return (
     <g
-      onMouseMove={onMouseMove}
-      onMouseLeave={endDragging}
-      onMouseUp={endDragging}
+      onMouseMove={dragging.onMouseMove}
+      onMouseLeave={dragging.end}
+      onMouseUp={dragging.end}
     >
       <Background
         onMouseDown={backgroundClickHandlers[actionType]}
@@ -103,12 +97,12 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         <Notes
           notes={notes.selected}
           color="#03A9F4"
-          mouseDown={startDraggingHandler('MOVE')}
-          resize={startDraggingHandler('SCALE')}
+          mouseDown={startDragging('MOVE')}
+          resize={startDragging('SCALE')}
         />
       </g>
       <Timeline time={time} height={STAGE_HEIGHT} />
-      {selectionArea ? <SelectionArea area={selectionArea} /> : null}
+      {dragging.area ? <SelectionArea area={dragging.area} /> : null}
     </g>
   );
 };
