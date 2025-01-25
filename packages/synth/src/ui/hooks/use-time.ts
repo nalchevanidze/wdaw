@@ -1,19 +1,22 @@
 import { useContext } from 'react';
 import { ConfiguratorContext } from '../configurator';
-import { NOTE_SIZE } from '../common/defs';
+import { NOTE_SIZE, NOTE_STEP } from '../common/defs';
 
-export const TIME_SIZE = 8;
 
 export const useTime = () => {
   const [{ player, tracks }] = useContext(ConfiguratorContext);
-
   const midi = tracks.tracks[tracks.currentTrack].midi;
-  const loopSize = (midi.loop[1] - midi.loop[0]) * TIME_SIZE;
+  const loopSize = (midi.loop[1] - midi.loop[0]) * NOTE_SIZE;
+  const start = midi.start * NOTE_SIZE;
+  const end = midi.end * NOTE_SIZE;
+  const t = player.time;
+  const loopStart = midi.loop[0] * NOTE_SIZE;
+  const offset = start % loopSize;
+
   const time =
-    ((player.time < midi.start * TIME_SIZE
+    t < start || t > end
       ? 0
-      : midi.loop[0] * TIME_SIZE + (player.time % loopSize)) *
-      NOTE_SIZE) /
-    2;
+      : (loopStart - offset + (t % loopSize)) * NOTE_STEP;
+
   return { time, loop: midi.loop, end: midi.end * NOTE_SIZE };
 };
