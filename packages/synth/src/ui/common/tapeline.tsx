@@ -1,18 +1,22 @@
 import * as React from 'react';
 import { colors } from '../styles';
-import { NOTE_SIZE, NOTE_STEP, TIMELINE_HEIGHT } from './defs';
 
 const gridSize = 40;
 const id = 'TimelinePattern_B_Q_T_D_V_B_D';
 const parent = `${id}_PARENT`;
 const child = `${id}_CHILD`;
 
-export const Tapeline = () => (
+type Props = {
+  height: number;
+  size: number;
+};
+
+export const Tapeline: React.FC<Props> = ({ height, size }) => (
   <g>
     <defs>
       <pattern
-        width={NOTE_SIZE}
-        height={TIMELINE_HEIGHT}
+        width={size}
+        height={height}
         patternUnits="userSpaceOnUse"
         id={child}
       >
@@ -20,7 +24,7 @@ export const Tapeline = () => (
           x1={1}
           x2={1}
           y1={0}
-          y2={NOTE_STEP}
+          y2={size / 2}
           stroke={colors.secondary}
           strokeWidth={0.5}
         />
@@ -28,25 +32,17 @@ export const Tapeline = () => (
 
       <pattern
         width={gridSize}
-        height={TIMELINE_HEIGHT}
+        height={height}
         patternUnits="userSpaceOnUse"
         id={parent}
       >
-        <rect
-          width={gridSize}
-          height={TIMELINE_HEIGHT}
-          fill={colors.background}
-        />
-        <rect
-          width={gridSize}
-          height={TIMELINE_HEIGHT}
-          fill={'url(#' + child + ')'}
-        />
+        <rect width={gridSize} height={height} fill={colors.background} />
+        <rect width={gridSize} height={height} fill={'url(#' + child + ')'} />
         <line
           x1={1}
           x2={1}
           y1={0}
-          y2={NOTE_SIZE}
+          y2={size}
           stroke={colors.secondary}
           strokeWidth={1}
         />
@@ -54,8 +50,8 @@ export const Tapeline = () => (
     </defs>
     <rect
       width="100%"
-      height={TIMELINE_HEIGHT}
-      y={-TIMELINE_HEIGHT}
+      height={height}
+      y={-height}
       fill={'url(#' + parent + ')'}
     />
   </g>

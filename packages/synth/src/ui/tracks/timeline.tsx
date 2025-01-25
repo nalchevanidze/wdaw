@@ -3,6 +3,7 @@ import { StageContext, SvgStage } from '@wdaw/svg';
 import { Tapeline } from '../common/tapeline';
 import { PANEL, WIDTH } from './track';
 import { ConfiguratorContext } from '../configurator';
+import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
 
 const HEIGHT = 20;
 
@@ -14,7 +15,7 @@ const TimelineContent: React.FC = () => {
 
   return (
     <g>
-      <Tapeline />
+      <Tapeline height={TIMELINE_HEIGHT} size={NOTE_SIZE} />
       <rect
         fillOpacity="0"
         y={-HEIGHT}
