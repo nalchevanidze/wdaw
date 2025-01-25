@@ -5,7 +5,6 @@ import {
   KEYBOARD_WIDTH,
   OCTAVE_HEIGHT,
   QUARTER,
-  STAGE_WIDTH,
   SUB_QUARTER
 } from './utils';
 import { NOTE_SIZE } from '../common/defs';
@@ -93,13 +92,17 @@ const Grid = () => (
   </g>
 );
 
-const Background = ({
-  onMouseDown,
-  loop: [loopStart, loopEnd]
-}: Pick<React.SVGProps<SVGRectElement>, 'onMouseDown'> & {
+type Props = Pick<React.SVGProps<SVGRectElement>, 'onMouseDown'> & {
   loop: [number, number];
+  width: number;
+};
+
+const Background: React.FC<Props> = ({
+  onMouseDown,
+  loop: [loopStart, loopEnd],
+  width
 }) => {
-  const start = loopStart * 40
+  const start = loopStart * 40;
   const size = (loopEnd - loopStart) * 40;
 
   return (
@@ -112,7 +115,7 @@ const Background = ({
         width={size}
         height={4}
         onMouseDown={onMouseDown}
-        fill='red'
+        fill="red"
       />
       <rect
         fillOpacity={0.3}
@@ -120,7 +123,7 @@ const Background = ({
         width={1}
         height={CANVAS_HEIGHT}
         onMouseDown={onMouseDown}
-        fill='red'
+        fill="red"
       />
       <rect
         fillOpacity={0.3}
@@ -128,11 +131,11 @@ const Background = ({
         width={1}
         height={CANVAS_HEIGHT}
         onMouseDown={onMouseDown}
-        fill='red'
+        fill="red"
       />
       <rect
         fillOpacity={0}
-        width={STAGE_WIDTH}
+        width={width}
         height={CANVAS_HEIGHT}
         onMouseDown={onMouseDown}
       />

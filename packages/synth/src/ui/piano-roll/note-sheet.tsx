@@ -3,20 +3,21 @@ import { Point, SvgStage } from '@wdaw/svg';
 import { TIMELINE_HEIGHT } from '../common/defs';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
-import { KEYBOARD_WIDTH, STAGE_WIDTH, STAGE_HEIGHT } from './utils';
+import { KEYBOARD_WIDTH, STAGE_HEIGHT, SUB_QUARTER } from './utils';
 import { Background } from './background';
 import { EditActionType, NotePoint } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { useNotes } from '../hooks/use-notes';
 import { useTime } from '../hooks/use-time';
 import { SelectionArea } from './selection-area';
+import { useTrack } from '../configurator';
 
 type Props = {
   actionType: EditActionType;
 };
 
 const NoteSheet: React.FC<Props> = ({ actionType }) => {
-  const { time, loop } = useTime();
+  const { time, loop, end } = useTime();
   const notes = useNotes();
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
@@ -58,7 +59,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       onMouseLeave={dragging.end}
       onMouseUp={dragging.end}
     >
-      <Background onMouseDown={dragging.onBackground} loop={loop} />
+      <Background onMouseDown={dragging.onBackground} loop={loop} width={end} />
       <g>
         <Notes notes={notes.inactive} mouseDown={dragging.onInactive} />
         <Notes
@@ -74,24 +75,27 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
   );
 };
 
-const viewBox = [
-  -KEYBOARD_WIDTH,
-  -TIMELINE_HEIGHT,
-  STAGE_WIDTH,
-  STAGE_HEIGHT
-].join(' ');
+const PianoRoll: React.FC<Props> = (props) => {
+  const [track] = useTrack();
+  const size = track.midi.loop[1] + 12;
+  const width = KEYBOARD_WIDTH + size * SUB_QUARTER;
 
-const PianoRoll: React.FC<Props> = (props) => (
-  <SvgStage
-    viewBox={viewBox}
-    width={STAGE_WIDTH + 'px'}
-    height={STAGE_HEIGHT + 'px'}
-    style={{
-      background: '#FFF'
-    }}
-  >
-    <NoteSheet {...props} />
-  </SvgStage>
-);
+  const viewBox = [-KEYBOARD_WIDTH, -TIMELINE_HEIGHT, width, STAGE_HEIGHT].join(
+    ' '
+  );
+
+  return (
+    <SvgStage
+      viewBox={viewBox}
+      width={width + 'px'}
+      height={STAGE_HEIGHT + 'px'}
+      style={{
+        background: '#FFF'
+      }}
+    >
+      <NoteSheet {...props} />
+    </SvgStage>
+  );
+};
 
 export default PianoRoll;
