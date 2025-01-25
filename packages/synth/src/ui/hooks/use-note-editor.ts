@@ -15,7 +15,7 @@ const addOrigin = ({ old, ...note }: NotePoint): NotePoint => ({
 
 const dropOrigin = ({ old, ...n }: NotePoint): NotePoint => n;
 
-export const useNotes = () => {
+export const useNoteEditor = () => {
   const [
     {
       tracks: { currentTrack, tracks }
@@ -30,14 +30,17 @@ export const useNotes = () => {
 
   const allNotes = [...notes.selected, ...notes.inactive];
 
+  const dispatchMidi = (ns: Selected<NotePoint>) =>
+    dispatch({
+      id: currentTrack,
+      type: 'SET_MIDI',
+      payload: deepen([...ns.selected, ...ns.inactive])
+    });
+
   const update = (ns: Selected<NotePoint>) => {
     setNotes(ns);
     if (ns.selected.length === 0) {
-      dispatch({
-        id: currentTrack,
-        type: 'SET_MIDI',
-        payload: deepen([...ns.selected, ...ns.inactive])
-      });
+      dispatchMidi(ns);
     }
   };
 
@@ -97,6 +100,8 @@ export const useNotes = () => {
 
   useOnDelete(removeSelected, [notes.selected, notes.inactive]);
 
+  const sync = () => dispatchMidi(notes);
+
   return {
     selected: notes.selected,
     inactive: notes.inactive,
@@ -107,6 +112,7 @@ export const useNotes = () => {
     select,
     addAt,
     move,
-    scale
+    scale,
+    sync
   };
 };

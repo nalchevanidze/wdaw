@@ -7,7 +7,7 @@ import { KEYBOARD_WIDTH, STAGE_HEIGHT } from './utils';
 import { Background } from './background';
 import { EditActionType, NotePoint } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
-import { useNotes } from '../hooks/use-notes';
+import { useNoteEditor } from '../hooks/use-note-editor';
 import { useTime } from '../hooks/use-time';
 import { SelectionArea } from './selection-area';
 import { useTrack } from '../configurator';
@@ -18,7 +18,7 @@ type Props = {
 
 const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const { time, loop, end } = useTime();
-  const notes = useNotes();
+  const notes = useNoteEditor();
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
     draw: (point) => {
@@ -50,7 +50,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     },
     onBackground: onBackgroundHandler[actionType],
     onSelected: notes.track,
-    onInactive: mouseDownInactive[actionType]
+    onInactive: mouseDownInactive[actionType],
+    onEnd: notes.sync
   });
 
   return (

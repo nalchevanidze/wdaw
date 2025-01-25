@@ -32,6 +32,11 @@ export const useTrackEditor = (input: State, id: number) => {
       start: state.start,
       end: state.end
     });
+
+    if (input.start == state.start && input.end == state.end) {
+      return;
+    }
+
     dispatch({ type: 'SET_MIDI', id, payload: { ...state } });
   };
 
