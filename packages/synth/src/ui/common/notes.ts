@@ -1,9 +1,9 @@
 import { Point } from '@wdaw/svg';
-import { distanceX, distanceY } from './area';
+import { distanceX, distanceY } from '../utils/area';
 import { CANVAS_HEIGHT, Selected } from '../piano-roll/utils';
 import { Area } from '../types';
-import { NOTE_SIZE, NOTE_STEP } from '../common/defs';
-import { addTracking, Tracked } from './tracking';
+import { NOTE_SIZE, NOTE_STEP } from './defs';
+import { addTracking, Tracked } from '../utils/tracking';
 
 export const moveNotes = (
   notes: Tracked<NotePoint>[],

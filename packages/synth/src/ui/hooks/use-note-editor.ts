@@ -9,7 +9,7 @@ import {
   moveNotes,
   selectNotesIn,
   NotePoint
-} from '../utils/notes';
+} from '../common/notes';
 import { Point } from '@wdaw/svg';
 import { useOnDelete } from '../utils';
 import { addTracking, dropTracking } from '../utils/tracking';

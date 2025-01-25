@@ -11,7 +11,7 @@ import { useNoteEditor } from '../hooks/use-note-editor';
 import { useTime } from '../hooks/use-time';
 import { SelectionArea } from './selection-area';
 import { useTrack } from '../configurator';
-import { NotePoint } from '../utils/notes';
+import { NotePoint } from '../common/notes';
 
 type Props = {
   actionType: EditActionType;

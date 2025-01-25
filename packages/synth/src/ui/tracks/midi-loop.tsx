@@ -3,7 +3,7 @@ import { colors } from '../styles';
 import { flatten } from '../piano-roll/utils';
 import { Midi } from '../../engine';
 import { NOTE_SIZE } from '../common/defs';
-import { NotePoint } from '../utils/notes';
+import { NotePoint } from '../common/notes';
 
 export const STAGE_HEIGHT = 64;
 

@@ -6,7 +6,7 @@ import {
 import { Midi, Note } from '../../engine';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
 import { Tracked } from '../utils/tracking';
-import { NotePoint } from '../utils/notes';
+import { NotePoint } from '../common/notes';
 
 export const CANVAS_HEIGHT = NOTE_SIZE * OCTAVE_SIZE * 4;
 

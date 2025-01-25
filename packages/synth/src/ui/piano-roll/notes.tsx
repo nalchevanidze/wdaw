@@ -2,7 +2,7 @@ import * as React from 'react';
 import { colors } from '../styles';
 import { CANVAS_HEIGHT } from './utils';
 import { NOTE_SIZE, NOTE_STEP } from '../common/defs';
-import { NotePoint } from '../utils/notes';
+import { NotePoint } from '../common/notes';
 
 type Props = {
   notes: NotePoint[];
