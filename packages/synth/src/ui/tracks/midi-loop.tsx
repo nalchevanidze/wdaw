@@ -3,10 +3,9 @@ import { colors } from '../styles';
 import { NotePoint } from '../types';
 import { flatten } from '../piano-roll/utils';
 import { Midi } from '../../engine';
+import { NOTE_SIZE } from '../common/defs';
 
-export const BLOCK_SIZE = 128;
 export const STAGE_HEIGHT = 64;
-export const STEP = 8;
 
 type Props = {
   start: number;
@@ -30,19 +29,18 @@ const MidiLoop: React.FC<Props> = ({
   const id = `MidiLoop_B_Q_T_D_V_B_D_${name}`;
 
   const loopWidth = loopEnd - loopStart;
-  const containerWidth = (end - start) * STEP;
-  const containerStart = start * STEP;
+  const containerWidth = (end - start) * NOTE_SIZE;
+  const containerStart = start * NOTE_SIZE;
   const containerEnd = containerStart + containerWidth;
   const scaleWidth = 5;
-  const noteOffset = loopStart * STEP;
+  const noteOffset = loopStart * NOTE_SIZE;
   const loopOffset = (start % loopWidth) * 8;
-
 
   return (
     <g>
       <defs>
         <pattern
-          width={loopWidth * STEP}
+          width={loopWidth * NOTE_SIZE}
           height={STAGE_HEIGHT}
           patternUnits="userSpaceOnUse"
           id={id}

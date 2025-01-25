@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Point, SvgStage } from '@wdaw/svg';
-import { TIMELINE_HEIGHT } from '../common/defs';
+import { QUARTER, SUB_QUARTER, TIMELINE_HEIGHT } from '../common/defs';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
-import { KEYBOARD_WIDTH, QUARTER, STAGE_HEIGHT, SUB_QUARTER } from './utils';
+import { KEYBOARD_WIDTH, STAGE_HEIGHT } from './utils';
 import { Background } from './background';
 import { EditActionType, NotePoint } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';

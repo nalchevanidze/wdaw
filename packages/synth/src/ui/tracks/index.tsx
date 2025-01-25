@@ -6,8 +6,8 @@ import { Timeline } from './timeline';
 
 const Tracks: React.FC = () => {
   const [{ tracks, player }] = React.useContext(ConfiguratorContext);
-
-  const position = PANEL + (player.time / 64) * 64;
+  
+  const position = PANEL + player.time;
 
   return (
     <>

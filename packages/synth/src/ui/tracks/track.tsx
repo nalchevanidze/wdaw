@@ -3,15 +3,16 @@ import { SvgStage } from '@wdaw/svg';
 import { Midi } from '../../engine';
 import { colors } from '../styles';
 import { ConfiguratorContext } from '../configurator';
-import { BLOCK_SIZE, MidiLoop, STAGE_HEIGHT } from './midi-loop';
+import { MidiLoop, STAGE_HEIGHT } from './midi-loop';
 import { useDragging } from '../hooks/use-dragging';
 import { distanceX } from '../utils/area';
+import { QUARTER } from '../common/defs';
 
 type Props = { midi: Midi; name: string; i: number };
 
 export const PANEL = 50 as const;
 
-export const STAGE_WIDTH = BLOCK_SIZE * 4;
+export const STAGE_WIDTH = QUARTER * 4;
 
 export const WIDTH = STAGE_WIDTH + PANEL;
 

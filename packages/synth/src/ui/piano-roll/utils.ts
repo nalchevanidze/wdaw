@@ -5,11 +5,7 @@ import {
 } from '../../utils/notes';
 import { NotePoint } from '../types';
 import { Midi, Note } from '../../engine';
-import { NOTE_SIZE,  TIMELINE_HEIGHT } from '../common/defs';
-
-export const SUB_QUARTER = NOTE_SIZE * 4;
-
-export const QUARTER = SUB_QUARTER * 4;
+import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
 
 export const CANVAS_HEIGHT = NOTE_SIZE * OCTAVE_SIZE * 4;
 
