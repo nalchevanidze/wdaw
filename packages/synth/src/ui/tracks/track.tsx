@@ -16,8 +16,6 @@ export const STAGE_WIDTH = QUARTER * 4;
 
 export const WIDTH = STAGE_WIDTH + PANEL;
 
-export const viewBox = [-PANEL, 0, WIDTH, STAGE_HEIGHT].join(' ');
-
 type State = { start: number; end: number };
 type TrackedState = State & { origin?: State };
 
@@ -108,7 +106,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
       <rect
         onMouseDown={dragging.onBackground}
         height={STAGE_HEIGHT}
-        width={WIDTH}
+        width="100%"
         opacity={0}
       />
       <MidiLoop
@@ -125,7 +123,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
 
 const Track: React.FC<Props> = (props) => (
   <SvgStage
-    viewBox={viewBox}
+    viewBox={[-PANEL, 0, WIDTH, STAGE_HEIGHT].join(' ')}
     width={WIDTH}
     height={STAGE_HEIGHT}
     style={{ background: '#FFF', border: '1px solid #BBB', display: 'block' }}
