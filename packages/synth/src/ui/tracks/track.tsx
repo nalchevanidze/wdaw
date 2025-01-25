@@ -7,10 +7,9 @@ import { MidiLoop, STAGE_HEIGHT } from './midi-loop';
 import { useDragging } from '../hooks/use-dragging';
 import { distanceX } from '../utils/area';
 import { NOTE_SIZE, QUARTER } from '../common/defs';
+import { PANEL } from './defs';
 
 type Props = { midi: Midi; name: string; i: number };
-
-export const PANEL = 50 as const;
 
 export const STAGE_WIDTH = QUARTER * 6;
 

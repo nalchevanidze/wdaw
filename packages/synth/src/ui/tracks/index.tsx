@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { ConfiguratorContext } from '../configurator';
-import Track, { PANEL } from './track';
+import Track from './track';
 import { Header } from './header';
 import { Timeline } from './timeline';
+import { PANEL } from './defs';
 
 const Tracks: React.FC = () => {
   const [{ tracks, player }] = React.useContext(ConfiguratorContext);
