@@ -8,13 +8,14 @@ import { useDragging } from '../hooks/use-dragging';
 import { distanceX } from '../utils/area';
 import { NOTE_SIZE, QUARTER } from '../common/defs';
 import { PANEL } from './defs';
+import { Area } from '../types';
 
-type Props = { midi: Midi; name: string; i: number, width: number };
+type Props = { midi: Midi; name: string; id: number; width: number };
 
 type State = { start: number; end: number };
 type TrackedState = State & { origin?: State };
 
-const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
+const useTrackEditor = (midi: Midi, id: number) => {
   const [{ tracks }, dispatch] = React.useContext(ConfiguratorContext);
   const [state, setState] = React.useState<TrackedState>({
     start: midi.start,
@@ -39,34 +40,43 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
       start: state.start,
       end: state.end
     });
-    dispatch({ type: 'SET_MIDI', id: i, payload: { ...midi, ...state } });
+    dispatch({ type: 'SET_MIDI', id, payload: { ...midi, ...state } });
   };
+
+  const active = id === tracks.currentTrack;
+
+  const setTrack = () => dispatch({ type: 'SET_TRACK', payload: id });
+
+  const move = (time: number) =>
+    update(({ start, end }) => ({
+      start: start + time,
+      end: end + time
+    }));
+
+  const scale = (time: number) =>
+    update(({ start, end }) => ({
+      start: start,
+      end: end + time
+    }));
+
+  const { start, end } = state;
+  return { start, end, clear, active, setTrack, move, scale };
+};
+
+const TrackNotes: React.FC<Props> = ({ id, name, midi }) => {
+  const { start, end, active, clear, setTrack, move, scale } = useTrackEditor(
+    midi,
+    id
+  );
 
   const dragging = useDragging({
     onMove: {
       select: () => {},
-      move: (area) => {
-        if (!area) return;
-
-        const time = distanceX(area, NOTE_SIZE);
-        update(({ start, end }) => ({
-          start: start + time,
-          end: end + time
-        }));
-      },
-      scale: (area) => {
-        if (!area) return;
-        const time = distanceX(area, NOTE_SIZE);
-        update(({ start, end }) => ({
-          start: start,
-          end: end + time
-        }));
-      }
+      move: (area) => (area ? move(distanceX(area, NOTE_SIZE)) : undefined),
+      scale: (area) => (area ? scale(distanceX(area, NOTE_SIZE)) : undefined)
     },
     onEnd: clear
   });
-
-  const active = i === tracks.currentTrack;
 
   return (
     <g
@@ -84,7 +94,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
         x={-PANEL}
         width={PANEL}
         height={STAGE_HEIGHT}
-        onClick={() => dispatch({ type: 'SET_TRACK', payload: i })}
+        onClick={setTrack}
         style={{ border: 'none', cursor: 'pointer' }}
       />
       <rect
@@ -94,8 +104,8 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
         opacity={0}
       />
       <MidiLoop
-        start={state.start}
-        end={state.end}
+        start={start}
+        end={end}
         midi={midi}
         name={name}
         startMove={dragging.onSelected('move')}
@@ -104,7 +114,6 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
     </g>
   );
 };
-
 
 const Track: React.FC<Props> = (props) => (
   <SvgStage
