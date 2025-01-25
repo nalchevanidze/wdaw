@@ -17,25 +17,40 @@ type Props = {
   startScale?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
 };
 
-const MidiLoop: React.FC<Props> = ({ name, midi, start, end, startMove, startScale }) => {
+const MidiLoop: React.FC<Props> = ({
+  name,
+  midi,
+  start,
+  end,
+  startMove,
+  startScale
+}) => {
   const notes = React.useMemo<NotePoint[]>(() => flatten(midi), [midi]);
   const [loopStart, loopEnd] = midi.loop;
   const id = `MidiLoop_B_Q_T_D_V_B_D_${name}`;
-  const size = loopEnd - loopStart;
-  const width = (end - start) * STEP;
-  const offset = loopStart * STEP;
 
+  const loopWidth = loopEnd - loopStart;
+  const offset = loopStart * STEP;
+  const containerWidth = (end - start) * STEP;
   const containerStart = start * STEP;
+  const containerEnd = containerStart + containerWidth;
   const scaleWidth = 5;
+
+  const loopShift = (start % loopWidth) * 8;
+
+  if (name === 'piano') {
+    console.log(loopWidth, start, loopShift, start % loopWidth);
+  }
 
   return (
     <g>
       <defs>
         <pattern
-          width={size * STEP}
+          width={loopWidth * STEP}
           height={STAGE_HEIGHT}
           patternUnits="userSpaceOnUse"
           id={id}
+          x={loopShift}
         >
           <g fill={colors.notes}>
             {notes.map((note, noteIndex) => (
@@ -59,12 +74,12 @@ const MidiLoop: React.FC<Props> = ({ name, midi, start, end, startMove, startSca
       <rect
         onMouseDown={(event) => startMove?.(event)}
         x={containerStart}
-        width={width}
+        width={containerWidth}
         height="100%"
         fill={'url(#' + id + ')'}
       />
       <rect
-        x={containerStart + width - scaleWidth}
+        x={containerEnd - scaleWidth}
         width={scaleWidth}
         height="100%"
         fill={'gray'}
