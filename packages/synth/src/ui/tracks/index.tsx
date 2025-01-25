@@ -10,9 +10,9 @@ const Tracks: React.FC = () => {
   const position = PANEL + player.time;
 
   return (
-    <div style={{ position: 'relative', width: '700px', overflowX: 'scroll' }}>
+    <div style={{ position: 'relative' }}>
+      <Header />
       <div style={{ width: '100%', height: 'auto', position: 'relative' }}>
-        <Header />
         <Timeline />
         <div
           style={{
