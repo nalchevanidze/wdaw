@@ -6,7 +6,7 @@ import { ConfiguratorContext } from '../configurator';
 import { MidiLoop, STAGE_HEIGHT } from './midi-loop';
 import { useDragging } from '../hooks/use-dragging';
 import { distanceX } from '../utils/area';
-import { QUARTER } from '../common/defs';
+import { NOTE_SIZE, QUARTER } from '../common/defs';
 
 type Props = { midi: Midi; name: string; i: number};
 
@@ -55,7 +55,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
       move: (area) => {
         if (!area) return;
 
-        const time = distanceX(area, 8);
+        const time = distanceX(area, NOTE_SIZE);
         update(({ start, end }) => ({
           start: start + time,
           end: end + time
@@ -63,7 +63,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
       },
       scale: (area) => {
         if (!area) return;
-        const time = distanceX(area, 8);
+        const time = distanceX(area, NOTE_SIZE);
         update(({ start, end }) => ({
           start: start,
           end: end + time
