@@ -60,7 +60,6 @@ class Track {
     this.offset = (start % size) * NOTE_SIZE;
     this.loopSize = size * NOTE_SIZE;
 
-    console.log(this.offset, this.loopSize);
     this.actions = toActions(midi);
   };
 

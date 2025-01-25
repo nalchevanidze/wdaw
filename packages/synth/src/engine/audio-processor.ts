@@ -32,7 +32,7 @@ const audioProcessor = (process: SoundIterator): (() => void) => {
       document.removeEventListener('keypress', init);
     };
   } catch (e) {
-    console.log('could not create audio context');
+    console.error('could not create audio context');
     return () => undefined;
   }
 };
