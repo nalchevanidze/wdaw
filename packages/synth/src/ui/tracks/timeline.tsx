@@ -3,9 +3,7 @@ import { StageContext, SvgStage } from '@wdaw/svg';
 import { Tapeline } from '../common/tapeline';
 import { PANEL, WIDTH } from './track';
 import { ConfiguratorContext } from '../configurator';
-import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
-
-const HEIGHT = 20;
+import { TIMELINE_HEIGHT } from '../common/defs';
 
 const TimelineContent: React.FC = () => {
   const getCoordinates = React.useContext(StageContext);
@@ -15,11 +13,11 @@ const TimelineContent: React.FC = () => {
 
   return (
     <g>
-      <Tapeline height={TIMELINE_HEIGHT} size={NOTE_SIZE} />
+      <Tapeline height={TIMELINE_HEIGHT} size={8} />
       <rect
         fillOpacity="0"
-        y={-HEIGHT}
-        height={HEIGHT}
+        y={-TIMELINE_HEIGHT}
+        height={TIMELINE_HEIGHT}
         width={WIDTH}
         onMouseDown={(event) => setTime(Math.floor(getCoordinates(event).x))}
       />
@@ -29,9 +27,9 @@ const TimelineContent: React.FC = () => {
 
 const Timeline: React.FC = () => (
   <SvgStage
-    viewBox={[-PANEL, -HEIGHT, WIDTH, HEIGHT].join(' ')}
+    viewBox={[-PANEL, -TIMELINE_HEIGHT, WIDTH, TIMELINE_HEIGHT].join(' ')}
     width={WIDTH}
-    height={HEIGHT}
+    height={TIMELINE_HEIGHT}
     style={{ background: '#FFF', border: '1px solid #BBB', display: 'block' }}
   >
     <TimelineContent />
