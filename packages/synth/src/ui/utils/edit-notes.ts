@@ -3,8 +3,12 @@ import { NOTE_SIZE, NOTE_STEP } from '../common/defs';
 import { Point } from '@wdaw/svg';
 import { CANVAS_HEIGHT } from '../piano-roll/utils';
 import { distanceX, distanceY } from './area';
+import { Tracked } from './tracking';
 
-export const moveNotes = (notes: NotePoint[], area: Area): NotePoint[] => {
+export const moveNotes = (
+  notes: Tracked<NotePoint>[],
+  area: Area
+): Tracked<NotePoint>[] => {
   const time = distanceX(area, NOTE_STEP);
   const tune = distanceY(area, NOTE_SIZE);
 
@@ -19,7 +23,10 @@ export const moveNotes = (notes: NotePoint[], area: Area): NotePoint[] => {
   );
 };
 
-export const scaleNotes = (notes: NotePoint[], area: Area): NotePoint[] => {
+export const scaleNotes = (
+  notes: Tracked<NotePoint>[],
+  area: Area
+): Tracked<NotePoint>[] => {
   const time = distanceX(area, NOTE_STEP);
 
   return notes.map((note) =>

@@ -7,13 +7,7 @@ import { selectNotesIn } from '../utils/select-notes';
 import { genNoteAt, scaleNotes, moveNotes } from '../utils/edit-notes';
 import { Point } from '@wdaw/svg';
 import { useOnDelete } from '../utils';
-
-const addOrigin = ({ origin, ...note }: NotePoint): NotePoint => ({
-  ...note,
-  origin: { ...note }
-});
-
-const dropOrigin = ({ origin, ...n }: NotePoint): NotePoint => n;
+import { addTracking, dropTracking } from '../utils/tracking';
 
 export const useNoteEditor = () => {
   const [
@@ -49,30 +43,30 @@ export const useNoteEditor = () => {
   const clear = () =>
     update({
       selected: [],
-      inactive: allNotes.map(dropOrigin)
+      inactive: allNotes.map(dropTracking)
     });
 
   const remove = (note: NotePoint) =>
     update({
       selected: [],
-      inactive: allNotes.filter((n) => n !== note).map(dropOrigin)
+      inactive: allNotes.filter((n) => n !== note).map(dropTracking)
     });
 
   const select = (note: NotePoint) =>
     update({
-      selected: [note].map(addOrigin),
+      selected: [note].map(addTracking),
       inactive: allNotes.filter((n) => n !== note)
     });
 
   const addAt = (point: Point) =>
     update({
-      selected: [genNoteAt(point)].map(addOrigin),
-      inactive: allNotes.map(dropOrigin)
+      selected: [genNoteAt(point)].map(addTracking),
+      inactive: allNotes.map(dropTracking)
     });
 
   const track = () =>
     update({
-      selected: notes.selected.map(addOrigin),
+      selected: notes.selected.map(addTracking),
       inactive: notes.inactive
     });
 

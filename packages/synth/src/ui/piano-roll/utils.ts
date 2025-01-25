@@ -6,6 +6,7 @@ import {
 import { NotePoint } from '../types';
 import { Midi, Note } from '../../engine';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
+import { Tracked } from '../utils/tracking';
 
 export const CANVAS_HEIGHT = NOTE_SIZE * OCTAVE_SIZE * 4;
 
@@ -49,6 +50,6 @@ export const deepen = (flat: NotePoint[]): Partial<Midi> => {
 };
 
 export type Selected<T> = {
-  selected: T[];
+  selected: Tracked<T>[];
   inactive: T[];
 };

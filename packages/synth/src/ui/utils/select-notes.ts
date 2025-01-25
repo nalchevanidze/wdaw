@@ -2,6 +2,7 @@ import { CANVAS_HEIGHT, Selected } from '../piano-roll/utils';
 import { NotePoint, Area } from '../types';
 
 import { NOTE_SIZE, NOTE_STEP } from '../common/defs';
+import { addTracking, Tracked } from './tracking';
 
 export const isInArea = (
   [start, end]: Area,
@@ -22,22 +23,24 @@ export const isInArea = (
   return xIsInArea && yIsInArea;
 };
 
-const clusterArray = <T>(list: T[], func: (_: T) => boolean): Selected<T> => {
-    const selected: T[] = [];
-    const inactive: T[] = [];
-  
-    list.forEach((elem) =>
-      func(elem) ? selected.push(elem) : inactive.push(elem)
-    );
-  
-    return { selected, inactive };
-  };
-  
-  export const selectNotesIn = (
-    { selected, inactive }: Selected<NotePoint>,
-    zone?: Area
-  ) =>
-    clusterArray([...selected, ...inactive], (note) =>
-      zone ? isInArea(zone, note) : false
-    );
-  
+const clusterArray = <T extends object>(
+  list: T[],
+  func: (_: T) => boolean
+): Selected<T> => {
+  const selected: Tracked<T>[] = [];
+  const inactive: T[] = [];
+
+  list.forEach((elem) =>
+    func(elem) ? selected.push(addTracking<T>(elem)) : inactive.push(elem)
+  );
+
+  return { selected, inactive };
+};
+
+export const selectNotesIn = (
+  { selected, inactive }: Selected<NotePoint>,
+  zone?: Area
+) =>
+  clusterArray([...selected, ...inactive], (note) =>
+    zone ? isInArea(zone, note) : false
+  );
