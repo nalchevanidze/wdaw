@@ -13,7 +13,7 @@ const TimelineContent: React.FC = () => {
 
   return (
     <g>
-      <Tapeline height={TIMELINE_HEIGHT} size={8} />
+      <Tapeline height={TIMELINE_HEIGHT} size={16} />
       <rect
         fillOpacity="0"
         y={-TIMELINE_HEIGHT}
