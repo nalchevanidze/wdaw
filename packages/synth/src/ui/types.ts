@@ -2,18 +2,14 @@ import { Point } from '@wdaw/svg';
 
 export type Area = readonly [Point, Point];
 
-type OriginNote = {
+type Note = {
   i: number;
   position: number;
   length: number;
 };
 
-export type NotePoint = {
-  position: number;
-  length: number;
-  i: number;
-  index?: number;
-  origin?: OriginNote;
+export type NotePoint = Note & {
+  origin?: Note;
 };
 
 export type EditActionType = 'select' | 'draw';
