@@ -66,7 +66,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
           notes={notes.selected}
           color="#03A9F4"
           mouseDown={dragging.onSelected('move')}
-          resize={dragging.onSelected('scale')}
+          scale={dragging.onSelected('scale')}
         />
       </g>
       <Timeline time={time} height={STAGE_HEIGHT} />

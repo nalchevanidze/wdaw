@@ -10,10 +10,11 @@ type KeysProps = {
   width: number;
   opacity?: number;
 };
+
 const Keys: React.FC<KeysProps> = ({ width, opacity = 1 }) => (
   <g fill="black" fillOpacity={opacity}>
-    {[10, 30, 50, 80, 100].map((i) => (
-      <rect key={i} y={i} width={width} height="10" />
+    {[1, 3, 5, 8, 10].map((i) => (
+      <rect key={i} y={i * NOTE_SIZE} width={width} height={NOTE_SIZE} />
     ))}
   </g>
 );
@@ -59,7 +60,7 @@ const Grid = () => (
   <g>
     <defs>
       <pattern
-        width="10"
+        width={NOTE_SIZE}
         height={OCTAVE_HEIGHT}
         patternUnits="userSpaceOnUse"
         id="quart"
@@ -99,8 +100,8 @@ const Background: React.FC<Props> = ({
   loop: [loopStart, loopEnd],
   width
 }) => {
-  const start = loopStart * 40;
-  const size = (loopEnd - loopStart) * 40;
+  const start = loopStart * SUB_QUARTER;
+  const size = (loopEnd - loopStart) * SUB_QUARTER;
 
   return (
     <>

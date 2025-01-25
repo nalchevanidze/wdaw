@@ -10,7 +10,7 @@ type Props = {
     event: React.MouseEvent<SVGGElement, MouseEvent>,
     note?: GraphNote
   ): void;
-  resize?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
+  scale?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
   color?: string;
 };
 
@@ -18,11 +18,12 @@ const Notes: React.FC<Props> = ({
   notes,
   color = colors.notes,
   mouseDown,
-  resize
+  scale
 }) => (
   <g fill={color}>
     {notes.map((note, noteIndex) => {
       const y = CANVAS_HEIGHT - note.i * NOTE_SIZE;
+      const scaleWidth = NOTE_STEP;
 
       return (
         <g key={noteIndex}>
@@ -32,18 +33,18 @@ const Notes: React.FC<Props> = ({
             height={NOTE_SIZE}
             stroke="#000"
             strokeWidth={0.25}
-            x={note.position * 5}
+            x={note.position * NOTE_STEP}
             y={y}
           />
           <rect
-            width={5}
+            width={scaleWidth}
             height={NOTE_SIZE}
             fill={'gray'}
             fillOpacity={0.1}
-            onMouseDown={(event) => resize && resize(event)}
+            onMouseDown={(event) => scale?.(event)}
             style={{ cursor: 'e-resize' }}
             key={'s' + noteIndex}
-            x={(note.position + note.length - 1) * 5}
+            x={(note.position + note.length - 1) * scaleWidth}
             y={y}
           />
         </g>
