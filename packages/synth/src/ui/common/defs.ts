@@ -1,6 +1,6 @@
-export const NOTE_STEP = 4;
+export const STEP = 4;
 
-export const NOTE_SIZE = NOTE_STEP * 2;
+export const NOTE_SIZE = STEP * 2;
 
 export const TIMELINE_HEIGHT = 16;
 

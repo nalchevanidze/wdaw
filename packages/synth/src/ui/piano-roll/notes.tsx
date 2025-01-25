@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { colors } from '../styles';
 import { CANVAS_HEIGHT } from './utils';
-import { NOTE_SIZE, NOTE_STEP } from '../common/defs';
+import { NOTE_SIZE, STEP } from '../common/defs';
 import { UINote } from '../common/notes';
 
 type Props = {
@@ -23,17 +23,17 @@ const Notes: React.FC<Props> = ({
   <g fill={color}>
     {notes.map((note, noteIndex) => {
       const y = CANVAS_HEIGHT - note.positionY * NOTE_SIZE;
-      const scaleWidth = NOTE_STEP;
+      const scaleWidth = STEP;
 
       return (
         <g key={noteIndex}>
           <rect
             onMouseDown={(event) => mouseDown && mouseDown(event, note)}
-            width={NOTE_STEP * note.length}
+            width={STEP * note.length}
             height={NOTE_SIZE}
             stroke="#000"
             strokeWidth={0.25}
-            x={note.at * NOTE_STEP}
+            x={note.at * STEP}
             y={y}
           />
           <rect
