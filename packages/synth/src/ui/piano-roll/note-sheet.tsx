@@ -5,12 +5,13 @@ import { Timeline } from './timeline';
 import { Notes } from './notes';
 import { KEYBOARD_WIDTH, STAGE_HEIGHT } from './utils';
 import { Background } from './background';
-import { EditActionType, NotePoint } from '../types';
+import { EditActionType } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { useNoteEditor } from '../hooks/use-note-editor';
 import { useTime } from '../hooks/use-time';
 import { SelectionArea } from './selection-area';
 import { useTrack } from '../configurator';
+import { NotePoint } from '../utils/notes';
 
 type Props = {
   actionType: EditActionType;

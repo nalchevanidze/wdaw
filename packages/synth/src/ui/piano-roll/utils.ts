@@ -3,10 +3,10 @@ import {
   keysToIndexes,
   OCTAVE_SIZE
 } from '../../utils/notes';
-import { NotePoint } from '../types';
 import { Midi, Note } from '../../engine';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
 import { Tracked } from '../utils/tracking';
+import { NotePoint } from '../utils/notes';
 
 export const CANVAS_HEIGHT = NOTE_SIZE * OCTAVE_SIZE * 4;
 

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { colors } from '../styles';
-import { NotePoint } from '../types';
 import { flatten } from '../piano-roll/utils';
 import { Midi } from '../../engine';
 import { NOTE_SIZE } from '../common/defs';
+import { NotePoint } from '../utils/notes';
 
 export const STAGE_HEIGHT = 64;
 

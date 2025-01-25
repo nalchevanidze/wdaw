@@ -1,10 +1,15 @@
 import * as React from 'react';
 import { flatten, deepen, Selected } from '../piano-roll/utils';
 import { useContext, useState } from 'react';
-import { Area, NotePoint } from '../types';
+import { Area } from '../types';
 import { ConfiguratorContext } from '../configurator';
-import { selectNotesIn } from '../utils/select-notes';
-import { genNoteAt, scaleNotes, moveNotes } from '../utils/edit-notes';
+import {
+  genNoteAt,
+  scaleNotes,
+  moveNotes,
+  selectNotesIn,
+  NotePoint
+} from '../utils/notes';
 import { Point } from '@wdaw/svg';
 import { useOnDelete } from '../utils';
 import { addTracking, dropTracking } from '../utils/tracking';
