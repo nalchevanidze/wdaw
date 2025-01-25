@@ -30,17 +30,13 @@ const MidiLoop: React.FC<Props> = ({
   const id = `MidiLoop_B_Q_T_D_V_B_D_${name}`;
 
   const loopWidth = loopEnd - loopStart;
-  const offset = loopStart * STEP;
   const containerWidth = (end - start) * STEP;
   const containerStart = start * STEP;
   const containerEnd = containerStart + containerWidth;
   const scaleWidth = 5;
+  const noteOffset = loopStart * STEP;
+  const loopOffset = (start % loopWidth) * 8;
 
-  const loopShift = (start % loopWidth) * 8;
-
-  if (name === 'piano') {
-    console.log(loopWidth, start, loopShift, start % loopWidth);
-  }
 
   return (
     <g>
@@ -50,7 +46,7 @@ const MidiLoop: React.FC<Props> = ({
           height={STAGE_HEIGHT}
           patternUnits="userSpaceOnUse"
           id={id}
-          x={loopShift}
+          x={loopOffset}
         >
           <g fill={colors.notes}>
             {notes.map((note, noteIndex) => (
@@ -58,7 +54,7 @@ const MidiLoop: React.FC<Props> = ({
                 key={noteIndex}
                 width={note.length}
                 height={1}
-                x={note.position - offset}
+                x={note.position - noteOffset}
                 y={STAGE_HEIGHT - note.i}
               />
             ))}
