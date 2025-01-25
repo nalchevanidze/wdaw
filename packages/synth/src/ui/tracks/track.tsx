@@ -9,11 +9,7 @@ import { distanceX } from '../utils/area';
 import { NOTE_SIZE, QUARTER } from '../common/defs';
 import { PANEL } from './defs';
 
-type Props = { midi: Midi; name: string; i: number };
-
-export const STAGE_WIDTH = QUARTER * 6;
-
-export const WIDTH = STAGE_WIDTH + PANEL;
+type Props = { midi: Midi; name: string; i: number, width: number };
 
 type State = { start: number; end: number };
 type TrackedState = State & { origin?: State };
@@ -109,10 +105,11 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
   );
 };
 
+
 const Track: React.FC<Props> = (props) => (
   <SvgStage
-    viewBox={[-PANEL, 0, WIDTH, STAGE_HEIGHT].join(' ')}
-    width={WIDTH}
+    viewBox={[-PANEL, 0, props.width, STAGE_HEIGHT].join(' ')}
+    width={props.width}
     height={STAGE_HEIGHT}
     style={{ background: '#FFF', border: '1px solid #BBB', display: 'block' }}
   >

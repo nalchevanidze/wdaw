@@ -4,17 +4,19 @@ import Track from './track';
 import { Header } from './header';
 import { Timeline } from './timeline';
 import { PANEL } from './defs';
+import { NOTE_SIZE, QUARTER } from '../common/defs';
 
 const Tracks: React.FC = () => {
   const [{ tracks, player }] = React.useContext(ConfiguratorContext);
-
+  const maxTrackSize = Math.max(...tracks.tracks.map((t) => t.midi.end));
+  const width = maxTrackSize * NOTE_SIZE + PANEL + QUARTER;
   const position = PANEL + player.time;
 
   return (
     <div style={{ position: 'relative' }}>
       <Header />
       <div style={{ width: '100%', height: 'auto', position: 'relative' }}>
-        <Timeline />
+        <Timeline width={width} />
         <div
           style={{
             position: 'absolute',
@@ -26,7 +28,7 @@ const Tracks: React.FC = () => {
           }}
         />
         {tracks.tracks.map(({ midi, name }, i) => (
-          <Track midi={midi} i={i} name={name} key={i} />
+          <Track midi={midi} i={i} name={name} key={i} width={width} />
         ))}
       </div>
     </div>
