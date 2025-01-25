@@ -13,7 +13,8 @@ export const KEYBOARD_WIDTH = 20;
 
 export const STAGE_HEIGHT = TIMELINE_HEIGHT + CANVAS_HEIGHT;
 
-const notePosition = (index: number, at: number): number => index * 8 + at;
+const notePosition = (index: number, at: number): number =>
+  index * NOTE_SIZE + at;
 
 const foldMidi =
   <T>(f: (n: Note, i: number) => T) =>
@@ -37,8 +38,8 @@ export const deepen = (flat: NotePoint[], old: Midi): Midi => {
   const notes: Midi['notes'] = {};
 
   flat.forEach(({ length, position, i }: NotePoint) => {
-    const index = Math.floor(position / 8);
-    const at = position % 8;
+    const index = Math.floor(position / NOTE_SIZE);
+    const at = position % NOTE_SIZE;
     const id = getNoteIdByIndex(i - 1);
     notes[index] = notes[index] || [];
     notes[index].push({ at, id, length });

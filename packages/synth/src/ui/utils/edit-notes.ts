@@ -36,6 +36,6 @@ export const genNoteAt = ({ x, y }: Point): NotePoint => {
     i,
     position,
     id: getNoteIdByIndex(i - 1),
-    at: position % 8
+    at: position % NOTE_SIZE
   };
 };
