@@ -13,12 +13,7 @@ export const QUARTER = SUB_QUARTER * 4;
 
 export const CANVAS_HEIGHT = NOTE_SIZE * OCTAVE_SIZE * 4;
 
-export const CANVAS_WIDTH = QUARTER * 4;
-
-export const OCTAVE_HEIGHT = NOTE_SIZE * OCTAVE_SIZE;
-
 export const KEYBOARD_WIDTH = 20;
-
 
 export const STAGE_HEIGHT = TIMELINE_HEIGHT + CANVAS_HEIGHT;
 

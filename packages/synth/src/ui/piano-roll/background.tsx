@@ -1,13 +1,10 @@
 import * as React from 'react';
 import { colors } from '../styles';
-import {
-  CANVAS_HEIGHT,
-  KEYBOARD_WIDTH,
-  OCTAVE_HEIGHT,
-  QUARTER,
-  SUB_QUARTER
-} from './utils';
+import { CANVAS_HEIGHT, KEYBOARD_WIDTH, QUARTER, SUB_QUARTER } from './utils';
 import { NOTE_SIZE } from '../common/defs';
+import { OCTAVE_SIZE } from '../../utils/notes';
+
+const OCTAVE_HEIGHT = NOTE_SIZE * OCTAVE_SIZE;
 
 type KeysProps = {
   width: number;

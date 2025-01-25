@@ -3,7 +3,7 @@ import { Point, SvgStage } from '@wdaw/svg';
 import { TIMELINE_HEIGHT } from '../common/defs';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
-import { KEYBOARD_WIDTH, STAGE_HEIGHT, SUB_QUARTER } from './utils';
+import { KEYBOARD_WIDTH, QUARTER, STAGE_HEIGHT, SUB_QUARTER } from './utils';
 import { Background } from './background';
 import { EditActionType, NotePoint } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
@@ -77,8 +77,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
 
 const PianoRoll: React.FC<Props> = (props) => {
   const [track] = useTrack();
-  const size = track.midi.loop[1] + 12;
-  const width = KEYBOARD_WIDTH + size * SUB_QUARTER;
+  const width = KEYBOARD_WIDTH + track.midi.loop[1] * SUB_QUARTER + QUARTER * 2;
 
   const viewBox = [-KEYBOARD_WIDTH, -TIMELINE_HEIGHT, width, STAGE_HEIGHT].join(
     ' '
