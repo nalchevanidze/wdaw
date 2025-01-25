@@ -1,11 +1,11 @@
 import { CANVAS_HEIGHT, Selected } from '../piano-roll/utils';
-import { GraphNote, NotePoint, Area } from '../types';
+import { NotePoint, Area } from '../types';
 
 import { NOTE_SIZE, NOTE_STEP } from '../common/defs';
 
 export const isInArea = (
   [start, end]: Area,
-  { position, i, length }: GraphNote
+  { position, i, length }: NotePoint
 ): boolean => {
   const minX = Math.min(start.x, end.x);
   const maxX = Math.max(start.x, end.x);

@@ -8,12 +8,12 @@ import { genNoteAt, scaleNotes, moveNotes } from '../utils/edit-notes';
 import { Point } from '@wdaw/svg';
 import { useOnDelete } from '../utils';
 
-const addOrigin = ({ old, ...note }: NotePoint): NotePoint => ({
+const addOrigin = ({ origin, ...note }: NotePoint): NotePoint => ({
   ...note,
-  old: { ...note }
+  origin: { ...note }
 });
 
-const dropOrigin = ({ old, ...n }: NotePoint): NotePoint => n;
+const dropOrigin = ({ origin, ...n }: NotePoint): NotePoint => n;
 
 export const useNoteEditor = () => {
   const [

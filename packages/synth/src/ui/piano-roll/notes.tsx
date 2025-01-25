@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { colors } from '../styles';
-import { GraphNote } from '../types';
+import { NotePoint } from '../types';
 import { CANVAS_HEIGHT } from './utils';
 import { NOTE_SIZE, NOTE_STEP } from '../common/defs';
 
 type Props = {
-  notes: GraphNote[];
+  notes: NotePoint[];
   mouseDown?(
     event: React.MouseEvent<SVGGElement, MouseEvent>,
-    note?: GraphNote
+    note?: NotePoint
   ): void;
   scale?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
   color?: string;

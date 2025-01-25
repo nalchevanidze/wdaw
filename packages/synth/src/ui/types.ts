@@ -1,22 +1,19 @@
 import { Point } from '@wdaw/svg';
-import { Note } from '../engine';
-
-export type GraphNote = {
-  position: number;
-  length: number;
-  i: number;
-};
 
 export type Area = readonly [Point, Point];
 
-type BaseNote = Note & {
-  position: number;
+type OriginNote = {
   i: number;
-  index?: number;
+  position: number;
+  length: number;
 };
 
-export type NotePoint = BaseNote & {
-  old?: Pick<BaseNote, 'i' | 'position' | 'length'>;
+export type NotePoint = {
+  position: number;
+  length: number;
+  i: number;
+  index?: number;
+  origin?: OriginNote;
 };
 
 export type EditActionType = 'select' | 'draw';
