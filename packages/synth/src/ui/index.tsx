@@ -4,20 +4,18 @@ import { PianoRoll } from './piano-roll';
 import { Keyboard } from './keyboard';
 import { colors } from './styles';
 import { Tracks } from './tracks';
-import { flatStripes } from '@wdaw/svg';
 
 const styles = {
   daw: {
     display: 'flex',
     position: 'relative',
     justifyContent: 'center',
-    fontFamily: 'sans-serif',
-    height: '435px'
+    fontFamily: 'sans-serif'
   },
   synth: {
     position: 'relative',
     width: '660px',
-    height: '600px',
+    height: '435px',
     borderRadius: '2px',
     background: colors.background,
     border: '1px solid #CCC'
@@ -26,7 +24,7 @@ const styles = {
     position: 'relative'
   },
   tracks: {
-    marginTop: '100px',
+    padding: '10px',
     justifyContent: 'center',
     display: 'flex',
     position: 'relative'
@@ -40,13 +38,13 @@ const UI: React.FC = () => (
         <Synth />
         <Keyboard />
       </section>
-      <div style={styles.midi}>
+      <section style={styles.midi}>
         <PianoRoll />
-      </div>
+      </section>
     </div>
-    <div style={styles.tracks}>
+    <section style={styles.tracks}>
       <Tracks />
-    </div>
+    </section>
   </div>
 );
 

@@ -9,7 +9,7 @@ const PianoRoll: React.FC = () => {
   return (
     <>
       <NoteComposerHeader actionType={actionType} dispatch={setActionType} />
-      <div style={{ width: '560px', overflow: 'scroll', height: '320px' }}>
+      <div style={{ width: '560px', overflow: 'scroll', height: '400px' }}>
         <NoteSheet actionType={actionType} />
       </div>
     </>

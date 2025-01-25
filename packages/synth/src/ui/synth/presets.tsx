@@ -8,7 +8,8 @@ const styles = {
     margin: '5px',
     flexWrap: 'wrap',
     flexShrink: 0,
-    padding: '5px'
+    padding: '5px',
+
   },
   label: {
     fontSize: '12px',
@@ -18,6 +19,11 @@ const styles = {
     textTransform: 'uppercase',
     color: '#555',
     padding: '5px 0px'
+  },
+  list: {
+    maxHeight: '70px',
+    overflowY: 'scroll',
+    padding: "6px 20px"
   },
   button: {
     display: 'block',
@@ -37,20 +43,22 @@ const PanelPresets: React.FC = () => {
   return (
     <div style={styles.container} onMouseLeave={() => setHover(undefined)}>
       <h3 style={styles.label}>Presets</h3>
-      {presetNames.map((name) => (
-        <button
-          key={name}
-          onMouseOver={() => setHover(name)}
-          style={{
-            ...styles.button,
-            background: hover === name ? '#00000010' : 'none',
-            color: colors.button(name === active)
-          }}
-          onClick={() => dispatch({ type: 'SET_PRESET', payload: name })}
-        >
-          {name}
-        </button>
-      ))}
+      <div style={styles.list}>
+        {presetNames.map((name) => (
+          <button
+            key={name}
+            onMouseOver={() => setHover(name)}
+            style={{
+              ...styles.button,
+              background: hover === name ? '#00000010' : 'none',
+              color: colors.button(name === active)
+            }}
+            onClick={() => dispatch({ type: 'SET_PRESET', payload: name })}
+          >
+            {name}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
