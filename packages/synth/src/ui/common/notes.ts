@@ -5,10 +5,16 @@ import { Area } from '../types';
 import { NOTE_SIZE, NOTE_STEP } from './defs';
 import { addTracking, Tracked } from '../utils/tracking';
 
+export type UINote = {
+  i: number;
+  position: number;
+  length: number;
+};
+
 export const moveNotes = (
-  notes: Tracked<NotePoint>[],
+  notes: Tracked<UINote>[],
   area: Area
-): Tracked<NotePoint>[] => {
+): Tracked<UINote>[] => {
   const time = distanceX(area, NOTE_STEP);
   const tune = distanceY(area, NOTE_SIZE);
 
@@ -24,9 +30,9 @@ export const moveNotes = (
 };
 
 export const scaleNotes = (
-  notes: Tracked<NotePoint>[],
+  notes: Tracked<UINote>[],
   area: Area
-): Tracked<NotePoint>[] => {
+): Tracked<UINote>[] => {
   const time = distanceX(area, NOTE_STEP);
 
   return notes.map((note) =>
@@ -34,21 +40,15 @@ export const scaleNotes = (
   );
 };
 
-export const genNoteAt = ({ x, y }: Point): NotePoint => {
+export const genNoteAt = ({ x, y }: Point): UINote => {
   const i = Math.floor(1 + (CANVAS_HEIGHT - y) / NOTE_SIZE);
   const position = Math.floor(x / NOTE_STEP);
   return { length: NOTE_STEP, i, position };
 };
 
-export type NotePoint = {
-  i: number;
-  position: number;
-  length: number;
-};
-
 export const isInArea = (
   [start, end]: Area,
-  { position, i, length }: NotePoint
+  { position, i, length }: UINote
 ): boolean => {
   const minX = Math.min(start.x, end.x);
   const maxX = Math.max(start.x, end.x);
@@ -80,7 +80,7 @@ const clusterArray = <T extends object>(
 };
 
 export const selectNotesIn = (
-  { selected, inactive }: Selected<NotePoint>,
+  { selected, inactive }: Selected<UINote>,
   zone?: Area
 ) =>
   clusterArray([...selected, ...inactive], (note) =>

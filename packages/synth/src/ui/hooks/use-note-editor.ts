@@ -8,7 +8,7 @@ import {
   scaleNotes,
   moveNotes,
   selectNotesIn,
-  NotePoint
+  UINote
 } from '../common/notes';
 import { Point } from '@wdaw/svg';
 import { useOnDelete } from '../utils';
@@ -22,21 +22,21 @@ export const useNoteEditor = () => {
     dispatch
   ] = useContext(ConfiguratorContext);
 
-  const [notes, setNotes] = useState<Selected<NotePoint>>({
+  const [notes, setNotes] = useState<Selected<UINote>>({
     selected: [],
     inactive: flatten(tracks[currentTrack].midi)
   });
 
   const allNotes = [...notes.selected, ...notes.inactive];
 
-  const dispatchMidi = (ns: Selected<NotePoint>) =>
+  const dispatchMidi = (ns: Selected<UINote>) =>
     dispatch({
       id: currentTrack,
       type: 'SET_MIDI',
       payload: deepen([...ns.selected, ...ns.inactive])
     });
 
-  const update = (ns: Selected<NotePoint>) => setNotes(ns);
+  const update = (ns: Selected<UINote>) => setNotes(ns);
 
   React.useEffect(() => {
     setNotes({
@@ -51,13 +51,13 @@ export const useNoteEditor = () => {
       inactive: allNotes.map(dropTracking)
     });
 
-  const remove = (note: NotePoint) =>
+  const remove = (note: UINote) =>
     update({
       selected: [],
       inactive: allNotes.filter((n) => n !== note).map(dropTracking)
     });
 
-  const select = (note: NotePoint) =>
+  const select = (note: UINote) =>
     update({
       selected: [note].map(addTracking),
       inactive: allNotes.filter((n) => n !== note)

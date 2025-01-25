@@ -11,7 +11,7 @@ import { useNoteEditor } from '../hooks/use-note-editor';
 import { useTime } from '../hooks/use-time';
 import { SelectionArea } from './selection-area';
 import { useTrack } from '../configurator';
-import { NotePoint } from '../common/notes';
+import { UINote } from '../common/notes';
 
 type Props = {
   actionType: EditActionType;
@@ -32,7 +32,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     }
   };
 
-  const mouseDownInactive: HandlerMap<EditActionType, NotePoint> = {
+  const mouseDownInactive: HandlerMap<EditActionType, UINote> = {
     draw: (note) => {
       notes.remove(note);
       return undefined;

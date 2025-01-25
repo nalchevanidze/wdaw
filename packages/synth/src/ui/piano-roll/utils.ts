@@ -6,7 +6,7 @@ import {
 import { Midi, Note } from '../../engine';
 import { NOTE_SIZE, TIMELINE_HEIGHT } from '../common/defs';
 import { Tracked } from '../utils/tracking';
-import { NotePoint } from '../common/notes';
+import { UINote } from '../common/notes';
 
 export const CANVAS_HEIGHT = NOTE_SIZE * OCTAVE_SIZE * 4;
 
@@ -28,17 +28,17 @@ const foldMidi =
       []
     );
 
-export const flatten = foldMidi<NotePoint>((note, i) => ({
+export const flatten = foldMidi<UINote>((note, i) => ({
   ...note,
   index: i,
   i: keysToIndexes(note.id) + 1,
   position: notePosition(i, note.at)
 }));
 
-export const deepen = (flat: NotePoint[]): Partial<Midi> => {
+export const deepen = (flat: UINote[]): Partial<Midi> => {
   const notes: Midi['notes'] = {};
 
-  flat.forEach(({ length, position, i }: NotePoint) => {
+  flat.forEach(({ length, position, i }: UINote) => {
     const index = Math.floor(position / NOTE_SIZE);
     const at = position % NOTE_SIZE;
     const id = getNoteIdByIndex(i - 1);

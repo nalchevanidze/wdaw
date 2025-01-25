@@ -3,7 +3,7 @@ import { colors } from '../styles';
 import { flatten } from '../piano-roll/utils';
 import { Midi } from '../../engine';
 import { NOTE_SIZE } from '../common/defs';
-import { NotePoint } from '../common/notes';
+import { UINote } from '../common/notes';
 
 export const STAGE_HEIGHT = 64;
 
@@ -24,7 +24,7 @@ const MidiLoop: React.FC<Props> = ({
   startMove,
   startScale
 }) => {
-  const notes = React.useMemo<NotePoint[]>(() => flatten(midi), [midi]);
+  const notes = React.useMemo<UINote[]>(() => flatten(midi), [midi]);
   const [loopStart, loopEnd] = midi.loop;
   const id = `MidiLoop_B_Q_T_D_V_B_D_${name}`;
 
