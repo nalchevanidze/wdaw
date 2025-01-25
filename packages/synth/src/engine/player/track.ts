@@ -8,6 +8,8 @@ class Track {
   private preset: Preset;
   private gain: number = 1;
   private midi: Midi;
+  private loopSize: number;
+  private offset: number;
 
   public startNote = (n: number) => this.synth.startNote(this.preset, n);
 
@@ -16,19 +18,21 @@ class Track {
   constructor(private synth: Synth) {}
 
   public nextActions = (isPlaying: boolean, current: number) => {
+    const { start, end } = this.midi;
+
     if (
       isPlaying &&
-      (current < this.midi.start * NOTE_SIZE ||
-        current > this.midi.end * NOTE_SIZE)
+      (current < start * NOTE_SIZE || current > end * NOTE_SIZE)
     ) {
+      this.clear();
       return;
     }
 
-    const localCurrent = current % this.actions.length;
+    const loopCurrent = (current - this.offset) % this.loopSize;
 
     this.synth.nextActions(
       this.preset,
-      isPlaying ? this.actions[localCurrent] : undefined
+      isPlaying ? this.actions[loopCurrent] : undefined
     );
   };
 
@@ -46,6 +50,17 @@ class Track {
 
   public setMidi = (midi: Midi): void => {
     this.midi = midi;
+    const {
+      start,
+      loop: [s, e]
+    } = this.midi;
+
+    const size = e - s;
+
+    this.offset = (start % size) * NOTE_SIZE;
+    this.loopSize = size * NOTE_SIZE;
+
+    console.log(this.offset, this.loopSize);
     this.actions = toActions(midi);
   };
 

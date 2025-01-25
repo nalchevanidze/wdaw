@@ -34,7 +34,7 @@ const MidiLoop: React.FC<Props> = ({
   const containerEnd = containerStart + containerWidth;
   const scaleWidth = 5;
   const noteOffset = loopStart * NOTE_SIZE;
-  const loopOffset = (start % loopWidth) * 8;
+  const loopOffset = (start % loopWidth) * NOTE_SIZE;
 
   return (
     <g>
