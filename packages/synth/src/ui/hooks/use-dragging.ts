@@ -13,9 +13,9 @@ type onInactiveHandler<T> = (p: T) => Maybe<MODE>;
 type Optins<T> = {
   onMove: Record<MODE, (a: Maybe<Area>) => void>;
   onEnd?(mode?: MODE): void;
-  onBackground: OnBackgroundHandler;
+  onBackground?: OnBackgroundHandler;
   onSelected?: () => void;
-  onInactive: onInactiveHandler<T>;
+  onInactive?: onInactiveHandler<T>;
 };
 
 export type HandlerMap<K extends string, T> = Record<
@@ -55,7 +55,7 @@ export const useDragging = <T>(ops: Optins<T>) => {
   };
 
   const onBackground = (e: MEvent) => {
-    const name = ops.onBackground(getCoordinates(e));
+    const name = ops.onBackground?.(getCoordinates(e));
     if (name) {
       start(name, e);
     }
@@ -68,7 +68,7 @@ export const useDragging = <T>(ops: Optins<T>) => {
     };
 
   const onInactive = (e: MEvent, t: T) => {
-    const name = ops.onInactive(t);
+    const name = ops.onInactive?.(t);
 
     if (name) {
       start(name, e);

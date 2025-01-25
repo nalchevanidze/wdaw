@@ -8,7 +8,7 @@ import { useDragging } from '../hooks/use-dragging';
 import { distanceX } from '../utils/area';
 import { NOTE_SIZE, QUARTER } from '../common/defs';
 
-type Props = { midi: Midi; name: string; i: number};
+type Props = { midi: Midi; name: string; i: number };
 
 export const PANEL = 50 as const;
 
@@ -49,9 +49,7 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
 
   const dragging = useDragging({
     onMove: {
-      select: (area) => {
-        // console.log(area);
-      },
+      select: () => {},
       move: (area) => {
         if (!area) return;
 
@@ -69,15 +67,6 @@ const TrackNotes: React.FC<Props> = ({ midi, name, i }) => {
           end: end + time
         }));
       }
-    },
-    onBackground: () => {
-      console.log('background');
-      // notes.addAt(point);
-      return 'scale';
-    },
-    onInactive: () => {
-      //notes.select(note);
-      return 'move';
     },
     onEnd: clear
   });
