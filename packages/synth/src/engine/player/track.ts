@@ -17,8 +17,9 @@ class Track {
 
   public nextActions = (isPlaying: boolean, current: number) => {
     if (
-      current < this.midi.start * NOTE_SIZE ||
-      current > this.midi.end * NOTE_SIZE
+      isPlaying &&
+      (current < this.midi.start * NOTE_SIZE ||
+        current > this.midi.end * NOTE_SIZE)
     ) {
       return;
     }
