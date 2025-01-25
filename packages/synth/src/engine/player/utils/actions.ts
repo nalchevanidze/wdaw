@@ -30,16 +30,14 @@ export const toActions = ({
   const size = (loopEnd - loopStart) * NOTE_SIZE;
   const output: NoteLoop = Array(size).fill(undefined);
 
-  Object.entries(notes).forEach(([i, quarter]) => {
-    quarter.forEach((note) => {
-      const start = parseInt(i, 10) * NOTE_SIZE + note.at - loopStart * NOTE_SIZE;
-      if(start < 0) return 
-      const end = start + note.length - 1;
-      const key = keysToIndexes(note.id);
+  notes.forEach((note) => {
+    const start = note.at - loopStart * NOTE_SIZE;
+    if (start < 0) return;
+    const end = start + note.length - 1;
+    const key = keysToIndexes(note.id);
 
-      taskAt(output, start, NOTE_ACTION.START).push(key);
-      taskAt(output, end, NOTE_ACTION.END).push(key);
-    });
+    taskAt(output, start, NOTE_ACTION.START).push(key);
+    taskAt(output, end, NOTE_ACTION.END).push(key);
   });
 
   return output;

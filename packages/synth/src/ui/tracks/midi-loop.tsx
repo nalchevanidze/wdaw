@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { colors } from '../styles';
-import { flatten } from '../piano-roll/utils';
 import { Midi } from '../../engine';
 import { NOTE_SIZE } from '../common/defs';
 import { UINote } from '../common/notes';
+import { flatten } from '../common/midi';
 
 export const STAGE_HEIGHT = 64;
 
@@ -52,8 +52,8 @@ const MidiLoop: React.FC<Props> = ({
                 key={noteIndex}
                 width={note.length}
                 height={1}
-                x={note.position - noteOffset}
-                y={STAGE_HEIGHT - note.i}
+                x={note.at - noteOffset}
+                y={STAGE_HEIGHT - note.positionY}
               />
             ))}
           </g>

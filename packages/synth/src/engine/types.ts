@@ -77,7 +77,7 @@ export type EngineAction =
   | SET_FILTER
   | SET_PRESET
   | SET_TRACK
-  | REFRESH
+  | REFRESH;
 
 export type NoteAction = {
   start?: number[];
@@ -98,5 +98,5 @@ export type Midi = {
   start: number;
   end: number;
   loop: [number, number];
-  notes: Record<number, Note[]>;
+  notes: Note[];
 };

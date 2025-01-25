@@ -22,7 +22,7 @@ const Notes: React.FC<Props> = ({
 }) => (
   <g fill={color}>
     {notes.map((note, noteIndex) => {
-      const y = CANVAS_HEIGHT - note.i * NOTE_SIZE;
+      const y = CANVAS_HEIGHT - note.positionY * NOTE_SIZE;
       const scaleWidth = NOTE_STEP;
 
       return (
@@ -33,7 +33,7 @@ const Notes: React.FC<Props> = ({
             height={NOTE_SIZE}
             stroke="#000"
             strokeWidth={0.25}
-            x={note.position * NOTE_STEP}
+            x={note.at * NOTE_STEP}
             y={y}
           />
           <rect
@@ -44,7 +44,7 @@ const Notes: React.FC<Props> = ({
             onMouseDown={(event) => scale?.(event)}
             style={{ cursor: 'e-resize' }}
             key={'s' + noteIndex}
-            x={(note.position + note.length - 1) * scaleWidth}
+            x={(note.at + note.length - 1) * scaleWidth}
             y={y}
           />
         </g>

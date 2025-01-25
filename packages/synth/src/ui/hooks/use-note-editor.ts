@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { flatten, deepen, Selected } from '../piano-roll/utils';
 import { useContext, useState } from 'react';
 import { Area } from '../types';
 import { ConfiguratorContext } from '../configurator';
@@ -8,11 +7,13 @@ import {
   scaleNotes,
   moveNotes,
   selectNotesIn,
-  UINote
+  UINote,
+  Selected
 } from '../common/notes';
 import { Point } from '@wdaw/svg';
 import { useOnDelete } from '../utils';
 import { addTracking, dropTracking } from '../utils/tracking';
+import { deepen, flatten } from '../common/midi';
 
 export const useNoteEditor = () => {
   const [
