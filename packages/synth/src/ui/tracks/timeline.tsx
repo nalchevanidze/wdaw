@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { StageContext, SvgStage } from '@wdaw/svg';
 import { Tapeline } from '../common/tapeline';
-import { PANEL, WIDTH } from './track';
+import { WIDTH } from './track';
 import { ConfiguratorContext } from '../configurator';
 import { TIMELINE_HEIGHT } from '../common/defs';
+import { PANEL } from './defs';
 
 const TimelineContent: React.FC = () => {
   const getCoordinates = React.useContext(StageContext);
