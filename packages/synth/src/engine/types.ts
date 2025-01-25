@@ -25,7 +25,7 @@ export type TOGGLE_PANEL = {
 
 export type SET_MIDI = {
   type: 'SET_MIDI';
-  payload: Midi;
+  payload: Partial<Midi>;
   id: number;
 };
 

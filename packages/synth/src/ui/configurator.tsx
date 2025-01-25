@@ -53,7 +53,7 @@ const dispatcher = (
     case 'SET_MIDI':
       return mapTrack(action.id, state, ({ midi, ...rest }) => ({
         ...rest,
-        midi: action.payload
+        midi: { ...midi, ...action.payload }
       }));
     case 'SET_ENVELOPE':
       return mapPreset(state, ({ envelopes }) => ({
@@ -80,6 +80,7 @@ const dispatcher = (
 };
 
 const engineEffects = (
+  state: DAWState,
   engine: SynthEngine,
   action: EngineAction
 ): void => {
@@ -93,7 +94,7 @@ const engineEffects = (
     case 'SET_TIME':
       return engine.setTime(action.payload);
     case 'SET_MIDI':
-      return engine.setMidi(action.id, action.payload);
+      return engine.setMidi(action.id, state.tracks.tracks[action.id].midi);
     case 'SET_TRACK':
       return engine.setTrack(action.payload);
     default:
@@ -110,7 +111,9 @@ const reducer =
       engine.setPreset(track.preset);
     }
 
-    engineEffects(engine, action);
+    const newState = stateChanges ? { ...state, ...stateChanges } : state;
+
+    engineEffects(newState, engine, action);
 
     return stateChanges ? { ...state, ...stateChanges } : state;
   };
