@@ -106,7 +106,6 @@ const reducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
     const stateChanges = dispatcher(state, action);
 
-    console.log(stateChanges, action);
     if (stateChanges) {
       const track = state.tracks.tracks[state.tracks.currentTrack];
       engine.setPreset(track.preset);
