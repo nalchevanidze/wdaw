@@ -51,7 +51,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     onBackground: onBackgroundHandler[actionType],
     onSelected: notes.track,
     onInactive: mouseDownInactive[actionType],
-    onEnd: notes.sync
+    onEnd: (mode) => (mode !== 'select' ? notes.sync() : undefined)
   });
 
   return (

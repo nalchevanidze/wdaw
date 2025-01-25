@@ -37,12 +37,7 @@ export const useNoteEditor = () => {
       payload: deepen([...ns.selected, ...ns.inactive])
     });
 
-  const update = (ns: Selected<NotePoint>) => {
-    setNotes(ns);
-    if (ns.selected.length === 0) {
-      dispatchMidi(ns);
-    }
-  };
+  const update = (ns: Selected<NotePoint>) => setNotes(ns);
 
   React.useEffect(() => {
     setNotes({
