@@ -9,7 +9,11 @@ const TimelineContent: React.FC = () => {
   const getCoordinates = React.useContext(StageContext);
   const [_, dispatch] = React.useContext(ConfiguratorContext);
 
-  const setTime = (payload: number) => dispatch({ type: 'SET_TIME', payload });
+  const setTime: React.MouseEventHandler<SVGRectElement> = (event) =>
+    dispatch({
+      type: 'SET_TIME',
+      payload: Math.floor(getCoordinates(event).x)
+    });
 
   return (
     <g>
@@ -19,7 +23,7 @@ const TimelineContent: React.FC = () => {
         y={-TIMELINE_HEIGHT}
         height={TIMELINE_HEIGHT}
         width={WIDTH}
-        onMouseDown={(event) => setTime(Math.floor(getCoordinates(event).x))}
+        onMouseDown={setTime}
       />
     </g>
   );
