@@ -28,7 +28,7 @@ const Tracks: React.FC = () => {
           }}
         />
         {tracks.tracks.map(({ midi, name }, i) => (
-          <Track midi={midi} i={i} name={name} key={i} width={width} />
+          <Track midi={midi} id={i} name={name} key={i} width={width} />
         ))}
       </div>
     </div>
