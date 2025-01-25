@@ -9,7 +9,7 @@ const containerStyle = {
   display: 'flex',
   background: colors.background,
   padding: '5px',
-  border: '0.05em solid #BBB'
+  border: '0.05em solid #BBB',
 };
 const Header: React.FC = () => {
   const [

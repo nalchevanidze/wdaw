@@ -12,7 +12,7 @@ type Props = { midi: Midi; name: string; i: number};
 
 export const PANEL = 50 as const;
 
-export const STAGE_WIDTH = QUARTER * 4;
+export const STAGE_WIDTH = QUARTER * 6;
 
 export const WIDTH = STAGE_WIDTH + PANEL;
 

@@ -6,13 +6,13 @@ import { Timeline } from './timeline';
 
 const Tracks: React.FC = () => {
   const [{ tracks, player }] = React.useContext(ConfiguratorContext);
-  
+
   const position = PANEL + player.time;
 
   return (
-    <>
-      <Header />
+    <div style={{ position: 'relative', width: '700px', overflowX: 'scroll' }}>
       <div style={{ width: '100%', height: 'auto', position: 'relative' }}>
+        <Header />
         <Timeline />
         <div
           style={{
@@ -28,7 +28,7 @@ const Tracks: React.FC = () => {
           <Track midi={midi} i={i} name={name} key={i} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
