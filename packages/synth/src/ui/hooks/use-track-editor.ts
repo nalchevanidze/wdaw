@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { Midi } from '../../engine';
 import { ConfiguratorContext } from '../configurator';
 
 type State = { start: number; end: number };
