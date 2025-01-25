@@ -8,7 +8,7 @@ import { useDragging } from '../hooks/use-dragging';
 import { distanceX } from '../utils/area';
 import { QUARTER } from '../common/defs';
 
-type Props = { midi: Midi; name: string; i: number };
+type Props = { midi: Midi; name: string; i: number};
 
 export const PANEL = 50 as const;
 
