@@ -22,11 +22,6 @@ export const TrackList: React.FC = () => {
         viewBox={[-PANEL, -timelineHeight, width, height].join(' ')}
         width={width}
         height={height}
-        style={{
-          background: '#FFF',
-          border: '1px solid #BBB',
-          display: 'block'
-        }}
       >
         <Timeline height={timelineHeight} />
 

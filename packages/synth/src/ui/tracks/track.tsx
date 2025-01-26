@@ -50,7 +50,7 @@ export const Track: React.FC<Props> = ({ id, name, midi }) => {
         y={y}
         onMouseDown={dragging.onBackground}
         height={STAGE_HEIGHT}
-        width={STAGE_HEIGHT}
+        width="100%"
         opacity={0}
       />
       <MidiLoop
