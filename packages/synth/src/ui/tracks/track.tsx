@@ -40,6 +40,7 @@ export const Track: React.FC<Props> = ({ id, name, midi }) => {
         fontFamily="sanf-serif"
         textAnchor='center'
         dominantBaseline="middle"
+        pointerEvents="none"
       >
         {name}
       </text>
