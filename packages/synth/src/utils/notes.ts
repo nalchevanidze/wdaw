@@ -36,3 +36,8 @@ export const keysToIndexes = (note: string): number => {
   }
   return keyIndex + octaveIndex * OCTAVE_SIZE;
 };
+
+export const UIPosition = {
+  toNote: (y: number) => getNoteIdByIndex(y - 1),
+  fromNote: (id: string) => keysToIndexes(id) + 1
+};
