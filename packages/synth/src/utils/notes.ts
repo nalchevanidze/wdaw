@@ -17,7 +17,7 @@ export const OCTAVE_SIZE = BASE_NOTES.length;
 
 const OCTAVE_RANGE = 4;
 
-export const getNoteIdByIndex = (index: number): string => {
+const getNoteIdByIndex = (index: number): string => {
   const head = BASE_NOTES[index % OCTAVE_SIZE];
   const octaveIndex = Math.min(OCTAVE_RANGE, Math.floor(index / OCTAVE_SIZE));
   return `${head}${octaveIndex}`;
@@ -37,7 +37,9 @@ export const keysToIndexes = (note: string): number => {
   return keyIndex + octaveIndex * OCTAVE_SIZE;
 };
 
+const shift = 1;
+
 export const UIPosition = {
-  toNote: (y: number) => getNoteIdByIndex(y - 1),
-  fromNote: (id: string) => keysToIndexes(id) + 1
+  toNote: (y: number) => getNoteIdByIndex(y - shift),
+  fromNote: (id: string) => keysToIndexes(id) + shift
 };

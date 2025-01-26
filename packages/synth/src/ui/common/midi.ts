@@ -15,6 +15,6 @@ export const deepen = (notes: UINote[]): Partial<Midi> => ({
   notes: notes.map(({ length, at, positionY }: UINote) => ({
     at,
     length,
-    id: UIPosition.toNote(positionY - 1)
+    id: UIPosition.toNote(positionY)
   }))
 });
