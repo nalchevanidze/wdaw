@@ -4,17 +4,16 @@ import { MidiLoop } from './midi-loop';
 import { useDragging } from '../hooks/use-dragging';
 import { distanceX } from '../utils/area';
 import { NOTE } from '../common/units';
-import { TRACK_HEIGHT } from './defs';
 import { useTrackEditor } from '../hooks/use-track-editor';
 
 type Props = {
-  midi: Midi;
   id: number;
-  width: number;
+  midi: Midi;
   y: number;
+  height: number;
 };
 
-export const Track: React.FC<Props> = ({ id, midi, y }) => {
+export const Track: React.FC<Props> = ({ id, midi, y, height }) => {
   const { start, end, clear, move, scale } = useTrackEditor(midi, id);
 
   const dragging = useDragging({
@@ -35,7 +34,7 @@ export const Track: React.FC<Props> = ({ id, midi, y }) => {
       <rect
         y={y}
         onMouseDown={dragging.onBackground}
-        height={TRACK_HEIGHT}
+        height={height}
         width="100%"
         opacity={0}
       />
@@ -45,7 +44,7 @@ export const Track: React.FC<Props> = ({ id, midi, y }) => {
         end={end}
         midi={midi}
         trackId={`track-${id}`}
-        height={TRACK_HEIGHT}
+        height={height}
         startMove={dragging.onSelected('move')}
         startScale={dragging.onSelected('scale')}
       />

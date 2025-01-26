@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { colors } from '../styles';
-import {  TRACK_HEIGHT } from './defs';
 import { ConfiguratorContext } from '../configurator';
 
 type Props = {
   name: string;
   id: number;
-  width: number;
   y: number;
   active: boolean;
+  width: number;
+  height: number
 };
 
-export const Panel: React.FC<Props> = ({ name, id, active, y, width }) => {
+export const Panel: React.FC<Props> = ({ name, id, active, y, width, height }) => {
   const [_, dispatch] = React.useContext(ConfiguratorContext);
   const setTrack = () => dispatch({ type: 'SET_TRACK', payload: id });
 
@@ -34,7 +34,7 @@ export const Panel: React.FC<Props> = ({ name, id, active, y, width }) => {
         y={y}
         x={-width}
         width={width}
-        height={TRACK_HEIGHT}
+        height={height}
         onClick={setTrack}
         style={{ border: 'none', cursor: 'pointer' }}
       />
