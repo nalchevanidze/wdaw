@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { SvgStage } from '@wdaw/svg';
 import { Midi } from '../../engine';
 import { colors } from '../styles';
 import { MidiLoop, STAGE_HEIGHT } from './midi-loop';
@@ -11,7 +10,7 @@ import { useTrackEditor } from '../hooks/use-track-editor';
 
 type Props = { midi: Midi; name: string; id: number; width: number };
 
-const TrackNotes: React.FC<Props> = ({ id, name, midi }) => {
+export const Track: React.FC<Props> = ({ id, name, midi }) => {
   const { start, end, active, clear, setTrack, move, scale } = useTrackEditor(
     midi,
     id
@@ -62,16 +61,3 @@ const TrackNotes: React.FC<Props> = ({ id, name, midi }) => {
     </g>
   );
 };
-
-const Track: React.FC<Props> = (props) => (
-  <SvgStage
-    viewBox={[-PANEL, 0, props.width, STAGE_HEIGHT].join(' ')}
-    width={props.width}
-    height={STAGE_HEIGHT}
-    style={{ background: '#FFF', border: '1px solid #BBB', display: 'block' }}
-  >
-    <TrackNotes {...props} />
-  </SvgStage>
-);
-
-export default Track;
