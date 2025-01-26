@@ -3,7 +3,7 @@ import { Point, SvgStage } from '@wdaw/svg';
 import { BLOCK, QUARTER } from '../common/units';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
-import { KEYBOARD_WIDTH, STAGE_HEIGHT, TIMELINE_HEIGHT } from './utils';
+import { STAGE_HEIGHT, TIMELINE_HEIGHT } from './utils';
 import { Background } from './background';
 import { EditActionType } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
@@ -16,6 +16,8 @@ import { UINote } from '../common/notes';
 type Props = {
   actionType: EditActionType;
 };
+
+const keyboardWidth = 20;
 
 const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const { time, loop, end } = useTime();
@@ -61,7 +63,12 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       onMouseLeave={dragging.end}
       onMouseUp={dragging.end}
     >
-      <Background onMouseDown={dragging.onBackground} loop={loop} width={end} />
+      <Background
+        onMouseDown={dragging.onBackground}
+        loop={loop}
+        width={end}
+        keyboardWidth={keyboardWidth}
+      />
       <g>
         <Notes notes={notes.inactive} mouseDown={dragging.onInactive} />
         <Notes
@@ -79,9 +86,9 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
 
 const PianoRoll: React.FC<Props> = (props) => {
   const [track] = useTrack();
-  const width = KEYBOARD_WIDTH + track.midi.loop[1] * QUARTER + BLOCK * 2;
+  const width = keyboardWidth + track.midi.loop[1] * QUARTER + BLOCK * 2;
 
-  const viewBox = [-KEYBOARD_WIDTH, -TIMELINE_HEIGHT, width, STAGE_HEIGHT].join(
+  const viewBox = [-keyboardWidth, -TIMELINE_HEIGHT, width, STAGE_HEIGHT].join(
     ' '
   );
 

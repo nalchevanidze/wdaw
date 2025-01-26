@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { colors } from '../styles';
-import { CANVAS_HEIGHT, KEYBOARD_WIDTH } from './utils';
+import { CANVAS_HEIGHT } from './utils';
 import { NOTE, BLOCK, QUARTER } from '../common/units';
 import { OCTAVE_SIZE } from '../../utils/notes';
 
@@ -19,7 +19,7 @@ const Keys: React.FC<KeysProps> = ({ width, opacity = 1 }) => (
   </g>
 );
 
-const Keyboard = () => (
+const Keyboard: React.FC<{ width: number }> = ({ width }) => (
   <g>
     <defs>
       <pattern
@@ -32,8 +32,8 @@ const Keyboard = () => (
       </pattern>
     </defs>
     <rect
-      x={-KEYBOARD_WIDTH}
-      width={KEYBOARD_WIDTH}
+      x={-width}
+      width={width}
       height={CANVAS_HEIGHT}
       fill="url(#start_keys)"
       stroke={colors.black}
@@ -92,13 +92,15 @@ const Grid = () => (
 
 type Props = Pick<React.SVGProps<SVGRectElement>, 'onMouseDown'> & {
   loop: [number, number];
+  keyboardWidth: number;
   width: number;
 };
 
 const Background: React.FC<Props> = ({
   onMouseDown,
   loop: [loopStart, loopEnd],
-  width
+  width,
+  keyboardWidth
 }) => {
   const start = loopStart * QUARTER;
   const size = (loopEnd - loopStart) * QUARTER;
@@ -106,7 +108,7 @@ const Background: React.FC<Props> = ({
   return (
     <>
       <Grid />
-      <Keyboard />
+      <Keyboard width={keyboardWidth} />
       <rect
         fillOpacity={0.5}
         x={start}
