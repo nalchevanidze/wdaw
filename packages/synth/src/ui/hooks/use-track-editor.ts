@@ -7,7 +7,7 @@ type State = { start: number; end: number };
 type TrackedState = State & { origin?: State };
 
 export const useTrackEditor = (input: State, id: number) => {
-  const [{ tracks }, dispatch] = React.useContext(ConfiguratorContext);
+  const [_, dispatch] = React.useContext(ConfiguratorContext);
   const [state, setState] = React.useState<TrackedState>({
     start: input.start,
     end: input.end
@@ -39,8 +39,6 @@ export const useTrackEditor = (input: State, id: number) => {
     dispatch({ type: 'SET_MIDI', id, payload: { ...state } });
   };
 
-  const setTrack = () => dispatch({ type: 'SET_TRACK', payload: id });
-
   const move = (time: number) =>
     transform(({ start, end }) => ({
       start: start + time,
@@ -54,7 +52,6 @@ export const useTrackEditor = (input: State, id: number) => {
     }));
 
   const { start, end } = state;
-  const active = id === tracks.currentTrack;
 
-  return { start, end, active, clear, setTrack, move, scale };
+  return { start, end, clear, move, scale };
 };

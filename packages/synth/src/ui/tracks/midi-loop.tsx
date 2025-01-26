@@ -5,30 +5,30 @@ import { NOTE } from '../common/units';
 import { UINote } from '../common/notes';
 import { flatten } from '../common/midi';
 
-export const STAGE_HEIGHT = 64;
-
 type Props = {
   start: number;
   end: number;
-  name: string;
+  trackId: string;
   midi: Midi;
   y: number;
+  height: number,
   startMove?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
   startScale?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
 };
 
 const MidiLoop: React.FC<Props> = ({
-  name,
+  trackId,
   midi,
   start,
   end,
   startMove,
   startScale,
-  y
+  y,
+  height
 }) => {
   const notes = React.useMemo<UINote[]>(() => flatten(midi), [midi]);
   const [loopStart, loopEnd] = midi.loop;
-  const id = `MidiLoop_B_Q_T_D_V_B_D_${name}`;
+  const id = `MidiLoop_B_Q_T_D_V_B_D_${trackId}`;
 
   const loopWidth = loopEnd - loopStart;
   const containerWidth = (end - start) * NOTE;
@@ -43,7 +43,7 @@ const MidiLoop: React.FC<Props> = ({
       <defs>
         <pattern
           width={loopWidth * NOTE}
-          height={STAGE_HEIGHT}
+          height={height}
           patternUnits="userSpaceOnUse"
           id={id}
           x={loopOffset}
@@ -55,7 +55,7 @@ const MidiLoop: React.FC<Props> = ({
                 width={note.length}
                 height={1}
                 x={note.at - noteOffset}
-                y={STAGE_HEIGHT - note.positionY}
+                y={height - note.positionY}
               />
             ))}
           </g>
@@ -72,7 +72,7 @@ const MidiLoop: React.FC<Props> = ({
         onMouseDown={(event) => startMove?.(event)}
         x={containerStart}
         width={containerWidth}
-        height={STAGE_HEIGHT}
+        height={height}
         fill={'url(#' + id + ')'}
         stroke={colors.notesBackground}
         strokeWidth={0.3}
@@ -81,7 +81,7 @@ const MidiLoop: React.FC<Props> = ({
         x={containerEnd - scaleWidth}
         y={y}
         width={scaleWidth}
-        height={STAGE_HEIGHT}
+        height={height}
         fill={'gray'}
         fillOpacity={0.05}
         onMouseDown={(event) => startScale?.(event)}
