@@ -4,12 +4,12 @@ import Track from './track';
 import { Header } from './header';
 import { Timeline } from './timeline';
 import { PANEL } from './defs';
-import { NOTE_SIZE, BLOCK } from '../common/defs';
+import { NOTE, BLOCK } from '../common/defs';
 
 const Tracks: React.FC = () => {
   const [{ tracks, player }] = React.useContext(ConfiguratorContext);
   const maxTrackSize = Math.max(...tracks.tracks.map((t) => t.midi.end));
-  const width = maxTrackSize * NOTE_SIZE + PANEL + BLOCK;
+  const width = maxTrackSize * NOTE + PANEL + BLOCK;
   const position = PANEL + player.time;
 
   return (

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { ConfiguratorContext } from '../configurator';
-import { NOTE_SIZE, QUARTER } from '../common/defs';
+import { NOTE, QUARTER } from '../common/defs';
 
 export const useTime = () => {
   const [{ player, tracks }] = useContext(ConfiguratorContext);
@@ -8,7 +8,7 @@ export const useTime = () => {
   const loopSize = midi.loop[1] - midi.loop[0];
   const start = midi.start;
   const end = midi.end;
-  const time = player.time / NOTE_SIZE;
+  const time = player.time / NOTE;
   const loopStart = midi.loop[0];
   const offset = start % loopSize;
 
@@ -18,6 +18,6 @@ export const useTime = () => {
   return {
     time: loopTime * QUARTER,
     loop: midi.loop,
-    end: midi.end * NOTE_SIZE
+    end: midi.end * NOTE
   };
 };

@@ -2,7 +2,7 @@ import { Point } from '@wdaw/svg';
 import { distanceX, distanceY } from '../utils/area';
 import { CANVAS_HEIGHT } from '../piano-roll/utils';
 import { Area } from '../types';
-import { NOTE_SIZE, STEP } from './defs';
+import { NOTE, STEP } from './defs';
 import { addTracking, Tracked } from '../utils/tracking';
 
 export type Selected<T> = {
@@ -21,7 +21,7 @@ export const moveNotes = (
   area: Area
 ): Tracked<UINote>[] => {
   const time = distanceX(area, STEP);
-  const tune = distanceY(area, NOTE_SIZE);
+  const tune = distanceY(area, NOTE);
 
   return notes.map(
     (note): Tracked<UINote> =>
@@ -48,7 +48,7 @@ export const scaleNotes = (
 };
 
 export const genNoteAt = ({ x, y }: Point): UINote => {
-  const positionY = Math.floor(1 + (CANVAS_HEIGHT - y) / NOTE_SIZE);
+  const positionY = Math.floor(1 + (CANVAS_HEIGHT - y) / NOTE);
   const at = Math.floor(x / STEP);
   return { length: STEP, positionY, at };
 };
@@ -67,7 +67,7 @@ export const isInArea = (
     (minX > startX && maxX < endX);
   const minY = Math.min(start.y, end.y);
   const maxY = Math.max(start.y, end.y);
-  const y = CANVAS_HEIGHT - NOTE_SIZE * positionY;
+  const y = CANVAS_HEIGHT - NOTE * positionY;
   const yIsInArea = minY < y && maxY > y;
   return xIsInArea && yIsInArea;
 };

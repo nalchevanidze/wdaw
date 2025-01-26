@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Tapeline } from '../common/tapeline';
-import { NOTE_SIZE } from '../common/defs';
+import { NOTE } from '../common/defs';
 
 type TimelineProps = {
   time: number;
@@ -14,7 +14,7 @@ export const Timeline: React.FC<TimelineProps> = ({
   height
 }) => (
   <g>
-    <Tapeline height={timeline} size={NOTE_SIZE} />
+    <Tapeline height={timeline} size={NOTE} />
     <line x1={time} x2={time} y1={-timeline} y2={height} stroke="red" />
   </g>
 );

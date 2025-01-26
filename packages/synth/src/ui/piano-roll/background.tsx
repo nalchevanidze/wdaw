@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { colors } from '../styles';
 import { CANVAS_HEIGHT, KEYBOARD_WIDTH } from './utils';
-import { NOTE_SIZE, BLOCK, QUARTER } from '../common/defs';
+import { NOTE, BLOCK, QUARTER } from '../common/defs';
 import { OCTAVE_SIZE } from '../../utils/notes';
 
-const OCTAVE_HEIGHT = NOTE_SIZE * OCTAVE_SIZE;
+const OCTAVE_HEIGHT = NOTE * OCTAVE_SIZE;
 
 type KeysProps = {
   width: number;
@@ -14,7 +14,7 @@ type KeysProps = {
 const Keys: React.FC<KeysProps> = ({ width, opacity = 1 }) => (
   <g fill="black" fillOpacity={opacity}>
     {[1, 3, 5, 8, 10].map((i) => (
-      <rect key={i} y={i * NOTE_SIZE} width={width} height={NOTE_SIZE} />
+      <rect key={i} y={i * NOTE} width={width} height={NOTE} />
     ))}
   </g>
 );
@@ -60,12 +60,12 @@ const Grid = () => (
   <g>
     <defs>
       <pattern
-        width={NOTE_SIZE}
+        width={NOTE}
         height={OCTAVE_HEIGHT}
         patternUnits="userSpaceOnUse"
         id="quart"
       >
-        <VerticalLine x={NOTE_SIZE} strength={0.1} />
+        <VerticalLine x={NOTE} strength={0.1} />
       </pattern>
       <pattern
         width={BLOCK}

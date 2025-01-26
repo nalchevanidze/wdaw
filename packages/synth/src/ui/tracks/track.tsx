@@ -5,7 +5,7 @@ import { colors } from '../styles';
 import { MidiLoop, STAGE_HEIGHT } from './midi-loop';
 import { useDragging } from '../hooks/use-dragging';
 import { distanceX } from '../utils/area';
-import { NOTE_SIZE } from '../common/defs';
+import { NOTE } from '../common/defs';
 import { PANEL } from './defs';
 import { useTrackEditor } from '../hooks/use-track-editor';
 
@@ -20,8 +20,8 @@ const TrackNotes: React.FC<Props> = ({ id, name, midi }) => {
   const dragging = useDragging({
     onMove: {
       select: () => {},
-      move: (area) => (area ? move(distanceX(area, NOTE_SIZE)) : undefined),
-      scale: (area) => (area ? scale(distanceX(area, NOTE_SIZE)) : undefined)
+      move: (area) => (area ? move(distanceX(area, NOTE)) : undefined),
+      scale: (area) => (area ? scale(distanceX(area, NOTE)) : undefined)
     },
     onEnd: clear
   });
