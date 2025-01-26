@@ -12,6 +12,7 @@ type Props = {
   end: number;
   name: string;
   midi: Midi;
+  y: number;
   startMove?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
   startScale?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
 };
@@ -22,7 +23,8 @@ const MidiLoop: React.FC<Props> = ({
   start,
   end,
   startMove,
-  startScale
+  startScale,
+  y
 }) => {
   const notes = React.useMemo<UINote[]>(() => flatten(midi), [midi]);
   const [loopStart, loopEnd] = midi.loop;
@@ -66,18 +68,22 @@ const MidiLoop: React.FC<Props> = ({
         </pattern>
       </defs>
       <rect
+        y={y}
         onMouseDown={(event) => startMove?.(event)}
         x={containerStart}
         width={containerWidth}
-        height="100%"
+        height={STAGE_HEIGHT}
         fill={'url(#' + id + ')'}
+        stroke={colors.notesBackground}
+        strokeWidth={0.3}
       />
       <rect
         x={containerEnd - scaleWidth}
+        y={y}
         width={scaleWidth}
-        height="100%"
+        height={STAGE_HEIGHT}
         fill={'gray'}
-        fillOpacity={0.1}
+        fillOpacity={0.05}
         onMouseDown={(event) => startScale?.(event)}
         style={{ cursor: 'e-resize' }}
       />

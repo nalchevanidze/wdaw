@@ -13,6 +13,8 @@ export const TrackList: React.FC = () => {
   const width = maxTrackSize * NOTE + PANEL + BLOCK;
   const position = PANEL + player.time;
 
+  const height = STAGE_HEIGHT * tracks.tracks.length
+
   return (
     <div style={{ width: '100%', height: 'auto', position: 'relative' }}>
       <Timeline width={width} height={16} />
@@ -26,20 +28,20 @@ export const TrackList: React.FC = () => {
           background: 'red'
         }}
       />
-      {tracks.tracks.map(({ midi, name }, i) => (
-        <SvgStage
-          viewBox={[-PANEL, 0, width, STAGE_HEIGHT].join(' ')}
-          width={width}
-          height={STAGE_HEIGHT}
-          style={{
-            background: '#FFF',
-            border: '1px solid #BBB',
-            display: 'block'
-          }}
-        >
+      <SvgStage
+        viewBox={[-PANEL, 0, width, height].join(' ')}
+        width={width}
+        height={height}
+        style={{
+          background: '#FFF',
+          border: '1px solid #BBB',
+          display: 'block'
+        }}
+      >
+        {tracks.tracks.map(({ midi, name }, i) => (
           <Track midi={midi} id={i} name={name} key={i} width={width} />
-        </SvgStage>
-      ))}
+        ))}
+      </SvgStage>
     </div>
   );
 };
