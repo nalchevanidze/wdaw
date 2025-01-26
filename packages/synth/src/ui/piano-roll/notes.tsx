@@ -14,6 +14,8 @@ type Props = {
   color?: string;
 };
 
+const scaleWidth = 4;
+
 const Notes: React.FC<Props> = ({
   notes,
   color = colors.notes,
@@ -22,19 +24,20 @@ const Notes: React.FC<Props> = ({
 }) => (
   <g fill={color}>
     {notes.map((note, noteIndex) => {
+      const start = note.at * STEP;
+      const width = note.length * STEP;
       const y = CANVAS_HEIGHT - note.positionY * NOTE;
-      const scaleWidth = STEP;
 
       return (
         <g key={noteIndex}>
           <rect
-            onMouseDown={(event) => mouseDown && mouseDown(event, note)}
-            width={STEP * note.length}
+            x={start}
+            y={y}
+            width={width}
             height={NOTE}
+            onMouseDown={(event) => mouseDown && mouseDown(event, note)}
             stroke="#000"
             strokeWidth={0.25}
-            x={note.at * STEP}
-            y={y}
           />
           <rect
             width={scaleWidth}
@@ -44,7 +47,7 @@ const Notes: React.FC<Props> = ({
             onMouseDown={(event) => scale?.(event)}
             style={{ cursor: 'e-resize' }}
             key={'s' + noteIndex}
-            x={(note.at + note.length - 1) * scaleWidth}
+            x={start + width - scaleWidth}
             y={y}
           />
         </g>
