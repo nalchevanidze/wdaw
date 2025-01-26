@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { ConfiguratorContext } from '../configurator';
-import { NOTE, QUARTER } from '../common/defs';
+import { NOTE, QUARTER } from '../common/units';
 
 export const useTime = () => {
   const [{ player, tracks }] = useContext(ConfiguratorContext);

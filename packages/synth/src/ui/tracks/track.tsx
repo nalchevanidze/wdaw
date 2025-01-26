@@ -5,7 +5,7 @@ import { colors } from '../styles';
 import { MidiLoop, STAGE_HEIGHT } from './midi-loop';
 import { useDragging } from '../hooks/use-dragging';
 import { distanceX } from '../utils/area';
-import { NOTE } from '../common/defs';
+import { NOTE } from '../common/units';
 import { PANEL } from './defs';
 import { useTrackEditor } from '../hooks/use-track-editor';
 

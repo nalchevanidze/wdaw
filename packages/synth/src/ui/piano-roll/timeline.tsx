@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Tapeline } from '../common/tapeline';
-import { NOTE } from '../common/defs';
+import { NOTE } from '../common/units';
 
 type TimelineProps = {
   time: number;

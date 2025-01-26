@@ -1,5 +1,5 @@
 import { OCTAVE_SIZE } from '../../utils/notes';
-import { NOTE } from '../common/defs';
+import { NOTE } from '../common/units';
 
 export const KEYBOARD_WIDTH = 20;
 

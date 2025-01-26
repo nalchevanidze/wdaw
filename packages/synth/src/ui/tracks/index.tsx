@@ -4,7 +4,7 @@ import Track from './track';
 import { Header } from './header';
 import { Timeline } from './timeline';
 import { PANEL } from './defs';
-import { NOTE, BLOCK } from '../common/defs';
+import { NOTE, BLOCK } from '../common/units';
 
 const Tracks: React.FC = () => {
   const [{ tracks, player }] = React.useContext(ConfiguratorContext);

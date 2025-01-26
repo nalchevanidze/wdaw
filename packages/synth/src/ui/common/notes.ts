@@ -2,7 +2,7 @@ import { Point } from '@wdaw/svg';
 import { distanceX, distanceY } from '../utils/area';
 import { CANVAS_HEIGHT } from '../piano-roll/utils';
 import { Area } from '../types';
-import { NOTE, STEP } from './defs';
+import { NOTE, STEP } from './units';
 import { addTracking, Tracked } from '../utils/tracking';
 
 export type Selected<T> = {

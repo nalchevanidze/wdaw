@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Point, SvgStage } from '@wdaw/svg';
-import { BLOCK, QUARTER } from '../common/defs';
+import { BLOCK, QUARTER } from '../common/units';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
 import { KEYBOARD_WIDTH, STAGE_HEIGHT, TIMELINE_HEIGHT } from './utils';

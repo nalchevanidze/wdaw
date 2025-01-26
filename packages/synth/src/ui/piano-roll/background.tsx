@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { colors } from '../styles';
 import { CANVAS_HEIGHT, KEYBOARD_WIDTH } from './utils';
-import { NOTE, BLOCK, QUARTER } from '../common/defs';
+import { NOTE, BLOCK, QUARTER } from '../common/units';
 import { OCTAVE_SIZE } from '../../utils/notes';
 
 const OCTAVE_HEIGHT = NOTE * OCTAVE_SIZE;

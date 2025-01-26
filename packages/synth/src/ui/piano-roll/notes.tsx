@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { colors } from '../styles';
 import { CANVAS_HEIGHT } from './utils';
-import { NOTE, STEP } from '../common/defs';
+import { NOTE, STEP } from '../common/units';
 import { UINote } from '../common/notes';
 
 type Props = {
