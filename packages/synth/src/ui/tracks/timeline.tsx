@@ -2,10 +2,11 @@ import * as React from 'react';
 import { StageContext, SvgStage } from '@wdaw/svg';
 import { Tapeline } from '../common/tapeline';
 import { ConfiguratorContext } from '../configurator';
-import { TIMELINE_HEIGHT } from '../common/defs';
 import { PANEL } from './defs';
 
-const TimelineContent: React.FC = () => {
+type Height = { height: number };
+
+const TimelineContent: React.FC<Height> = ({ height }) => {
   const getCoordinates = React.useContext(StageContext);
   const [_, dispatch] = React.useContext(ConfiguratorContext);
 
@@ -17,11 +18,11 @@ const TimelineContent: React.FC = () => {
 
   return (
     <g>
-      <Tapeline height={TIMELINE_HEIGHT} size={16} />
+      <Tapeline height={height} size={16} />
       <rect
         fillOpacity="0"
-        y={-TIMELINE_HEIGHT}
-        height={TIMELINE_HEIGHT}
+        y={-height}
+        height={height}
         width="100%"
         onMouseDown={setTime}
       />
@@ -29,16 +30,16 @@ const TimelineContent: React.FC = () => {
   );
 };
 
-type Props = { width: number };
+type Props = { width: number } & Height;
 
-const Timeline: React.FC<Props> = ({ width }) => (
+const Timeline: React.FC<Props> = ({ width, height }) => (
   <SvgStage
-    viewBox={[-PANEL, -TIMELINE_HEIGHT, width, TIMELINE_HEIGHT].join(' ')}
+    viewBox={[-PANEL, -height, width, height].join(' ')}
     width={width}
-    height={TIMELINE_HEIGHT}
+    height={height}
     style={{ background: '#FFF', border: '1px solid #BBB', display: 'block' }}
   >
-    <TimelineContent />
+    <TimelineContent height={height} />
   </SvgStage>
 );
 

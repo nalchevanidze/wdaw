@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { colors } from '../styles';
 import { CANVAS_HEIGHT, KEYBOARD_WIDTH } from './utils';
-import { NOTE_SIZE, QUARTER, SUB_QUARTER } from '../common/defs';
+import { NOTE_SIZE, BLOCK, QUARTER } from '../common/defs';
 import { OCTAVE_SIZE } from '../../utils/notes';
 
 const OCTAVE_HEIGHT = NOTE_SIZE * OCTAVE_SIZE;
@@ -23,12 +23,12 @@ const Keyboard = () => (
   <g>
     <defs>
       <pattern
-        width={SUB_QUARTER}
+        width={QUARTER}
         height={OCTAVE_HEIGHT}
         patternUnits="userSpaceOnUse"
         id="start_keys"
       >
-        <Keys width={QUARTER} />
+        <Keys width={BLOCK} />
       </pattern>
     </defs>
     <rect
@@ -68,17 +68,17 @@ const Grid = () => (
         <VerticalLine x={NOTE_SIZE} strength={0.1} />
       </pattern>
       <pattern
-        width={QUARTER}
+        width={BLOCK}
         height={OCTAVE_HEIGHT}
         patternUnits="userSpaceOnUse"
         id="key"
       >
-        <Keys width={QUARTER} opacity={0.07} />
-        <rect width={QUARTER} height={OCTAVE_HEIGHT} fill="url(#quart)" />
-        <VerticalLine x={SUB_QUARTER} strength={0.2} />
-        <VerticalLine x={SUB_QUARTER * 2} strength={0.4} />
-        <VerticalLine x={SUB_QUARTER * 3} strength={0.2} />
-        <VerticalLine x={QUARTER} strength={2} />
+        <Keys width={BLOCK} opacity={0.07} />
+        <rect width={BLOCK} height={OCTAVE_HEIGHT} fill="url(#quart)" />
+        <VerticalLine x={QUARTER} strength={0.2} />
+        <VerticalLine x={QUARTER * 2} strength={0.4} />
+        <VerticalLine x={QUARTER * 3} strength={0.2} />
+        <VerticalLine x={BLOCK} strength={2} />
       </pattern>
     </defs>
     <rect
@@ -100,8 +100,8 @@ const Background: React.FC<Props> = ({
   loop: [loopStart, loopEnd],
   width
 }) => {
-  const start = loopStart * SUB_QUARTER;
-  const size = (loopEnd - loopStart) * SUB_QUARTER;
+  const start = loopStart * QUARTER;
+  const size = (loopEnd - loopStart) * QUARTER;
 
   return (
     <>

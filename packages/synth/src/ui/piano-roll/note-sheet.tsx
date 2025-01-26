@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Point, SvgStage } from '@wdaw/svg';
-import { QUARTER, SUB_QUARTER, TIMELINE_HEIGHT } from '../common/defs';
+import { BLOCK, QUARTER } from '../common/defs';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
-import { KEYBOARD_WIDTH, STAGE_HEIGHT } from './utils';
+import { KEYBOARD_WIDTH, STAGE_HEIGHT, TIMELINE_HEIGHT } from './utils';
 import { Background } from './background';
 import { EditActionType } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
@@ -71,7 +71,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
           scale={dragging.onSelected('scale')}
         />
       </g>
-      <Timeline time={time} height={STAGE_HEIGHT} />
+      <Timeline time={time} height={TIMELINE_HEIGHT} />
       {dragging.area ? <SelectionArea area={dragging.area} /> : null}
     </g>
   );
@@ -79,7 +79,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
 
 const PianoRoll: React.FC<Props> = (props) => {
   const [track] = useTrack();
-  const width = KEYBOARD_WIDTH + track.midi.loop[1] * SUB_QUARTER + QUARTER * 2;
+  const width = KEYBOARD_WIDTH + track.midi.loop[1] * QUARTER + BLOCK * 2;
 
   const viewBox = [-KEYBOARD_WIDTH, -TIMELINE_HEIGHT, width, STAGE_HEIGHT].join(
     ' '
