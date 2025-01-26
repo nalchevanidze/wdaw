@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { StageContext, SvgStage } from '@wdaw/svg';
+import { StageContext } from '@wdaw/svg';
 import { Tapeline } from '../common/tapeline';
 import { ConfiguratorContext } from '../configurator';
-import { PANEL } from './defs';
 
 type Height = { height: number };
 
-const TimelineContent: React.FC<Height> = ({ height }) => {
+export const Timeline: React.FC<Height> = ({ height }) => {
   const getCoordinates = React.useContext(StageContext);
   const [_, dispatch] = React.useContext(ConfiguratorContext);
 
@@ -29,18 +28,3 @@ const TimelineContent: React.FC<Height> = ({ height }) => {
     </g>
   );
 };
-
-type Props = { width: number } & Height;
-
-const Timeline: React.FC<Props> = ({ width, height }) => (
-  <SvgStage
-    viewBox={[-PANEL, -height, width, height].join(' ')}
-    width={width}
-    height={height}
-    style={{ background: '#FFF', border: '1px solid #BBB', display: 'block' }}
-  >
-    <TimelineContent height={height} />
-  </SvgStage>
-);
-
-export { Timeline };

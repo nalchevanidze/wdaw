@@ -6,5 +6,6 @@ export const colors = {
   background: '#EEE',
   notes: '#5596a5',
   notesBackground: '#33c8d3',
-  black: '#1A1A1A'
+  black: '#1A1A1A',
+  critical: "red"
 } as const;
