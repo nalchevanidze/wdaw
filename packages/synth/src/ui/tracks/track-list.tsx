@@ -2,11 +2,13 @@ import * as React from 'react';
 import { ConfiguratorContext } from '../configurator';
 import { Track } from './track';
 import { Timeline } from './timeline';
-import { PANEL, TRACK_HEIGHT } from './defs';
+import { TRACK_HEIGHT } from './defs';
 import { NOTE, BLOCK } from '../common/units';
 import { SvgStage } from '@wdaw/svg';
 import { colors } from '../styles';
 import { Panel } from './panel';
+
+const PANEL = 64;
 
 export const TrackList: React.FC = () => {
   const [{ tracks, player }] = React.useContext(ConfiguratorContext);
@@ -30,14 +32,14 @@ export const TrackList: React.FC = () => {
 
           return (
             <>
-              <Panel active={i === tracks.currentTrack} name={name} id={0} width={0} y={0} />
-              <Track
-                key={i}
-                id={i}
-                midi={midi}
-                width={width}
+              <Panel
+                active={i === tracks.currentTrack}
+                name={name}
+                id={0}
+                width={PANEL}
                 y={y}
               />
+              <Track key={i} id={i} midi={midi} width={width} y={y} />
             </>
           );
         })}

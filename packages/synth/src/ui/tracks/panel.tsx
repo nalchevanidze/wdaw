@@ -1,24 +1,24 @@
 import * as React from 'react';
 import { colors } from '../styles';
-import { PANEL, TRACK_HEIGHT } from './defs';
+import {  TRACK_HEIGHT } from './defs';
 import { ConfiguratorContext } from '../configurator';
 
 type Props = {
   name: string;
   id: number;
   width: number;
-  active: boolean;
   y: number;
+  active: boolean;
 };
 
-export const Panel: React.FC<Props> = ({ name, id, active, y }) => {
+export const Panel: React.FC<Props> = ({ name, id, active, y, width }) => {
   const [_, dispatch] = React.useContext(ConfiguratorContext);
   const setTrack = () => dispatch({ type: 'SET_TRACK', payload: id });
 
   return (
     <>
       <text
-        x={8 - PANEL}
+        x={8 - width}
         y={y + 32}
         fill={active ? colors.notes : 'gray'}
         fontFamily="sanf-serif"
@@ -32,8 +32,8 @@ export const Panel: React.FC<Props> = ({ name, id, active, y }) => {
         fill="black"
         opacity={active ? 0.03 : 0.1}
         y={y}
-        x={-PANEL}
-        width={PANEL}
+        x={-width}
+        width={width}
         height={TRACK_HEIGHT}
         onClick={setTrack}
         style={{ border: 'none', cursor: 'pointer' }}
