@@ -33,7 +33,14 @@ export const Track: React.FC<Props> = ({ id, name, midi }) => {
       onMouseLeave={dragging.end}
       onMouseUp={dragging.end}
     >
-      <text x={5 - PANEL} y={y + 32} fill={active ? colors.notes : 'gray'}>
+      <text
+        x={8 - PANEL}
+        y={y + 32}
+        fill={active ? colors.notes : 'gray'}
+        fontFamily="sanf-serif"
+        textAnchor='center'
+        dominantBaseline="middle"
+      >
         {name}
       </text>
       <rect

@@ -1,1 +1,1 @@
-export const PANEL = 50 as const;
+export const PANEL = 64 as const;
