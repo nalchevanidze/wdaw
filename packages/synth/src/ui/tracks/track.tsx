@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const Track: React.FC<Props> = ({ id, midi, y, height }) => {
-  const { start, end, clear, move, scale } = useTrackEditor(midi, id);
+  const { start, end, clear, move, scale } = useTrackEditor(midi.start, midi.end, id);
 
   const dragging = useDragging({
     onMove: {
