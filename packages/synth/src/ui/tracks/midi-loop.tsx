@@ -62,7 +62,7 @@ const MidiLoop: React.FC<Props> = ({
           </g>
           <rect
             fill={colors.notesBackground}
-            opacity={0.3}
+            opacity={0.4}
             width="100%"
             height="100%"
           />
