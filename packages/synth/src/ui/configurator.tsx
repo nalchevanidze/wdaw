@@ -55,6 +55,11 @@ const dispatcher = (
         ...rest,
         midi: { ...midi, ...action.payload }
       }));
+    case 'SET_GAIN':
+      return mapTrack(action.id, state, (rest) => ({
+        ...rest,
+        gain: action.payload
+      }));
     case 'SET_ENVELOPE':
       return mapPreset(state, ({ envelopes }) => ({
         envelopes: {
@@ -97,6 +102,8 @@ const engineEffects = (
       return engine.setMidi(action.id, state.tracks.tracks[action.id].midi);
     case 'SET_TRACK':
       return engine.setTrack(action.payload);
+    case 'SET_GAIN':
+      return engine.setGain(action.id, action.payload);
     default:
       return;
   }
