@@ -4,7 +4,7 @@ import { BLOCK, NOTE, QUARTER } from '../common/units';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
 import { Grid } from './grid';
-import { EditActionType, Maybe, MHandler } from '../types';
+import { EditActionType, MHandler } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { useNoteEditor } from '../hooks/use-note-editor';
 import { useTime } from '../hooks/use-time';
@@ -14,7 +14,7 @@ import { UINote } from '../common/notes';
 import { Keyboard } from './keyboard';
 import { Loop } from './loop';
 import { OCTAVE_SIZE } from '../../utils/notes';
-import { LoopTarget, useLoop } from '../hooks/use-loop';
+import { LoopTarget, useLoop } from '../hooks/use-loop-editor';
 
 type Props = {
   actionType: EditActionType;
