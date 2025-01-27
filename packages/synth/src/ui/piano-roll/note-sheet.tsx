@@ -68,11 +68,11 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     onSelected: notes.track,
     onInactive: mouseDownInactive[actionType],
     onEnd: (mode) => {
-      if(loop.target){
+      if (loop.target) {
         return loop.endMove();
       }
 
-      return (mode !== 'select' ? notes.sync() : undefined)
+      return mode !== 'select' ? notes.sync() : undefined;
     }
   });
 
