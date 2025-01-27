@@ -76,7 +76,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
     }
   });
 
-  const startLoop =
+  const startLoopDragging =
     (target: LoopTarget): MHandler =>
     (e) => {
       loop.startMove(target);
@@ -119,8 +119,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       <Loop
         loop={loop.state}
         height={canvasHeight}
-        moveStart={startLoop('start')}
-        moveEnd={startLoop('end')}
+        moveStart={startLoopDragging('start')}
+        moveEnd={startLoopDragging('end')}
       />
       {dragging.area ? <SelectionArea area={dragging.area} /> : null}
     </g>
