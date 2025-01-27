@@ -60,7 +60,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       move: (area) => {
         if (!area) return;
 
-        loop.target ? loop.move(area) : notes.move(area);
+        return loop.target ? loop.move(area) : notes.move(area);
       },
       scale: (area) => (area ? notes.scale(area) : undefined)
     },
