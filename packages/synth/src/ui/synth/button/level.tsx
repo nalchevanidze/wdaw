@@ -1,17 +1,7 @@
 import * as React from 'react';
-import lib from './icons';
 import { StageContext, SvgStage } from '@wdaw/svg';
 import { intRange, unitInterval, Range } from '../../../utils/math';
 import { MHandler } from '../../types';
-
-const styles = {
-  p: {
-    width: '100%',
-    textAlign: 'center',
-    margin: '0',
-    userSelect: 'none'
-  }
-} as const;
 
 const dashes = (steps: number) =>
   [1, (45 * 2 * Math.PI) / steps - 1].toString();
@@ -19,12 +9,20 @@ const dashes = (steps: number) =>
 const roundLevel = (level: number, range?: Range) =>
   range ? (level - range[0]) / (range[1] - range[0]) : level;
 
-const Level: React.FC<WaveButtonProps> = ({
-  onChange,
+export type Props = {
+  value: number;
+  color: string;
+  steps?: number;
+  range?: Range;
+  onChange?(v: number): void;
+};
+
+export const Level: React.FC<Props> = ({
   value,
-  steps = 16,
   color,
-  range
+  steps = 16,
+  range,
+  onChange
 }) => {
   const [listen, setListen] = React.useState(false);
   const getCoordinates = React.useContext(StageContext);
@@ -73,60 +71,3 @@ const Level: React.FC<WaveButtonProps> = ({
     </>
   );
 };
-
-type WaveButtonProps = {
-  id: string;
-  value: number;
-  color: string;
-  steps?: number;
-  range?: Range;
-  onChange?(v: number): void;
-};
-
-const WaveButton: React.FC<WaveButtonProps> = ({
-  id,
-  range,
-  color,
-  value,
-  steps,
-  onChange
-}) => (
-  <div>
-    <SvgStage
-      viewBox="0 0 100 100"
-      width="50px"
-      height="50px"
-      style={{
-        margin: '5px',
-        flexShrink: 0,
-        cursor: 'grab'
-      }}
-    >
-      {range ? (
-        <text
-          x="50"
-          y="65"
-          fontSize="40px"
-          textAnchor="middle"
-          fill={color}
-          style={{ userSelect: 'none' }}
-        >
-          {value}
-        </text>
-      ) : (
-        <path fill="none" d={lib[id]} strokeWidth={2} stroke={color} />
-      )}
-      <Level
-        range={range}
-        onChange={onChange}
-        id={id}
-        value={value}
-        steps={steps}
-        color={color}
-      />
-    </SvgStage>
-    <p style={{ ...styles.p, color }}>{id}</p>
-  </div>
-);
-
-export { WaveButtonProps, WaveButton };

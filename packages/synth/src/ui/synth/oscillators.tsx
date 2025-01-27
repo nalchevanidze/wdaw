@@ -4,7 +4,7 @@ import { ConfiguratorContext, usePreset } from '../configurator';
 import { Grid } from '../utils/grid-line';
 import { Panel } from './panel';
 import PanelPresets from './presets';
-import { WaveButton, WaveButtonProps } from './wave-button';
+import { WaveButton, WaveButtonProps } from './button';
 import { FILTER_ID, WAVE_ID } from '../../engine';
 
 const styles = {
