@@ -16,6 +16,8 @@ export type Props = {
   range?: Range;
   onChange?(v: number): void;
   size?: number;
+  x?: number,
+  y?: number
 };
 
 export const Level: React.FC<Props> = ({
@@ -24,7 +26,9 @@ export const Level: React.FC<Props> = ({
   steps = 16,
   range,
   size = 50,
-  onChange
+  onChange,
+  x = 0,
+  y = 0
 }) => {
   const [listen, setListen] = React.useState(false);
   const getCoordinates = React.useContext(StageContext);
@@ -38,8 +42,8 @@ export const Level: React.FC<Props> = ({
     onChange(range ? intRange(value, range) : value);
   };
 
-  const cx = size;
-  const cy = size;
+  const cx = size + x;
+  const cy = size + y;
   const stroke = size * 0.2;
   const innerSize = size - stroke / 2;
   const offset = size * 5.7

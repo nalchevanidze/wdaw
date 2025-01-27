@@ -42,6 +42,8 @@ export const Panel: React.FC<Props> = ({
         value={0.5}
         color={colors.black}
         size={20}
+        y={y + height/6}
+        x={-width/2.5}
       />
       <rect
         fill="black"
