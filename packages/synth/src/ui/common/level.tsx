@@ -19,6 +19,7 @@ export type Props = {
   x?: number;
   y?: number;
   stepOpacity?: number
+  bold?: number
 };
 
 export const Level: React.FC<Props> = ({
@@ -30,6 +31,7 @@ export const Level: React.FC<Props> = ({
   onChange,
   x = 0,
   y = 0,
+  bold = 0.2,
   stepOpacity = 0.5
 }) => {
   const [listen, setListen] = React.useState(false);
@@ -47,7 +49,7 @@ export const Level: React.FC<Props> = ({
 
   const cx = size + x;
   const cy = size + y;
-  const stroke = size * 0.2;
+  const stroke = size * bold;
   const innerSize = size - stroke / 2;
   const offset = size * 5.7;
 

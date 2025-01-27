@@ -60,6 +60,7 @@ export const Panel: React.FC<Props> = ({
         y={y + height / 6}
         x={-width / 2.5}
         stepOpacity={0.2}
+        bold={0.1}
       />
     </>
   );
