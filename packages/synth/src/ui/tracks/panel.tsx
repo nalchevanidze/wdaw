@@ -20,8 +20,13 @@ export const Panel: React.FC<Props> = ({
   width,
   height
 }) => {
-  const [_, dispatch] = React.useContext(ConfiguratorContext);
+  const [{ tracks }, dispatch] = React.useContext(ConfiguratorContext);
   const setTrack = () => dispatch({ type: 'SET_TRACK', payload: id });
+
+  const setGain = (payload: number) =>
+    dispatch({ type: 'SET_GAIN', id, payload });
+
+  const gain = tracks.tracks[id].gain;
 
   return (
     <>
@@ -36,15 +41,6 @@ export const Panel: React.FC<Props> = ({
       >
         {name}
       </text>
-      <Level
-        range={[0, 1]}
-        onChange={console.log}
-        value={0.5}
-        color={colors.black}
-        size={20}
-        y={y + height/6}
-        x={-width/2.5}
-      />
       <rect
         fill="black"
         opacity={active ? 0.03 : 0.1}
@@ -54,6 +50,15 @@ export const Panel: React.FC<Props> = ({
         height={height}
         onClick={setTrack}
         style={{ border: 'none', cursor: 'pointer' }}
+      />
+      <Level
+        range={[0, 1]}
+        onChange={setGain}
+        value={gain}
+        color={colors.black}
+        size={20}
+        y={y + height / 6}
+        x={-width / 2.5}
       />
     </>
   );

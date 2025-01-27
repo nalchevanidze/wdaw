@@ -29,6 +29,12 @@ export type SET_MIDI = {
   id: number;
 };
 
+export type SET_GAIN = {
+  type: 'SET_GAIN';
+  payload: number;
+  id: number;
+};
+
 export type SET_ENVELOPE = {
   type: 'SET_ENVELOPE';
   id: ENVELOPE_ID;
@@ -77,7 +83,9 @@ export type EngineAction =
   | SET_FILTER
   | SET_PRESET
   | SET_TRACK
-  | REFRESH;
+  | REFRESH
+  | SET_GAIN
+  ;
 
 export type NoteAction = {
   start?: number[];
