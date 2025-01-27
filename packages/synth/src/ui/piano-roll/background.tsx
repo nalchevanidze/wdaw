@@ -3,6 +3,7 @@ import { colors } from '../styles';
 import { CANVAS_HEIGHT } from './utils';
 import { NOTE, BLOCK, QUARTER } from '../common/units';
 import { OCTAVE_SIZE } from '../../utils/notes';
+import { Loop } from './loop';
 
 const OCTAVE_HEIGHT = NOTE * OCTAVE_SIZE;
 
@@ -98,49 +99,21 @@ type Props = Pick<React.SVGProps<SVGRectElement>, 'onMouseDown'> & {
 
 const Background: React.FC<Props> = ({
   onMouseDown,
-  loop: [loopStart, loopEnd],
+  loop,
   width,
   keyboardWidth
-}) => {
-  const start = loopStart * QUARTER;
-  const size = (loopEnd - loopStart) * QUARTER;
-
-  return (
-    <>
-      <Grid />
-      <Keyboard width={keyboardWidth} />
-      <rect
-        fillOpacity={0.5}
-        x={start}
-        width={size}
-        height={4}
-        onMouseDown={onMouseDown}
-        fill="red"
-      />
-      <rect
-        fillOpacity={0.3}
-        x={start + size}
-        width={1}
-        height={CANVAS_HEIGHT}
-        onMouseDown={onMouseDown}
-        fill="red"
-      />
-      <rect
-        fillOpacity={0.3}
-        x={start}
-        width={1}
-        height={CANVAS_HEIGHT}
-        onMouseDown={onMouseDown}
-        fill="red"
-      />
-      <rect
-        fillOpacity={0}
-        width={width}
-        height={CANVAS_HEIGHT}
-        onMouseDown={onMouseDown}
-      />
-    </>
-  );
-};
+}) => (
+  <>
+    <Grid />
+    <Keyboard width={keyboardWidth} />
+    <rect
+      fillOpacity={0}
+      width={width}
+      height={CANVAS_HEIGHT}
+      onMouseDown={onMouseDown}
+    />
+    <Loop loop={loop} />
+  </>
+);
 
 export { Background };
