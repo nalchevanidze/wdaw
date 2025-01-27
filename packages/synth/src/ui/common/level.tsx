@@ -3,8 +3,8 @@ import { StageContext } from '@wdaw/svg';
 import { intRange, unitInterval, Range } from '../../utils/math';
 import { MHandler } from '../types';
 
-const dashes = (steps: number) =>
-  [1, (45 * 2 * Math.PI) / steps - 1].toString();
+const dashes = (size: number, steps: number) =>
+  [1, (size * 2 * Math.PI) / steps - 1].toString();
 
 const roundLevel = (level: number, range?: Range) =>
   range ? (level - range[0]) / (range[1] - range[0]) : level;
@@ -52,7 +52,7 @@ export const Level: React.FC<Props> = ({
           cx={cx}
           cy={cy}
           r={innerSize}
-          strokeDasharray={dashes(steps)}
+          strokeDasharray={dashes(innerSize,steps)}
           opacity={0.5}
         />
         <circle strokeWidth={1} cx={cx} cy={cy} r={size} strokeOpacity={0.1} />
