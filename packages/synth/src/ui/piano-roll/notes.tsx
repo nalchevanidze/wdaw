@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { colors } from '../styles';
-import { CANVAS_HEIGHT } from './utils';
 import { NOTE, STEP } from '../common/units';
 import { UINote } from '../common/notes';
 
@@ -12,6 +11,7 @@ type Props = {
   ): void;
   scale?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
   color?: string;
+  height: number;
 };
 
 const scaleWidth = 4;
@@ -20,13 +20,14 @@ const Notes: React.FC<Props> = ({
   notes,
   color = colors.notes,
   mouseDown,
-  scale
+  scale,
+  height
 }) => (
   <g fill={color}>
     {notes.map((note, noteIndex) => {
       const start = note.at * STEP;
       const width = note.length * STEP;
-      const y = CANVAS_HEIGHT - note.positionY * NOTE;
+      const y = height - note.positionY * NOTE;
 
       return (
         <g key={noteIndex}>

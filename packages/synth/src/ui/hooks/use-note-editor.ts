@@ -15,7 +15,7 @@ import { useOnDelete } from '../utils';
 import { addTracking, dropTracking } from '../utils/tracking';
 import { deepen, flatten } from '../common/midi';
 
-export const useNoteEditor = () => {
+export const useNoteEditor = (height: number) => {
   const [
     {
       tracks: { currentTrack, tracks }
@@ -66,7 +66,7 @@ export const useNoteEditor = () => {
 
   const addAt = (point: Point) =>
     update({
-      selected: [genNoteAt(point)].map(addTracking),
+      selected: [genNoteAt(height, point)].map(addTracking),
       inactive: allNotes.map(dropTracking)
     });
 
@@ -76,7 +76,7 @@ export const useNoteEditor = () => {
       inactive: notes.inactive
     });
 
-  const selectIn = (area?: Area) => update(selectNotesIn(notes, area));
+  const selectIn = (area?: Area) => update(selectNotesIn(height, notes, area));
 
   const removeSelected = () =>
     update({ selected: [], inactive: notes.inactive });

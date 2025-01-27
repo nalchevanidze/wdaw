@@ -3,7 +3,6 @@ import { Point, SvgStage } from '@wdaw/svg';
 import { BLOCK, NOTE, QUARTER } from '../common/units';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
-import { CANVAS_HEIGHT } from './utils';
 import { Grid } from './grid';
 import { EditActionType } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
@@ -20,15 +19,16 @@ type Props = {
   actionType: EditActionType;
 };
 
-export const timelineHeight = 16;
-const keyboardWidth = 20;
-const stageHeight = timelineHeight + CANVAS_HEIGHT;
-const ocatveHeight = NOTE * OCTAVE_SIZE;
 const octaveCount = 4;
+const timelineHeight = 16;
+const keyboardWidth = 20;
+const ocatveHeight = NOTE * OCTAVE_SIZE;
+const canvasHeight = ocatveHeight * octaveCount;
+const stageHeight = timelineHeight + canvasHeight;
 
 const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const { time, loop, end } = useTime();
-  const notes = useNoteEditor();
+  const notes = useNoteEditor(canvasHeight);
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
     draw: (point) => {
@@ -71,16 +71,25 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       onMouseUp={dragging.end}
     >
       <Grid ocatveHeight={ocatveHeight} count={octaveCount} />
-      <Keyboard width={keyboardWidth} ocatveHeight={ocatveHeight} count={octaveCount} />
+      <Keyboard
+        width={keyboardWidth}
+        ocatveHeight={ocatveHeight}
+        count={octaveCount}
+      />
       <rect
         fillOpacity={0}
         width={end}
-        height={CANVAS_HEIGHT}
+        height={canvasHeight}
         onMouseDown={dragging.onBackground}
       />
       <g>
-        <Notes notes={notes.inactive} mouseDown={dragging.onInactive} />
         <Notes
+          height={canvasHeight}
+          notes={notes.inactive}
+          mouseDown={dragging.onInactive}
+        />
+        <Notes
+          height={canvasHeight}
           notes={notes.selected}
           color="#03A9F4"
           mouseDown={dragging.onSelected('move')}
@@ -88,7 +97,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         />
       </g>
       <Timeline time={time} timeline={timelineHeight} height={stageHeight} />
-      <Loop loop={loop} height={CANVAS_HEIGHT} />
+      <Loop loop={loop} height={canvasHeight} />
       {dragging.area ? <SelectionArea area={dragging.area} /> : null}
     </g>
   );

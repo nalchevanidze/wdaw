@@ -1,6 +1,5 @@
 import { Point } from '@wdaw/svg';
 import { distanceX, distanceY } from '../utils/area';
-import { CANVAS_HEIGHT } from '../piano-roll/utils';
 import { Area } from '../types';
 import { NOTE, STEP } from './units';
 import { addTracking, Tracked } from '../utils/tracking';
@@ -47,13 +46,14 @@ export const scaleNotes = (
   );
 };
 
-export const genNoteAt = ({ x, y }: Point): UINote => {
-  const positionY = Math.floor(1 + (CANVAS_HEIGHT - y) / NOTE);
+export const genNoteAt = (stageHeight: number, { x, y }: Point): UINote => {
+  const positionY = Math.floor(1 + (stageHeight - y) / NOTE);
   const at = Math.floor(x / STEP);
   return { length: STEP, positionY, at };
 };
 
 export const isInArea = (
+  stageHeight: number,
   [start, end]: Area,
   { at, positionY, length }: UINote
 ): boolean => {
@@ -67,7 +67,7 @@ export const isInArea = (
     (minX > startX && maxX < endX);
   const minY = Math.min(start.y, end.y);
   const maxY = Math.max(start.y, end.y);
-  const y = CANVAS_HEIGHT - NOTE * positionY;
+  const y = stageHeight - NOTE * positionY;
   const yIsInArea = minY < y && maxY > y;
   return xIsInArea && yIsInArea;
 };
@@ -87,9 +87,10 @@ const clusterArray = <T extends object>(
 };
 
 export const selectNotesIn = (
+  stageHeight: number,
   { selected, inactive }: Selected<UINote>,
   zone?: Area
 ) =>
   clusterArray([...selected, ...inactive], (note) =>
-    zone ? isInArea(zone, note) : false
+    zone ? isInArea(stageHeight, zone, note) : false
   );
