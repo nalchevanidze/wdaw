@@ -77,7 +77,6 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         height={CANVAS_HEIGHT}
         onMouseDown={dragging.onBackground}
       />
-      <Loop loop={loop} />
       <g>
         <Notes notes={notes.inactive} mouseDown={dragging.onInactive} />
         <Notes
@@ -87,6 +86,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
           scale={dragging.onSelected('scale')}
         />
       </g>
+      <Loop loop={loop} />
       <Timeline time={time} timeline={timelineHeight} height={stageHeight} />
       {dragging.area ? <SelectionArea area={dragging.area} /> : null}
     </g>
