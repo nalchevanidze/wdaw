@@ -4,6 +4,7 @@ import { Midi } from '../../engine';
 import { NOTE } from '../common/units';
 import { UINote } from '../common/notes';
 import { flatten } from '../common/midi';
+import { MEvent } from '../types';
 
 type Props = {
   start: number;
@@ -11,9 +12,9 @@ type Props = {
   trackId: string;
   midi: Midi;
   y: number;
-  height: number,
-  startMove?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
-  startScale?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
+  height: number;
+  startMove?(event: MEvent): void;
+  startScale?(event: MEvent): void;
 };
 
 const MidiLoop: React.FC<Props> = ({

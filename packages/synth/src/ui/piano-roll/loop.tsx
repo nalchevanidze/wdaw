@@ -4,7 +4,9 @@ import { QUARTER } from '../common/units';
 
 type Props = {
   loop: [number, number];
-  height: number
+  height: number,
+  moveStart: ()=> void
+  moveEnd: ()=> void
 };
 
 export const Loop: React.FC<Props> = ({ loop: [loopStart, loopEnd], height }) => {

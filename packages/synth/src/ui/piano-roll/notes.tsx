@@ -2,14 +2,12 @@ import * as React from 'react';
 import { colors } from '../styles';
 import { NOTE, STEP } from '../common/units';
 import { UINote } from '../common/notes';
+import { MEvent } from '../types';
 
 type Props = {
   notes: UINote[];
-  mouseDown?(
-    event: React.MouseEvent<SVGGElement, MouseEvent>,
-    note?: UINote
-  ): void;
-  scale?(event: React.MouseEvent<SVGGElement, MouseEvent>): void;
+  mouseDown?(event: MEvent, note?: UINote): void;
+  scale?(event: MEvent): void;
   color?: string;
   height: number;
 };

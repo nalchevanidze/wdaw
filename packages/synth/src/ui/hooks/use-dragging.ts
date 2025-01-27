@@ -1,11 +1,8 @@
 import { Point, StageContext } from '@wdaw/svg';
 import * as React from 'react';
-import { Area, Maybe } from '../types';
+import { Area, Maybe, MEvent, MHandler } from '../types';
 
 export type MODE = 'scale' | 'move' | 'select';
-
-export type MEvent = React.MouseEvent<SVGGElement, MouseEvent>;
-export type MHandler = React.MouseEventHandler<SVGGElement>;
 
 type OnBackgroundHandler = (p: Point) => Maybe<MODE>;
 type onInactiveHandler<T> = (p: T) => Maybe<MODE>;
@@ -62,7 +59,8 @@ export const useDragging = <T>(ops: Optins<T>) => {
   };
 
   const onSelected =
-    (name: MODE) => (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
+    (name: MODE): MHandler =>
+    (e) => {
       start(name, e);
       ops.onSelected?.();
     };

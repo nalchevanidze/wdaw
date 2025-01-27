@@ -2,6 +2,7 @@ import * as React from 'react';
 import lib from './icons';
 import { StageContext, SvgStage } from '@wdaw/svg';
 import { intRange, unitInterval, Range } from '../../../utils/math';
+import { MHandler } from '../../types';
 
 const styles = {
   p: {
@@ -31,7 +32,7 @@ const Level: React.FC<WaveButtonProps> = ({
   const mouseDown = () => setListen(true);
   const mouseUp = () => setListen(false);
 
-  const onMove = (e: React.MouseEvent<SVGGElement, MouseEvent>): void => {
+  const onMove: MHandler = (e) => {
     if (!listen || !onChange) return;
     const value = 1 - unitInterval((getCoordinates(e).y - 5) / 80);
     onChange(range ? intRange(value, range) : value);
