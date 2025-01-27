@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { StageContext, SvgStage } from '@wdaw/svg';
-import { intRange, unitInterval, Range } from '../../../utils/math';
-import { MHandler } from '../../types';
+import { StageContext } from '@wdaw/svg';
+import { intRange, unitInterval, Range } from '../../utils/math';
+import { MHandler } from '../types';
 
 const dashes = (steps: number) =>
   [1, (45 * 2 * Math.PI) / steps - 1].toString();
