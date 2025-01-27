@@ -24,6 +24,7 @@ export const timelineHeight = 16;
 const keyboardWidth = 20;
 const stageHeight = timelineHeight + CANVAS_HEIGHT;
 const ocatveHeight = NOTE * OCTAVE_SIZE;
+const octaveCount = 4;
 
 const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const { time, loop, end } = useTime();
@@ -69,8 +70,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       onMouseLeave={dragging.end}
       onMouseUp={dragging.end}
     >
-      <Grid height={ocatveHeight} />
-      <Keyboard width={keyboardWidth} height={ocatveHeight} count={4} />
+      <Grid ocatveHeight={ocatveHeight} count={octaveCount} />
+      <Keyboard width={keyboardWidth} ocatveHeight={ocatveHeight} count={octaveCount} />
       <rect
         fillOpacity={0}
         width={end}
@@ -87,7 +88,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         />
       </g>
       <Timeline time={time} timeline={timelineHeight} height={stageHeight} />
-      <Loop loop={loop} height={CANVAS_HEIGHT}/>
+      <Loop loop={loop} height={CANVAS_HEIGHT} />
       {dragging.area ? <SelectionArea area={dragging.area} /> : null}
     </g>
   );

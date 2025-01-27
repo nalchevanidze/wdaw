@@ -16,14 +16,14 @@ export const Keys: React.FC<KeysProps> = ({ width, opacity = 1 }) => (
   </g>
 );
 
-type Props = { width: number; height: number; count: number };
+type Props = { width: number; ocatveHeight: number; count: number };
 
-export const Keyboard: React.FC<Props> = ({ width, height, count = 4 }) => (
+export const Keyboard: React.FC<Props> = ({ width, ocatveHeight, count = 4 }) => (
   <g>
     <defs>
       <pattern
         width={QUARTER}
-        height={height}
+        height={ocatveHeight}
         patternUnits="userSpaceOnUse"
         id="start_keys"
       >
@@ -33,7 +33,7 @@ export const Keyboard: React.FC<Props> = ({ width, height, count = 4 }) => (
     <rect
       x={-width}
       width={width}
-      height={height * count}
+      height={ocatveHeight * count}
       fill="url(#start_keys)"
       stroke={colors.black}
     />
