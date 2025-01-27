@@ -87,7 +87,7 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
         />
       </g>
       <Timeline time={time} timeline={timelineHeight} height={stageHeight} />
-      <Loop loop={loop} />
+      <Loop loop={loop} height={CANVAS_HEIGHT}/>
       {dragging.area ? <SelectionArea area={dragging.area} /> : null}
     </g>
   );

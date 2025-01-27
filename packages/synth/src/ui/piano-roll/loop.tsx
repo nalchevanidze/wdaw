@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { colors } from '../styles';
-import { CANVAS_HEIGHT } from './utils';
 import { QUARTER } from '../common/units';
 
 type Props = {
   loop: [number, number];
+  height: number
 };
 
-export const Loop: React.FC<Props> = ({ loop: [loopStart, loopEnd] }) => {
+export const Loop: React.FC<Props> = ({ loop: [loopStart, loopEnd], height }) => {
   const start = loopStart * QUARTER;
   const end = start + (loopEnd - loopStart) * QUARTER;
 
@@ -41,14 +41,14 @@ export const Loop: React.FC<Props> = ({ loop: [loopStart, loopEnd] }) => {
         x1={end}
         y1={0}
         x2={end}
-        y2={CANVAS_HEIGHT}
+        y2={height}
         stroke={colors.critical}
       />
       <line
         x1={start}
         y1={0}
         x2={start}
-        y2={CANVAS_HEIGHT}
+        y2={height}
         stroke={colors.critical}
       />
     </>
