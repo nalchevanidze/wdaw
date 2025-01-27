@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Point, SvgStage } from '@wdaw/svg';
-import { BLOCK, QUARTER } from '../common/units';
+import { BLOCK, NOTE, QUARTER } from '../common/units';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
 import { CANVAS_HEIGHT } from './utils';
-import { Background } from './background';
+import { Grid } from './grid';
 import { EditActionType } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { useNoteEditor } from '../hooks/use-note-editor';
@@ -12,6 +12,9 @@ import { useTime } from '../hooks/use-time';
 import { SelectionArea } from './selection-area';
 import { useTrack } from '../configurator';
 import { UINote } from '../common/notes';
+import { Keyboard } from './keyboard';
+import { Loop } from './loop';
+import { OCTAVE_SIZE } from '../../utils/notes';
 
 type Props = {
   actionType: EditActionType;
@@ -20,6 +23,7 @@ type Props = {
 export const timelineHeight = 16;
 const keyboardWidth = 20;
 const stageHeight = timelineHeight + CANVAS_HEIGHT;
+const ocatveHeight = NOTE * OCTAVE_SIZE;
 
 const NoteSheet: React.FC<Props> = ({ actionType }) => {
   const { time, loop, end } = useTime();
@@ -65,12 +69,15 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
       onMouseLeave={dragging.end}
       onMouseUp={dragging.end}
     >
-      <Background
-        onMouseDown={dragging.onBackground}
-        loop={loop}
+      <Grid height={ocatveHeight} />
+      <Keyboard width={keyboardWidth} height={ocatveHeight} count={4} />
+      <rect
+        fillOpacity={0}
         width={end}
-        keyboardWidth={keyboardWidth}
+        height={CANVAS_HEIGHT}
+        onMouseDown={dragging.onBackground}
       />
+      <Loop loop={loop} />
       <g>
         <Notes notes={notes.inactive} mouseDown={dragging.onInactive} />
         <Notes
