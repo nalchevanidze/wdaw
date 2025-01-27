@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTrack } from '../configurator';
 import { Area, Maybe } from '../types';
 import { distanceX } from '../utils/area';
-import { BLOCK, NOTE, QUARTER, STEP } from '../common/units';
+import { QUARTER } from '../common/units';
 
 export type LoopTarget = 'start' | 'end';
 
@@ -12,6 +12,10 @@ export const useLoop = () => {
   const [origin, setOrigin] = React.useState<Maybe<number>>(undefined);
   const [target, setTarget] = React.useState<Maybe<LoopTarget>>(undefined);
   const [state, setLoop] = React.useState(midi.loop);
+
+  React.useEffect(() => {
+    setLoop(midi.loop)
+  }, [midi.loop]);
 
   const [start, end] = state;
 
@@ -28,7 +32,7 @@ export const useLoop = () => {
   const move = (area: Area) => {
     const time = distanceX(area, QUARTER);
 
-    console.log(origin, time)
+    console.log(origin, time);
     if (origin === undefined) return;
 
     const [start, end] = state;
