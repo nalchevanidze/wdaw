@@ -9,44 +9,47 @@ type Props = {
 
 export const Loop: React.FC<Props> = ({ loop: [loopStart, loopEnd] }) => {
   const start = loopStart * QUARTER;
-  const end = (loopEnd - loopStart) * QUARTER;
+  const end = start + (loopEnd - loopStart) * QUARTER;
 
-  const lineSize = 1;
   const width = 8;
   const up = 16;
 
   return (
     <>
-      <rect x={start} width={end} height={lineSize} fill={colors.critical} />
+      <line x1={start} y1={0} x2={end} y2={0} stroke={colors.critical} />
       <rect
-        fillOpacity={0.6}
+        fillOpacity={0.4}
         y={-up}
-        x={start}
+        height={up}
+        x={start- width/2}
         width={width}
-        height={lineSize + up}
         fill={colors.critical}
+        stroke={colors.critical}
+        strokeWidth={0.4}
       />
       <rect
-        fillOpacity={0.6}
+        fillOpacity={0.4}
         y={-up}
-        x={end - width + lineSize}
+        height={up}
+        x={end - width/2}
         width={width}
-        height={lineSize + up}
         fill={colors.critical}
+        stroke={colors.critical}
+        strokeWidth={0.4}
       />
-      <rect
-        fillOpacity={0.3}
-        x={start + end}
-        width={1}
-        height={CANVAS_HEIGHT}
-        fill={colors.critical}
+      <line
+        x1={end}
+        y1={0}
+        x2={end}
+        y2={CANVAS_HEIGHT}
+        stroke={colors.critical}
       />
-      <rect
-        fillOpacity={0.3}
-        x={start}
-        width={lineSize}
-        height={CANVAS_HEIGHT}
-        fill={colors.critical}
+      <line
+        x1={start}
+        y1={0}
+        x2={start}
+        y2={CANVAS_HEIGHT}
+        stroke={colors.critical}
       />
     </>
   );
