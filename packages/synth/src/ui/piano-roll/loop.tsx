@@ -16,7 +16,8 @@ const up = 16;
 export const Loop: React.FC<Props> = ({
   loop: [loopStart, loopEnd],
   height,
-  moveStart
+  moveStart,
+  moveEnd
 }) => {
   const start = loopStart * QUARTER;
   const end = start + (loopEnd - loopStart) * QUARTER;
@@ -44,6 +45,7 @@ export const Loop: React.FC<Props> = ({
         fill={colors.critical}
         stroke={colors.critical}
         strokeWidth={0.4}
+        onMouseDown={moveEnd}
       />
       <line x1={end} y1={0} x2={end} y2={height} stroke={colors.critical} />
       <line x1={start} y1={0} x2={start} y2={height} stroke={colors.critical} />
