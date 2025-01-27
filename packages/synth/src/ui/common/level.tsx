@@ -15,6 +15,7 @@ export type Props = {
   steps?: number;
   range?: Range;
   onChange?(v: number): void;
+  size?: number;
 };
 
 export const Level: React.FC<Props> = ({
@@ -22,6 +23,7 @@ export const Level: React.FC<Props> = ({
   color,
   steps = 16,
   range,
+  size = 50,
   onChange
 }) => {
   const [listen, setListen] = React.useState(false);
@@ -36,32 +38,38 @@ export const Level: React.FC<Props> = ({
     onChange(range ? intRange(value, range) : value);
   };
 
+  const cx = size;
+  const cy = size;
+  const stroke = size * 0.2;
+  const innerSize = size - stroke / 2;
+  const offset = size * 5.7
+
   return (
     <>
       <g fill="none" stroke={color}>
         <circle
-          strokeWidth={10}
-          cx={50}
-          cy={50}
-          r={45}
+          strokeWidth={stroke}
+          cx={cx}
+          cy={cy}
+          r={innerSize}
           strokeDasharray={dashes(steps)}
           opacity={0.5}
         />
-        <circle strokeWidth={1} cx={50} cy={50} r={50} strokeOpacity={0.1} />
+        <circle strokeWidth={1} cx={cx} cy={cy} r={size} strokeOpacity={0.1} />
         <circle
-          strokeWidth={10}
+          strokeWidth={stroke}
           strokeOpacity={0.2}
-          cx={50}
-          cy={50}
-          r={45}
-          strokeDasharray={285}
-          strokeDashoffset={285 * (1 - roundLevel(value, range))}
+          cx={cx}
+          cy={cy}
+          r={innerSize}
+          strokeDasharray={offset}
+          strokeDashoffset={offset * (1 - roundLevel(value, range))}
         />
       </g>
       <circle
-        cx={50}
-        cy={50}
-        r={50}
+        cx={cx}
+        cy={cy}
+        r={size}
         fillOpacity={0}
         onMouseLeave={mouseUp}
         onMouseUp={mouseUp}

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { colors } from '../styles';
 import { ConfiguratorContext } from '../configurator';
+import { Level } from '../common/level';
 
 type Props = {
   name: string;
@@ -35,6 +36,13 @@ export const Panel: React.FC<Props> = ({
       >
         {name}
       </text>
+      <Level
+        range={[0, 1]}
+        onChange={console.log}
+        value={0.5}
+        color={colors.black}
+        size={20}
+      />
       <rect
         fill="black"
         opacity={active ? 0.03 : 0.1}
