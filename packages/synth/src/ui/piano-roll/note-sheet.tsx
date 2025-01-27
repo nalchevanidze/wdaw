@@ -86,8 +86,8 @@ const NoteSheet: React.FC<Props> = ({ actionType }) => {
           scale={dragging.onSelected('scale')}
         />
       </g>
-      <Loop loop={loop} />
       <Timeline time={time} timeline={timelineHeight} height={stageHeight} />
+      <Loop loop={loop} />
       {dragging.area ? <SelectionArea area={dragging.area} /> : null}
     </g>
   );
