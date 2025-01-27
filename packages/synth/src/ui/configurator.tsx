@@ -125,7 +125,10 @@ export const ConfiguratorContext = createContext<ConfiguratorAPI>([
   () => undefined
 ]);
 
-export const useTrack = (): [TrackState, React.Dispatch<EngineAction>] => {
+export const useTrack = (): [
+  TrackState & { id: number },
+  React.Dispatch<EngineAction>
+] => {
   const [
     {
       tracks: { currentTrack, tracks }
@@ -134,7 +137,7 @@ export const useTrack = (): [TrackState, React.Dispatch<EngineAction>] => {
   ] = React.useContext(ConfiguratorContext);
 
   const track = tracks[currentTrack];
-  return [track, dispatch];
+  return [{ id: currentTrack, ...track }, dispatch];
 };
 
 export const usePreset = (): [NamedPreset, React.Dispatch<EngineAction>] => {

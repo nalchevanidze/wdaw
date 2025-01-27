@@ -7,15 +7,18 @@ import { QUARTER } from '../common/units';
 export type LoopTarget = 'start' | 'end';
 
 export const useLoop = () => {
-  const [{ midi }] = useTrack();
+  const [{ id, midi }, dispatch] = useTrack();
 
   const [origin, setOrigin] = React.useState<Maybe<number>>(undefined);
   const [target, setTarget] = React.useState<Maybe<LoopTarget>>(undefined);
   const [state, setLoop] = React.useState(midi.loop);
 
   React.useEffect(() => {
-    setLoop(midi.loop)
+    setLoop(midi.loop);
   }, [midi.loop]);
+
+  const sync = () =>
+    dispatch({ id, type: 'SET_MIDI', payload: { loop: state } });
 
   const [start, end] = state;
 
@@ -27,6 +30,7 @@ export const useLoop = () => {
   const endMove = () => {
     setOrigin(undefined);
     setTarget(undefined);
+    sync()
   };
 
   const move = (area: Area) => {
