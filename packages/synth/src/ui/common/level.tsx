@@ -16,8 +16,9 @@ export type Props = {
   range?: Range;
   onChange?(v: number): void;
   size?: number;
-  x?: number,
-  y?: number
+  x?: number;
+  y?: number;
+  stepOpacity?: number
 };
 
 export const Level: React.FC<Props> = ({
@@ -28,7 +29,8 @@ export const Level: React.FC<Props> = ({
   size = 50,
   onChange,
   x = 0,
-  y = 0
+  y = 0,
+  stepOpacity = 0.5
 }) => {
   const [listen, setListen] = React.useState(false);
   const getCoordinates = React.useContext(StageContext);
@@ -38,7 +40,8 @@ export const Level: React.FC<Props> = ({
 
   const onMove: MHandler = (e) => {
     if (!listen || !onChange) return;
-    const value = 1 - unitInterval((getCoordinates(e).y - 5) / 80);
+    const diff = (getCoordinates(e).y - y - size/2) / size;
+    const value = 1 - unitInterval(diff);
     onChange(range ? intRange(value, range) : value);
   };
 
@@ -46,7 +49,7 @@ export const Level: React.FC<Props> = ({
   const cy = size + y;
   const stroke = size * 0.2;
   const innerSize = size - stroke / 2;
-  const offset = size * 5.7
+  const offset = size * 5.7;
 
   return (
     <>
@@ -56,13 +59,13 @@ export const Level: React.FC<Props> = ({
           cx={cx}
           cy={cy}
           r={innerSize}
-          strokeDasharray={dashes(innerSize,steps)}
-          opacity={0.5}
+          strokeDasharray={dashes(innerSize, steps)}
+          opacity={stepOpacity}
         />
         <circle strokeWidth={1} cx={cx} cy={cy} r={size} strokeOpacity={0.1} />
         <circle
           strokeWidth={stroke}
-          strokeOpacity={0.2}
+          strokeOpacity={0.3}
           cx={cx}
           cy={cy}
           r={innerSize}

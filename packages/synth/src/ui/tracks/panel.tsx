@@ -52,13 +52,14 @@ export const Panel: React.FC<Props> = ({
         style={{ border: 'none', cursor: 'pointer' }}
       />
       <Level
-        range={[0, 1]}
         onChange={setGain}
         value={gain}
         color={colors.black}
         size={20}
+        steps={48}
         y={y + height / 6}
         x={-width / 2.5}
+        stepOpacity={0.2}
       />
     </>
   );
