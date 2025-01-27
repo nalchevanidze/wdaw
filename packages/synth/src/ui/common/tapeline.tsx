@@ -22,8 +22,8 @@ export const Tapeline: React.FC<Props> = ({ height, size }) => {
           id={child}
         >
           <line
-            x1={1}
-            x2={1}
+            x1={0}
+            x2={0}
             y1={0}
             y2={size / 2}
             stroke={colors.secondary}
@@ -40,12 +40,12 @@ export const Tapeline: React.FC<Props> = ({ height, size }) => {
           <rect width={gridSize} height={height} fill={colors.background} />
           <rect width={gridSize} height={height} fill={'url(#' + child + ')'} />
           <line
-            x1={1}
-            x2={1}
+            x1={0}
+            x2={0}
             y1={0}
             y2={size}
             stroke={colors.secondary}
-            strokeWidth={1}
+            strokeWidth={2}
           />
         </pattern>
       </defs>

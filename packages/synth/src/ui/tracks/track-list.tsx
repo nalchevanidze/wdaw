@@ -6,6 +6,7 @@ import { NOTE, BLOCK } from '../common/units';
 import { SvgStage } from '@wdaw/svg';
 import { colors } from '../styles';
 import { Panel } from './panel';
+import { Grid } from './grid';
 
 const panelWidth = 128;
 const trackHeight = 64;
@@ -25,6 +26,7 @@ export const TrackList: React.FC = () => {
         width={width}
         height={height}
       >
+        <Grid />
         <Timeline height={timelineHeight} />
 
         {tracks.tracks.map(({ midi, name }, i) => {
