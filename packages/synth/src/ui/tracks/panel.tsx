@@ -38,6 +38,7 @@ export const Panel: React.FC<Props> = ({
         textAnchor="center"
         dominantBaseline="middle"
         pointerEvents="none"
+        style={{ userSelect: 'none' }}
       >
         {name}
       </text>
