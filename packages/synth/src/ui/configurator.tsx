@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createContext, useEffect, useReducer } from 'react';
+import { createContext, useEffect, useReducer, useMemo } from 'react';
 import { dawState, SynthEngine, EngineAction } from '../engine';
 import { getPreset } from '../engine';
 import { DAWState } from '../engine/state';
@@ -162,7 +162,7 @@ export const usePreset = (): [NamedPreset, React.Dispatch<EngineAction>] => {
 const Configurator: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
-  const engine = React.useMemo(() => new SynthEngine(), []);
+  const engine = useMemo(() => new SynthEngine(), []);
   const [config, dispatch] = useReducer(reducer(engine), dawState());
 
   useEffect(() => {
