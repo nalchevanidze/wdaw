@@ -36,6 +36,6 @@
   },
   "peerDependencies": {
     "@wdaw/svg": "^0.2.0",
-    "react": ">= 17.0.2"
+    "react": ">= 18.0.0"
   }
 }
