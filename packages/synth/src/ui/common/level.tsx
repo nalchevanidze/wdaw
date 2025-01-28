@@ -51,7 +51,7 @@ export const Level: React.FC<Props> = ({
   const cy = size + y;
   const stroke = size * bold;
   const innerSize = size - stroke / 2;
-  const offset = size * 5.7;
+  const offset = size * 6;
 
   return (
     <>
