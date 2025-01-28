@@ -1,32 +1,36 @@
-import React from "react";
+'use client'
 
-type ItemProps = {
-  children: React.ReactNode;
-  file: string;
+import * as React from 'react';
+import Synth from '@wdaw/synth';
+import Player from '@wdaw/player';
+
+type Props = {
+  type: string;
 };
 
-const Daw: React.FC<ItemProps> = ({ children, file }) => (
-  <div
-    style={{
-      background: "var(--background)",
-      borderRadius: "5px",
-      margin: "20px 0",
-    }}
-  >
-    <p
+const Daw: React.FC<Props> = ({ type }) => (
+  <div>
+    <nav
       style={{
-        margin: "0",
-        padding: "5px",
-        textAlign: "start",
-        fontFamily: "monospace",
-        color: "var(--foreground)",
-        borderBottom: "1px solid var(--comment)",
-        fontSize: "12px",
+        display: 'flex',
+        justifyContent: 'space-around',
+        padding: '20px'
       }}
     >
-      {file}
-    </p>
-    {children}
+      <a href="/?type=player">player</a>
+      <a href="/?type=synth">synth</a>
+    </nav>
+    <div>
+      {type === 'player' ? (
+        <Player
+          width={500}
+          height={500}
+          src="https://nalchevanidze.com/assets/audio/david-alpha-black-hole"
+        />
+      ) : (
+        <Synth />
+      )}
+    </div>
   </div>
 );
 
