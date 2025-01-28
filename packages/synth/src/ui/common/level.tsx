@@ -18,8 +18,8 @@ export type Props = {
   size?: number;
   x?: number;
   y?: number;
-  stepOpacity?: number
-  bold?: number
+  stepOpacity?: number;
+  bold?: number;
 };
 
 export const Level: React.FC<Props> = ({
@@ -42,7 +42,7 @@ export const Level: React.FC<Props> = ({
 
   const onMove: MHandler = (e) => {
     if (!listen || !onChange) return;
-    const diff = (getCoordinates(e).y - y - size/2) / size;
+    const diff = 1.5 * (getCoordinates(e).y - y - size / 2) / size;
     const value = 1 - unitInterval(diff);
     onChange(range ? intRange(value, range) : value);
   };
@@ -84,6 +84,7 @@ export const Level: React.FC<Props> = ({
         onMouseUp={mouseUp}
         onMouseDown={mouseDown}
         onMouseMove={onMove}
+        style={{ cursor: 'grab' }}
       />
     </>
   );

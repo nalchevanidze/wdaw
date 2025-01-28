@@ -29,8 +29,7 @@ const WaveButton: React.FC<WaveButtonProps> = ({
       height="50px"
       style={{
         margin: '5px',
-        flexShrink: 0,
-        cursor: 'grab'
+        flexShrink: 0
       }}
     >
       {range ? (
