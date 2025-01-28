@@ -31,7 +31,7 @@
   },
   "scripts": {},
   "devDependencies": {
-    "@types/react": "^18.0.15",
+    "@types/react": "^19.0.0",
     "typescript": "^5.0.4"
   },
   "peerDependencies": {
