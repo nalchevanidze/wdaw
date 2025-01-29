@@ -9,18 +9,30 @@ const containerStyle = {
   display: 'flex',
   background: colors.background,
   padding: '5px',
-  border: '0.05em solid #BBB',
+  border: '0.05em solid #BBB'
 };
+
+const maxBPM = 200;
+const minBPM = 20;
+
 const Header: React.FC = () => {
   const [
     {
-      player: { isPlaying }
+      player: { isPlaying },
+      bpm
     },
-    action
+    dispatch
   ] = useContext(ConfiguratorContext);
 
   const player = (payload: PLAYER_ACTION) =>
-    action({ type: 'PLAYER', payload });
+    dispatch({ type: 'PLAYER', payload });
+
+  const setBPM = (value: string) => {
+    dispatch({
+      type: 'SET_BPM',
+      payload: Math.min(Math.max(minBPM, Number(value)), maxBPM)
+    });
+  };
 
   return (
     <section style={containerStyle}>
@@ -29,6 +41,13 @@ const Header: React.FC = () => {
         onClick={() => player(isPlaying ? 'pause' : 'play')}
       />
       <HeaderButton id={'stop'} onClick={() => player('stop')} />
+      <input
+        type="number"
+        value={bpm}
+        onChange={(x) => setBPM(x.target.value)}
+        min={minBPM}
+        max={maxBPM}
+      />
     </section>
   );
 };
