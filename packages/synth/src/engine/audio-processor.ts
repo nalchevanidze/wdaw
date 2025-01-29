@@ -5,9 +5,9 @@ export type SoundIterator = {
 };
 
 class Processor {
-  AC?: AudioContext;
+  private context?: AudioContext;
 
-  create = (process: SoundIterator) => {
+  open = (process: SoundIterator) => {
     const AC = new AudioContext();
     const node = AC.createScriptProcessor(BUFFER_SIZE, 1, 1);
     node.connect(AC.destination);
@@ -19,7 +19,12 @@ class Processor {
       }
     };
 
-    this.AC = AC;
+    this.context = AC;
+    this.context.resume();
+  };
+
+  close = () => {
+    this.context?.close();
   };
 }
 
@@ -27,11 +32,14 @@ type Callback = () => void;
 
 const audioProcessor = (process: SoundIterator): Callback => {
   try {
+    if (typeof window === 'undefined') {
+      return () => undefined;
+    }
+
     const processor = new Processor();
 
     const init = () => {
-      processor.create(process);
-      processor.AC?.resume();
+      processor.open(process);
       removeEventListeners();
     };
 
@@ -44,11 +52,11 @@ const audioProcessor = (process: SoundIterator): Callback => {
     document.addEventListener('keypress', init);
 
     return () => {
-      processor.AC?.close();
+      processor.close();
       removeEventListeners();
     };
   } catch (e) {
-    console.error('could not create audio context', e.message);
+    console.error('could not create audio context: ', e.message);
     return () => undefined;
   }
 };
