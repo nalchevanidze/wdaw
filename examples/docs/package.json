@@ -1,5 +1,5 @@
 {
-  "name": "wdaw-docs",
+  "name": "@wdaw/docs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,7 +11,7 @@
     "next": "15.1.6",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "@wdaw/synth": "../packages/synth"
+    "@wdaw/synth": "../../packages/synth"
   },
   "devDependencies": {
     "@types/react": "19.0.0",
