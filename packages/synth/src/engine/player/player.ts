@@ -13,11 +13,11 @@ export type MidiCallback = (s: MidiState) => void;
 class MidiPlayer {
   private current = 0;
   private tempo = new Tempo(SAMPLE_RATE);
+  private isPlaying = false;
+
   onChange: MidiCallback;
 
   constructor(private track: Tracks) {}
-
-  public isPlaying = false;
 
   public refresh() {
     requestAnimationFrame(() =>
