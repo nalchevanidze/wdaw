@@ -9,11 +9,21 @@ const containerStyle = {
   display: 'flex',
   background: colors.background,
   padding: '5px',
-  border: '0.05em solid #BBB'
+  border: '0.05em solid #BBB',
+  alignItems: 'center',
+  gap: '5px'
+};
+
+const bpmContainerStyle = {
+  display: 'flex',
+  padding: '5px',
+  alignItems: 'center',
+  fontFamily: 'sans-serif',
+  fontSize: '14px',
 };
 
 const maxBPM = 200;
-const minBPM = 20;
+const minBPM = 1;
 
 const Header: React.FC = () => {
   const [
@@ -41,13 +51,26 @@ const Header: React.FC = () => {
         onClick={() => player(isPlaying ? 'pause' : 'play')}
       />
       <HeaderButton id={'stop'} onClick={() => player('stop')} />
-      <input
-        type="number"
-        value={bpm}
-        onChange={(x) => setBPM(x.target.value)}
-        min={minBPM}
-        max={maxBPM}
-      />
+      <div style={bpmContainerStyle}>
+        <label htmlFor="bpm-input">BPM</label>
+        <input
+          id="bpm-input"
+          type="number"
+          value={bpm}
+          onChange={(x) => setBPM(x.target.value)}
+          min={minBPM}
+          max={maxBPM}
+          style={{
+            userSelect: 'none',
+            outline: 'none',
+            border: '0',
+            background: colors.secondary,
+            fontSize: '14px',
+            marginLeft: '4px',
+            borderRadius: '3px'
+          }}
+        />
+      </div>
     </section>
   );
 };
