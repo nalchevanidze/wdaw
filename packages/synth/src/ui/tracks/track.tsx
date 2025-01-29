@@ -43,7 +43,7 @@ export const Track: React.FC<Props> = ({ id, midi, y, height }) => {
         start={start}
         end={end}
         midi={midi}
-        trackId={`track-${id}`}
+        trackId={id}
         height={height}
         startMove={dragging.onSelected('move')}
         startScale={dragging.onSelected('scale')}

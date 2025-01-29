@@ -12,7 +12,7 @@ export const Tracks: React.FC = () => (
       borderRadius: '5px'
     }}
   >
-    <Header />
     <TrackList />
+    <Header />
   </div>
 );
