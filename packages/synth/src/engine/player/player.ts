@@ -29,6 +29,8 @@ class MidiPlayer {
     );
   }
 
+  public setBPM = this.tempo.setBPM
+
   public next = () => {
     if (this.tempo.next()) {
       this.track.nextActions(this.isPlaying, this.current);

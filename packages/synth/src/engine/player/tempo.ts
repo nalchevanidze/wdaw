@@ -10,7 +10,7 @@ class Tempo {
     this.sampleRate = sampleRate;
   }
 
-  public setBMP = (beatsPerMinute: number): void => {
+  public setBPM= (beatsPerMinute: number): void => {
     this.BPM = beatsPerMinute;
     this.subStep = 1 / ((60 * this.sampleRate) / (beatsPerMinute * 8));
   };
