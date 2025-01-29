@@ -4,28 +4,34 @@ export type SoundIterator = {
   next(): number;
 };
 
-const createContext = (process: SoundIterator) => {
-  const AC = new AudioContext();
-  const node = AC.createScriptProcessor(BUFFER_SIZE, 1, 1);
-  node.connect(AC.destination);
-  node.onaudioprocess = ({ outputBuffer }: AudioProcessingEvent): void => {
-    const output = outputBuffer.getChannelData(0);
-    const { length } = output;
-    for (let i = 0; i < length; ++i) {
-      output[i] = process.next();
-    }
-  };
+class Processor {
+  AC?: AudioContext;
 
-  return AC;
-};
+  create = (process: SoundIterator) => {
+    const AC = new AudioContext();
+    const node = AC.createScriptProcessor(BUFFER_SIZE, 1, 1);
+    node.connect(AC.destination);
+    node.onaudioprocess = ({ outputBuffer }: AudioProcessingEvent): void => {
+      const output = outputBuffer.getChannelData(0);
+      const { length } = output;
+      for (let i = 0; i < length; ++i) {
+        output[i] = process.next();
+      }
+    };
+
+    this.AC = AC;
+  };
+}
 
 type Callback = () => void;
 
 const audioProcessor = (process: SoundIterator): Callback => {
   try {
-    const AC = createContext(process);
+    const processor = new Processor();
+
     const init = () => {
-      AC.resume();
+      processor.create(process);
+      processor.AC?.resume();
       document.removeEventListener('click', init);
       document.removeEventListener('keypress', init);
     };
@@ -34,7 +40,7 @@ const audioProcessor = (process: SoundIterator): Callback => {
     document.addEventListener('keypress', init);
 
     return () => {
-      AC.close();
+      processor.AC?.close();
       document.removeEventListener('click', init);
       document.removeEventListener('keypress', init);
     };
