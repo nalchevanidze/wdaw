@@ -48,7 +48,7 @@ const audioProcessor = (process: SoundIterator): Callback => {
       removeEventListeners();
     };
   } catch (e) {
-    console.error('could not create audio context');
+    console.error('could not create audio context', e.message);
     return () => undefined;
   }
 };
