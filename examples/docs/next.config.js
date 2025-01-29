@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
-  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx']
-}
+  swcMinify: true,
+  transpilePackages: ['@wdaw/svg', '@wdaw/synth']
+};
