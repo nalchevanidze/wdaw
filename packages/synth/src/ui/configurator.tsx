@@ -4,6 +4,7 @@ import { dawState, SynthEngine, EngineAction } from '../engine';
 import { getPreset } from '../engine';
 import { DAWState } from '../engine/state';
 import { NamedPreset, TrackState } from '../engine/state/state';
+import { useEngine } from './hooks/use-engine';
 
 const mapCurrentTrack = (state: DAWState, f: (a: TrackState) => TrackState) =>
   mapTrack(state.tracks.currentTrack, state, f);
@@ -159,25 +160,10 @@ export const usePreset = (): [NamedPreset, React.Dispatch<EngineAction>] => {
   return [track.preset, dispatch];
 };
 
-type Reducer = (state: DAWState, action: EngineAction) => DAWState;
-
 const Configurator: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
-  const [state, setState] = React.useState<{ reducer: Reducer }>({
-    reducer: (a, _) => a
-  });
-
-  const [config, dispatch] = useReducer(state.reducer, dawState());
-
-  useEffect(() => {
-    const engine = new SynthEngine();
-    engine.setTracks(config.tracks);
-    engine.setMidiCallback((payload) => dispatch({ type: 'REFRESH', payload }));
-    setState({ reducer: makeReducer(engine) });
-
-    return () => engine.destroy();
-  }, []);
+  const [config, dispatch] = useEngine(makeReducer);
 
   return (
     <ConfiguratorContext.Provider value={[config, dispatch]}>
