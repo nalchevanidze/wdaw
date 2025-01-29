@@ -4,21 +4,22 @@ import { dawState, DAWState, EngineAction, SynthEngine } from '../../engine';
 type Reducer = (state: DAWState, action: EngineAction) => DAWState;
 
 export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
-  const [state, setState] = useState<{ reducer: Reducer }>({
+  const [reducerState, setReducerState] = useState<{ reducer: Reducer }>({
     reducer: (a, _) => a
   });
 
 
   useEffect(() => {
     const engine = new SynthEngine();
-    engine.setTracks(config.tracks);
+    engine.setTracks(state.tracks);
+    engine.setBPM(state.bpm)
     engine.setMidiCallback((payload) => dispatch({ type: 'REFRESH', payload }));
-    setState({ reducer: makeReducer(engine) });
+    setReducerState({ reducer: makeReducer(engine) });
 
     return () => engine.destroy();
   }, [makeReducer]);
 
-  const [config, dispatch] = useReducer(state.reducer, dawState());
+  const [state, dispatch] = useReducer(reducerState.reducer, dawState());
 
-  return [config, dispatch] as const;
+  return [state, dispatch] as const;
 };

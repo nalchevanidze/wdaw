@@ -38,6 +38,10 @@ const dispatcher = (
       return {
         tracks: { ...state.tracks, currentTrack: action.payload }
       };
+    case 'SET_BPM':
+      return {
+        bpm: action.payload
+      };
     case 'SET_SEQUENCE':
       return mapPreset(state, () => ({ sequence: action.payload }));
     case 'TOGGLE_PANEL':
@@ -105,6 +109,8 @@ const engineEffects = (
       return engine.setTrack(action.payload);
     case 'SET_GAIN':
       return engine.setGain(action.id, action.payload);
+    case 'SET_BPM':
+      return engine.setBPM(action.payload);
     default:
       return;
   }

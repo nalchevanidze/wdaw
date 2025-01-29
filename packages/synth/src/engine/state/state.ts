@@ -11,7 +11,11 @@ type PlayerState = {
 
 export type NamedPreset = Preset & { name: PresetName };
 
-export type DAWState = { player: PlayerState; tracks: TracksState };
+export type DAWState = {
+  player: PlayerState;
+  tracks: TracksState;
+  bpm: number;
+};
 
 export type TrackState = {
   name: string;
@@ -119,7 +123,12 @@ export const dawState = (): DAWState => {
   ];
 
   return {
-    player: { isPlaying: false, time: 0, notes: [] },
+    player: {
+      isPlaying: false,
+      time: 0,
+      notes: []
+    },
+    bpm: 120,
     tracks: {
       currentTrack: 0,
       tracks

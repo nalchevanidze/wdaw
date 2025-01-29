@@ -31,7 +31,7 @@ export class SynthEngine implements SoundIterator {
     }
   }
 
-  public setPBM = this.player.setBPM
+  public setBPM = this.player.setBPM
 
   public setTrack = this.tracks.setTrack;
   

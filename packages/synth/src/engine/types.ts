@@ -71,6 +71,11 @@ export type SET_TRACK = {
   payload: number;
 };
 
+export type SET_BPM = {
+  type: 'SET_BPM';
+  payload: number;
+};
+
 export type EngineAction =
   | PLAYER
   | KEY_PRESS
@@ -85,7 +90,7 @@ export type EngineAction =
   | SET_TRACK
   | REFRESH
   | SET_GAIN
-  ;
+  | SET_BPM;
 
 export type NoteAction = {
   start?: number[];
