@@ -32,6 +32,10 @@ const audioProcessor = (process: SoundIterator): Callback => {
     const init = () => {
       processor.create(process);
       processor.AC?.resume();
+      removeEventListeners();
+    };
+
+    const removeEventListeners = () => {
       document.removeEventListener('click', init);
       document.removeEventListener('keypress', init);
     };
@@ -41,8 +45,7 @@ const audioProcessor = (process: SoundIterator): Callback => {
 
     return () => {
       processor.AC?.close();
-      document.removeEventListener('click', init);
-      document.removeEventListener('keypress', init);
+      removeEventListeners();
     };
   } catch (e) {
     console.error('could not create audio context');
