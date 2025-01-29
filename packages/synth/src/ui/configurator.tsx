@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createContext, useEffect, useReducer, useMemo } from 'react';
+import { createContext } from 'react';
 import { dawState, SynthEngine, EngineAction } from '../engine';
 import { getPreset } from '../engine';
 import { DAWState } from '../engine/state';
