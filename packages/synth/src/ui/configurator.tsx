@@ -109,7 +109,7 @@ const engineEffects = (
   }
 };
 
-const reducer =
+const makeReducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
     const stateChanges = dispatcher(state, action);
 
@@ -159,15 +159,22 @@ export const usePreset = (): [NamedPreset, React.Dispatch<EngineAction>] => {
   return [track.preset, dispatch];
 };
 
+type Reducer = (state: DAWState, action: EngineAction) => DAWState;
+
 const Configurator: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
-  const engine = useMemo(() => new SynthEngine(), []);
-  const [config, dispatch] = useReducer(reducer(engine), dawState());
+  const [state, setState] = React.useState<{ reducer: Reducer }>({
+    reducer: (a, _) => a
+  });
+
+  const [config, dispatch] = useReducer(state.reducer, dawState());
 
   useEffect(() => {
+    const engine = new SynthEngine();
     engine.setTracks(config.tracks);
     engine.setMidiCallback((payload) => dispatch({ type: 'REFRESH', payload }));
+    setState({ reducer: makeReducer(engine) });
 
     return () => engine.destroy();
   }, []);
