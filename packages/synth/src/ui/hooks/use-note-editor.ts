@@ -14,25 +14,21 @@ import { Point } from '@wdaw/svg';
 import { useOnDelete } from '../utils';
 import { addTracking, dropTracking } from '../utils/tracking';
 import { deepen, flatten } from '../common/midi';
+import { useTrack } from './use-track';
 
 export const useNoteEditor = (height: number) => {
-  const [
-    {
-      tracks: { currentTrack, tracks }
-    },
-    dispatch
-  ] = useContext(ConfiguratorContext);
+  const [{ midi, id }, dispatch] = useTrack();
 
   const [notes, setNotes] = useState<Selected<UINote>>({
     selected: [],
-    inactive: flatten(tracks[currentTrack].midi)
+    inactive: flatten(midi)
   });
 
   const allNotes = [...notes.selected, ...notes.inactive];
 
   const dispatchMidi = (ns: Selected<UINote>) =>
     dispatch({
-      id: currentTrack,
+      id,
       type: 'SET_MIDI',
       payload: deepen([...ns.selected, ...ns.inactive])
     });
@@ -42,9 +38,9 @@ export const useNoteEditor = (height: number) => {
   React.useEffect(() => {
     setNotes({
       selected: [],
-      inactive: flatten(tracks[currentTrack].midi)
+      inactive: flatten(midi)
     });
-  }, [tracks[currentTrack].midi]);
+  }, [midi]);
 
   const clear = () =>
     update({
