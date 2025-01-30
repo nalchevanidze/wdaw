@@ -121,7 +121,7 @@ const makeReducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
     const stateChanges = dispatcher(state, action);
 
-    if (stateChanges) {
+    if (stateChanges?.tracks) {
       const track = state.tracks.tracks[state.tracks.currentTrack];
       engine.setPreset(track.preset);
     }
@@ -133,9 +133,9 @@ const makeReducer =
     return newState;
   };
 
-type ConfiguratorAPI = [DAWState, DawDispatch];
+type DawApi = [DAWState, DawDispatch];
 
-export const ConfiguratorContext = createContext<ConfiguratorAPI>([
+export const ConfiguratorContext = createContext<DawApi>([
   dawState(),
   () => undefined
 ]);
