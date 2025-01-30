@@ -9,12 +9,12 @@ import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { useNoteEditor } from '../hooks/use-note-editor';
 import { useTime } from '../hooks/use-time';
 import { SelectionArea } from './selection-area';
-import { useTrack } from '../configurator';
 import { UINote } from '../common/notes';
 import { Keyboard } from './keyboard';
 import { Loop } from './loop';
 import { OCTAVE_SIZE } from '../../utils/notes';
 import { LoopTarget, useLoop } from '../hooks/use-loop-editor';
+import { useTrack } from '../hooks/use-track';
 
 type Props = {
   actionType: EditActionType;

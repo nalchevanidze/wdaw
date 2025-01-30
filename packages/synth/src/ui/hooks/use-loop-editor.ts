@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { useTrack } from '../configurator';
 import { Area, Maybe } from '../types';
 import { distanceX } from '../utils/area';
 import { QUARTER } from '../common/units';
+import { useTrack } from './use-track';
 
 export type LoopTarget = 'start' | 'end';
 
