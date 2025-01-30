@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { colors } from '../styles';
-import { ConfiguratorContext } from '../configurator';
 import { Level } from '../common/level';
+import { DawApiContext } from '../context/daw-state';
 
 type Props = {
   name: string;
@@ -20,7 +20,7 @@ export const Panel: React.FC<Props> = ({
   width,
   height
 }) => {
-  const [{ tracks }, dispatch] = React.useContext(ConfiguratorContext);
+  const [{ tracks }, dispatch] = React.useContext(DawApiContext);
   const setTrack = () => dispatch({ type: 'SET_TRACK', payload: id });
 
   const setGain = (payload: number) =>

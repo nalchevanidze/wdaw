@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Area } from '../types';
-import { ConfiguratorContext } from '../configurator';
 import {
   genNoteAt,
   scaleNotes,

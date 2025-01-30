@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NamedPreset } from '../../engine/state/state';
-import { ConfiguratorContext } from '../configurator';
 import { DawDispatch } from '../types';
+import { DawApiContext } from '../context/daw-state';
 
 export const usePreset = (): [NamedPreset, DawDispatch] => {
   const [
@@ -9,7 +9,7 @@ export const usePreset = (): [NamedPreset, DawDispatch] => {
       tracks: { currentTrack, tracks }
     },
     dispatch
-  ] = React.useContext(ConfiguratorContext);
+  ] = React.useContext(DawApiContext);
 
   const track = tracks[currentTrack];
   return [track.preset, dispatch];

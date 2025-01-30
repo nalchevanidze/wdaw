@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import { ConfiguratorContext } from '../configurator';
 import { NOTE, QUARTER } from '../common/units';
+import { DawApiContext } from '../context/daw-state';
 
 export const useTime = () => {
-  const [{ player, tracks }] = useContext(ConfiguratorContext);
+  const [{ player, tracks }] = useContext(DawApiContext);
   const midi = tracks.tracks[tracks.currentTrack].midi;
   const loopSize = midi.loop[1] - midi.loop[0];
   const start = midi.start;

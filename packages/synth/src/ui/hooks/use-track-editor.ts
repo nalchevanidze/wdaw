@@ -1,6 +1,5 @@
 import * as React from 'react';
-
-import { ConfiguratorContext } from '../configurator';
+import { DawApiContext } from '../context/daw-state';
 
 type State = { start: number; end: number };
 
@@ -11,7 +10,7 @@ export const useTrackEditor = (
   inputEnd: number,
   id: number
 ) => {
-  const [_, dispatch] = React.useContext(ConfiguratorContext);
+  const [_, dispatch] = React.useContext(DawApiContext);
   const [state, setState] = React.useState<TrackedState>({
     start: inputStart,
     end: inputEnd

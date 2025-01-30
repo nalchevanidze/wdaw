@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { noteFromKeyboard } from '../../utils/keyboard';
-import { ConfiguratorContext } from '../configurator';
 import { KEY_EVENT_TYPE, useKeyAction } from '../utils';
 import { KeyHandler, Octave } from './octave';
+import { DawApiContext } from '../context/daw-state';
 
 const Keyboard: React.FC = () => {
-  const [{ player }, dispatch] = React.useContext(ConfiguratorContext);
+  const [{ player }, dispatch] = React.useContext(DawApiContext);
 
   const handler =
     (type: KEY_EVENT_TYPE): KeyHandler =>

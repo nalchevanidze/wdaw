@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { ConfiguratorContext } from '../configurator';
 import { Track } from './track';
 import { Timeline } from './timeline';
 import { NOTE, BLOCK } from '../common/units';
@@ -7,6 +6,7 @@ import { SvgStage } from '@wdaw/svg';
 import { colors } from '../styles';
 import { Panel } from './panel';
 import { Grid } from './grid';
+import { DawApiContext } from '../context/daw-state';
 
 const panelWidth = 128;
 const trackHeight = 64;
@@ -20,7 +20,7 @@ const styles = {
 } as const;
 
 export const TrackList: React.FC = () => {
-  const [{ tracks, player }] = React.useContext(ConfiguratorContext);
+  const [{ tracks, player }] = React.useContext(DawApiContext);
   const maxTrackSize = Math.max(...tracks.tracks.map((t) => t.midi.end));
   const width = maxTrackSize * NOTE + panelWidth + BLOCK;
   const position = player.time;

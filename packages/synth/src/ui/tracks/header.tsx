@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useContext } from 'react';
 import HeaderButton from '../common/header-button';
-import { ConfiguratorContext } from '../configurator';
 import { colors } from '../styles';
 import { PLAYER_ACTION } from '../../engine';
+import { DawApiContext } from '../context/daw-state';
 
 const styles = {
   container: {
@@ -42,7 +42,7 @@ const Header: React.FC = () => {
       bpm
     },
     dispatch
-  ] = useContext(ConfiguratorContext);
+  ] = useContext(DawApiContext);
 
   const player = (payload: PLAYER_ACTION) =>
     dispatch({ type: 'PLAYER', payload });
