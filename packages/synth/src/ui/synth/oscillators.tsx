@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { waveFunction } from '../../engine';
-import { ConfiguratorContext, usePreset } from '../configurator';
 import { Grid } from '../utils/grid-line';
 import { Panel } from './panel';
 import PanelPresets from './presets';
 import { WaveButton, WaveButtonProps } from './button';
 import { FILTER_ID, WAVE_ID } from '../../engine';
+import { usePreset } from '../hooks/use-preset';
 
 const styles = {
   main: {

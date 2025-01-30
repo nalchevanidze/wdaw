@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { ConfiguratorContext, usePreset } from '../configurator';
 
 import { colors } from '../styles';
 import { PANEL_ID } from '../../engine';
+import { usePreset } from '../hooks/use-preset';
 
 const styles = {
   label: {

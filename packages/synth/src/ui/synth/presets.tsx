@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { ConfiguratorContext, usePreset } from '../configurator';
 import { colors } from '../styles';
 import { presetNames } from '../../engine';
+import { usePreset } from '../hooks/use-preset';
 
 const styles = {
   container: {
     margin: '5px',
     flexWrap: 'wrap',
     flexShrink: 0,
-    padding: '5px',
-
+    padding: '5px'
   },
   label: {
     fontSize: '12px',
@@ -23,7 +22,7 @@ const styles = {
   list: {
     maxHeight: '70px',
     overflowY: 'scroll',
-    padding: "6px 20px"
+    padding: '6px 20px'
   },
   button: {
     display: 'block',

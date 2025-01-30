@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { ConfiguratorContext, usePreset } from '../configurator';
 import { colors } from '../styles';
 import { Panel } from './panel';
 import { SEQUENCE_LENGTH } from '../../engine';
 import { toggleARPNote } from '../../utils/arp';
+import { usePreset } from '../hooks/use-preset';
 
 const STEP_SIZE = 10;
 
