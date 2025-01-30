@@ -5,25 +5,35 @@ import { ConfiguratorContext } from '../configurator';
 import { colors } from '../styles';
 import { PLAYER_ACTION } from '../../engine';
 
-const containerStyle = {
-  display: 'flex',
-  background: colors.background,
-  padding: '5px',
-  border: '0.05em solid #BBB',
-  alignItems: 'center',
-  gap: '5px'
-};
-
-const bpmContainerStyle = {
-  display: 'flex',
-  padding: '5px',
-  alignItems: 'center',
-  fontFamily: 'sans-serif',
-  fontSize: '14px',
-};
+const styles = {
+  container: {
+    display: 'flex',
+    background: colors.background,
+    padding: '5px',
+    border: '0.05em solid #BBB',
+    alignItems: 'center',
+    gap: '5px'
+  },
+  bpm: {
+    display: 'flex',
+    padding: '5px',
+    alignItems: 'center',
+    fontFamily: 'sans-serif',
+    fontSize: '14px'
+  },
+  bpmInput: {
+    userSelect: 'none',
+    outline: 'none',
+    border: '0',
+    background: colors.secondary,
+    fontSize: '14px',
+    marginLeft: '4px',
+    borderRadius: '3px'
+  }
+} as const;
 
 const maxBPM = 200;
-const minBPM = 1;
+const minBPM = 0;
 
 const Header: React.FC = () => {
   const [
@@ -45,13 +55,13 @@ const Header: React.FC = () => {
   };
 
   return (
-    <section style={containerStyle}>
+    <section style={styles.container}>
       <HeaderButton
         id={isPlaying ? 'pause' : 'play'}
         onClick={() => player(isPlaying ? 'pause' : 'play')}
       />
       <HeaderButton id={'stop'} onClick={() => player('stop')} />
-      <div style={bpmContainerStyle}>
+      <div style={styles.bpm}>
         <label htmlFor="bpm-input">BPM</label>
         <input
           id="bpm-input"
@@ -60,15 +70,7 @@ const Header: React.FC = () => {
           onChange={(x) => setBPM(x.target.value)}
           min={minBPM}
           max={maxBPM}
-          style={{
-            userSelect: 'none',
-            outline: 'none',
-            border: '0',
-            background: colors.secondary,
-            fontSize: '14px',
-            marginLeft: '4px',
-            borderRadius: '3px'
-          }}
+          style={styles.bpmInput}
         />
       </div>
     </section>
