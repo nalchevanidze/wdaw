@@ -143,10 +143,10 @@ export const ConfiguratorContext = createContext<ConfiguratorAPI>([
 const Configurator: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
-  const [config, dispatch] = useEngine(makeReducer);
+  const [state, dispatch] = useEngine(makeReducer);
 
   return (
-    <ConfiguratorContext.Provider value={[config, dispatch]}>
+    <ConfiguratorContext.Provider value={[state, dispatch]}>
       {children}
     </ConfiguratorContext.Provider>
   );
