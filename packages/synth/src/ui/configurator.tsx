@@ -3,32 +3,9 @@ import { createContext } from 'react';
 import { dawState, SynthEngine, EngineAction } from '../engine';
 import { getPreset } from '../engine';
 import { DAWState } from '../engine/state';
-import { NamedPreset, TrackState } from '../engine/state/state';
 import { useEngine } from './hooks/use-engine';
 import { DawDispatch } from './types';
-
-const mapCurrentTrack = (state: DAWState, f: (a: TrackState) => TrackState) =>
-  mapTrack(state.tracks.currentTrack, state, f);
-
-const mapTrack = (
-  target: number,
-  { tracks: { tracks, currentTrack } }: DAWState,
-  f: (a: TrackState) => TrackState
-) => ({
-  tracks: {
-    currentTrack: currentTrack,
-    tracks: tracks.map((t, i) => (target === i ? f(t) : t))
-  }
-});
-
-const mapPreset = (
-  state: DAWState,
-  f: (a: NamedPreset) => Partial<NamedPreset>
-) =>
-  mapCurrentTrack(state, ({ preset, ...rest }) => ({
-    ...rest,
-    preset: { ...preset, ...f(preset) }
-  }));
+import { mapPreset, mapTrack } from './utils/state';
 
 const dispatcher = (
   state: DAWState,
