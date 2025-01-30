@@ -27,10 +27,7 @@ const HeaderButton = ({
     width="20px"
     height="20px"
     onClick={onClick}
-    style={{
-      cursor: 'pointer',
-      padding: '5px'
-    }}
+    style={{ cursor: 'pointer', padding: '5px' }}
   >
     <path
       stroke={color}

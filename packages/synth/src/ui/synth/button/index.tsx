@@ -27,10 +27,7 @@ const WaveButton: React.FC<WaveButtonProps> = ({
       viewBox="0 0 100 100"
       width="50px"
       height="50px"
-      style={{
-        margin: '5px',
-        flexShrink: 0
-      }}
+      style={{ margin: '5px', flexShrink: 0 }}
     >
       {range ? (
         <text
