@@ -5,6 +5,7 @@ import { getPreset } from '../engine';
 import { DAWState } from '../engine/state';
 import { NamedPreset, TrackState } from '../engine/state/state';
 import { useEngine } from './hooks/use-engine';
+import { DawDispatch } from './types';
 
 const mapCurrentTrack = (state: DAWState, f: (a: TrackState) => TrackState) =>
   mapTrack(state.tracks.currentTrack, state, f);
@@ -132,7 +133,7 @@ const makeReducer =
     return stateChanges ? { ...state, ...stateChanges } : state;
   };
 
-type ConfiguratorAPI = [DAWState, React.Dispatch<EngineAction>];
+type ConfiguratorAPI = [DAWState, DawDispatch];
 
 export const ConfiguratorContext = createContext<ConfiguratorAPI>([
   dawState(),
