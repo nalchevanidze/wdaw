@@ -140,9 +140,7 @@ const PianoRoll: React.FC<Props> = (props) => {
       viewBox={viewBox}
       width={width + 'px'}
       height={stageHeight + 'px'}
-      style={{
-        background: '#FFF'
-      }}
+      style={{ background: '#FFF' }}
     >
       <NoteSheet {...props} />
     </SvgStage>

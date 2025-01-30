@@ -11,6 +11,14 @@ import { Grid } from './grid';
 const panelWidth = 128;
 const trackHeight = 64;
 
+const styles = {
+  container: {
+    width: '100%',
+    height: 'auto',
+    position: 'relative'
+  }
+} as const;
+
 export const TrackList: React.FC = () => {
   const [{ tracks, player }] = React.useContext(ConfiguratorContext);
   const maxTrackSize = Math.max(...tracks.tracks.map((t) => t.midi.end));
@@ -20,7 +28,7 @@ export const TrackList: React.FC = () => {
   const height = trackHeight * tracks.tracks.length + timelineHeight;
 
   return (
-    <div style={{ width: '100%', height: 'auto', position: 'relative' }}>
+    <div style={styles.container}>
       <SvgStage
         viewBox={[-panelWidth, -timelineHeight, width, height].join(' ')}
         width={width}

@@ -12,20 +12,30 @@ type Props = {
   onClick: (i: number) => void;
 };
 
+const styles = {
+  li: {
+    listStyle: 'none',
+    border: 'none',
+    outline: 'none'
+  },
+  element: {
+    width: STEP_SIZE + 'px',
+    border: '0.025em solid #BBB',
+    height: STEP_SIZE + 'px'
+  },
+  container: {
+    display: 'flex',
+    margin: '0px',
+    padding: '0px'
+  }
+} as const;
+
 const Sequence: React.FC<Props> = ({ chord, onClick }) => (
-  <li
-    style={{
-      listStyle: 'none',
-      border: 'none',
-      outline: 'none'
-    }}
-  >
+  <li style={styles.li}>
     {[1, 2, 3, 4].reverse().map((index) => (
       <div
         style={{
-          width: STEP_SIZE + 'px',
-          border: '0.025em solid #BBB',
-          height: STEP_SIZE + 'px',
+          ...styles.element,
           background: chord.indexOf(index) !== -1 ? colors.secondary : '#2220'
         }}
         key={index}
@@ -48,13 +58,7 @@ export const Sequencer: React.FC = () => {
 
   return (
     <Panel label="sequencer" size={3} optional id="sequence">
-      <ul
-        style={{
-          display: 'flex',
-          margin: '0px',
-          padding: '0px'
-        }}
-      >
+      <ul style={styles.container}>
         {range.map((i) => (
           <Sequence key={i} chord={sequence[i] ?? []} onClick={setNote(i)} />
         ))}
