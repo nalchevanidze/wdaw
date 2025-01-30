@@ -130,7 +130,7 @@ const makeReducer =
 
     engineEffects(newState, engine, action);
 
-    return stateChanges ? { ...state, ...stateChanges } : state;
+    return newState;
   };
 
 type ConfiguratorAPI = [DAWState, DawDispatch];
