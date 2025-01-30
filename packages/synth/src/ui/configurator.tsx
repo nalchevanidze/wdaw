@@ -36,13 +36,9 @@ const dispatcher = (
 ): Partial<DAWState> | undefined => {
   switch (action.type) {
     case 'SET_TRACK':
-      return {
-        tracks: { ...state.tracks, currentTrack: action.payload }
-      };
+      return { tracks: { ...state.tracks, currentTrack: action.payload } };
     case 'SET_BPM':
-      return {
-        bpm: action.payload
-      };
+      return { bpm: action.payload };
     case 'SET_SEQUENCE':
       return mapPreset(state, () => ({ sequence: action.payload }));
     case 'TOGGLE_PANEL':
