@@ -1,10 +1,7 @@
-import * as React from 'react';
 import { SynthEngine, EngineAction } from '../engine';
 import { getPreset } from '../engine';
 import { DAWState } from '../engine/state';
-import { useEngine } from './hooks/use-engine';
 import { mapPreset, mapTrack } from './utils/state';
-import { DawApiContext } from './context/daw-state';
 
 const dispatcher = (
   state: DAWState,
@@ -89,7 +86,7 @@ const engineEffects = (
   }
 };
 
-const makeReducer =
+export const makeReducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
     const stateChanges = dispatcher(state, action);
 
@@ -104,17 +101,3 @@ const makeReducer =
 
     return newState;
   };
-
-const Configurator: React.FC<{ children: React.ReactNode }> = ({
-  children
-}) => {
-  const [state, dispatch] = useEngine(makeReducer);
-
-  return (
-    <DawApiContext.Provider value={[state, dispatch]}>
-      {children}
-    </DawApiContext.Provider>
-  );
-};
-
-export { Configurator };

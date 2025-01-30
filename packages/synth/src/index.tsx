@@ -1,11 +1,17 @@
 import * as React from 'react';
-import { Configurator } from './ui/configurator';
 import { UI } from './ui';
+import { useEngine } from './ui/hooks/use-engine';
+import { makeReducer } from './ui/reducer';
+import { DawApiContext } from './ui/context/daw-state';
 
-const DAW: React.FC = () => (
-  <Configurator>
-    <UI />
-  </Configurator>
-);
+const Daw: React.FC = () => {
+  const [state, dispatch] = useEngine(makeReducer);
 
-export default DAW;
+  return (
+    <DawApiContext.Provider value={[state, dispatch]}>
+      <UI />
+    </DawApiContext.Provider>
+  );
+};
+
+export default Daw;
