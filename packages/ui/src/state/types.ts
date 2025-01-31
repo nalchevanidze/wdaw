@@ -10,19 +10,19 @@ import {
   PLAYER_ACTION
 } from '@wdaw/engine';
 
-export type SET_WAVE = {
+type SET_WAVE = {
   type: 'SET_WAVE';
   id: WAVE_ID;
   payload: number;
 };
 
-export type SET_FILTER = {
+type SET_FILTER = {
   type: 'SET_FILTER';
   id: FILTER_ID;
   payload: number;
 };
 
-export type REFRESH = {
+type REFRESH = {
   type: 'REFRESH';
   payload: {
     time: number;
@@ -30,54 +30,63 @@ export type REFRESH = {
   };
 };
 
-export type SET_TRACK = {
+type SET_TRACK = {
   type: 'SET_TRACK';
   payload: number;
 };
 
-export type SET_BPM = {
+type SET_BPM = {
   type: 'SET_BPM';
   payload: number;
 };
 
-export type SET_SEQUENCE = {
+type SET_SEQUENCE = {
   type: 'SET_SEQUENCE';
   payload: Sequence;
 };
 
-export type TOGGLE_PANEL = {
+type TOGGLE_PANEL = {
   type: 'TOGGLE_PANEL';
   id: PANEL_ID;
 };
 
-export type SET_MIDI = {
+type SET_MIDI = {
   type: 'SET_MIDI';
   payload: Partial<Midi>;
   id: number;
 };
 
-export type SET_GAIN = {
+type SET_GAIN = {
   type: 'SET_GAIN';
   payload: number;
   id: number;
 };
 
-export type SET_ENVELOPE = {
+type SET_ENVELOPE = {
   type: 'SET_ENVELOPE';
   id: ENVELOPE_ID;
   payload: Partial<EnvelopeConfig>;
 };
 
-export type SET_PRESET = {
+type SET_PRESET = {
   type: 'SET_PRESET';
   payload: PresetName;
 };
 
-export type PLAYER = { type: 'PLAYER'; payload: PLAYER_ACTION };
+type PLAYER = {
+  type: 'PLAYER';
+  payload: PLAYER_ACTION;
+};
 
-export type SET_TIME = { type: 'SET_TIME'; payload: number };
+type SET_TIME = {
+  type: 'SET_TIME';
+  payload: number;
+};
 
-export type KEY_PRESS = { type: `KEY_${'UP' | 'DOWN'}`; payload: number };
+type KEY_PRESS = {
+  type: `KEY_${'UP' | 'DOWN'}`;
+  payload: number;
+};
 
 export type EngineAction =
   | PLAYER
