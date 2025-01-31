@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Gui } from './daw';
-import { useEngine } from './daw/hooks/use-engine';
+import { useEngine } from './hooks/use-engine';
 import { makeReducer } from './state';
 import { DawApiContext } from './daw/context/daw-state';
 
