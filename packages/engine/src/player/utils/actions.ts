@@ -1,6 +1,6 @@
 import { NOTE_ACTION } from '../types';
-import { keysToIndexes } from '../../../utils/notes';
 import { Midi, NoteAction } from '../../types';
+import { keysToIndexes } from '../../utils/notes';
 
 const taskAt = (midi: NoteAction[], i: number, key: NOTE_ACTION): number[] => {
   const step = (midi[i] = midi[i] ?? {});

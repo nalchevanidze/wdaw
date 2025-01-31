@@ -1,7 +1,6 @@
 import * as React from 'react';
-
+import { PANEL_ID } from '@wdaw/engine';
 import { colors } from '../styles';
-import { PANEL_ID } from '../../engine';
 import { usePreset } from '../hooks/use-preset';
 
 const styles = {

@@ -1,4 +1,4 @@
-import { OCTAVE_SIZE } from './notes';
+import { OCTAVE_SIZE } from '@wdaw/engine';
 
 const keyboardMap: string[] = [
   'z',

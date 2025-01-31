@@ -1,5 +1,4 @@
-import { UIPosition } from '../../utils/notes';
-import { Midi, Note } from '../../engine';
+import { Midi, Note , UIPosition} from '@wdaw/engine';
 import { UINote } from './notes';
 
 export const flatten = ({ notes }: Midi): UINote[] =>

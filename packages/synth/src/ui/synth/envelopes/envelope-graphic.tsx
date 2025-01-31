@@ -4,10 +4,10 @@ import { Grid } from '../../utils/grid-line';
 import { SvgStage, StageContext } from '@wdaw/svg';
 import { ControlPoint, Point } from './control-point';
 import { MouseEventHandler } from 'react';
-import { positive, unitInterval } from '../../../utils/math';
 import { colors } from '../../styles';
-import { EnvelopeConfig, ENVELOPE_ID } from '../../../engine';
+import { EnvelopeConfig, ENVELOPE_ID } from '@wdaw/engine';
 import { usePreset } from '../../hooks/use-preset';
+import { positive, unitInterval } from '../../../utils/math';
 
 type Points = Record<'start' | keyof EnvelopeConfig, Point>;
 type Params = Record<'sustainX' | keyof EnvelopeConfig, number>;

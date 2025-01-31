@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { colors } from '../styles';
-import { Midi } from '../../engine';
+import { Midi } from '@wdaw/engine';
 import { NOTE } from '../common/units';
 import { UINote } from '../common/notes';
 import { flatten } from '../common/midi';

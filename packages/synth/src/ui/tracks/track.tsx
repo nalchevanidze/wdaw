@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Midi } from '../../engine';
+import { Midi } from '@wdaw/engine';
 import { MidiLoop } from './midi-loop';
 import { useDragging } from '../hooks/use-dragging';
 import { distanceX } from '../utils/area';
@@ -14,7 +14,11 @@ type Props = {
 };
 
 export const Track: React.FC<Props> = ({ id, midi, y, height }) => {
-  const { start, end, clear, move, scale } = useTrackEditor(midi.start, midi.end, id);
+  const { start, end, clear, move, scale } = useTrackEditor(
+    midi.start,
+    midi.end,
+    id
+  );
 
   const dragging = useDragging({
     onMove: {

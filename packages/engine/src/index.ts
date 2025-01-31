@@ -12,3 +12,6 @@ export {
 } from './common/types';
 export { getPreset } from './state';
 export { Note, Midi, PLAYER_ACTION, PANEL_ID } from './types';
+export { UIPosition } from './utils/notes';
+export { NamedPreset, TrackState } from './state/state';
+export { OCTAVE_SIZE } from './utils/notes';

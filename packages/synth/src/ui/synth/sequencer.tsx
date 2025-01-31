@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { colors } from '../styles';
 import { Panel } from './panel';
-import { SEQUENCE_LENGTH } from '../../engine';
+import { SEQUENCE_LENGTH } from '@wdaw/engine';
 import { toggleARPNote } from '../../utils/arp';
 import { usePreset } from '../hooks/use-preset';
 

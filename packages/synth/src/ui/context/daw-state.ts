@@ -1,6 +1,6 @@
-import { createContext } from "react";
-import { DAWState, dawState } from "../../engine";
-import { DawDispatch } from "../types";
+import { createContext } from 'react';
+import { DAWState, dawState } from '@wdaw/engine';
+import { DawDispatch } from '../types';
 
 type DawApi = [DAWState, DawDispatch];
 

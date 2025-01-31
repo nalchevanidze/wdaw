@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TrackState } from '../../engine/state/state';
+import { TrackState } from '@wdaw/engine';
 import { DawDispatch } from '../types';
 import { DawApiContext } from '../context/daw-state';
 

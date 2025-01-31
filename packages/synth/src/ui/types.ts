@@ -1,5 +1,5 @@
 import { Point } from '@wdaw/svg';
-import { EngineAction } from '../engine';
+import { EngineAction } from '@wdaw/engine';
 
 export type Area = readonly [Point, Point];
 

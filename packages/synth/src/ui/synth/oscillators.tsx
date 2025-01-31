@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { waveFunction } from '../../engine';
 import { Grid } from '../utils/grid-line';
 import { Panel } from './panel';
 import PanelPresets from './presets';
 import { WaveButton, WaveButtonProps } from './button';
-import { FILTER_ID, WAVE_ID } from '../../engine';
+import { FILTER_ID, WAVE_ID, waveFunction } from '@wdaw/engine';
 import { usePreset } from '../hooks/use-preset';
 
 const styles = {

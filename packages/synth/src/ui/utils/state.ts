@@ -1,5 +1,4 @@
-import { DAWState } from '../../engine/state';
-import { NamedPreset, TrackState } from '../../engine/state/state';
+import { NamedPreset, TrackState, DAWState } from '@wdaw/engine';
 
 const mapCurrentTrack = (state: DAWState, f: (a: TrackState) => TrackState) =>
   mapTrack(state.tracks.currentTrack, state, f);

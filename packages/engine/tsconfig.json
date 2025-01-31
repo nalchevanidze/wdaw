@@ -4,13 +4,5 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "./dist"
-  },
-  "references": [
-    {
-      "path": "../svg"
-    },
-    {
-      "path": "../engine"
-    }
-  ]
+  }
 }

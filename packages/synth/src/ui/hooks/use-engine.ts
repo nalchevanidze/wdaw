@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from 'react';
-import { dawState, DAWState, EngineAction, SynthEngine } from '../../engine';
+import { dawState, DAWState, EngineAction, SynthEngine } from '@wdaw/engine';
 
 type Reducer = (state: DAWState, action: EngineAction) => DAWState;
 
@@ -8,11 +8,10 @@ export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
     reducer: (a, _) => a
   });
 
-
   useEffect(() => {
     const engine = new SynthEngine();
     engine.setTracks(state.tracks);
-    engine.setBPM(state.bpm)
+    engine.setBPM(state.bpm);
     engine.setMidiCallback((payload) => dispatch({ type: 'REFRESH', payload }));
     setReducerState({ reducer: makeReducer(engine) });
 

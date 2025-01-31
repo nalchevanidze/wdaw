@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NamedPreset } from '../../engine/state/state';
+import { NamedPreset } from '@wdaw/engine';
 import { DawDispatch } from '../types';
 import { DawApiContext } from '../context/daw-state';
 

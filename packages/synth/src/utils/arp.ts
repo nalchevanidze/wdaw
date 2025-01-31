@@ -1,4 +1,4 @@
-import { Sequence } from '../engine';
+import { Sequence } from '@wdaw/engine';
 
 type Location = {
   row: number;
