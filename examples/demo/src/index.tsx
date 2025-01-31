@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import Synth from '@wdaw/synth';
+import Synth from '@wdaw/ui';
 import Player from '@wdaw/player';
 
 const urlParams = new URLSearchParams(window.location.search);

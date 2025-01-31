@@ -9,7 +9,7 @@
       "path": "packages/player"
     },
     {
-      "path": "packages/synth"
+      "path": "packages/ui"
     },
     {
       "path": "packages/engine"
