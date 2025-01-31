@@ -22,7 +22,7 @@ const blackKeys = keys.filter((e) => e.semi);
 const roundness = '2px';
 
 const height = 100;
-const heightDiff = 30;
+const heightDiff = 25;
 
 const defaultStyle = {
   display: 'block',

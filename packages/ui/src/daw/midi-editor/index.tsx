@@ -140,7 +140,7 @@ export const MidiEditor: React.FC = () => {
   return (
     <>
       <NoteComposerHeader actionType={actionType} dispatch={setActionType} />
-      <div style={{ width: '560px', overflow: 'scroll', height: '400px' }}>
+      <div style={{ width: '560px', overflow: 'scroll', height: '350px' }}>
         <SvgStage
           viewBox={viewBox}
           width={width + 'px'}
