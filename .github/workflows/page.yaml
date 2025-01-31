@@ -12,13 +12,11 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '20'
-      - name: Build
+      - name: Prepare
         run: |
           npm i
           npm run build
           npm run docs
-      - name: Git Config
-        run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
       - name: Deploy
