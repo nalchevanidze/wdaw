@@ -21,6 +21,9 @@ const blackKeys = keys.filter((e) => e.semi);
 
 const roundness = '2px';
 
+const height = 100;
+const heightDiff = 30;
+
 const defaultStyle = {
   display: 'block',
   border: 'none',
@@ -29,16 +32,16 @@ const defaultStyle = {
   flexGrow: 0,
   boxShadow: '1px 3px 1px rgba(0, 0, 0, 0.2)',
   width: '14%',
-  paddingTop: '180px',
+  paddingTop: height + heightDiff,
   background: '#EEE'
-};
+} as const;
 
 const blackStyle = {
   ...defaultStyle,
   background: colors.black,
   width: '10%',
   position: 'absolute',
-  paddingTop: '140px'
+  paddingTop: height
 } as const;
 
 const styles = {
@@ -53,36 +56,41 @@ const styles = {
     alignItems: 'start'
   },
   black: {
-    active: {
-      ...blackStyle,
-      background: '#333',
-      paddingTop: '135px'
-    },
-    default: blackStyle
+    active: '#333',
+    base: blackStyle
   },
   white: {
-    default: defaultStyle,
-    active: {
-      ...defaultStyle,
-      background: '#DDD',
-      paddingTop: '170px'
-    }
+    base: defaultStyle,
+    active: '#DDD'
   }
 } as const;
 
 type keyProps = OctaveProps & {
-  style: { active: React.CSSProperties; default: React.CSSProperties };
+  onActive: string;
+  style: Omit<React.CSSProperties, 'paddingTop'> & { paddingTop: number };
   left?: string;
 };
 
-const Key = ({ index, active, keyPress, keyUp, style, left }: keyProps) => {
+const Key = ({
+  index,
+  active,
+  keyPress,
+  keyUp,
+  style,
+  left,
+  onActive
+}: keyProps) => {
   const press = () => keyPress(index);
   const up = () => keyUp(index);
+
+  const pressed = active.includes(index);
 
   return (
     <div
       style={{
-        ...(active.includes(index) ? style.active : style.default),
+        ...style,
+        paddingTop: pressed ? (style.paddingTop ?? 0) - 10 : style.paddingTop,
+        background: pressed ? onActive : style.background,
         left
       }}
       onTouchStart={press}
@@ -105,7 +113,13 @@ type OctaveProps = {
 const Octave = ({ index, ...props }: OctaveProps) => (
   <li style={styles.li}>
     {whiteKeys.map(({ i }) => (
-      <Key {...props} index={index * 12 + i} key={i} style={styles.white} />
+      <Key
+        {...props}
+        index={index * 12 + i}
+        key={i}
+        style={styles.white.base}
+        onActive={styles.white.active}
+      />
     ))}
     {blackKeys.map(({ i, left }) => (
       <Key
@@ -113,7 +127,8 @@ const Octave = ({ index, ...props }: OctaveProps) => (
         left={left + '%'}
         index={index * 12 + i}
         key={i}
-        style={styles.black}
+        style={styles.black.base}
+        onActive={styles.black.active}
       />
     ))}
   </li>
