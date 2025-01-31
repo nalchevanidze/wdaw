@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Gui } from './daw';
 import { useEngine } from './daw/hooks/use-engine';
-import { makeReducer } from './state/reducer';
+import { makeReducer } from './state';
 import { DawApiContext } from './daw/context/daw-state';
 
 const Daw: React.FC = () => {

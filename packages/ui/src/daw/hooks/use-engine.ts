@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from 'react';
-import { dawState, DAWState, EngineAction, SynthEngine } from '@wdaw/engine';
+import { dawState, DAWState, SynthEngine } from '@wdaw/engine';
+import { EngineAction } from '../../state/types';
 
 type Reducer = (state: DAWState, action: EngineAction) => DAWState;
 
