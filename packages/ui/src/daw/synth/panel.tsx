@@ -11,7 +11,12 @@ const styles = {
     textAlign: 'center',
     textTransform: 'uppercase'
   },
-  button: {
+  toggle: (optional?: boolean) => ({
+    display: 'flex',
+    height: 10,
+    cursor: optional ? 'pointer' : 'default'
+  }),
+  button: (active: boolean) => ({
     display: 'block',
     width: '7px',
     height: '7px',
@@ -20,8 +25,9 @@ const styles = {
     border: '2px solid #888888',
     padding: '0px',
     cursor: 'pointer',
-    flexShrink: 0
-  },
+    flexShrink: 0,
+    background: active ? colors.highlight : colors.black
+  }),
   grid: (size: number, active?: boolean) =>
     ({
       display: 'flex',
@@ -60,29 +66,18 @@ const Panel: React.FC<Props> = ({
   const active =
     (optional && target && 'enabled' in target && target.enabled) || !optional;
 
-  const gridStyle = styles.grid(size, active);
+  const grid = styles.grid(size, active);
 
   return (
-    <div style={gridStyle}>
+    <div style={grid}>
       <div
-        style={{
-          display: 'flex',
-          height: 10,
-          cursor: optional ? 'pointer' : 'default'
-        }}
+        style={styles.toggle(optional)}
         onClick={optional ? toggle : undefined}
       >
-        {optional ? (
-          <div
-            style={{
-              ...styles.button,
-              background: active ? colors.highlight : colors.black
-            }}
-          />
-        ) : null}
+        {optional ? <div style={styles.button(active)} /> : null}
         <h3 style={{ ...styles.label, color }}>{label}</h3>
       </div>
-      <div style={gridStyle}>{children}</div>
+      <div style={grid}>{children}</div>
     </div>
   );
 };
