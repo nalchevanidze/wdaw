@@ -20,12 +20,13 @@ const noise = [
   0.46, 0.8, 1, 0.85, 0, 0.9, 0.96, 0.95, 0, 1, 0.5
 ];
 
-const lib: IconLib = {
+export const lib: IconLib = {
   saw: rescale([0, 0.5, 0, 0, 1, 1, 1, 0.5]),
   square: rescale([0, 0.5, 0, 0, 0.5, 0, 0.5, 1, 1, 1, 1, 0.5]),
   saw2: rescale([0, 0.5, 0, 0, 0.5, 1, 0.5, 0, 1, 1, 1, 0.5]),
   noise: rescale(noise),
   sine: funWave((e) => Math.sin(e * 2 * Math.PI) / 2 + 0.5),
+  fm: funWave((e) => Math.sin(e * 2 * Math.PI) / 2 + 0.5),
   tech: funWave((i) =>
     i < 0.15 ? Math.min((0.05 - (i % 0.05)) * 50 - 0.7, 1) - 0.5 : 0.5
   ),
@@ -35,11 +36,6 @@ const lib: IconLib = {
     'M25.86 65.488s17.086.177 24.168-30.246c6.56 30.48 25.135 29.14 25.135 29.14',
   envelope: rescale([0, 1, 0.1, 0, 0.3, 0.5, 0.5, 0.5, 1, 1]),
   fmFreq:
-    'M22 49.8h6.5v20C39 71.3 37.5 30 44.3 30 51 30 50 70 56.7 70c6.7 0 2.6-39.7 6.5-40C67 30 63.8 70 70 70V50h8'
+    'M22 49.8h6.5v20C39 71.3 37.5 30 44.3 30 51 30 50 70 56.7 70c6.7 0 2.6-39.7 6.5-40C67 30 63.8 70 70 70V50h8',
+  offset: 'M30 50 l0 10 m10-20 l0 20 m10-30 l0 30 m10-20 l0 20 m10-10 l0 10'
 };
-
-lib.offset = 'M30 50 l0 10 m10-20 l0 20 m10-30 l0 30 m10-20 l0 20 m10-10 l0 10';
-
-lib.fm = lib.sine;
-
-export default lib;
