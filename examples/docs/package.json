@@ -11,7 +11,8 @@
     "next": "15.1.6",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "@wdaw/ui": "0.2.1"
+    "@wdaw/ui": "0.2.1",
+    "@wdaw/player": "0.2.1"
   },
   "devDependencies": {
     "@types/react": "19.0.0",
