@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import HeaderButton from '../../components/header-button';
 import { colors } from '../../styles';
 import { PLAYER_ACTION } from '@wdaw/engine';
-import { DawApiContext } from '../context/daw-state';
+import { DawApiContext } from '../../context/state';
 
 const styles = {
   container: {

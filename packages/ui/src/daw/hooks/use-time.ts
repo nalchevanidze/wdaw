@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { NOTE, QUARTER } from '../../common/units';
-import { DawApiContext } from '../context/daw-state';
+import { DawApiContext } from '../../context/state';
 
 export const useTime = () => {
   const [{ player, tracks }] = useContext(DawApiContext);

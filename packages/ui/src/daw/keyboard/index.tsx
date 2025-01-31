@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { KEY_EVENT_TYPE, useKeyAction } from '../utils/key-actions';
 import { KeyHandler, Octave } from './octave';
-import { DawApiContext } from '../context/daw-state';
+import { DawApiContext } from '../../context/state';
 import { noteFromKeyboard } from '../utils/keyboard';
 
 const Keyboard: React.FC = () => {

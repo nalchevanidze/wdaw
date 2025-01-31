@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TrackState } from '@wdaw/engine';
 import { DawDispatch } from '../types';
-import { DawApiContext } from '../context/daw-state';
+import { DawApiContext } from '../../context/state';
 
 export const useTrack = (): [TrackState & { id: number }, DawDispatch] => {
   const [

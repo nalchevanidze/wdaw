@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { colors } from '../../styles';
 import { Level } from '../../components/level';
-import { DawApiContext } from '../context/daw-state';
+import { DawApiContext } from '../../context/state';
 
 type Props = {
   name: string;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DawApiContext } from '../context/daw-state';
+import { DawApiContext } from '../../context/state';
 
 type State = { start: number; end: number };
 

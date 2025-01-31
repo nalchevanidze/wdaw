@@ -6,7 +6,7 @@ import { SvgStage } from '@wdaw/svg';
 import { colors } from '../../styles';
 import { Panel } from './panel';
 import { Grid } from './grid';
-import { DawApiContext } from '../context/daw-state';
+import { DawApiContext } from '../../context/state';
 
 const panelWidth = 128;
 const trackHeight = 64;
