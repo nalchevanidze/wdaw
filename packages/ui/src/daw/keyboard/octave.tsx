@@ -28,6 +28,11 @@ const keys = [
   })
 );
 
+const allkeys: Key[] = [
+  ...keys.filter((e) => !e.semi),
+  ...keys.filter((e) => e.semi)
+];
+
 const roundness = '2px';
 
 const height = 100;
@@ -115,10 +120,6 @@ type OctaveProps = {
   keyUp: KeyHandler;
 };
 
-const allkeys: Key[] = [
-  ...keys.filter((e) => !e.semi),
-  ...keys.filter((e) => e.semi)
-];
 
 const Octave = ({ octave, ...props }: OctaveProps) => (
   <li style={styles.li}>
