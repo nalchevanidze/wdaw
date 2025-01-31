@@ -1,6 +1,5 @@
 import { SynthEngine, EngineAction, DAWState, getPreset } from '@wdaw/engine';
-
-import { mapPreset, mapTrack } from './utils/state';
+import { mapPreset, mapTrack } from '../daw/utils/state';
 
 const dispatcher = (
   state: DAWState,
