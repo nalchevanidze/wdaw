@@ -41,33 +41,33 @@ const blackStyle = {
   paddingTop: '140px'
 } as const;
 
-const StyleBlack = {
-  active: {
-    ...blackStyle,
-    background: '#333',
-    paddingTop: '135px'
-  },
-  default: blackStyle
-};
-
-const StyleWhite = {
-  default: defaultStyle,
-  active: {
-    ...defaultStyle,
-    background: '#DDD',
-    paddingTop: '170px'
-  }
-};
-
 const styles = {
-  listStyleType: 'none',
-  cursor: 'pointer',
-  display: 'flex',
-  position: 'relative',
-  width: '300px',
-  userSelect: 'none',
-  justifyContent: 'space-between',
-  alignItems: 'start'
+  li: {
+    listStyleType: 'none',
+    cursor: 'pointer',
+    display: 'flex',
+    position: 'relative',
+    width: '300px',
+    userSelect: 'none',
+    justifyContent: 'space-between',
+    alignItems: 'start'
+  },
+  black: {
+    active: {
+      ...blackStyle,
+      background: '#333',
+      paddingTop: '135px'
+    },
+    default: blackStyle
+  },
+  white: {
+    default: defaultStyle,
+    active: {
+      ...defaultStyle,
+      background: '#DDD',
+      paddingTop: '170px'
+    }
+  }
 } as const;
 
 type keyProps = OctaveProps & {
@@ -103,9 +103,9 @@ type OctaveProps = {
 };
 
 const Octave = ({ index, ...props }: OctaveProps) => (
-  <li style={styles}>
+  <li style={styles.li}>
     {whiteKeys.map(({ i }) => (
-      <Key {...props} index={index * 12 + i} key={i} style={StyleWhite} />
+      <Key {...props} index={index * 12 + i} key={i} style={styles.white} />
     ))}
     {blackKeys.map(({ i, left }) => (
       <Key
@@ -113,7 +113,7 @@ const Octave = ({ index, ...props }: OctaveProps) => (
         left={left + '%'}
         index={index * 12 + i}
         key={i}
-        style={StyleBlack}
+        style={styles.black}
       />
     ))}
   </li>
