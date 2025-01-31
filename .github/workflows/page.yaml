@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - examples/**
+      - .github/workflows/page.yaml
 
 jobs:
   pages:
