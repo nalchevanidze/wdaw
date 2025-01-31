@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { colors } from '../../styles';
 
+type Key = {
+  index: number;
+  left?: string;
+  semi?: boolean;
+};
+
 const keys = [
   { id: 'C' },
   { semi: true, id: 'C#', left: 9.2 },
@@ -14,10 +20,13 @@ const keys = [
   { id: 'A' },
   { semi: true, id: 'A#', left: 81.5 },
   { id: 'B' }
-].map((key, i) => ({ ...key, i }));
-
-const whiteKeys = keys.filter((e) => !e.semi);
-const blackKeys = keys.filter((e) => e.semi);
+].map(
+  (key, index): Key => ({
+    ...key,
+    index,
+    left: key.left ? key.left + '%' : undefined
+  })
+);
 
 const roundness = '2px';
 
@@ -56,41 +65,37 @@ const styles = {
     alignItems: 'start'
   },
   black: {
-    active: '#333',
+    pressedColor: '#333',
     base: blackStyle
   },
   white: {
     base: defaultStyle,
-    active: '#DDD'
+    pressedColor: '#DDD'
   }
 } as const;
 
-type keyProps = OctaveProps & {
-  onActive: string;
-  style: Omit<React.CSSProperties, 'paddingTop'> & { paddingTop: number };
+type keyProps = {
   left?: string;
+  semi?: boolean;
+  index: number;
+  active: number[];
+  keyPress: KeyHandler;
+  keyUp: KeyHandler;
 };
 
-const Key = ({
-  index,
-  active,
-  keyPress,
-  keyUp,
-  style,
-  left,
-  onActive
-}: keyProps) => {
+const Key = ({ index, active, keyPress, keyUp, left, semi }: keyProps) => {
   const press = () => keyPress(index);
   const up = () => keyUp(index);
 
   const pressed = active.includes(index);
+  const { base, pressedColor } = semi ? styles.black : styles.white;
 
   return (
     <div
       style={{
-        ...style,
-        paddingTop: pressed ? (style.paddingTop ?? 0) - 10 : style.paddingTop,
-        background: pressed ? onActive : style.background,
+        ...base,
+        paddingTop: pressed ? (base.paddingTop ?? 0) - 10 : base.paddingTop,
+        background: pressed ? pressedColor : base.background,
         left
       }}
       onTouchStart={press}
@@ -104,31 +109,26 @@ const Key = ({
 export type KeyHandler = (e: KeyboardEvent | number) => void;
 
 type OctaveProps = {
-  index: number;
+  octave: number;
   active: number[];
   keyPress: KeyHandler;
   keyUp: KeyHandler;
 };
 
-const Octave = ({ index, ...props }: OctaveProps) => (
+const allkeys: Key[] = [
+  ...keys.filter((e) => !e.semi),
+  ...keys.filter((e) => e.semi)
+];
+
+const Octave = ({ octave, ...props }: OctaveProps) => (
   <li style={styles.li}>
-    {whiteKeys.map(({ i }) => (
+    {allkeys.map(({ index, left, semi }) => (
       <Key
+        key={index}
+        semi={semi}
+        index={octave * 12 + index}
+        left={left}
         {...props}
-        index={index * 12 + i}
-        key={i}
-        style={styles.white.base}
-        onActive={styles.white.active}
-      />
-    ))}
-    {blackKeys.map(({ i, left }) => (
-      <Key
-        {...props}
-        left={left + '%'}
-        index={index * 12 + i}
-        key={i}
-        style={styles.black.base}
-        onActive={styles.black.active}
       />
     ))}
   </li>

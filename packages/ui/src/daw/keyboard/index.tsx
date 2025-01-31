@@ -30,7 +30,7 @@ const Keyboard: React.FC = () => {
       {[1, 2, 3].map((i) => (
         <Octave
           key={i}
-          index={i}
+          octave={i}
           keyPress={handler('KEY_DOWN')}
           keyUp={handler('KEY_UP')}
           active={player.notes}
