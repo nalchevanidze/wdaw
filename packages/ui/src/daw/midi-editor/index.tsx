@@ -3,7 +3,7 @@ import NoteSheet from './note-sheet';
 import { NoteComposerHeader } from './header';
 import { EditActionType } from '../types';
 
-const PianoRoll: React.FC = () => {
+export const MidiEditor: React.FC = () => {
   const [actionType, setActionType] = React.useState<EditActionType>('select');
 
   return (
@@ -15,5 +15,3 @@ const PianoRoll: React.FC = () => {
     </>
   );
 };
-
-export { PianoRoll };

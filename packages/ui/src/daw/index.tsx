@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Synth } from './synth';
-import { PianoRoll } from './piano-roll';
+import { MidiEditor } from './midi-editor';
 import { Keyboard } from './keyboard';
 import { colors } from '../styles';
 import { Tracks } from './tracks';
@@ -39,7 +39,7 @@ export const Gui: React.FC = () => (
         <Keyboard />
       </section>
       <section style={styles.midi}>
-        <PianoRoll />
+        <MidiEditor />
       </section>
     </div>
     <section style={styles.tracks}>
