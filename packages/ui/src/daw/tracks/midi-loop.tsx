@@ -3,7 +3,7 @@ import { colors } from '../../styles';
 import { Midi } from '@wdaw/engine';
 import { NOTE } from '../common/units';
 import { UINote } from '../common/notes';
-import { flatten } from '../common/midi';
+import { flatten } from '../utils/midi';
 import { MEvent } from '../types';
 
 type Props = {

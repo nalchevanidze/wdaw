@@ -12,7 +12,7 @@ import {
 import { Point } from '@wdaw/svg';
 import { useOnDelete } from '../utils';
 import { addTracking, dropTracking } from '../utils/tracking';
-import { deepen, flatten } from '../common/midi';
+import { deepen, flatten } from '../utils/midi';
 import { useTrack } from './use-track';
 
 export const useNoteEditor = (height: number) => {
