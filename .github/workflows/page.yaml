@@ -16,7 +16,7 @@ jobs:
         run: |
           npm i
           npm run build
-          npm run next
+          npm run docs
       - name: Git Config
         run: |
           git config --global user.name "${{ github.actor }}"
