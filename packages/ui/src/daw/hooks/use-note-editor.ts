@@ -10,7 +10,7 @@ import {
   Selected
 } from '../utils/notes';
 import { Point } from '@wdaw/svg';
-import { useOnDelete } from '../utils';
+import { useOnDelete } from '../utils/key-actions';
 import { addTracking, dropTracking } from '../utils/tracking';
 import { deepen, flatten } from '../utils/midi';
 import { useTrack } from './use-track';
