@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NOTE } from '../common/units';
+import { NOTE } from '../../common/units';
 import { Tapeline } from '../../components/tapeline';
 
 type TimelineProps = {

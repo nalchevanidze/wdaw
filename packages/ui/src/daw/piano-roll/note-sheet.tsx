@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Point, SvgStage } from '@wdaw/svg';
 import { OCTAVE_SIZE } from '@wdaw/engine';
-import { BLOCK, NOTE, QUARTER } from '../common/units';
+import { BLOCK, NOTE, QUARTER } from '../../common/units';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
 import { Grid } from './grid';

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { NOTE, QUARTER } from '../common/units';
+import { NOTE, QUARTER } from '../../common/units';
 import { DawApiContext } from '../context/daw-state';
 
 export const useTime = () => {

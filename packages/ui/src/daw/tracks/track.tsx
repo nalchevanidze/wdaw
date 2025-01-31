@@ -3,7 +3,7 @@ import { Midi } from '@wdaw/engine';
 import { MidiLoop } from './midi-loop';
 import { useDragging } from '../hooks/use-dragging';
 import { distanceX } from '../utils/area';
-import { NOTE } from '../common/units';
+import { NOTE } from '../../common/units';
 import { useTrackEditor } from '../hooks/use-track-editor';
 
 type Props = {

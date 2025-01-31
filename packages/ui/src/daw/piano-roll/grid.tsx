@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NOTE, BLOCK, QUARTER } from '../common/units';
+import { NOTE, BLOCK, QUARTER } from '../../common/units';
 import { Keys } from './keyboard';
 import { VerticalLine } from '../../components/vertical-line';
 

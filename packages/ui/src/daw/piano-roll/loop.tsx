@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { colors } from '../../styles';
-import { QUARTER } from '../common/units';
+import { QUARTER } from '../../common/units';
 import { MHandler } from '../types';
 
 type Props = {
