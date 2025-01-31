@@ -28,7 +28,7 @@ const ocatveHeight = NOTE * OCTAVE_SIZE;
 const canvasHeight = ocatveHeight * octaveCount;
 const stageHeight = timelineHeight + canvasHeight;
 
-const NoteSheet: React.FC<Props> = ({ actionType }) => {
+const MidiEditorCanvas: React.FC<Props> = ({ actionType }) => {
   const { time, end } = useTime();
   const notes = useNoteEditor(canvasHeight);
   const loop = useLoop();
@@ -147,7 +147,7 @@ export const MidiEditor: React.FC = () => {
           height={stageHeight + 'px'}
           style={{ background: '#FFF' }}
         >
-          <NoteSheet actionType={actionType} />
+          <MidiEditorCanvas actionType={actionType} />
         </SvgStage>
       </div>
     </>
