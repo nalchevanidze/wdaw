@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
-  transpilePackages: ['@wdaw/svg', '@wdaw/synth']
+  transpilePackages: ['@wdaw/svg', '@wdaw/synth', '@wdaw/engine']
 };
