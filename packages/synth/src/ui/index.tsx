@@ -31,7 +31,7 @@ const styles = {
   }
 } as const;
 
-const UI: React.FC = () => (
+export const Gui: React.FC = () => (
   <div>
     <div style={styles.daw}>
       <section style={styles.synth}>
@@ -47,5 +47,3 @@ const UI: React.FC = () => (
     </section>
   </div>
 );
-
-export { UI };
