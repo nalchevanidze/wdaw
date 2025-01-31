@@ -1,7 +1,7 @@
 import * as React from 'react';
 import lib from './icons';
 import { SvgStage } from '@wdaw/svg';
-import { Level, Props } from '../../common/level';
+import { Level, Props } from '../../../components/level';
 
 const styles = {
   p: {
