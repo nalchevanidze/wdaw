@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StageContext } from '@wdaw/svg';
-import { Tapeline } from '../common/tapeline';
 import { DawApiContext } from '../context/daw-state';
+import { Tapeline } from '../../components/tapeline';
 
 type Height = { height: number };
 

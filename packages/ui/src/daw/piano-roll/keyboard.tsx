@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { BLOCK, NOTE, QUARTER } from '../common/units';
-import { colors } from '../styles';
+import { colors } from '../../styles';
 
 type KeysProps = {
   width: number;

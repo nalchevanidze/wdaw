@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { colors } from '../styles';
+import { colors } from '../../styles';
 import { Level } from '../common/level';
 import { DawApiContext } from '../context/daw-state';
 

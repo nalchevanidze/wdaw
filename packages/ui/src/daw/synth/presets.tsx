@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { colors } from '../styles';
+import { colors } from '../../styles';
 import { presetNames } from '@wdaw/engine';
 import { usePreset } from '../hooks/use-preset';
 

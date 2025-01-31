@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Synth } from './synth';
 import { PianoRoll } from './piano-roll';
 import { Keyboard } from './keyboard';
-import { colors } from './styles';
+import { colors } from '../styles';
 import { Tracks } from './tracks';
 
 const styles = {

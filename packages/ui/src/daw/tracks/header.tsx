@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import HeaderButton from '../common/header-button';
-import { colors } from '../styles';
+import HeaderButton from '../../components/header-button';
+import { colors } from '../../styles';
 import { PLAYER_ACTION } from '@wdaw/engine';
 import { DawApiContext } from '../context/daw-state';
 
