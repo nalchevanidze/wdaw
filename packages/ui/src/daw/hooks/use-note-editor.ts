@@ -8,7 +8,7 @@ import {
   selectNotesIn,
   UINote,
   Selected
-} from '../common/notes';
+} from '../utils/notes';
 import { Point } from '@wdaw/svg';
 import { useOnDelete } from '../utils';
 import { addTracking, dropTracking } from '../utils/tracking';

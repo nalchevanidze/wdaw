@@ -10,7 +10,7 @@ import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { useNoteEditor } from '../hooks/use-note-editor';
 import { useTime } from '../hooks/use-time';
 import { SelectionArea } from './selection-area';
-import { UINote } from '../common/notes';
+import { UINote } from '../utils/notes';
 import { Keyboard } from './keyboard';
 import { Loop } from './loop';
 import { LoopTarget, useLoop } from '../hooks/use-loop-editor';

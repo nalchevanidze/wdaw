@@ -1,8 +1,8 @@
 import { Point } from '@wdaw/svg';
-import { distanceX, distanceY } from '../utils/area';
+import { distanceX, distanceY } from './area';
 import { Area } from '../types';
-import { NOTE, STEP } from './units';
-import { addTracking, Tracked } from '../utils/tracking';
+import { NOTE, STEP } from '../common/units';
+import { addTracking, Tracked } from './tracking';
 
 export type Selected<T> = {
   selected: Tracked<T>[];

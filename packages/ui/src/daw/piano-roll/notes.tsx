@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { colors } from '../../styles';
 import { NOTE, STEP } from '../common/units';
-import { UINote } from '../common/notes';
+import { UINote } from '../utils/notes';
 import { MEvent } from '../types';
 
 type Props = {
