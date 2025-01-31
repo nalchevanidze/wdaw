@@ -7,7 +7,7 @@ import { MouseEventHandler } from 'react';
 import { colors } from '../../styles';
 import { EnvelopeConfig, ENVELOPE_ID } from '@wdaw/engine';
 import { usePreset } from '../../hooks/use-preset';
-import { positive, unitInterval } from '../../../utils/math';
+import { positive, unitInterval } from '../../utils/math';
 
 type Points = Record<'start' | keyof EnvelopeConfig, Point>;
 type Params = Record<'sustainX' | keyof EnvelopeConfig, number>;

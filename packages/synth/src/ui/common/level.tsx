@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StageContext } from '@wdaw/svg';
-import { intRange, unitInterval, Range } from '../../utils/math';
+import { intRange, unitInterval, Range } from '../utils/math';
 import { MHandler } from '../types';
 
 const dashes = (size: number, steps: number) =>
