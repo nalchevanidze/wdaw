@@ -16,7 +16,8 @@
     "lint": "eslint .",
     "format": "prettier . --write",
     "check:spelling": "npx cspell --gitignore --no-progress --color **/*.{ts,tsx,md}",
-    "check:formating": "prettier . --check"
+    "check:formating": "prettier . --check",
+    "next": "npm run build -w=@wdaw/docs"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",
