@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NOTE, BLOCK, QUARTER } from '../common/units';
-import { VerticalLine } from '../../common/vertical-line';
+import { VerticalLine } from '../common/vertical-line';
 
 export const Grid: React.FC = () => (
   <g>
