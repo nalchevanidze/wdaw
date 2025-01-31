@@ -1,5 +1,4 @@
-import React from 'react';
-
+import * as React from 'react';
 import Player from '@wdaw/player';
 
 export default function PlayerPage() {
