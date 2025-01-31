@@ -17,16 +17,15 @@ jobs:
           node-version: "16"
       - name: Generate
         run: |
-          cd docs/
           npm i
           npm run build
+          npm run next
       - name: Git Config
         run: |
-          cd docs/
           git config --global user.name "${{ secrets.USER_NAME }}"
           git config --global user.email "${{ secrets.USER_EMAIL }}"
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/out
+          publish_dir: ./examples/docs/out
