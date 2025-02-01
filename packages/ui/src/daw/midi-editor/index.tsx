@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Point, SvgStage } from '@wdaw/svg';
 import { OCTAVE_SIZE } from '@wdaw/engine';
 import { NoteComposerHeader } from './header';
-import { BLOCK, NOTE, NOTE_HEIGHT } from '../../common/units';
+import { BLOCK, NOTE_HEIGHT } from '../../common/units';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
 import { EditActionType, MHandler } from '../types';
@@ -153,7 +153,7 @@ export const MidiEditor: React.FC = () => {
       }
     }
   ] = useTrack();
-  const width = keyboardWidth + loopEnd + BLOCK;
+  const width = keyboardWidth + loopEnd + rulerSize;
 
   const viewBox = [-keyboardWidth, -timelineHeight, width, stageHeight].join(
     ' '
