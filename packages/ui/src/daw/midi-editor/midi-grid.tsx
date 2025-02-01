@@ -3,7 +3,7 @@ import { NOTE, BLOCK, QUARTER } from '../../common/units';
 import { Keys } from './keyboard';
 import { VerticalLine } from '../../components/vertical-line';
 
-type Props = { ocatveHeight: number; count: number; strength: number };
+type Props = { ocatveHeight: number; count: number; strength?: number };
 
 export const MidiGrid: React.FC<Props> = ({
   ocatveHeight,
