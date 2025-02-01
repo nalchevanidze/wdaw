@@ -4,9 +4,17 @@ import { VerticalLine } from './vertical-line';
 
 type Props = {
   strength?: number;
+  children?: React.ReactNode;
+  patternHeight?: number | string;
+  height?: number | string;
 };
 
-export const TrackGrid: React.FC<Props> = ({ strength = 0.8 }) => {
+export const NoteGrid: React.FC<Props> = ({
+  strength = 0.8,
+  children,
+  patternHeight= "100%",
+  height = "100%"
+}) => {
   const id = React.useId();
   const noteId = React.useId();
 
@@ -24,10 +32,11 @@ export const TrackGrid: React.FC<Props> = ({ strength = 0.8 }) => {
         </pattern>
         <pattern
           width={BLOCK}
-          height="100%"
+          height={patternHeight}
           patternUnits="userSpaceOnUse"
           id={id}
         >
+          {children}
           <rect width={BLOCK} height="100%" fill={`url(#${noteId})`} />
           <VerticalLine x={0} strength={strength} />
           <VerticalLine x={QUARTER} strength={strength / 4} />
@@ -36,7 +45,7 @@ export const TrackGrid: React.FC<Props> = ({ strength = 0.8 }) => {
           <VerticalLine x={BLOCK} strength={strength} />
         </pattern>
       </defs>
-      <rect width="100%" height="100%" fill={`url(#${id})`} />
+      <rect width="100%" height={height} fill={`url(#${id})`} />
     </g>
   );
 };
