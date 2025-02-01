@@ -24,7 +24,7 @@ export const TrackList: React.FC = () => {
   const maxTrackSize = Math.max(...tracks.tracks.map((t) => t.midi.end));
   const width = maxTrackSize * NOTE + panelWidth + BLOCK;
   const position = player.time;
-  const timelineHeight = 16;
+  const timelineHeight = 32;
   const height = trackHeight * tracks.tracks.length + timelineHeight;
 
   return (
