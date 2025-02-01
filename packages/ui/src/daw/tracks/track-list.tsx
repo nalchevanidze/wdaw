@@ -44,7 +44,7 @@ export const TrackList: React.FC = () => {
           return (
             <g key={i}>
               <Track
-                accuracy={BLOCK / 8}
+                accuracy={rulerSize / 8}
                 id={i}
                 midi={midi}
                 height={trackHeight}
