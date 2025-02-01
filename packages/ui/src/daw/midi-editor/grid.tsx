@@ -6,8 +6,8 @@ import { VerticalLine } from '../../components/vertical-line';
 type Props = { ocatveHeight: number; count: number };
 
 export const Grid: React.FC<Props> = ({ ocatveHeight, count }) => {
-  const id = React.useId();
-  const noteId = `note-${id}`;
+  const blockId = React.useId();
+  const noteId = React.useId();
 
   return (
     <g>
@@ -24,7 +24,7 @@ export const Grid: React.FC<Props> = ({ ocatveHeight, count }) => {
           width={BLOCK}
           height={ocatveHeight}
           patternUnits="userSpaceOnUse"
-          id="key"
+          id={blockId}
         >
           <Keys width={BLOCK} opacity={0.07} />
           <rect width={BLOCK} height="100%" fill={`url(#${noteId})`} />
@@ -34,7 +34,11 @@ export const Grid: React.FC<Props> = ({ ocatveHeight, count }) => {
           <VerticalLine x={BLOCK} strength={2} />
         </pattern>
       </defs>
-      <rect width="100%" height={ocatveHeight * count} fill={`url(#${id})`} />
+      <rect
+        width="100%"
+        height={ocatveHeight * count}
+        fill={`url(#${blockId})`}
+      />
     </g>
   );
 };
