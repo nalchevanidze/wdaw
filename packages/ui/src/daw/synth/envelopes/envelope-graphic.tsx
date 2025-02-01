@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useContext, useState } from 'react';
-import { Grid } from '../../../components/wave-grid';
+import { WaveGrid } from '../../../components/wave-grid';
 import { SvgStage, StageContext } from '@wdaw/svg';
 import { ControlPoint, Point } from './control-point';
 import { MouseEventHandler } from 'react';
@@ -92,7 +92,7 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
       onTouchEnd={clear}
       onMouseUp={clear}
     >
-      <Grid />
+      <WaveGrid />
       <g>
         <path
           stroke={colors.prime}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid } from '../../components/wave-grid';
+import { WaveGrid } from '../../components/wave-grid';
 import { Panel } from './panel';
 import PanelPresets from './presets';
 import { WaveButton, WaveButtonProps } from './button';
@@ -66,7 +66,7 @@ const Oscillators: React.FC = () => {
       <Panel label="Global" size={2}>
         <svg viewBox="-1 0 202 200" width="90px" height="90px">
           <path d={waveForm} stroke="#444" strokeWidth={2} fill="none" />
-          <Grid color="gray" />
+          <WaveGrid color="gray" />
         </svg>
         <PanelPresets />
       </Panel>

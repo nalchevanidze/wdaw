@@ -4,12 +4,12 @@ type Props = {
   color?: string;
 };
 
-const WaveGrid: React.FC<Props> = ({ color = '#FFEB3B' }) => {
+export const WaveGrid: React.FC<Props> = ({ color = '#FFEB3B' }) => {
   const gridId = React.useId();
   const smallGridId = React.useId();
 
   return (
-    <g>
+    <>
       <defs>
         <pattern
           width="100"
@@ -35,10 +35,7 @@ const WaveGrid: React.FC<Props> = ({ color = '#FFEB3B' }) => {
         width="100%"
         height="100%"
         fill={`url(#${gridId})`}
-        className="grids"
       />
-    </g>
+    </>
   );
 };
-
-export { WaveGrid as Grid };
