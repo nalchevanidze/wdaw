@@ -122,7 +122,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType }) => {
           scale={dragging.onSelected('scale')}
         />
       </g>
-      <Timeline time={time} timeline={timelineHeight} height={stageHeight} />
+      <Timeline size={BLOCK} time={time} timeline={timelineHeight} height={stageHeight} />
       <Loop
         loop={loop.state}
         height={canvasHeight}

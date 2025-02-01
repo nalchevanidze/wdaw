@@ -3,9 +3,9 @@ import { StageContext } from '@wdaw/svg';
 import { DawApiContext } from '../../context/state';
 import { Tapeline } from '../../components/tapeline';
 
-type Height = { height: number };
+type Height = { height: number , size: number};
 
-export const Timeline: React.FC<Height> = ({ height }) => {
+export const Timeline: React.FC<Height> = ({ height, size }) => {
   const getCoordinates = React.useContext(StageContext);
   const [_, dispatch] = React.useContext(DawApiContext);
 
@@ -17,7 +17,7 @@ export const Timeline: React.FC<Height> = ({ height }) => {
 
   return (
     <g>
-      <Tapeline height={height} size={16} />
+      <Tapeline height={height} size={size} />
       <rect
         fillOpacity="0"
         y={-height}

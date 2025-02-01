@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { NOTE, NOTE_HEIGHT } from '../../common/units';
+import { NOTE_HEIGHT } from '../../common/units';
 import { colors } from '../../styles';
 
 type KeysProps = {

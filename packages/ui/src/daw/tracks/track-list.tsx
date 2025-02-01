@@ -35,7 +35,7 @@ export const TrackList: React.FC = () => {
         height={height}
       >
         <NoteGrid size={BLOCK} />
-        <Timeline height={timelineHeight} />
+        <Timeline height={timelineHeight} size={BLOCK}/>
 
         {tracks.tracks.map(({ midi, name }, i) => {
           const y = i * trackHeight;
