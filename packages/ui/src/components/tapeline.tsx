@@ -5,13 +5,12 @@ import { VerticalLine } from './vertical-line';
 type Props = {
   height: number;
   size: number;
+  strength?: number;
 };
 
-export const Tapeline: React.FC<Props> = ({ height, size }) => {
-  const parent = React.useId();
+export const Tapeline: React.FC<Props> = ({ height, size, strength = 0.4 }) => {
+  const id = React.useId();
   const gridSize = size * 4;
-
-  const strength = 0.4;
 
   return (
     <g>
@@ -20,7 +19,7 @@ export const Tapeline: React.FC<Props> = ({ height, size }) => {
           width={gridSize}
           height={height}
           patternUnits="userSpaceOnUse"
-          id={parent}
+          id={id}
         >
           <rect width={gridSize} height={height} fill={colors.background} />
           <VerticalLine x={0} strength={strength * 2} height={height} />
@@ -30,7 +29,7 @@ export const Tapeline: React.FC<Props> = ({ height, size }) => {
           <VerticalLine x={gridSize} strength={strength * 2} height={height} />
         </pattern>
       </defs>
-      <rect width="100%" height={height} y={-height} fill={`url(#${parent})`} />
+      <rect width="100%" height={height} y={-height} fill={`url(#${id})`} />
     </g>
   );
 };
