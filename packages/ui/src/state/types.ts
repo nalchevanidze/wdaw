@@ -83,14 +83,20 @@ type SET_TIME = {
   payload: number;
 };
 
-type KEY_PRESS = {
-  type: `KEY_${'UP' | 'DOWN'}`;
+type KEY_UP = {
+  type: 'KEY_UP';
+  payload: number;
+};
+
+type KEY_DOWN = {
+  type: 'KEY_DOWN';
   payload: number;
 };
 
 export type EngineAction =
+  | KEY_UP
+  | KEY_DOWN
   | PLAYER
-  | KEY_PRESS
   | SET_TIME
   | SET_SEQUENCE
   | TOGGLE_PANEL
