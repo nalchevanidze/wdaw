@@ -1,4 +1,4 @@
-import { NOTE } from '../common/defs';
+const NOTE = 8;
 
 class Tempo {
   public BPM: number;
