@@ -95,7 +95,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType }) => {
         patternHeight={ocatveHeight}
         height={ocatveHeight * octaveCount}
       >
-        <Keys width={BLOCK} opacity={0.07} />
+        <Keys opacity={0.07} />
       </NoteGrid>
       <Keyboard
         width={keyboardWidth}
