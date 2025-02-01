@@ -4,7 +4,7 @@ type Props = {
   color?: string;
 };
 
-const Grid: React.FC<Props> = ({ color = '#FFEB3B' }) => {
+const WaveGrid: React.FC<Props> = ({ color = '#FFEB3B' }) => {
   const gridId = React.useId();
   const smallGridId = React.useId();
 
@@ -41,4 +41,4 @@ const Grid: React.FC<Props> = ({ color = '#FFEB3B' }) => {
   );
 };
 
-export { Grid };
+export { WaveGrid as Grid };

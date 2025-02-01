@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useContext, useState } from 'react';
-import { Grid } from '../../../components/grid-line';
+import { Grid } from '../../../components/wave-grid';
 import { SvgStage, StageContext } from '@wdaw/svg';
 import { ControlPoint, Point } from './control-point';
 import { MouseEventHandler } from 'react';

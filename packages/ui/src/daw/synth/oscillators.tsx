@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid } from '../../components/grid-line';
+import { Grid } from '../../components/wave-grid';
 import { Panel } from './panel';
 import PanelPresets from './presets';
 import { WaveButton, WaveButtonProps } from './button';
