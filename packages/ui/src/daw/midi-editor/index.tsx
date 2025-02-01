@@ -139,7 +139,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType }) => {
   );
 };
 
-const scale = 2;
+const scale = 4;
 
 export const MidiEditor: React.FC = () => {
   const [actionType, setActionType] = React.useState<EditActionType>('select');

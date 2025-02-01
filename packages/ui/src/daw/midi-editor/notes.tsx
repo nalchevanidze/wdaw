@@ -12,7 +12,7 @@ type Props = {
   height: number;
 };
 
-const scaleWidth = 4;
+const scaleWidth = 1;
 
 const Notes: React.FC<Props> = ({
   notes,
