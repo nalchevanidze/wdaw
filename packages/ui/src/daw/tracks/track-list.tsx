@@ -34,7 +34,7 @@ export const TrackList: React.FC = () => {
         width={width}
         height={height}
       >
-        <NoteGrid size={BLOCK}/>
+        <NoteGrid size={BLOCK} />
         <Timeline height={timelineHeight} />
 
         {tracks.tracks.map(({ midi, name }, i) => {
@@ -42,7 +42,13 @@ export const TrackList: React.FC = () => {
 
           return (
             <g key={i}>
-              <Track id={i} midi={midi} height={trackHeight} y={y} />
+              <Track
+                accuracy={BLOCK / 8}
+                id={i}
+                midi={midi}
+                height={trackHeight}
+                y={y}
+              />
               <Panel
                 active={i === tracks.currentTrack}
                 name={name}

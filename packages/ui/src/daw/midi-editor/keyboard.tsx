@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { NOTE } from '../../common/units';
+import { NOTE, NOTE_HEIGHT } from '../../common/units';
 import { colors } from '../../styles';
 
 type KeysProps = {
@@ -10,7 +10,7 @@ type KeysProps = {
 export const Keys: React.FC<KeysProps> = ({ opacity = 1 }) => (
   <g fill="black" fillOpacity={opacity}>
     {[1, 3, 5, 8, 10].map((i) => (
-      <rect key={i} y={i * NOTE} width="100%" height={NOTE} />
+      <rect key={i} y={i * NOTE_HEIGHT} width="100%" height={NOTE_HEIGHT} />
     ))}
   </g>
 );

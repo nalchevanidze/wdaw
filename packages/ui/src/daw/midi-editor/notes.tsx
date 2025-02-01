@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { colors } from '../../styles';
-import { NOTE, STEP } from '../../common/units';
+import { NOTE_HEIGHT, STEP } from '../../common/units';
 import { UINote } from '../utils/notes';
 import { MEvent } from '../types';
 
@@ -25,7 +25,7 @@ const Notes: React.FC<Props> = ({
     {notes.map((note, noteIndex) => {
       const start = note.at * STEP;
       const width = note.length * STEP;
-      const y = height - note.positionY * NOTE;
+      const y = height - note.positionY * NOTE_HEIGHT;
 
       return (
         <g key={noteIndex}>
@@ -33,14 +33,14 @@ const Notes: React.FC<Props> = ({
             x={start}
             y={y}
             width={width}
-            height={NOTE}
+            height={NOTE_HEIGHT}
             onMouseDown={(event) => mouseDown && mouseDown(event, note)}
             stroke="#000"
             strokeWidth={0.25}
           />
           <rect
             width={scaleWidth}
-            height={NOTE}
+            height={NOTE_HEIGHT}
             fill={'gray'}
             fillOpacity={0.1}
             onMouseDown={(event) => scale?.(event)}

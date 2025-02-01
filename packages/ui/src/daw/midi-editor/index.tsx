@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Point, SvgStage } from '@wdaw/svg';
 import { OCTAVE_SIZE } from '@wdaw/engine';
 import { NoteComposerHeader } from './header';
-import { BLOCK, NOTE, STEP } from '../../common/units';
+import { BLOCK, NOTE_HEIGHT, STEP } from '../../common/units';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
 import { EditActionType, MHandler } from '../types';
@@ -24,7 +24,7 @@ type Props = {
 const octaveCount = 4;
 const timelineHeight = 16;
 const keyboardWidth = 20;
-const ocatveHeight = NOTE * OCTAVE_SIZE;
+const ocatveHeight = NOTE_HEIGHT * OCTAVE_SIZE;
 const canvasHeight = ocatveHeight * octaveCount;
 const stageHeight = timelineHeight + canvasHeight;
 
