@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { NOTE_HEIGHT } from '../../common/units';
-import { colors } from '../../styles';
 
 type KeysProps = {
   opacity?: number;
@@ -10,7 +9,7 @@ type KeysProps = {
 export const Keys: React.FC<KeysProps> = ({ opacity = 1 }) => (
   <g fill="black" fillOpacity={opacity}>
     {[1, 3, 5, 8, 10].map((i) => (
-      <rect key={i} y={i * NOTE_HEIGHT} width="100%" height={NOTE_HEIGHT} />
+      <rect key={i} y={i * NOTE_HEIGHT} width="100%" height={NOTE_HEIGHT} stroke='none'/>
     ))}
   </g>
 );
@@ -38,7 +37,7 @@ export const Keyboard: React.FC<Props> = ({
       width={width}
       height={ocatveHeight * count}
       fill="url(#start_keys)"
-      stroke={colors.black}
+      stroke="none"
     />
   </g>
 );

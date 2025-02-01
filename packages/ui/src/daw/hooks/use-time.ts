@@ -3,25 +3,16 @@ import { DawApiContext } from '../../context/state';
 
 export const useTime = () => {
   const [{ player, tracks }] = useContext(DawApiContext);
-  const midi = tracks.tracks[tracks.currentTrack].midi;
+  const { start, end, loop } = tracks.tracks[tracks.currentTrack].midi;
+  const [loopStart, loopEnd] = loop;
+  const size = loopEnd - loopStart;
 
-  const loopSize = midi.loop[1] - midi.loop[0];
+  const offset = start % size;
 
-  const start = midi.start;
-  const end = midi.end;
+  const time =
+    player.time < start || player.time > end
+      ? 0
+      : loopStart - offset + (player.time % size);
 
-  const time = player.time;
-
-  const loopStart = midi.loop[0];
-
-  const offset = start % loopSize;
-
-  const loopTime =
-    time < start || time > end ? 0 : loopStart - offset + (time % loopSize);
-
-  return {
-    time: loopTime,
-    loop: midi.loop,
-    end: midi.end
-  };
+  return { time, loop, end };
 };
