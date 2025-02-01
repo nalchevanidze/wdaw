@@ -8,14 +8,18 @@ class Tempo {
 
   constructor(sampleRate: number) {
     this.BPM = 130;
-    this.subStep = 1 / ((60 * sampleRate) / (this.BPM * NOTE));
     this.sampleRate = sampleRate;
+    this.adjust();
   }
 
   public setBPM = (beatsPerMinute: number): void => {
     this.BPM = beatsPerMinute;
-    this.subStep = 1 / ((60 * this.sampleRate) / (beatsPerMinute * NOTE));
+    this.adjust();
   };
+
+  private adjust() {
+    this.subStep = 1 / ((60 * this.sampleRate) / (this.BPM * NOTE));
+  }
 
   public next(): boolean {
     this.counter += this.subStep;
