@@ -10,6 +10,7 @@ import { DawApiContext } from '../../context/state';
 
 const panelWidth = 160;
 const trackHeight = 48;
+const timelineHeight = 32;
 
 const styles = {
   container: {
@@ -19,15 +20,12 @@ const styles = {
   }
 } as const;
 
-
 const rulerSize = BLOCK;
 
 export const TrackList: React.FC = () => {
   const [{ tracks, player }] = React.useContext(DawApiContext);
   const maxTrackSize = Math.max(...tracks.tracks.map((t) => t.midi.end));
   const width = maxTrackSize + panelWidth + rulerSize;
-  const position = player.time;
-  const timelineHeight = 32;
   const height = trackHeight * tracks.tracks.length + timelineHeight;
 
   return (
@@ -38,7 +36,7 @@ export const TrackList: React.FC = () => {
         height={height}
       >
         <NoteGrid size={rulerSize} />
-        <Timeline height={timelineHeight} size={rulerSize}/>
+        <Timeline height={timelineHeight} size={rulerSize} />
 
         {tracks.tracks.map(({ midi, name }, i) => {
           const y = i * trackHeight;
@@ -68,7 +66,7 @@ export const TrackList: React.FC = () => {
           y={-timelineHeight}
           height={height}
           width={1}
-          x={position}
+          x={player.time}
           fill={colors.critical}
         />
       </SvgStage>
