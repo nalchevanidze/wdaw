@@ -19,6 +19,7 @@ import { NoteGrid } from '../../components/note-grid';
 
 type Props = {
   actionType: EditActionType;
+  loopAccuracy: number;
 };
 
 const octaveCount = 4;
@@ -29,10 +30,10 @@ const canvasHeight = ocatveHeight * octaveCount;
 const stageHeight = timelineHeight + canvasHeight;
 const rulerSize = BLOCK;
 
-const MidiEditorCanvas: React.FC<Props> = ({ actionType }) => {
+const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
   const { time, end } = useTime();
   const notes = useNoteEditor(canvasHeight);
-  const loop = useLoop();
+  const loop = useLoop(loopAccuracy);
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
     draw: (point) => {
@@ -169,7 +170,7 @@ export const MidiEditor: React.FC = () => {
           height={stageHeight * scale + 'px'}
           style={{ background: '#FFF' }}
         >
-          <MidiEditorCanvas actionType={actionType} />
+          <MidiEditorCanvas actionType={actionType} loopAccuracy={rulerSize / 8} />
         </SvgStage>
       </div>
     </>

@@ -1,6 +1,3 @@
-
 export const NOTE_HEIGHT = 2;
 
-export const NOTE = 8;
-
-export const BLOCK = NOTE * 8;
+export const BLOCK = 8 * 8;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Track } from './track';
 import { Timeline } from './timeline';
-import { BLOCK, NOTE } from '../../common/units';
+import { BLOCK } from '../../common/units';
 import { SvgStage } from '@wdaw/svg';
 import { colors } from '../../styles';
 import { Panel } from './panel';
@@ -44,7 +44,7 @@ export const TrackList: React.FC = () => {
           return (
             <g key={i}>
               <Track
-                accuracy={NOTE}
+                accuracy={BLOCK / 8}
                 id={i}
                 midi={midi}
                 height={trackHeight}

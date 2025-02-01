@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { Area, Maybe } from '../types';
 import { distanceX } from '../utils/area';
-import { NOTE } from '../../common/units';
 import { useTrack } from './use-track';
 
 export type LoopTarget = 'start' | 'end';
 
-export const useLoop = () => {
+export const useLoop = (accuracy: number) => {
   const [{ id, midi }, dispatch] = useTrack();
 
   const [origin, setOrigin] = React.useState<Maybe<number>>(undefined);
@@ -34,7 +33,7 @@ export const useLoop = () => {
   };
 
   const move = (area: Area) => {
-    const time = distanceX(area, NOTE);
+    const time = distanceX(area, accuracy);
 
     if (origin === undefined) return;
 
