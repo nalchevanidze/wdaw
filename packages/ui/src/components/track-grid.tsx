@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { NOTE, BLOCK, QUARTER } from '../../common/units';
-import { VerticalLine } from '../../components/vertical-line';
+import { NOTE, BLOCK, QUARTER } from '../common/units';
+import { VerticalLine } from './vertical-line';
 
 type Props = {
   strength?: number;
 };
 
-export const Grid: React.FC<Props> = ({ strength = 0.8 }) => {
+export const TrackGrid: React.FC<Props> = ({ strength = 0.8 }) => {
   const id = React.useId();
   const childId = React.useId();
 

@@ -5,7 +5,7 @@ import { NOTE, BLOCK } from '../../common/units';
 import { SvgStage } from '@wdaw/svg';
 import { colors } from '../../styles';
 import { Panel } from './panel';
-import { Grid } from './grid';
+import { TrackGrid } from '../../components/track-grid';
 import { DawApiContext } from '../../context/state';
 
 const panelWidth = 128;
@@ -34,7 +34,7 @@ export const TrackList: React.FC = () => {
         width={width}
         height={height}
       >
-        <Grid />
+        <TrackGrid />
         <Timeline height={timelineHeight} />
 
         {tracks.tracks.map(({ midi, name }, i) => {
