@@ -5,9 +5,10 @@ import { VerticalLine } from '../../components/vertical-line';
 
 type Props = { ocatveHeight: number; count: number };
 
-export const Grid: React.FC<Props> = ({ ocatveHeight, count }) => {
+export const MidiGrid: React.FC<Props> = ({ ocatveHeight, count }) => {
   const blockId = React.useId();
   const noteId = React.useId();
+  const strength = 0.8;
 
   return (
     <g>
@@ -28,10 +29,11 @@ export const Grid: React.FC<Props> = ({ ocatveHeight, count }) => {
         >
           <Keys width={BLOCK} opacity={0.07} />
           <rect width={BLOCK} height="100%" fill={`url(#${noteId})`} />
-          <VerticalLine x={QUARTER} strength={0.2} />
-          <VerticalLine x={QUARTER * 2} strength={0.4} />
-          <VerticalLine x={QUARTER * 3} strength={0.2} />
-          <VerticalLine x={BLOCK} strength={2} />
+          <VerticalLine x={0} strength={strength} />
+          <VerticalLine x={QUARTER} strength={strength / 4} />
+          <VerticalLine x={QUARTER * 2} strength={strength / 2} />
+          <VerticalLine x={QUARTER * 3} strength={strength / 4} />
+          <VerticalLine x={BLOCK} strength={strength} />
         </pattern>
       </defs>
       <rect

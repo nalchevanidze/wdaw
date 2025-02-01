@@ -8,7 +8,7 @@ type Props = {
 
 export const TrackGrid: React.FC<Props> = ({ strength = 0.8 }) => {
   const id = React.useId();
-  const childId = React.useId();
+  const noteId = React.useId();
 
   return (
     <g>
@@ -17,7 +17,7 @@ export const TrackGrid: React.FC<Props> = ({ strength = 0.8 }) => {
           width={NOTE}
           height="100%"
           patternUnits="userSpaceOnUse"
-          id={childId}
+          id={noteId}
         >
           <VerticalLine x={0} strength={0.1} />
           <VerticalLine x={NOTE} strength={0.1} />
@@ -28,7 +28,7 @@ export const TrackGrid: React.FC<Props> = ({ strength = 0.8 }) => {
           patternUnits="userSpaceOnUse"
           id={id}
         >
-          <rect width={BLOCK} height="100%" fill={`url(#${childId})`} />
+          <rect width={BLOCK} height="100%" fill={`url(#${noteId})`} />
           <VerticalLine x={0} strength={strength} />
           <VerticalLine x={QUARTER} strength={strength / 4} />
           <VerticalLine x={QUARTER * 2} strength={strength / 2} />

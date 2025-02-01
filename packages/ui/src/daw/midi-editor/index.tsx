@@ -5,7 +5,7 @@ import { NoteComposerHeader } from './header';
 import { BLOCK, NOTE, QUARTER } from '../../common/units';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
-import { Grid } from './grid';
+import { MidiGrid } from './midi-grid';
 import { EditActionType, MHandler } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { useNoteEditor } from '../hooks/use-note-editor';
@@ -90,7 +90,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType }) => {
       onMouseLeave={dragging.end}
       onMouseUp={dragging.end}
     >
-      <Grid ocatveHeight={ocatveHeight} count={octaveCount} />
+      <MidiGrid ocatveHeight={ocatveHeight} count={octaveCount} />
       <Keyboard
         width={keyboardWidth}
         ocatveHeight={ocatveHeight}
