@@ -89,7 +89,7 @@ export const makeReducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
     const stateChanges = dispatcher(state, action);
 
-    if (stateChanges?.tracks) {
+    if (stateChanges) {
       const track = state.tracks.tracks[state.tracks.currentTrack];
       engine.setPreset(track.preset);
     }
