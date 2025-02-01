@@ -1,6 +1,6 @@
 import { Preset } from '../common/types';
 import { Midi } from '../types';
-import { getPreset } from './presets';
+import { getPreset, presets } from './presets';
 
 type PlayerState = {
   isPlaying: boolean;
@@ -8,11 +8,11 @@ type PlayerState = {
   notes: number[];
 };
 
-
 export type DAWState = {
   player: PlayerState;
   tracks: TracksState;
   bpm: number;
+  presets: Preset[];
 };
 
 export type TrackState = {
@@ -26,8 +26,6 @@ export type TracksState = {
   currentTrack: number;
   tracks: TrackState[];
 };
-
-
 
 export const dawState = (): DAWState => {
   const tracks: TrackState[] = [
@@ -118,6 +116,7 @@ export const dawState = (): DAWState => {
   ];
 
   return {
+    presets: [...presets],
     player: {
       isPlaying: false,
       time: 0,

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { colors } from '../../styles';
-import { presetNames } from '@wdaw/engine';
 import { usePreset } from '../hooks/use-preset';
 
 const styles = {
@@ -36,14 +35,14 @@ const styles = {
 } as const;
 
 const PanelPresets: React.FC = () => {
-  const [{ name: active }, dispatch] = usePreset();
+  const [{ name: active, names }, dispatch] = usePreset();
   const [hover, setHover] = React.useState<string | undefined>(undefined);
 
   return (
     <div style={styles.container} onMouseLeave={() => setHover(undefined)}>
       <h3 style={styles.label}>Presets</h3>
       <div style={styles.list}>
-        {presetNames.map((name) => (
+        {names.map((name) => (
           <button
             key={name}
             onMouseOver={() => setHover(name)}

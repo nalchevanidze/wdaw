@@ -1,4 +1,4 @@
-import { SynthEngine, DAWState, getPreset } from '@wdaw/engine';
+import { SynthEngine, DAWState } from '@wdaw/engine';
 import { mapPreset, mapTrack } from './utils';
 import { EngineAction } from './types';
 
@@ -50,7 +50,8 @@ const dispatcher = (
         filter: { ...filter, [action.id]: action.payload }
       }));
     case 'SET_PRESET':
-      return mapPreset(state, () => getPreset(action.payload));
+      const preset = state.presets.find((p) => p.name === action.payload);
+      return preset ? mapPreset(state, () => preset) : undefined;
     case 'REFRESH':
       return { player: { ...state.player, ...action.payload } };
     default:

@@ -1,4 +1,4 @@
-export { getPreset, DAWState, dawState, presetNames } from './state';
+export { DAWState, dawState } from './state';
 export { waveFunction } from './synth';
 export { SynthEngine } from './engine';
 export { SEQUENCE_LENGTH } from './common/defs';
