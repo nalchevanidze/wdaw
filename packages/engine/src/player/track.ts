@@ -50,14 +50,11 @@ class Track {
     this.midi = midi;
     const {
       start,
-      loop: [s, e]
+      loop: [loopStart, loopEnd]
     } = this.midi;
 
-    const size = e - s;
-
-    this.offset = (start % size) * NOTE;
-    this.loopSize = size * NOTE;
-
+    this.loopSize = loopEnd - loopStart;
+    this.offset = (start * NOTE) % this.loopSize;
     this.actions = toActions(midi);
   };
 

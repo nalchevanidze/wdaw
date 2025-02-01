@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { colors } from '../../styles';
-import { QUARTER } from '../../common/units';
+import { QUARTER, STEP } from '../../common/units';
 import { MHandler } from '../types';
 
 type Props = {
@@ -19,8 +19,8 @@ export const Loop: React.FC<Props> = ({
   moveStart,
   moveEnd
 }) => {
-  const start = loopStart * QUARTER;
-  const end = start + (loopEnd - loopStart) * QUARTER;
+  const start = loopStart * STEP;
+  const end = start + (loopEnd - loopStart) * STEP;
 
   return (
     <>

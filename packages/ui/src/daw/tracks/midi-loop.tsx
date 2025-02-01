@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { colors } from '../../styles';
 import { Midi } from '@wdaw/engine';
-import { NOTE } from '../../common/units';
+import { NOTE, STEP } from '../../common/units';
 import { UINote } from '../utils/notes';
 import { flatten } from '../utils/midi';
 import { MEvent } from '../types';
@@ -29,19 +29,19 @@ const MidiLoop: React.FC<Props> = ({
   const [loopStart, loopEnd] = midi.loop;
   const id = React.useId();
 
-  const loopWidth = loopEnd - loopStart;
+  const loopWidth = (loopEnd - loopStart) ;
   const containerWidth = (end - start) * NOTE;
   const containerStart = start * NOTE;
   const containerEnd = containerStart + containerWidth;
   const scaleWidth = 5;
-  const noteOffset = loopStart * NOTE;
-  const loopOffset = (start % loopWidth) * NOTE;
+  const noteOffset = loopStart ;
+  const loopOffset = (start * NOTE) % loopWidth;
 
   return (
     <g>
       <defs>
         <pattern
-          width={loopWidth * NOTE}
+          width={loopWidth}
           height={height}
           patternUnits="userSpaceOnUse"
           id={id}

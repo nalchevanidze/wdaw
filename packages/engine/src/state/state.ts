@@ -37,7 +37,7 @@ export const dawState = (): DAWState => {
       midi: {
         start: 32,
         end: 64,
-        loop: [0, 32],
+        loop: [0, 256],
         notes: [
           { length: 32, id: 'F#2', at: 0 },
           { length: 32, id: 'A#1', at: 0 },
@@ -66,7 +66,7 @@ export const dawState = (): DAWState => {
       midi: {
         start: 0,
         end: 64,
-        loop: [0, 16],
+        loop: [0, 128],
         notes: [
           { length: 4, id: 'A#1', at: 6 },
           { length: 4, id: 'A#1', at: 12 },
@@ -89,7 +89,7 @@ export const dawState = (): DAWState => {
       name: 'kick',
       preset: getPreset('kick'),
       midi: {
-        loop: [0, 4],
+        loop: [0, 32],
         start: 0,
         end: 64,
         notes: [
@@ -105,7 +105,7 @@ export const dawState = (): DAWState => {
       name: 'clap',
       preset: getPreset('clap'),
       midi: {
-        loop: [4, 8],
+        loop: [32, 64],
         start: 16,
         end: 64,
         notes: [
