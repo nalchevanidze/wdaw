@@ -27,7 +27,7 @@ const keyboardWidth = 20;
 const ocatveHeight = NOTE_HEIGHT * OCTAVE_SIZE;
 const canvasHeight = ocatveHeight * octaveCount;
 const stageHeight = timelineHeight + canvasHeight;
-const rulerSize = BLOCK / 2;
+const rulerSize = BLOCK;
 
 const MidiEditorCanvas: React.FC<Props> = ({ actionType }) => {
   const { time, end } = useTime();

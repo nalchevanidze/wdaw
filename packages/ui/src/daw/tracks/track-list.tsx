@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Track } from './track';
 import { Timeline } from './timeline';
-import { BLOCK } from '../../common/units';
+import { BLOCK, NOTE } from '../../common/units';
 import { SvgStage } from '@wdaw/svg';
 import { colors } from '../../styles';
 import { Panel } from './panel';
@@ -19,10 +19,13 @@ const styles = {
   }
 } as const;
 
+
+const rulerSize = BLOCK;
+
 export const TrackList: React.FC = () => {
   const [{ tracks, player }] = React.useContext(DawApiContext);
   const maxTrackSize = Math.max(...tracks.tracks.map((t) => t.midi.end));
-  const width = maxTrackSize + panelWidth + BLOCK;
+  const width = maxTrackSize + panelWidth + rulerSize;
   const position = player.time;
   const timelineHeight = 32;
   const height = trackHeight * tracks.tracks.length + timelineHeight;
@@ -34,8 +37,8 @@ export const TrackList: React.FC = () => {
         width={width}
         height={height}
       >
-        <NoteGrid size={BLOCK} />
-        <Timeline height={timelineHeight} size={BLOCK}/>
+        <NoteGrid size={rulerSize} />
+        <Timeline height={timelineHeight} size={rulerSize}/>
 
         {tracks.tracks.map(({ midi, name }, i) => {
           const y = i * trackHeight;
@@ -43,7 +46,7 @@ export const TrackList: React.FC = () => {
           return (
             <g key={i}>
               <Track
-                accuracy={BLOCK / 8}
+                accuracy={NOTE}
                 id={i}
                 midi={midi}
                 height={trackHeight}
