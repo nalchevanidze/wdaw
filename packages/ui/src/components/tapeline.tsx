@@ -8,7 +8,7 @@ type Props = {
   strength?: number;
 };
 
-export const Tapeline: React.FC<Props> = ({ height, size, strength = 0.8 }) => {
+export const Tapeline: React.FC<Props> = ({ height, size, strength = 0.4 }) => {
   const id = React.useId();
 
   return (

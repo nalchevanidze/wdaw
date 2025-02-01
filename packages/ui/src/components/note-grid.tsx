@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const NoteGrid: React.FC<Props> = ({
-  strength = 0.8,
+  strength = 0.4,
   children,
   patternHeight = '100%',
   height = '100%',

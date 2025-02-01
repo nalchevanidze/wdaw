@@ -8,8 +8,8 @@ import { Panel } from './panel';
 import { NoteGrid } from '../../components/note-grid';
 import { DawApiContext } from '../../context/state';
 
-const panelWidth = 128;
-const trackHeight = 64;
+const panelWidth = 160;
+const trackHeight = 48;
 
 const styles = {
   container: {

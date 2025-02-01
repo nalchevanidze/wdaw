@@ -12,6 +12,8 @@ type Props = {
   height: number;
 };
 
+const levelSize = 16
+
 export const Panel: React.FC<Props> = ({
   name,
   id,
@@ -32,7 +34,7 @@ export const Panel: React.FC<Props> = ({
     <>
       <text
         x={-width * 0.9}
-        y={y + 32}
+        y={y + height/ 2}
         fill={active ? colors.notes : 'gray'}
         fontFamily="sanf-serif"
         textAnchor="center"
@@ -56,10 +58,10 @@ export const Panel: React.FC<Props> = ({
         onChange={setGain}
         value={gain}
         color={colors.black}
-        size={20}
+        size={16}
         steps={48}
         y={y + height / 6}
-        x={-width / 2.5}
+        x={- levelSize * 3}
         stepOpacity={0.2}
         bold={0.1}
       />
