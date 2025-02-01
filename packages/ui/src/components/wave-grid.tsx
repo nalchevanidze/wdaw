@@ -5,8 +5,8 @@ type Props = {
 };
 
 export const WaveGrid: React.FC<Props> = ({ color = '#FFEB3B' }) => {
-  const gridId = React.useId();
-  const smallGridId = React.useId();
+  const gridId = "waveGridBig";
+  const smallGridId = "waveGridSmall";
 
   return (
     <>
