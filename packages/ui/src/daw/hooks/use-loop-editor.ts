@@ -34,7 +34,7 @@ export const useLoop = () => {
   };
 
   const move = (area: Area) => {
-    const time = distanceX(area, STEP);
+    const time = distanceX(area, STEP, STEP);
 
     if (origin === undefined) return;
 

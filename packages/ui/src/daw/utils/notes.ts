@@ -1,7 +1,7 @@
 import { Point } from '@wdaw/svg';
 import { distanceX, distanceY } from './area';
 import { Area } from '../types';
-import {  NOTE_HEIGHT, STEP } from '../../common/units';
+import { NOTE_HEIGHT, STEP } from '../../common/units';
 import { addTracking, Tracked } from './tracking';
 
 export type Selected<T> = {
@@ -19,7 +19,7 @@ export const moveNotes = (
   notes: Tracked<UINote>[],
   area: Area
 ): Tracked<UINote>[] => {
-  const time = distanceX(area, STEP);
+  const time = distanceX(area, 2, STEP);
   const tune = distanceY(area, NOTE_HEIGHT);
 
   return notes.map(
@@ -39,7 +39,7 @@ export const scaleNotes = (
   notes: Tracked<UINote>[],
   area: Area
 ): Tracked<UINote>[] => {
-  const time = distanceX(area, STEP);
+  const time = distanceX(area, 2, STEP);
 
   return notes.map((note) =>
     note.origin ? { ...note, length: note.origin.length + time } : note
