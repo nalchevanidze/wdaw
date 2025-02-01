@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Area, Maybe } from '../types';
 import { distanceX } from '../utils/area';
-import { NOTE, QUARTER } from '../../common/units';
+import { NOTE } from '../../common/units';
 import { useTrack } from './use-track';
 
 export type LoopTarget = 'start' | 'end';
@@ -30,13 +30,12 @@ export const useLoop = () => {
   const endMove = () => {
     setOrigin(undefined);
     setTarget(undefined);
-    sync()
+    sync();
   };
 
   const move = (area: Area) => {
-    const time = distanceX(area, QUARTER) * NOTE;
+    const time = distanceX(area, NOTE) * 2;
 
-    console.log(origin, time);
     if (origin === undefined) return;
 
     const [start, end] = state;

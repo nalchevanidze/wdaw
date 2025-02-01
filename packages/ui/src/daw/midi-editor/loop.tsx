@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { colors } from '../../styles';
-import { QUARTER, STEP } from '../../common/units';
+import { STEP } from '../../common/units';
 import { MHandler } from '../types';
 
 type Props = {

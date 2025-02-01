@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { BLOCK, NOTE, QUARTER } from '../../common/units';
+import { BLOCK, NOTE } from '../../common/units';
 import { colors } from '../../styles';
 
 type KeysProps = {
@@ -22,7 +22,7 @@ export const Keyboard: React.FC<Props> = ({ width, ocatveHeight, count = 4 }) =>
   <g>
     <defs>
       <pattern
-        width={QUARTER}
+        width={BLOCK}
         height={ocatveHeight}
         patternUnits="userSpaceOnUse"
         id="start_keys"
