@@ -9,7 +9,6 @@ import { MEvent } from '../types';
 type Props = {
   start: number;
   end: number;
-  trackId: number;
   midi: Midi;
   y: number;
   height: number;
@@ -18,7 +17,6 @@ type Props = {
 };
 
 const MidiLoop: React.FC<Props> = ({
-  trackId,
   midi,
   start,
   end,
@@ -29,7 +27,7 @@ const MidiLoop: React.FC<Props> = ({
 }) => {
   const notes = React.useMemo<UINote[]>(() => flatten(midi), [midi]);
   const [loopStart, loopEnd] = midi.loop;
-  const id = `MidiLoop_B_Q_T_D_V_B_D_TRACK_${trackId}`;
+  const id = React.useId();
 
   const loopWidth = loopEnd - loopStart;
   const containerWidth = (end - start) * NOTE;
