@@ -1,5 +1,5 @@
 import { audioProcessor, SoundIterator } from './audio-processor';
-import { Midi, PLAYER_ACTION } from './types';
+import { Midi, PLAYER_ACTION } from './common/types';
 import { MidiCallback, MidiPlayer } from './player';
 import { Tracks } from './player/tracks';
 import { TracksState } from './state/state';
@@ -31,10 +31,10 @@ export class SynthEngine implements SoundIterator {
     }
   }
 
-  public setBPM = this.player.setBPM
+  public setBPM = this.player.setBPM;
 
   public setTrack = this.tracks.setTrack;
-  
+
   public setGain = this.tracks.setGain;
 
   public startNote(n: number) {

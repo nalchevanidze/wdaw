@@ -1,7 +1,7 @@
 import { Preset } from '../common/types';
 import { TracksState } from '../state/state';
 import { Synth } from '../synth';
-import { Midi } from '../types';
+import { Midi } from '../common/types';
 import { Track } from './track';
 
 export class Tracks {

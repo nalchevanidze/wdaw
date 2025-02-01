@@ -1,6 +1,6 @@
 import { Preset } from '../common/types';
 import { Synth } from '../synth';
-import { Midi, NoteAction } from '../types';
+import { Midi, NoteAction } from '../common/types';
 import { NOTE_SIZE, toActions } from './utils/actions';
 
 class Track {

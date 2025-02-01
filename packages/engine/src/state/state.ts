@@ -1,5 +1,4 @@
-import { Preset } from '../common/types';
-import { Midi } from '../types';
+import { Preset, Midi } from '../common/types';
 import { newPreset, presets } from './presets';
 
 type PlayerState = {

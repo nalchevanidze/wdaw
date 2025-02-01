@@ -1,4 +1,4 @@
-import { NoteAction } from '../types';
+import { NoteAction } from '../common/types';
 
 export enum NOTE_ACTION {
   START,

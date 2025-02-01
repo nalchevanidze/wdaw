@@ -1,5 +1,5 @@
 import { NOTE_ACTION } from '../types';
-import { Midi, NoteAction } from '../../types';
+import { Midi, NoteAction } from '../../common/types';
 import { keysToIndexes } from '../../utils/notes';
 
 const taskAt = (midi: NoteAction[], i: number, key: NOTE_ACTION): number[] => {

@@ -8,8 +8,10 @@ export {
   FILTER_ID,
   WAVE_ID,
   Sequence,
-  Preset
+  Preset,
+  Note,
+  Midi,
+  PLAYER_ACTION
 } from './common/types';
-export { Note, Midi, PLAYER_ACTION } from './types';
 export { UIPosition, OCTAVE_SIZE } from './utils/notes';
 export { TrackState } from './state/state';

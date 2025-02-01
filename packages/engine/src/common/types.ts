@@ -45,3 +45,23 @@ export type WAVE_ID = keyof WaveConfig;
 export type ENVELOPE_ID = 'gain' | 'filter';
 
 export type FILTER_ID = 'cutoff' | 'envelope' | 'resonance';
+
+export type NoteAction = {
+  start?: number[];
+  end?: number[];
+};
+
+export type Note = {
+  id: string;
+  length: number;
+  at: number;
+};
+
+export type PLAYER_ACTION = 'play' | 'pause' | 'stop';
+
+export type Midi = {
+  start: number;
+  end: number;
+  loop: [number, number];
+  notes: Note[];
+};
