@@ -1,6 +1,6 @@
 import { Preset } from '../common/types';
 
-const newPreset = (name: string) => ({
+export const newPreset = (name: string) => ({
   name,
   wave: {
     sine: 0,
@@ -332,7 +332,4 @@ export const presets: Preset[] = [
   }
 ];
 
-export const presetNames = presets.map((x) => x.name);
 
-export const getPreset = (name: string = 'pluck'): Preset =>
-  presets.find((p) => p.name === name) ?? newPreset(name);
