@@ -1,6 +1,5 @@
 export type Maybe<T> = T | undefined;
 
-
 // SYNTH
 
 export type Sequence = Record<number, Maybe<number[]>> & { enabled?: boolean };
@@ -13,6 +12,7 @@ export type FilterConfig = {
 };
 
 export type Preset = {
+  name: string;
   wave: WaveConfig;
   envelopes: Record<'filter' | 'gain', EnvelopeConfig>;
   filter: FilterConfig;
@@ -39,7 +39,6 @@ export type EnvelopeConfig = {
   sustain: number;
   release: number;
 };
-
 
 export type WAVE_ID = keyof WaveConfig;
 

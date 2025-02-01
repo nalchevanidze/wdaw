@@ -1,7 +1,6 @@
 import { Preset } from '../common/types';
 import { Midi } from '../types';
-
-import { PresetName, presets } from './presets';
+import { getPreset } from './presets';
 
 type PlayerState = {
   isPlaying: boolean;
@@ -9,7 +8,6 @@ type PlayerState = {
   notes: number[];
 };
 
-export type NamedPreset = Preset & { name: PresetName };
 
 export type DAWState = {
   player: PlayerState;
@@ -19,7 +17,7 @@ export type DAWState = {
 
 export type TrackState = {
   name: string;
-  preset: NamedPreset;
+  preset: Preset;
   midi: Midi;
   gain: number;
 };
@@ -29,10 +27,7 @@ export type TracksState = {
   tracks: TrackState[];
 };
 
-export const getPreset = (name: PresetName = 'pluck'): NamedPreset => ({
-  ...presets[name],
-  name
-});
+
 
 export const dawState = (): DAWState => {
   const tracks: TrackState[] = [

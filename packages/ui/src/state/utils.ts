@@ -1,4 +1,4 @@
-import { NamedPreset, TrackState, DAWState } from '@wdaw/engine';
+import { TrackState, DAWState, Preset } from '@wdaw/engine';
 
 const mapCurrentTrack = (state: DAWState, f: (a: TrackState) => TrackState) =>
   mapTrack(state.tracks.currentTrack, state, f);
@@ -14,10 +14,7 @@ export const mapTrack = (
   }
 });
 
-export const mapPreset = (
-  state: DAWState,
-  f: (a: NamedPreset) => Partial<NamedPreset>
-) =>
+export const mapPreset = (state: DAWState, f: (a: Preset) => Partial<Preset>) =>
   mapCurrentTrack(state, ({ preset, ...rest }) => ({
     ...rest,
     preset: { ...preset, ...f(preset) }

@@ -4,7 +4,6 @@ import {
   PANEL_ID,
   Sequence,
   WAVE_ID,
-  PresetName,
   ENVELOPE_ID,
   EnvelopeConfig,
   PLAYER_ACTION
@@ -70,7 +69,7 @@ type SET_ENVELOPE = {
 
 type SET_PRESET = {
   type: 'SET_PRESET';
-  payload: PresetName;
+  payload: string;
 };
 
 type PLAYER = {
