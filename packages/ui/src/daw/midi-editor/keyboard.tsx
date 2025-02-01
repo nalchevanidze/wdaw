@@ -1,25 +1,18 @@
 import * as React from 'react';
+import { Keys } from '../../components/keys';
 
-import { NOTE_HEIGHT } from '../../common/units';
-
-type KeysProps = {
-  opacity?: number;
+type Props = { 
+  width: number; 
+  ocatveHeight: number; 
+  count: number 
+  noteHeight: number
 };
-
-export const Keys: React.FC<KeysProps> = ({ opacity = 1 }) => (
-  <g fill="black" fillOpacity={opacity}>
-    {[1, 3, 5, 8, 10].map((i) => (
-      <rect key={i} y={i * NOTE_HEIGHT} width="100%" height={NOTE_HEIGHT} stroke='none'/>
-    ))}
-  </g>
-);
-
-type Props = { width: number; ocatveHeight: number; count: number };
 
 export const Keyboard: React.FC<Props> = ({
   width,
   ocatveHeight,
-  count = 4
+  count,
+  noteHeight
 }) => (
   <g>
     <defs>
@@ -29,7 +22,7 @@ export const Keyboard: React.FC<Props> = ({
         patternUnits="userSpaceOnUse"
         id="start_keys"
       >
-        <Keys />
+        <Keys height={noteHeight} />
       </pattern>
     </defs>
     <rect

@@ -1,7 +1,6 @@
 import { Point } from '@wdaw/svg';
 import { distanceX, distanceY } from './area';
 import { Area } from '../types';
-import { NOTE_HEIGHT } from '../../common/units';
 import { addTracking, Tracked } from './tracking';
 
 export type Selected<T> = {
@@ -15,12 +14,18 @@ export type UINote = {
   length: number;
 };
 
+export type Dimentions = {
+  noteHeight: number;
+  canvasHeight: number;
+};
+
 export const moveNotes = (
+  { noteHeight }: Dimentions,
   notes: Tracked<UINote>[],
   area: Area
 ): Tracked<UINote>[] => {
   const time = distanceX(area, 2);
-  const tune = distanceY(area, NOTE_HEIGHT);
+  const tune = distanceY(area, noteHeight);
 
   return notes.map(
     (note): Tracked<UINote> =>
@@ -46,28 +51,31 @@ export const scaleNotes = (
   );
 };
 
-export const genNoteAt = (stageHeight: number, { x, y }: Point): UINote => {
-  const positionY = Math.floor(1 + (stageHeight - y) / NOTE_HEIGHT);
-  const at = Math.floor(x );
+export const genNoteAt = (
+  { canvasHeight, noteHeight }: Dimentions,
+  { x, y }: Point
+): UINote => {
+  const positionY = Math.floor(1 + (canvasHeight - y) / noteHeight);
+  const at = Math.floor(x);
   return { length: 1, positionY, at };
 };
 
 export const isInArea = (
-  stageHeight: number,
+  { canvasHeight, noteHeight }: Dimentions,
   [start, end]: Area,
   { at, positionY, length }: UINote
 ): boolean => {
   const minX = Math.min(start.x, end.x);
   const maxX = Math.max(start.x, end.x);
-  const startX = at ;
-  const endX = startX + length ;
+  const startX = at;
+  const endX = startX + length;
   const xIsInArea =
     (minX < startX && maxX > startX) ||
     (minX < endX && maxX > endX) ||
     (minX > startX && maxX < endX);
   const minY = Math.min(start.y, end.y);
   const maxY = Math.max(start.y, end.y);
-  const y = stageHeight - NOTE_HEIGHT * positionY;
+  const y = canvasHeight - noteHeight * positionY;
   const yIsInArea = minY < y && maxY > y;
   return xIsInArea && yIsInArea;
 };
@@ -87,10 +95,10 @@ const clusterArray = <T extends object>(
 };
 
 export const selectNotesIn = (
-  stageHeight: number,
+  dims: Dimentions,
   { selected, inactive }: Selected<UINote>,
   zone?: Area
 ) =>
   clusterArray([...selected, ...inactive], (note) =>
-    zone ? isInArea(stageHeight, zone, note) : false
+    zone ? isInArea(dims, zone, note) : false
   );

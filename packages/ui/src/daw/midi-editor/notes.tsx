@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { colors } from '../../styles';
-import { NOTE_HEIGHT } from '../../common/units';
 import { UINote } from '../utils/notes';
 import { MEvent } from '../types';
 
@@ -10,6 +9,7 @@ type Props = {
   scale?(event: MEvent): void;
   color?: string;
   height: number;
+  noteHeight: number;
 };
 
 const scaleWidth = 1;
@@ -19,13 +19,14 @@ const Notes: React.FC<Props> = ({
   color = colors.notes,
   mouseDown,
   scale,
-  height
+  height,
+  noteHeight
 }) => (
   <g fill={color}>
     {notes.map((note, noteIndex) => {
       const start = note.at;
-      const width = note.length ;
-      const y = height - note.positionY * NOTE_HEIGHT;
+      const width = note.length;
+      const y = height - note.positionY * noteHeight;
 
       return (
         <g key={noteIndex}>
@@ -33,14 +34,14 @@ const Notes: React.FC<Props> = ({
             x={start}
             y={y}
             width={width}
-            height={NOTE_HEIGHT}
+            height={noteHeight}
             onMouseDown={(event) => mouseDown && mouseDown(event, note)}
             stroke="#000"
             strokeWidth={0.25}
           />
           <rect
             width={scaleWidth}
-            height={NOTE_HEIGHT}
+            height={noteHeight}
             fill={'gray'}
             fillOpacity={0.1}
             onMouseDown={(event) => scale?.(event)}

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Point, SvgStage } from '@wdaw/svg';
 import { OCTAVE_SIZE } from '@wdaw/engine';
 import { NoteComposerHeader } from './header';
-import { BLOCK, NOTE_HEIGHT } from '../../common/units';
+import { BLOCK } from '../../common/units';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
 import { EditActionType, MHandler } from '../types';
@@ -11,28 +11,30 @@ import { useNoteEditor } from '../hooks/use-note-editor';
 import { useTime } from '../hooks/use-time';
 import { SelectionArea } from './selection-area';
 import { UINote } from '../utils/notes';
-import { Keyboard, Keys } from './keyboard';
+import { Keyboard } from './keyboard';
 import { Loop } from './loop';
 import { LoopTarget, useLoop } from '../hooks/use-loop-editor';
 import { useTrack } from '../hooks/use-track';
 import { NoteGrid } from '../../components/note-grid';
+import { Keys } from '../../components/keys';
 
 type Props = {
   actionType: EditActionType;
   loopAccuracy: number;
 };
 
+const noteHeight = 2;
 const octaveCount = 4;
 const timelineHeight = 8;
 const keyboardWidth = 20;
-const ocatveHeight = NOTE_HEIGHT * OCTAVE_SIZE;
+const ocatveHeight = noteHeight * OCTAVE_SIZE;
 const canvasHeight = ocatveHeight * octaveCount;
 const stageHeight = timelineHeight + canvasHeight;
 const rulerSize = BLOCK;
 
 const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
   const { time, end } = useTime();
-  const notes = useNoteEditor(canvasHeight);
+  const notes = useNoteEditor({ noteHeight, canvasHeight });
   const loop = useLoop(loopAccuracy);
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
@@ -97,12 +99,13 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
         patternHeight={ocatveHeight}
         height={ocatveHeight * octaveCount}
       >
-        <Keys opacity={0.07} />
+        <Keys opacity={0.07} height={noteHeight} />
       </NoteGrid>
       <Keyboard
         width={keyboardWidth}
         ocatveHeight={ocatveHeight}
         count={octaveCount}
+        noteHeight={noteHeight}
       />
       <rect
         fillOpacity={0}
@@ -112,11 +115,13 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
       />
       <g>
         <Notes
+          noteHeight={noteHeight}
           height={canvasHeight}
           notes={notes.inactive}
           mouseDown={dragging.onInactive}
         />
         <Notes
+          noteHeight={noteHeight}
           height={canvasHeight}
           notes={notes.selected}
           color="#03A9F4"
@@ -170,7 +175,10 @@ export const MidiEditor: React.FC = () => {
           height={stageHeight * scale + 'px'}
           style={{ background: '#FFF' }}
         >
-          <MidiEditorCanvas actionType={actionType} loopAccuracy={rulerSize / 8} />
+          <MidiEditorCanvas
+            actionType={actionType}
+            loopAccuracy={rulerSize / 8}
+          />
         </SvgStage>
       </div>
     </>
