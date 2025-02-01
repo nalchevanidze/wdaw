@@ -16,6 +16,6 @@ export const Timeline: React.FC<TimelineProps> = ({
 }) => (
   <g>
     <Tapeline height={timeline} size={size} />
-    <line x1={time} x2={time} y1={-timeline} y2={height} stroke="red" />
+    <line x1={time} x2={time} y1={-timeline} y2={height} stroke="red" strokeWidth={0.6}/>
   </g>
 );

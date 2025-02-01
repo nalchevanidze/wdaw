@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Point, SvgStage } from '@wdaw/svg';
 import { OCTAVE_SIZE } from '@wdaw/engine';
 import { NoteComposerHeader } from './header';
-import { BLOCK, NOTE_HEIGHT } from '../../common/units';
+import { BLOCK, NOTE, NOTE_HEIGHT } from '../../common/units';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
 import { EditActionType, MHandler } from '../types';
@@ -22,11 +22,12 @@ type Props = {
 };
 
 const octaveCount = 4;
-const timelineHeight = 16;
+const timelineHeight = 8;
 const keyboardWidth = 20;
 const ocatveHeight = NOTE_HEIGHT * OCTAVE_SIZE;
 const canvasHeight = ocatveHeight * octaveCount;
 const stageHeight = timelineHeight + canvasHeight;
+const rulerSize = BLOCK / 2;
 
 const MidiEditorCanvas: React.FC<Props> = ({ actionType }) => {
   const { time, end } = useTime();
@@ -91,7 +92,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType }) => {
       onMouseUp={dragging.end}
     >
       <NoteGrid
-        size={BLOCK}
+        size={rulerSize}
         patternHeight={ocatveHeight}
         height={ocatveHeight * octaveCount}
       >
@@ -123,12 +124,14 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType }) => {
         />
       </g>
       <Timeline
-        size={BLOCK}
+        size={rulerSize}
         time={time}
         timeline={timelineHeight}
         height={stageHeight}
       />
       <Loop
+        controlerWidth={4}
+        timelineHeight={timelineHeight}
         loop={loop.state}
         height={canvasHeight}
         moveStart={startLoopDragging('start')}
