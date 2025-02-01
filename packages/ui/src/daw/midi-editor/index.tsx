@@ -5,17 +5,17 @@ import { NoteComposerHeader } from './header';
 import { BLOCK, NOTE, QUARTER } from '../../common/units';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
-import { MidiGrid } from './midi-grid';
 import { EditActionType, MHandler } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { useNoteEditor } from '../hooks/use-note-editor';
 import { useTime } from '../hooks/use-time';
 import { SelectionArea } from './selection-area';
 import { UINote } from '../utils/notes';
-import { Keyboard } from './keyboard';
+import { Keyboard, Keys } from './keyboard';
 import { Loop } from './loop';
 import { LoopTarget, useLoop } from '../hooks/use-loop-editor';
 import { useTrack } from '../hooks/use-track';
+import { NoteGrid } from '../../components/note-grid';
 
 type Props = {
   actionType: EditActionType;
@@ -90,7 +90,12 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType }) => {
       onMouseLeave={dragging.end}
       onMouseUp={dragging.end}
     >
-      <MidiGrid ocatveHeight={ocatveHeight} count={octaveCount} />
+      <NoteGrid
+        patternHeight={ocatveHeight}
+        height={ocatveHeight * octaveCount}
+      >
+        <Keys width={BLOCK} opacity={0.07} />
+      </NoteGrid>
       <Keyboard
         width={keyboardWidth}
         ocatveHeight={ocatveHeight}
