@@ -27,8 +27,8 @@ export const NoteGrid: React.FC<Props> = ({
           patternUnits="userSpaceOnUse"
           id={noteId}
         >
-          <VerticalLine x={0} strength={0.1} />
-          <VerticalLine x={NOTE} strength={0.1} />
+          <VerticalLine at={0} strength={0.1} />
+          <VerticalLine at={NOTE} strength={0.1} />
         </pattern>
         <pattern
           width={BLOCK}
@@ -38,11 +38,11 @@ export const NoteGrid: React.FC<Props> = ({
         >
           {children}
           <rect width={BLOCK} height="100%" fill={`url(#${noteId})`} />
-          <VerticalLine x={0} strength={strength} />
-          <VerticalLine x={QUARTER} strength={strength / 4} />
-          <VerticalLine x={QUARTER * 2} strength={strength / 2} />
-          <VerticalLine x={QUARTER * 3} strength={strength / 4} />
-          <VerticalLine x={BLOCK} strength={strength} />
+          <VerticalLine at={0} strength={strength} />
+          <VerticalLine at={QUARTER} strength={strength / 4} />
+          <VerticalLine at={QUARTER * 2} strength={strength / 2} />
+          <VerticalLine at={QUARTER * 3} strength={strength / 4} />
+          <VerticalLine at={BLOCK} strength={strength} />
         </pattern>
       </defs>
       <rect width="100%" height={height} fill={`url(#${id})`} />

@@ -1,19 +1,19 @@
 import * as React from 'react';
 
 type Props = {
-  x: number;
+  at: number;
   strength: number;
   height?: number;
 };
 
 export const VerticalLine: React.FC<Props> = ({
-  x,
+  at,
   strength,
   height 
 }) => (
   <line
-    x1={x}
-    x2={x}
+    x1={at}
+    x2={at}
     y1={0}
     y2={height ?? `100%`}
     stroke="black"
