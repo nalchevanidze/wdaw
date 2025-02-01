@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { colors } from '../styles';
+import { VerticalLine } from './vertical-line';
 
 type Props = {
   height: number;
@@ -8,28 +9,13 @@ type Props = {
 
 export const Tapeline: React.FC<Props> = ({ height, size }) => {
   const parent = React.useId();
-  const child = React.useId();
   const gridSize = size * 4;
+
+  const strength = 0.4;
 
   return (
     <g>
       <defs>
-        <pattern
-          width={size}
-          height={height}
-          patternUnits="userSpaceOnUse"
-          id={child}
-        >
-          <line
-            x1={0}
-            x2={0}
-            y1={0}
-            y2={size / 2}
-            stroke={colors.secondary}
-            strokeWidth={0.5}
-          />
-        </pattern>
-
         <pattern
           width={gridSize}
           height={height}
@@ -37,15 +23,11 @@ export const Tapeline: React.FC<Props> = ({ height, size }) => {
           id={parent}
         >
           <rect width={gridSize} height={height} fill={colors.background} />
-          <rect width={gridSize} height={height} fill={`url(#${child})`} />
-          <line
-            x1={0}
-            x2={0}
-            y1={0}
-            y2={size}
-            stroke={colors.secondary}
-            strokeWidth={2}
-          />
+          <VerticalLine x={0} strength={strength * 2} height={height} />
+          <VerticalLine x={size} strength={strength} height={height / 3} />
+          <VerticalLine x={size * 2} strength={strength} height={height / 2} />
+          <VerticalLine x={size * 3} strength={strength} height={height / 3} />
+          <VerticalLine x={gridSize} strength={strength * 2} height={height} />
         </pattern>
       </defs>
       <rect width="100%" height={height} y={-height} fill={`url(#${parent})`} />
