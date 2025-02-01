@@ -29,13 +29,11 @@ const MidiLoop: React.FC<Props> = ({
   const [loopStart, loopEnd] = midi.loop;
   const id = React.useId();
 
-  const loopWidth = (loopEnd - loopStart) ;
-  const containerWidth = (end - start) * NOTE;
-  const containerStart = start * NOTE;
-  const containerEnd = containerStart + containerWidth;
+  const loopWidth = loopEnd - loopStart;
+  const midiWith = end - start;
+  const containerEnd = start + midiWith;
   const scaleWidth = 5;
-  const noteOffset = loopStart ;
-  const loopOffset = (start * NOTE) % loopWidth;
+  const loopOffset = start % loopWidth;
 
   return (
     <g>
@@ -53,7 +51,7 @@ const MidiLoop: React.FC<Props> = ({
                 key={noteIndex}
                 width={note.length}
                 height={1}
-                x={note.at - noteOffset}
+                x={note.at - loopStart}
                 y={height - note.positionY}
               />
             ))}
@@ -69,8 +67,8 @@ const MidiLoop: React.FC<Props> = ({
       <rect
         y={y}
         onMouseDown={(event) => startMove?.(event)}
-        x={containerStart}
-        width={containerWidth}
+        x={start}
+        width={midiWith}
         height={height}
         fill={'url(#' + id + ')'}
         stroke={colors.notesBackground}

@@ -35,8 +35,8 @@ export const dawState = (): DAWState => {
       name: 'piano',
       preset: getPreset('pluck'),
       midi: {
-        start: 32,
-        end: 64,
+        start: 256,
+        end: 512,
         loop: [0, 256],
         notes: [
           { length: 32, id: 'F#2', at: 0 },
@@ -65,7 +65,7 @@ export const dawState = (): DAWState => {
       gain: 0.3,
       midi: {
         start: 0,
-        end: 64,
+        end: 512,
         loop: [0, 128],
         notes: [
           { length: 4, id: 'A#1', at: 6 },
@@ -91,7 +91,7 @@ export const dawState = (): DAWState => {
       midi: {
         loop: [0, 32],
         start: 0,
-        end: 64,
+        end: 512,
         notes: [
           { length: 4, id: 'C#1', at: 0 },
           { length: 4, id: 'C#1', at: 8 },
@@ -106,8 +106,8 @@ export const dawState = (): DAWState => {
       preset: getPreset('clap'),
       midi: {
         loop: [32, 64],
-        start: 16,
-        end: 64,
+        start: 128,
+        end: 512,
         notes: [
           { length: 4, id: 'C#1', at: 44 },
           { length: 4, id: 'C#1', at: 56 }

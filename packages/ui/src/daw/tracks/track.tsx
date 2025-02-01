@@ -23,8 +23,8 @@ export const Track: React.FC<Props> = ({ id, midi, y, height }) => {
   const dragging = useDragging({
     onMove: {
       select: () => {},
-      move: (area) => (area ? move(distanceX(area, NOTE)) : undefined),
-      scale: (area) => (area ? scale(distanceX(area, NOTE)) : undefined)
+      move: (area) => (area ? move(distanceX(area, NOTE) * NOTE) : undefined),
+      scale: (area) => (area ? scale(distanceX(area, NOTE) * NOTE) : undefined)
     },
     onEnd: clear
   });

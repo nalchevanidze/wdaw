@@ -2,7 +2,6 @@ import { Preset } from '../common/types';
 import { Synth } from '../synth';
 import { Midi, NoteAction } from '../common/types';
 import { toActions } from './utils/actions';
-import { NOTE } from '../common/defs';
 
 class Track {
   private actions: NoteAction[] = [];
@@ -21,7 +20,7 @@ class Track {
   public nextActions = (isPlaying: boolean, current: number) => {
     const { start, end } = this.midi;
 
-    if (isPlaying && (current < start * NOTE || current > end * NOTE)) {
+    if (isPlaying && (current < start || current > end)) {
       this.clear();
       return;
     }
@@ -44,7 +43,7 @@ class Track {
 
   public clear = () => this.synth.clear();
 
-  public size = () => this.midi.end * NOTE;
+  public size = () => this.midi.end;
 
   public setMidi = (midi: Midi): void => {
     this.midi = midi;
@@ -54,7 +53,7 @@ class Track {
     } = this.midi;
 
     this.loopSize = loopEnd - loopStart;
-    this.offset = (start * NOTE) % this.loopSize;
+    this.offset = start % this.loopSize;
     this.actions = toActions(midi);
   };
 
