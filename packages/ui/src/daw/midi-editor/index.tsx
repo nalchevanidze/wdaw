@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Point, SvgStage } from '@wdaw/svg';
 import { OCTAVE_SIZE } from '@wdaw/engine';
 import { NoteComposerHeader } from './header';
-import { BLOCK, NOTE_HEIGHT, STEP } from '../../common/units';
+import { BLOCK, NOTE_HEIGHT } from '../../common/units';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
 import { EditActionType, MHandler } from '../types';
@@ -122,7 +122,12 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType }) => {
           scale={dragging.onSelected('scale')}
         />
       </g>
-      <Timeline size={BLOCK} time={time} timeline={timelineHeight} height={stageHeight} />
+      <Timeline
+        size={BLOCK}
+        time={time}
+        timeline={timelineHeight}
+        height={stageHeight}
+      />
       <Loop
         loop={loop.state}
         height={canvasHeight}
@@ -134,6 +139,8 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType }) => {
   );
 };
 
+const scale = 2;
+
 export const MidiEditor: React.FC = () => {
   const [actionType, setActionType] = React.useState<EditActionType>('select');
   const [
@@ -143,7 +150,7 @@ export const MidiEditor: React.FC = () => {
       }
     }
   ] = useTrack();
-  const width = keyboardWidth + loopEnd * STEP + BLOCK;
+  const width = keyboardWidth + loopEnd + BLOCK;
 
   const viewBox = [-keyboardWidth, -timelineHeight, width, stageHeight].join(
     ' '
@@ -155,8 +162,8 @@ export const MidiEditor: React.FC = () => {
       <div style={{ width: '560px', overflow: 'scroll', height: '350px' }}>
         <SvgStage
           viewBox={viewBox}
-          width={width + 'px'}
-          height={stageHeight + 'px'}
+          width={width * scale + 'px'}
+          height={stageHeight * scale + 'px'}
           style={{ background: '#FFF' }}
         >
           <MidiEditorCanvas actionType={actionType} />

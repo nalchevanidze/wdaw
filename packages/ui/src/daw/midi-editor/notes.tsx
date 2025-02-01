@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { colors } from '../../styles';
-import { NOTE_HEIGHT, STEP } from '../../common/units';
+import { NOTE_HEIGHT } from '../../common/units';
 import { UINote } from '../utils/notes';
 import { MEvent } from '../types';
 
@@ -23,8 +23,8 @@ const Notes: React.FC<Props> = ({
 }) => (
   <g fill={color}>
     {notes.map((note, noteIndex) => {
-      const start = note.at * STEP;
-      const width = note.length * STEP;
+      const start = note.at;
+      const width = note.length ;
       const y = height - note.positionY * NOTE_HEIGHT;
 
       return (

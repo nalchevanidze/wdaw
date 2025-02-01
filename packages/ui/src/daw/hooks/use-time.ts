@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { STEP } from '../../common/units';
 import { DawApiContext } from '../../context/state';
 
 export const useTime = () => {
@@ -21,7 +20,7 @@ export const useTime = () => {
     time < start || time > end ? 0 : loopStart - offset + (time % loopSize);
 
   return {
-    time: loopTime * STEP,
+    time: loopTime,
     loop: midi.loop,
     end: midi.end
   };

@@ -1,7 +1,7 @@
 import { Point } from '@wdaw/svg';
 import { distanceX, distanceY } from './area';
 import { Area } from '../types';
-import { NOTE_HEIGHT, STEP } from '../../common/units';
+import { NOTE_HEIGHT } from '../../common/units';
 import { addTracking, Tracked } from './tracking';
 
 export type Selected<T> = {
@@ -19,7 +19,7 @@ export const moveNotes = (
   notes: Tracked<UINote>[],
   area: Area
 ): Tracked<UINote>[] => {
-  const time = distanceX(area, 2, STEP);
+  const time = distanceX(area, 2);
   const tune = distanceY(area, NOTE_HEIGHT);
 
   return notes.map(
@@ -39,7 +39,7 @@ export const scaleNotes = (
   notes: Tracked<UINote>[],
   area: Area
 ): Tracked<UINote>[] => {
-  const time = distanceX(area, 2, STEP);
+  const time = distanceX(area, 2);
 
   return notes.map((note) =>
     note.origin ? { ...note, length: note.origin.length + time } : note
@@ -48,8 +48,8 @@ export const scaleNotes = (
 
 export const genNoteAt = (stageHeight: number, { x, y }: Point): UINote => {
   const positionY = Math.floor(1 + (stageHeight - y) / NOTE_HEIGHT);
-  const at = Math.floor(x / STEP);
-  return { length: STEP, positionY, at };
+  const at = Math.floor(x );
+  return { length: 1, positionY, at };
 };
 
 export const isInArea = (
@@ -59,8 +59,8 @@ export const isInArea = (
 ): boolean => {
   const minX = Math.min(start.x, end.x);
   const maxX = Math.max(start.x, end.x);
-  const startX = at * STEP;
-  const endX = startX + length * STEP;
+  const startX = at ;
+  const endX = startX + length ;
   const xIsInArea =
     (minX < startX && maxX > startX) ||
     (minX < endX && maxX > endX) ||

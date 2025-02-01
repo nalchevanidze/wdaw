@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { colors } from '../../styles';
-import { STEP } from '../../common/units';
 import { MHandler } from '../types';
 
 type Props = {
@@ -14,41 +13,36 @@ const width = 8;
 const up = 16;
 
 export const Loop: React.FC<Props> = ({
-  loop: [loopStart, loopEnd],
+  loop: [start, end],
   height,
   moveStart,
   moveEnd
-}) => {
-  const start = loopStart * STEP;
-  const end = start + (loopEnd - loopStart) * STEP;
-
-  return (
-    <>
-      <line x1={start} y1={0} x2={end} y2={0} stroke={colors.critical} />
-      <rect
-        fillOpacity={0.4}
-        y={-up}
-        height={up}
-        x={start - width / 2}
-        width={width}
-        fill={colors.critical}
-        stroke={colors.critical}
-        strokeWidth={0.4}
-        onMouseDown={moveStart}
-      />
-      <rect
-        fillOpacity={0.4}
-        y={-up}
-        height={up}
-        x={end - width / 2}
-        width={width}
-        fill={colors.critical}
-        stroke={colors.critical}
-        strokeWidth={0.4}
-        onMouseDown={moveEnd}
-      />
-      <line x1={end} y1={0} x2={end} y2={height} stroke={colors.critical} />
-      <line x1={start} y1={0} x2={start} y2={height} stroke={colors.critical} />
-    </>
-  );
-};
+}) => (
+  <>
+    <line x1={start} y1={0} x2={end} y2={0} stroke={colors.critical} />
+    <rect
+      fillOpacity={0.4}
+      y={-up}
+      height={up}
+      x={start - width / 2}
+      width={width}
+      fill={colors.critical}
+      stroke={colors.critical}
+      strokeWidth={0.4}
+      onMouseDown={moveStart}
+    />
+    <rect
+      fillOpacity={0.4}
+      y={-up}
+      height={up}
+      x={end - width / 2}
+      width={width}
+      fill={colors.critical}
+      stroke={colors.critical}
+      strokeWidth={0.4}
+      onMouseDown={moveEnd}
+    />
+    <line x1={end} y1={0} x2={end} y2={height} stroke={colors.critical} />
+    <line x1={start} y1={0} x2={start} y2={height} stroke={colors.critical} />
+  </>
+);
