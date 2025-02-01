@@ -1,6 +1,7 @@
 import { NOTE_ACTION } from '../types';
 import { Midi, NoteAction } from '../../common/types';
 import { keysToIndexes } from '../../utils/notes';
+import { NOTE } from '../../common/defs';
 
 const taskAt = (midi: NoteAction[], i: number, key: NOTE_ACTION): number[] => {
   const step = (midi[i] = midi[i] ?? {});
@@ -21,17 +22,17 @@ const taskAt = (midi: NoteAction[], i: number, key: NOTE_ACTION): number[] => {
 
 type NoteLoop = NoteAction[];
 
-export const NOTE_SIZE = 8;
-
 export const toActions = ({
   notes,
   loop: [loopStart, loopEnd]
 }: Midi): NoteLoop => {
-  const size = (loopEnd - loopStart) * NOTE_SIZE;
+  const size = (loopEnd - loopStart) * NOTE;
+
   const output: NoteLoop = Array(size).fill(undefined);
 
   notes.forEach((note) => {
-    const start = note.at - loopStart * NOTE_SIZE;
+    const start = note.at - loopStart * NOTE;
+
     if (start < 0) return;
     const end = start + note.length - 1;
     const key = keysToIndexes(note.id);

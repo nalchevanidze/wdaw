@@ -2,6 +2,7 @@ import { Preset } from '../common/types';
 import { Synth } from '../synth';
 import { Midi, NoteAction } from '../common/types';
 import { NOTE_SIZE, toActions } from './utils/actions';
+import { NOTE } from '../common/defs';
 
 class Track {
   private actions: NoteAction[] = [];
@@ -46,7 +47,7 @@ class Track {
 
   public clear = () => this.synth.clear();
 
-  public size = () => this.midi.end * 8;
+  public size = () => this.midi.end * NOTE;
 
   public setMidi = (midi: Midi): void => {
     this.midi = midi;

@@ -1,3 +1,5 @@
+import { NOTE } from '../common/defs';
+
 class Tempo {
   public BPM: number;
   private sampleRate: number;
@@ -6,13 +8,13 @@ class Tempo {
 
   constructor(sampleRate: number) {
     this.BPM = 130;
-    this.subStep = 1 / ((60 * sampleRate) / (this.BPM * 8));
+    this.subStep = 1 / ((60 * sampleRate) / (this.BPM * NOTE));
     this.sampleRate = sampleRate;
   }
 
-  public setBPM= (beatsPerMinute: number): void => {
+  public setBPM = (beatsPerMinute: number): void => {
     this.BPM = beatsPerMinute;
-    this.subStep = 1 / ((60 * this.sampleRate) / (beatsPerMinute * 8));
+    this.subStep = 1 / ((60 * this.sampleRate) / (beatsPerMinute * NOTE));
   };
 
   public next(): boolean {
