@@ -1,13 +1,14 @@
 import {
   FILTER_ID,
   Midi,
-  PANEL_ID,
   Sequence,
   WAVE_ID,
   ENVELOPE_ID,
   EnvelopeConfig,
   PLAYER_ACTION
 } from '@wdaw/engine';
+
+export type PANEL_ID = 'filter' | 'sequence' | 'wave';
 
 type SET_WAVE = {
   type: 'SET_WAVE';

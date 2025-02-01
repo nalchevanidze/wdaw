@@ -10,6 +10,6 @@ export {
   Sequence,
   Preset
 } from './common/types';
-export { Note, Midi, PLAYER_ACTION, PANEL_ID } from './types';
+export { Note, Midi, PLAYER_ACTION } from './types';
 export { UIPosition, OCTAVE_SIZE } from './utils/notes';
 export { TrackState } from './state/state';

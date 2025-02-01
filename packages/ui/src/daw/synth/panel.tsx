@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { PANEL_ID } from '@wdaw/engine';
 import { colors } from '../../styles';
 import { usePreset } from '../hooks/use-preset';
+import { PANEL_ID } from '../../state/types';
 
 const styles = {
   label: {
