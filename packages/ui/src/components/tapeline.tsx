@@ -7,9 +7,8 @@ type Props = {
 };
 
 export const Tapeline: React.FC<Props> = ({ height, size }) => {
-  const id = `TimelinePattern_B_Q_T_D_V_B_D_${height}_${size}`;
-  const parent = `${id}_PARENT`;
-  const child = `${id}_CHILD`;
+  const parent = React.useId();
+  const child = React.useId();
   const gridSize = size * 4;
 
   return (
@@ -38,7 +37,7 @@ export const Tapeline: React.FC<Props> = ({ height, size }) => {
           id={parent}
         >
           <rect width={gridSize} height={height} fill={colors.background} />
-          <rect width={gridSize} height={height} fill={'url(#' + child + ')'} />
+          <rect width={gridSize} height={height} fill={`url(#${child})`} />
           <line
             x1={0}
             x2={0}
@@ -49,12 +48,7 @@ export const Tapeline: React.FC<Props> = ({ height, size }) => {
           />
         </pattern>
       </defs>
-      <rect
-        width="100%"
-        height={height}
-        y={-height}
-        fill={'url(#' + parent + ')'}
-      />
+      <rect width="100%" height={height} y={-height} fill={`url(#${parent})`} />
     </g>
   );
 };
