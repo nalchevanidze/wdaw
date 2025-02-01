@@ -20,7 +20,7 @@ export const VerticalLine: React.FC<Props> = ({
     y2={height ? height / div : `100%`}
     stroke="black"
     fill="none"
-    strokeWidth={(strength / div) * 0.5}
+    strokeWidth={(strength / div) ** 1.6}
   />
 );
 

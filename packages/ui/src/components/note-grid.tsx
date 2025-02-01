@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { NOTE, BLOCK } from '../common/units';
 import { LinePattern } from './vertical-line';
 
 type Props = {
@@ -7,13 +6,15 @@ type Props = {
   children?: React.ReactNode;
   patternHeight?: number | string;
   height?: number | string;
+  size: number
 };
 
 export const NoteGrid: React.FC<Props> = ({
   strength = 0.8,
   children,
   patternHeight = '100%',
-  height = '100%'
+  height = '100%',
+  size
 }) => {
   const id = React.useId();
 
@@ -21,13 +22,13 @@ export const NoteGrid: React.FC<Props> = ({
     <g>
       <defs>
         <pattern
-          width={BLOCK}
+          width={size}
           height={patternHeight}
           patternUnits="userSpaceOnUse"
           id={id}
         >
           {children}
-          <LinePattern size={NOTE * 2} strength={strength} />
+          <LinePattern size={size/ 8} strength={strength} />
         </pattern>
       </defs>
       <rect width="100%" height={height} fill={`url(#${id})`} />

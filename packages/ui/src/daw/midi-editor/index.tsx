@@ -91,6 +91,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType }) => {
       onMouseUp={dragging.end}
     >
       <NoteGrid
+        size={BLOCK}
         patternHeight={ocatveHeight}
         height={ocatveHeight * octaveCount}
       >
