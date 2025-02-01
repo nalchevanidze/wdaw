@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { colors } from '../../styles';
 import { Midi } from '@wdaw/engine';
-import { NOTE, STEP } from '../../common/units';
 import { UINote } from '../utils/notes';
 import { flatten } from '../utils/midi';
 import { MEvent } from '../types';
