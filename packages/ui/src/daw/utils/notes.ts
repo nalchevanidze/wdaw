@@ -43,55 +43,49 @@ export const scaleNotes = (
     note.origin ? { ...note, length: note.origin.length + size } : note
   );
 
-export const genNoteAt = (
-  { canvasHeight, noteHeight }: Dimentions,
-  { x, y }: Point
-): UINote => {
-  const positionY = Math.floor(1 + (canvasHeight - y) / noteHeight);
-  const at = Math.floor(x);
-  return { length: 1, positionY, at };
-};
+const getPositionY = ({ canvasHeight, noteHeight }: Dimentions, y: number) =>
+  Math.floor(1 + (canvasHeight - y) / noteHeight);
 
-const getRange = (a: number, b: number): [number, number] => [
+export const genNoteAt = (d: Dimentions, { x, y }: Point): UINote => ({
+  length: 1,
+  positionY: getPositionY(d, y),
+  at: Math.floor(x)
+});
+
+type Range = [number, number];
+
+const getRange = (a: number, b: number): Range => [
   Math.min(a, b),
   Math.max(a, b)
 ];
 
-const inRange = (n: number, [min, max]: [number, number]) => min < n && n < max;
+const inRange = (n: number, [min, max]: Range) => min < n && n < max;
 
 const inArea = (
-  { canvasHeight, noteHeight }: Dimentions,
-  [start, end]: Area,
+  xRange: Range,
+  yRange: Range,
   { at, positionY, length }: UINote
 ): boolean => {
-  const xRange = getRange(start.x, end.x);
-  const yRange = getRange(start.y, end.y);
+  const end = at + length;
 
-  const note = {
-    start: at,
-    end: at + length,
-    y: canvasHeight - noteHeight * positionY
-  };
+  const isInsideNote = at < xRange[0] && xRange[1] < end;
 
-  const selectionInsideNote = note.start < xRange[0] && xRange[1] < note.end;
-
-  const xIsInArea =
-    inRange(note.start, xRange) ||
-    inRange(note.end, xRange) ||
-    selectionInsideNote;
-
-  return xIsInArea && inRange(note.y, yRange);
+  const xIsInArea = inRange(at, xRange) || inRange(end, xRange) || isInsideNote;
+  
+  return xIsInArea && inRange(positionY, yRange);
 };
 
-export const selectNotesIn = (
-  dims: Dimentions,
-  input: UINote[],
-  zone?: Area
-) => {
+export const selectNotesIn = (d: Dimentions, input: UINote[], zone?: Area) => {
   const notes: Selected<UINote> = { selected: [], inactive: [] };
 
+  if (!zone) return { selected: [], inactive: input };
+
+  const [start, end] = zone;
+  const xRange = getRange(start.x, end.x);
+  const yRange = getRange(getPositionY(d, start.y), getPositionY(d, end.y));
+
   input.forEach((note) =>
-    zone && inArea(dims, zone, note)
+    inArea(xRange, yRange, note)
       ? notes.selected.push(addTracking(note))
       : notes.inactive.push(note)
   );
