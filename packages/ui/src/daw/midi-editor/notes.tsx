@@ -26,7 +26,7 @@ const Notes: React.FC<Props> = ({
     {notes.map((note, noteIndex) => {
       const start = note.at;
       const width = note.length;
-      const y = height - note.positionY * noteHeight;
+      const y = height - note.y * noteHeight;
 
       return (
         <g key={noteIndex}>

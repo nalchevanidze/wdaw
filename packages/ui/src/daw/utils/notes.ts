@@ -8,7 +8,7 @@ export type Selected<T> = {
 };
 
 export type UINote = {
-  positionY: number;
+  y: number;
   at: number;
   length: number;
 };
@@ -24,7 +24,7 @@ export const moveNotes = (
             length: note.length,
             origin: note.origin,
             at: note.origin.at + time,
-            positionY: note.origin.positionY - tune
+            y: note.origin.y - tune
           }
         : note
   );
@@ -40,7 +40,7 @@ export const scaleNotes = (
 
 export const genNoteAt = ({ x, y }: Point): UINote => ({
   length: 1,
-  positionY: y,
+  y,
   at: x
 });
 
@@ -56,7 +56,7 @@ const inRange = (n: number, [min, max]: Range) => min < n && n < max;
 const inArea = (
   xRange: Range,
   yRange: Range,
-  { at, positionY, length }: UINote
+  { at, y, length }: UINote
 ): boolean => {
   const end = at + length;
 
@@ -64,7 +64,7 @@ const inArea = (
 
   const xIsInArea = inRange(at, xRange) || inRange(end, xRange) || isInsideNote;
 
-  return xIsInArea && inRange(positionY, yRange);
+  return xIsInArea && inRange(y, yRange);
 };
 
 export const selectNotesIn = (input: UINote[], zone?: Area) => {

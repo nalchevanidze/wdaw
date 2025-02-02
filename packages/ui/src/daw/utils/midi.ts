@@ -1,4 +1,4 @@
-import { Midi, Note , UIPosition} from '@wdaw/engine';
+import { Midi, Note, UIPosition } from '@wdaw/engine';
 import { UINote } from './notes';
 
 export const flatten = ({ notes }: Midi): UINote[] =>
@@ -6,14 +6,14 @@ export const flatten = ({ notes }: Midi): UINote[] =>
     ({ id, at, length }: Note): UINote => ({
       length,
       at,
-      positionY: UIPosition.fromNote(id)
+      y: UIPosition.fromNote(id)
     })
   );
 
 export const deepen = (notes: UINote[]): Partial<Midi> => ({
-  notes: notes.map(({ length, at, positionY }: UINote) => ({
+  notes: notes.map(({ length, at, y }: UINote) => ({
     at,
     length,
-    id: UIPosition.toNote(positionY)
+    id: UIPosition.toNote(y)
   }))
 });

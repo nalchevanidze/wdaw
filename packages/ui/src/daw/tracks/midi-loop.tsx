@@ -51,7 +51,7 @@ const MidiLoop: React.FC<Props> = ({
                 width={note.length}
                 height={1}
                 x={note.at - loopStart}
-                y={height - note.positionY}
+                y={height - note.y}
               />
             ))}
           </g>
