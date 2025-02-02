@@ -22,9 +22,9 @@ export const Track: React.FC<Props> = ({ id, midi, y, height, accuracy }) => {
 
   const dragging = useDragging({
     onMove: {
-      select: () => {},
-      move: (s) => move(withAccuracy(s, accuracy)),
-      scale: (s) => scale(withAccuracy(s, accuracy))
+      select: () => undefined,
+      move: withAccuracy(move, accuracy),
+      scale: withAccuracy(scale, accuracy)
     },
     onEnd: clear
   });

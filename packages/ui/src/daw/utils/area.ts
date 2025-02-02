@@ -1,6 +1,10 @@
 import { Area } from '../types';
 
-export const withAccuracy = (n: number, step: number) =>
+export const withAccuracy =
+  (f: (time: number) => void, step: number) => (n: number) =>
+    f(toAccuracy(n, step));
+
+export const toAccuracy = (n: number, step: number) =>
   Math.round(n / step) * step;
 
 export const distanceX = ([start, current]: Area) =>

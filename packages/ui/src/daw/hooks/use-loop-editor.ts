@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Maybe } from '../types';
-import { withAccuracy } from '../utils/area';
 import { useTrack } from './use-track';
 
 export type LoopTarget = 'start' | 'end';
