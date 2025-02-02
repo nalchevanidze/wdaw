@@ -6,7 +6,7 @@ export const flatten = ({ notes }: Midi): UINote[] =>
     ({ id, at, length }: Note): UINote => ({
       x: at,
       y: UIPosition.fromNote(id),
-      length,
+      length
     })
   );
 

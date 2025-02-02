@@ -49,18 +49,12 @@ const getRange = (a: number, b: number): Range => [
 
 const inRange = (n: number, [min, max]: Range) => min < n && n < max;
 
-const inArea = (
-  xRange: Range,
-  yRange: Range,
-  { x, y, length }: UINote
-): boolean => {
+const inArea = (xr: Range, yr: Range, { x, y, length }: UINote): boolean => {
   const end = x + length;
+  const insideNote = x < xr[0] && xr[1] < end;
+  const inXArea = inRange(x, xr) || inRange(end, xr) || insideNote;
 
-  const isInsideNote = x < xRange[0] && xRange[1] < end;
-
-  const xIsInArea = inRange(x, xRange) || inRange(end, xRange) || isInsideNote;
-
-  return xIsInArea && inRange(y, yRange);
+  return inXArea && inRange(y, yr);
 };
 
 export const selectNotesIn = (input: UINote[], zone?: Area) => {
