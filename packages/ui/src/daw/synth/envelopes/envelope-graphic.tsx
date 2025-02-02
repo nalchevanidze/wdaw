@@ -121,11 +121,12 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
 
 const padding = 5;
 const width = 180;
-const height = 100;
+const height = 120;
 
 const EnvelopeGraphic = (props: Props) => (
   <Svg
-    padding={{ left: padding, top: padding }}
+    paddingLeft={padding}
+    paddingTop={padding}
     width={width}
     height={height}
     zoom={0.8}

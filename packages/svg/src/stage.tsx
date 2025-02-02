@@ -10,7 +10,8 @@ type SvgStageProps = {
   height: number;
   children: React.ReactNode;
   style?: React.CSSProperties;
-  padding?: { left: number; top: number };
+  paddingLeft?: number;
+  paddingTop?: number;
   zoom?: number;
 };
 
@@ -31,18 +32,16 @@ const Svg: React.FC<SvgStageProps> = ({
   height,
   style,
   children,
-  padding,
+  paddingLeft = 0,
+  paddingTop = 0,
   zoom = 1
 }) => {
   const [, setClient] = React.useState(false);
   const ref = React.useRef<SVGSVGElement>(null);
   React.useEffect(() => setClient(true), []);
 
-  const w = padding ? width + padding.left : width;
-  const h = padding ? height + padding.top : height;
-  const viewBox = padding
-    ? [-padding.left, -padding.top, w, h]
-    : [0, 0, width, height];
+  const w = width + paddingLeft;
+  const h = paddingTop + height;
 
   return (
     <svg
@@ -50,7 +49,7 @@ const Svg: React.FC<SvgStageProps> = ({
       height={h * zoom}
       style={style}
       ref={ref}
-      viewBox={viewBox.join(' ')}
+      viewBox={[-paddingLeft, -paddingTop, w, h].join(' ')}
     >
       <StageContext.Provider
         value={ref.current ? svgCoordinates(ref.current) : fallback}

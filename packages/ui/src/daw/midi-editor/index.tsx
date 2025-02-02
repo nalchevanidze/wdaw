@@ -164,9 +164,10 @@ export const MidiEditor: React.FC = () => {
         <Svg
           width={loopEnd + rulerSize}
           height={canvasHeight}
-          style={{ background: '#FFF' }}
-          padding={{ left: keyboardWidth, top: timelineHeight }}
+          paddingLeft={keyboardWidth}
+          paddingTop={timelineHeight}
           zoom={4}
+          style={{ background: '#FFF' }}
         >
           <MidiEditorCanvas
             actionType={actionType}
