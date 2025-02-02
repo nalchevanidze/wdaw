@@ -19,7 +19,6 @@ export const mapNotes = (
 ): Tracked<UINote>[] =>
   notes.map((note) => (note.origin ? { ...note, ...f(note.origin) } : note));
 
-
 const inArea = (rx: Range, ry: Range, { x, y, length }: UINote): boolean => {
   const x2 = x + length;
   const insideNote = x < rx[0] && rx[1] < x2;
