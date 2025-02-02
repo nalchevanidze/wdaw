@@ -8,10 +8,9 @@ const StageContext = React.createContext<Fun>((): Point => ({ x: 0, y: 0 }));
 type SvgStageProps = {
   width: number;
   height: number;
-  viewBox?: [number, number, number, number];
-  style?: React.CSSProperties;
   children: React.ReactNode;
-  shift?: { x: number; y: number };
+  style?: React.CSSProperties;
+  padding?: { left: number; top: number };
   zoom?: number;
 };
 
@@ -30,19 +29,20 @@ const fallback = () => ({ x: 0, y: 0 });
 const Svg: React.FC<SvgStageProps> = ({
   width,
   height,
-  viewBox = [0, 0, width, height],
   style,
   children,
-  shift,
+  padding,
   zoom = 1
 }) => {
   const [, setClient] = React.useState(false);
   const ref = React.useRef<SVGSVGElement>(null);
   React.useEffect(() => setClient(true), []);
 
-  const w = shift ? width + shift.x : width;
-  const h = shift ? height + shift.y : height;
-  const vb = shift ? [-shift.x, -shift.y, w, h] : viewBox;
+  const w = padding ? width + padding.left : width;
+  const h = padding ? height + padding.top : height;
+  const viewBox = padding
+    ? [-padding.left, -padding.top, w, h]
+    : [0, 0, width, height];
 
   return (
     <svg
@@ -50,7 +50,7 @@ const Svg: React.FC<SvgStageProps> = ({
       height={h * zoom}
       style={style}
       ref={ref}
-      viewBox={vb.join(' ')}
+      viewBox={viewBox.join(' ')}
     >
       <StageContext.Provider
         value={ref.current ? svgCoordinates(ref.current) : fallback}

@@ -124,7 +124,12 @@ const width = 180;
 const height = 100;
 
 const EnvelopeGraphic = (props: Props) => (
-  <Svg shift={{ x: padding, y: padding }} width={width} height={height} zoom={0.8}>
+  <Svg
+    padding={{ left: padding, top: padding }}
+    width={width}
+    height={height}
+    zoom={0.8}
+  >
     <EnvelopeConsumer {...props} />
   </Svg>
 );

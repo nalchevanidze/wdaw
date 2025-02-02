@@ -32,7 +32,7 @@ export const TrackList: React.FC = () => {
       <Svg
         width={maxTrackSize + rulerSize}
         height={trackHeight * tracks.tracks.length}
-        shift={{ x: panelWidth, y: timelineHeight }}
+        padding={{ left: panelWidth, top: timelineHeight }}
       >
         <NoteGrid size={rulerSize} />
         <Timeline height={timelineHeight} size={rulerSize} />

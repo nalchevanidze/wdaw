@@ -165,7 +165,7 @@ export const MidiEditor: React.FC = () => {
           width={loopEnd + rulerSize}
           height={canvasHeight}
           style={{ background: '#FFF' }}
-          shift={{ x: keyboardWidth, y: timelineHeight }}
+          padding={{ left: keyboardWidth, top: timelineHeight }}
           zoom={4}
         >
           <MidiEditorCanvas
