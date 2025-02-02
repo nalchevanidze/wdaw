@@ -12,16 +12,14 @@ const PlayAtController: React.FC<PlayAtControllerProps> = ({
   sector,
   onClick
 }) => {
-  const getCoordinates = React.useContext(StageContext);
+  const { toPoint } = React.useContext(StageContext);
 
   return (
     <LoadedGraph
       annulus={annulus}
       sector={sector}
       onClick={(event) =>
-        onClick(
-          percentFromPoints(getCoordinates(event), annulus.center, sector)
-        )
+        onClick(percentFromPoints(toPoint(event), annulus.center, sector))
       }
       fillOpacity={0}
     />

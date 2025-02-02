@@ -21,7 +21,7 @@ export type HandlerMap<K extends string, T> = Record<
 >;
 
 export const useDragging = <T>(ops: Optins<T>) => {
-  const getCoordinates = React.useContext(StageContext);
+  const { toPoint } = React.useContext(StageContext);
 
   const [area, setSelectionArea] = React.useState<Area | undefined>();
   const [mode, setMode] = React.useState<MODE | undefined>(undefined);
@@ -29,7 +29,7 @@ export const useDragging = <T>(ops: Optins<T>) => {
 
   const start = (name: MODE, e: MEvent) => {
     setMode(name);
-    setDragging(getCoordinates(e));
+    setDragging(toPoint(e));
   };
   const end = () => {
     setSelectionArea(undefined);
@@ -40,9 +40,7 @@ export const useDragging = <T>(ops: Optins<T>) => {
 
   const onMove: MHandler = (e) => {
     if (mode) {
-      const area: Maybe<Area> = dragging
-        ? [dragging, getCoordinates(e)]
-        : undefined;
+      const area: Maybe<Area> = dragging ? [dragging, toPoint(e)] : undefined;
 
       if (mode == 'select') {
         setSelectionArea(area);
@@ -52,7 +50,7 @@ export const useDragging = <T>(ops: Optins<T>) => {
   };
 
   const onBackground = (e: MEvent) => {
-    const name = ops.onBackground?.(getCoordinates(e));
+    const name = ops.onBackground?.(toPoint(e));
     if (name) {
       start(name, e);
     }

@@ -50,7 +50,7 @@ type Props = {
 const type = 'SET_ENVELOPE';
 const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
   const [{ envelopes }, dispatch] = usePreset();
-  const getCoordinates = useContext(StageContext);
+  const { toPoint } = useContext(StageContext);
   const [target, setCurrent] = useState<Target | undefined>();
 
   const state = envelopes[id];
@@ -59,8 +59,8 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
   const clear = () => setCurrent(undefined);
   const setTarget = (name: Target) => () => setCurrent(name);
   const onMove: EnvelopeHandler = (event) => {
-    const coordinates = getCoordinates(event);
-    const x = positive(coordinates.x / 100);
+    const point = toPoint(event);
+    const x = positive(point.x / 100);
 
     switch (target) {
       case 'attack':
@@ -71,7 +71,7 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
           id,
           payload: {
             decay: positive(x - state.attack),
-            sustain: 1 - unitInterval(coordinates.y / 100)
+            sustain: 1 - unitInterval(point.y / 100)
           }
         });
       case 'release':

@@ -35,14 +35,14 @@ export const Level: React.FC<Props> = ({
   stepOpacity = 0.5
 }) => {
   const [listen, setListen] = React.useState(false);
-  const getCoordinates = React.useContext(StageContext);
+  const { toPoint } = React.useContext(StageContext);
 
   const mouseDown = () => setListen(true);
   const mouseUp = () => setListen(false);
 
   const onMove: MHandler = (e) => {
     if (!listen || !onChange) return;
-    const diff = 1.5 * (getCoordinates(e).y - y - size / 2) / size;
+    const diff = (1.5 * (toPoint(e).y - y - size / 2)) / size;
     const value = 1 - unitInterval(diff);
     onChange(range ? intRange(value, range) : value);
   };

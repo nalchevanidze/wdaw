@@ -16,7 +16,7 @@ const AudioLevel: React.FC<AudioLevelProps> = ({
   levelSector,
   stageSector
 }) => {
-  const getCoordinates = useContext(StageContext);
+  const { toPoint } = useContext(StageContext);
   const [trackChanges, setTracking] = React.useState(false);
   const [gain, setGain] = React.useState(0.5);
   const {
@@ -37,7 +37,7 @@ const AudioLevel: React.FC<AudioLevelProps> = ({
     event: React.MouseEvent<SVGGElement, MouseEvent>
   ): void => {
     if (trackChanges) {
-      const distance = getDistance(getCoordinates(event), center);
+      const distance = getDistance(toPoint(event), center);
       const gain = Math.min(0.98, Math.max(0.05, (distance - r1) / (r2 - r1)));
       setGain(gain);
       onChange(gain ** 2);

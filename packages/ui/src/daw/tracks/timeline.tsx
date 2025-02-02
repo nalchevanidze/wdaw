@@ -3,16 +3,16 @@ import { StageContext } from '@wdaw/svg';
 import { DawApiContext } from '../../context/state';
 import { Tapeline } from '../../components/tapeline';
 
-type Height = { height: number , size: number};
+type Height = { height: number; size: number };
 
 export const Timeline: React.FC<Height> = ({ height, size }) => {
-  const getCoordinates = React.useContext(StageContext);
+  const { toPoint } = React.useContext(StageContext);
   const [_, dispatch] = React.useContext(DawApiContext);
 
   const setTime: React.MouseEventHandler<SVGRectElement> = (event) =>
     dispatch({
       type: 'SET_TIME',
-      payload: Math.floor(getCoordinates(event).x)
+      payload: Math.floor(toPoint(event).x)
     });
 
   return (
