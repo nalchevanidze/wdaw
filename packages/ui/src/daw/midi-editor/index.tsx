@@ -10,7 +10,7 @@ import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { useNoteEditor } from '../hooks/use-note-editor';
 import { useTime } from '../hooks/use-time';
 import { SelectionArea } from './selection-area';
-import { mapAera, normalizer, UINote } from '../utils/notes';
+import { mapAera, normalizer } from './dimensions';
 import { Keyboard } from './keyboard';
 import { Loop } from './loop';
 import { LoopTarget, useLoop } from '../hooks/use-loop-editor';
@@ -18,6 +18,7 @@ import { useTrack } from '../hooks/use-track';
 import { NoteGrid } from '../../components/note-grid';
 import { Keys } from '../../components/keys';
 import { toAccuracy } from '../utils/area';
+import { UINote } from '../utils/notes';
 
 type Props = {
   actionType: EditActionType;
