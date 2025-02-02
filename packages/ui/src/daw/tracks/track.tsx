@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Midi } from '@wdaw/engine';
 import { MidiLoop } from './midi-loop';
 import { useDragging } from '../hooks/use-dragging';
-import { distanceX } from '../utils/area';
+import { withAccuracy } from '../utils/area';
 import { useTrackEditor } from '../hooks/use-track-editor';
 
 type Props = {
@@ -23,8 +23,8 @@ export const Track: React.FC<Props> = ({ id, midi, y, height, accuracy }) => {
   const dragging = useDragging({
     onMove: {
       select: () => {},
-      move: (area) => (area ? move(distanceX(area, accuracy)) : undefined),
-      scale: (area) => (area ? scale(distanceX(area, accuracy)) : undefined)
+      move: (s) => move(withAccuracy(s, accuracy)),
+      scale: (s) => scale(withAccuracy(s, accuracy))
     },
     onEnd: clear
   });

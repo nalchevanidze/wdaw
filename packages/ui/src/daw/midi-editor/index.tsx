@@ -17,6 +17,7 @@ import { LoopTarget, useLoop } from '../hooks/use-loop-editor';
 import { useTrack } from '../hooks/use-track';
 import { NoteGrid } from '../../components/note-grid';
 import { Keys } from '../../components/keys';
+import { withAccuracy } from '../utils/area';
 
 type Props = {
   actionType: EditActionType;
@@ -61,12 +62,12 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
   const dragging = useDragging({
     onMove: {
       select: notes.selectIn,
-      move: (area) => {
-        if (!area) return;
-
-        return loop.target ? loop.move(area) : notes.move(area);
-      },
-      scale: (area) => (area ? notes.scale(area) : undefined)
+      scale: notes.scale,
+      move: (x, y) => {
+        return loop.target
+          ? loop.move(withAccuracy(x, loopAccuracy))
+          : notes.move(withAccuracy(x, 2), Math.round(y / noteHeight));
+      }
     },
     onBackground: onBackgroundHandler[actionType],
     onSelected: notes.track,

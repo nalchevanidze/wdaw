@@ -78,15 +78,15 @@ export const useNoteEditor = (dimentions: Dimentions) => {
   const removeSelected = () =>
     update({ selected: [], inactive: notes.inactive });
 
-  const scale = (area: Area) =>
+  const scale = (size: number) =>
     update({
-      selected: scaleNotes(notes.selected, area),
+      selected: scaleNotes(notes.selected, size),
       inactive: notes.inactive
     });
 
-  const move = (area: Area) =>
+  const move = (x: number, y: number) =>
     update({
-      selected: moveNotes(dimentions, notes.selected, area),
+      selected: moveNotes(notes.selected, [x, y]),
       inactive: notes.inactive
     });
 

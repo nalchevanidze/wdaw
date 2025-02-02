@@ -1,14 +1,22 @@
 import { Point, usePoint } from '@wdaw/svg';
 import * as React from 'react';
 import { Area, Maybe, MEvent, MHandler } from '../types';
+import { distanceX, distanceY } from '../utils/area';
 
 export type MODE = 'scale' | 'move' | 'select';
 
 type OnBackgroundHandler = (p: Point) => Maybe<MODE>;
 type onInactiveHandler<T> = (p: T) => Maybe<MODE>;
 
+export type AreaHandler = (a: Maybe<Area>) => void;
+
+
 type Optins<T> = {
-  onMove: Record<MODE, (a: Maybe<Area>) => void>;
+  onMove: {
+    select: AreaHandler;
+    move: (x: number, y: number) => void;
+    scale: (size: number) => void;
+  };
   onEnd?(mode?: MODE): void;
   onBackground?: OnBackgroundHandler;
   onSelected?: () => void;
@@ -45,7 +53,20 @@ export const useDragging = <T>(ops: Optins<T>) => {
       if (mode == 'select') {
         setSelectionArea(area);
       }
-      ops.onMove[mode](area);
+
+      switch (mode) {
+        case "select": 
+          setSelectionArea(area);
+          return ops.onMove.select(area)
+        case "move":
+          if(!area) return
+          return ops.onMove.move(distanceX(area), distanceY(area));
+        case "scale":
+          if(!area) return
+          return ops.onMove.scale(distanceX(area))
+
+
+      }
     }
   };
 

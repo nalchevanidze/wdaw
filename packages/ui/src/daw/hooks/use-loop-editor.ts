@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Area, Maybe } from '../types';
-import { distanceX } from '../utils/area';
+import { Maybe } from '../types';
+import { withAccuracy } from '../utils/area';
 import { useTrack } from './use-track';
 
 export type LoopTarget = 'start' | 'end';
@@ -32,8 +32,7 @@ export const useLoop = (accuracy: number) => {
     sync();
   };
 
-  const move = (area: Area) => {
-    const time = distanceX(area, accuracy);
+  const move = (time: number) => {
 
     if (origin === undefined) return;
 
