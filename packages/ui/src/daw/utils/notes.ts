@@ -60,15 +60,20 @@ export const genNoteAt = (
   return { length: 1, positionY, at };
 };
 
+const getRange = (a: number, b: number): [number, number] => [
+  Math.min(a, b),
+  Math.max(a, b)
+];
+
+const inRange = (n: number, [min, max]: [number, number]) => min < n && n < max;
+
 export const isInArea = (
   { canvasHeight, noteHeight }: Dimentions,
   [start, end]: Area,
   { at, positionY, length }: UINote
 ): boolean => {
-  const minX = Math.min(start.x, end.x);
-  const maxX = Math.max(start.x, end.x);
-  const minY = Math.min(start.y, end.y);
-  const maxY = Math.max(start.y, end.y);
+  const xRange = getRange(start.x, end.x);
+  const yRange = getRange(start.y, end.y);
 
   const note = {
     start: at,
@@ -76,13 +81,14 @@ export const isInArea = (
     y: canvasHeight - noteHeight * positionY
   };
 
-  const xIsInArea =
-    (minX < note.start && note.start < maxX) ||
-    (minX < note.end && note.end < maxX) ||
-    (note.start < minX && maxX < note.end);
+  const selectionInsideNote = note.start < xRange[0] && xRange[1] < note.end;
 
-  const yIsInArea = minY < note.y && note.y < maxY;
-  return xIsInArea && yIsInArea;
+  const xIsInArea =
+    inRange(note.start, xRange) ||
+    inRange(note.end, xRange) ||
+    selectionInsideNote;
+
+  return xIsInArea && inRange(note.y, yRange);
 };
 
 const clusterArray = <T extends object>(
