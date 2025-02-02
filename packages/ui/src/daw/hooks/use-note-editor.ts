@@ -8,7 +8,8 @@ import {
   selectNotesIn,
   UINote,
   Selected,
-  Dimentions
+  Dimentions,
+  normalize
 } from '../utils/notes';
 import { Point } from '@wdaw/svg';
 import { useOnDelete } from '../utils/key-actions';
@@ -62,7 +63,7 @@ export const useNoteEditor = (dimentions: Dimentions) => {
 
   const addAt = (point: Point) =>
     update({
-      selected: [genNoteAt(dimentions, point)].map(addTracking),
+      selected: [genNoteAt(normalize(dimentions, point))].map(addTracking),
       inactive: allNotes.map(dropTracking)
     });
 

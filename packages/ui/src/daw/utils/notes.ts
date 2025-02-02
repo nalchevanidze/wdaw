@@ -18,6 +18,14 @@ export type Dimentions = {
   canvasHeight: number;
 };
 
+const getPositionY = ({ canvasHeight, noteHeight }: Dimentions, y: number) =>
+  Math.floor(1 + (canvasHeight - y) / noteHeight);
+
+export const normalize = (d: Dimentions, { x, y }: Point): Point => ({
+  x: Math.floor(x),
+  y: getPositionY(d, y)
+});
+
 export const moveNotes = (
   notes: Tracked<UINote>[],
   [time, tune]: [number, number]
@@ -43,13 +51,10 @@ export const scaleNotes = (
     note.origin ? { ...note, length: note.origin.length + size } : note
   );
 
-const getPositionY = ({ canvasHeight, noteHeight }: Dimentions, y: number) =>
-  Math.floor(1 + (canvasHeight - y) / noteHeight);
-
-export const genNoteAt = (d: Dimentions, { x, y }: Point): UINote => ({
+export const genNoteAt = ({ x, y }: Point): UINote => ({
   length: 1,
-  positionY: getPositionY(d, y),
-  at: Math.floor(x)
+  positionY: y,
+  at: x
 });
 
 type Range = [number, number];
@@ -71,7 +76,7 @@ const inArea = (
   const isInsideNote = at < xRange[0] && xRange[1] < end;
 
   const xIsInArea = inRange(at, xRange) || inRange(end, xRange) || isInsideNote;
-  
+
   return xIsInArea && inRange(positionY, yRange);
 };
 
