@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StageContext } from '@wdaw/svg';
+import { usePoint } from '@wdaw/svg';
 import { intRange, unitInterval, Range } from '../daw/utils/math';
 import { MHandler } from '../daw/types';
 
@@ -35,7 +35,7 @@ export const Level: React.FC<Props> = ({
   stepOpacity = 0.5
 }) => {
   const [listen, setListen] = React.useState(false);
-  const { toPoint } = React.useContext(StageContext);
+  const toPoint = usePoint();
 
   const mouseDown = () => setListen(true);
   const mouseUp = () => setListen(false);

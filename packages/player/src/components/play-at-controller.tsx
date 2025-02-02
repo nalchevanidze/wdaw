@@ -1,6 +1,6 @@
 import * as React from 'react';
 import LoadedGraph from './loaded-graph';
-import { percentFromPoints, StageContext } from '@wdaw/svg';
+import { percentFromPoints, usePoint } from '@wdaw/svg';
 import { RingComponentProps } from '../types';
 
 type PlayAtControllerProps = RingComponentProps & {
@@ -12,7 +12,7 @@ const PlayAtController: React.FC<PlayAtControllerProps> = ({
   sector,
   onClick
 }) => {
-  const { toPoint } = React.useContext(StageContext);
+  const toPoint = usePoint();
 
   return (
     <LoadedGraph

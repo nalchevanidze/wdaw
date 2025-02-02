@@ -1,4 +1,4 @@
-import { Point, StageContext } from '@wdaw/svg';
+import { Point, usePoint } from '@wdaw/svg';
 import * as React from 'react';
 import { Area, Maybe, MEvent, MHandler } from '../types';
 
@@ -21,7 +21,7 @@ export type HandlerMap<K extends string, T> = Record<
 >;
 
 export const useDragging = <T>(ops: Optins<T>) => {
-  const { toPoint } = React.useContext(StageContext);
+  const toPoint = usePoint();
 
   const [area, setSelectionArea] = React.useState<Area | undefined>();
   const [mode, setMode] = React.useState<MODE | undefined>(undefined);

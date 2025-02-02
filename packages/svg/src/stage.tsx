@@ -9,7 +9,7 @@ type Context = {
   toPoint: (_: React.MouseEvent<SVGGElement, MouseEvent>) => Point;
 };
 
-const StageContext = React.createContext<Context>({
+const Context = React.createContext<Context>({
   toPoint: () => ({ x: 0, y: 0 }),
   width: 0,
   height: 0,
@@ -39,7 +39,13 @@ const svgCoordinates =
 
 const fallback = () => ({ x: 0, y: 0 });
 
-const Svg: React.FC<SvgStageProps> = ({
+export const usePoint = () => {
+  const { toPoint } = React.useContext(Context);
+
+  return toPoint;
+};
+
+export const Svg: React.FC<SvgStageProps> = ({
   width,
   height,
   style,
@@ -63,7 +69,7 @@ const Svg: React.FC<SvgStageProps> = ({
       ref={ref}
       viewBox={[-paddingLeft, -paddingTop, w, h].join(' ')}
     >
-      <StageContext.Provider
+      <Context.Provider
         value={{
           left: paddingLeft,
           top: paddingTop,
@@ -73,9 +79,7 @@ const Svg: React.FC<SvgStageProps> = ({
         }}
       >
         {children}
-      </StageContext.Provider>
+      </Context.Provider>
     </svg>
   );
 };
-
-export { Svg, StageContext };

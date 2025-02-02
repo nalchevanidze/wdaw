@@ -1,7 +1,6 @@
 import * as React from 'react';
 import LoadedGraph from './loaded-graph';
-import { getDistance, Annulus, ArcSector, StageContext } from '@wdaw/svg';
-import { useContext } from 'react';
+import { getDistance, Annulus, ArcSector, usePoint } from '@wdaw/svg';
 
 type AudioLevelProps = {
   annulus: Annulus;
@@ -16,7 +15,7 @@ const AudioLevel: React.FC<AudioLevelProps> = ({
   levelSector,
   stageSector
 }) => {
-  const { toPoint } = useContext(StageContext);
+  const toPoint = usePoint();
   const [trackChanges, setTracking] = React.useState(false);
   const [gain, setGain] = React.useState(0.5);
   const {

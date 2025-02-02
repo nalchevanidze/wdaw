@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useContext, useState } from 'react';
 import { WaveGrid } from '../../../components/wave-grid';
-import { Svg, StageContext } from '@wdaw/svg';
+import { Svg, usePoint } from '@wdaw/svg';
 import { ControlPoint, Point } from './control-point';
 import { MouseEventHandler } from 'react';
 import { colors } from '../../../styles';
@@ -50,7 +50,7 @@ type Props = {
 const type = 'SET_ENVELOPE';
 const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
   const [{ envelopes }, dispatch] = usePreset();
-  const { toPoint } = useContext(StageContext);
+  const toPoint = usePoint();
   const [target, setCurrent] = useState<Target | undefined>();
 
   const state = envelopes[id];
