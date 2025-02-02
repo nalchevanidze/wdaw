@@ -25,13 +25,13 @@ const rulerSize = BLOCK;
 export const TrackList: React.FC = () => {
   const [{ tracks, player }] = React.useContext(DawApiContext);
   const maxTrackSize = Math.max(...tracks.tracks.map((t) => t.midi.end));
-  const height = trackHeight * tracks.tracks.length + timelineHeight;
+  const canvasHeight = trackHeight * tracks.tracks.length;
 
   return (
     <div style={styles.container}>
       <Svg
         width={maxTrackSize + rulerSize}
-        height={trackHeight * tracks.tracks.length}
+        height={canvasHeight}
         paddingLeft={panelWidth}
         paddingTop={timelineHeight}
       >
@@ -64,7 +64,7 @@ export const TrackList: React.FC = () => {
 
         <rect
           y={-timelineHeight}
-          height={height}
+          height={canvasHeight + timelineHeight}
           width={1}
           x={player.time}
           fill={colors.critical}
