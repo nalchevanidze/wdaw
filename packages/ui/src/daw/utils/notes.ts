@@ -1,7 +1,7 @@
 import { Point } from '@wdaw/svg';
 import { distanceX, distanceY } from './area';
 import { Area } from '../types';
-import { addTracking, Tracked } from './tracking';
+import { addTracking, dropTracking, Tracked } from './tracking';
 
 export type Selected<T> = {
   selected: Tracked<T>[];
@@ -67,7 +67,7 @@ const getRange = (a: number, b: number): [number, number] => [
 
 const inRange = (n: number, [min, max]: [number, number]) => min < n && n < max;
 
-export const isInArea = (
+const inArea = (
   { canvasHeight, noteHeight }: Dimentions,
   [start, end]: Area,
   { at, positionY, length }: UINote
@@ -91,25 +91,18 @@ export const isInArea = (
   return xIsInArea && inRange(note.y, yRange);
 };
 
-const clusterArray = <T extends object>(
-  list: T[],
-  func: (_: T) => boolean
-): Selected<T> => {
-  const selected: Tracked<T>[] = [];
-  const inactive: T[] = [];
-
-  list.forEach((elem) =>
-    func(elem) ? selected.push(addTracking<T>(elem)) : inactive.push(elem)
-  );
-
-  return { selected, inactive };
-};
-
 export const selectNotesIn = (
   dims: Dimentions,
-  { selected, inactive }: Selected<UINote>,
+  input: UINote[],
   zone?: Area
-) =>
-  clusterArray([...selected, ...inactive], (note) =>
-    zone ? isInArea(dims, zone, note) : false
+) => {
+  const notes: Selected<UINote> = { selected: [], inactive: [] };
+
+  input.forEach((note) =>
+    zone && inArea(dims, zone, note)
+      ? notes.selected.push(addTracking(note))
+      : notes.inactive.push(note)
   );
+
+  return notes;
+};

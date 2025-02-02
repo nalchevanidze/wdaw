@@ -73,7 +73,7 @@ export const useNoteEditor = (dimentions: Dimentions) => {
     });
 
   const selectIn = (area?: Area) =>
-    update(selectNotesIn(dimentions, notes, area));
+    update(selectNotesIn(dimentions, allNotes, area));
 
   const removeSelected = () =>
     update({ selected: [], inactive: notes.inactive });
