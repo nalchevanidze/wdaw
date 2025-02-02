@@ -13,30 +13,11 @@ export type UINote = {
   length: number;
 };
 
-export const moveNotes = (
+export const mapNotes = (
   notes: Tracked<UINote>[],
-  [time, tune]: [number, number]
-): Tracked<UINote>[] => {
-  return notes.map(
-    (note): Tracked<UINote> =>
-      note.origin
-        ? {
-            length: note.length,
-            origin: note.origin,
-            x: note.origin.x + time,
-            y: note.origin.y - tune
-          }
-        : note
-  );
-};
-
-export const scaleNotes = (
-  notes: Tracked<UINote>[],
-  size: number
+  f: (n: UINote) => Partial<UINote>
 ): Tracked<UINote>[] =>
-  notes.map((note) =>
-    note.origin ? { ...note, length: note.origin.length + size } : note
-  );
+  notes.map((note) => (note.origin ? { ...note, ...f(note.origin) } : note));
 
 
 const inArea = (rx: Range, ry: Range, { x, y, length }: UINote): boolean => {

@@ -1,13 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Area } from '../types';
-import {
-  scaleNotes,
-  moveNotes,
-  selectNotesIn,
-  UINote,
-  Selected
-} from '../utils/notes';
+import { selectNotesIn, UINote, Selected, mapNotes } from '../utils/notes';
 import { Point } from '@wdaw/svg';
 import { useOnDelete } from '../utils/key-actions';
 import { addTracking, dropTracking } from '../utils/tracking';
@@ -75,15 +69,20 @@ export const useNoteEditor = () => {
   const removeSelected = () =>
     update({ selected: [], inactive: notes.inactive });
 
-  const scale = (size: number) =>
+  const scale = (moveX: number) =>
     update({
-      selected: scaleNotes(notes.selected, size),
+      selected: mapNotes(notes.selected, ({ length }) => ({
+        length: length + moveX
+      })),
       inactive: notes.inactive
     });
 
-  const move = (x: number, y: number) =>
+  const move = (moveX: number, moveY: number) =>
     update({
-      selected: moveNotes(notes.selected, [x, y]),
+      selected: mapNotes(notes.selected, ({ x, y }) => ({
+        x: x + moveX,
+        y: y - moveY
+      })),
       inactive: notes.inactive
     });
 
