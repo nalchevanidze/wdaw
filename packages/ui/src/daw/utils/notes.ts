@@ -1,4 +1,4 @@
-import { Point } from '@wdaw/svg';
+import { inRange, makeRange, Point, Range } from '@wdaw/svg';
 import { Area } from '../types';
 import { addTracking, Tracked } from './tracking';
 
@@ -40,21 +40,12 @@ export const scaleNotes = (
 
 export const genNoteAt = ({ x, y }: Point): UINote => ({ length: 1, y, x });
 
-type Range = [number, number];
+const inArea = (rx: Range, ry: Range, { x, y, length }: UINote): boolean => {
+  const x2 = x + length;
+  const insideNote = x < rx[0] && rx[1] < x2;
+  const inXArea = inRange(x, rx) || inRange(x2, rx) || insideNote;
 
-const getRange = (a: number, b: number): Range => [
-  Math.min(a, b),
-  Math.max(a, b)
-];
-
-const inRange = (n: number, [min, max]: Range) => min < n && n < max;
-
-const inArea = (xr: Range, yr: Range, { x, y, length }: UINote): boolean => {
-  const end = x + length;
-  const insideNote = x < xr[0] && xr[1] < end;
-  const inXArea = inRange(x, xr) || inRange(end, xr) || insideNote;
-
-  return inXArea && inRange(y, yr);
+  return inXArea && inRange(y, ry);
 };
 
 export const selectNotesIn = (input: UINote[], zone?: Area) => {
@@ -63,8 +54,8 @@ export const selectNotesIn = (input: UINote[], zone?: Area) => {
   if (!zone) return { selected: [], inactive: input };
 
   const [start, end] = zone;
-  const xRange = getRange(start.x, end.x);
-  const yRange = getRange(start.y, end.y);
+  const xRange = makeRange(start.x, end.x);
+  const yRange = makeRange(start.y, end.y);
 
   input.forEach((note) =>
     inArea(xRange, yRange, note)
