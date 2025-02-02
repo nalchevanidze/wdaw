@@ -67,16 +67,21 @@ export const isInArea = (
 ): boolean => {
   const minX = Math.min(start.x, end.x);
   const maxX = Math.max(start.x, end.x);
-  const startX = at;
-  const endX = startX + length;
-  const xIsInArea =
-    (minX < startX && maxX > startX) ||
-    (minX < endX && maxX > endX) ||
-    (minX > startX && maxX < endX);
   const minY = Math.min(start.y, end.y);
   const maxY = Math.max(start.y, end.y);
-  const y = canvasHeight - noteHeight * positionY;
-  const yIsInArea = minY < y && maxY > y;
+
+  const note = {
+    start: at,
+    end: at + length,
+    y: canvasHeight - noteHeight * positionY
+  };
+
+  const xIsInArea =
+    (minX < note.start && note.start < maxX) ||
+    (minX < note.end && note.end < maxX) ||
+    (note.start < minX && maxX < note.end);
+
+  const yIsInArea = minY < note.y && note.y < maxY;
   return xIsInArea && yIsInArea;
 };
 
