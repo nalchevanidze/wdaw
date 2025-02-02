@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Track } from './track';
 import { Timeline } from './timeline';
 import { BLOCK } from '../../common/units';
-import { SvgStage } from '@wdaw/svg';
+import { Svg } from '@wdaw/svg';
 import { colors } from '../../styles';
 import { Panel } from './panel';
 import { NoteGrid } from '../../components/note-grid';
@@ -29,7 +29,7 @@ export const TrackList: React.FC = () => {
 
   return (
     <div style={styles.container}>
-      <SvgStage
+      <Svg
         width={maxTrackSize + rulerSize}
         height={trackHeight * tracks.tracks.length}
         shift={{ x: panelWidth, y: timelineHeight }}
@@ -68,7 +68,7 @@ export const TrackList: React.FC = () => {
           x={player.time}
           fill={colors.critical}
         />
-      </SvgStage>
+      </Svg>
     </div>
   );
 };

@@ -11,4 +11,4 @@ export {
   subSectorByPercent,
   filledSector
 } from './arc-circle';
-export { SvgStage, StageContext } from './stage';
+export { Svg, StageContext } from './stage';

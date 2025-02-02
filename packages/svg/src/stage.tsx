@@ -27,7 +27,7 @@ const svgCoordinates =
 
 const fallback = () => ({ x: 0, y: 0 });
 
-const SvgStage: React.FC<SvgStageProps> = ({
+const Svg: React.FC<SvgStageProps> = ({
   width,
   height,
   viewBox = [0, 0, width, height],
@@ -61,4 +61,4 @@ const SvgStage: React.FC<SvgStageProps> = ({
   );
 };
 
-export { SvgStage, StageContext };
+export { Svg, StageContext };

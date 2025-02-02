@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { lib } from './icons';
-import { SvgStage } from '@wdaw/svg';
+import { Svg } from '@wdaw/svg';
 import { Level, Props } from '../../../components/level';
 
 const styles = {
@@ -23,7 +23,7 @@ const WaveButton: React.FC<WaveButtonProps> = ({
   onChange
 }) => (
   <div>
-    <SvgStage
+    <Svg
       width={100}
       height={100}
       zoom={0.5}
@@ -50,7 +50,7 @@ const WaveButton: React.FC<WaveButtonProps> = ({
         steps={steps}
         color={color}
       />
-    </SvgStage>
+    </Svg>
     <p style={{ ...styles.p, color }}>{id}</p>
   </div>
 );

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Point, SvgStage } from '@wdaw/svg';
+import { Point, Svg } from '@wdaw/svg';
 import { OCTAVE_SIZE } from '@wdaw/engine';
 import { NoteComposerHeader } from './header';
 import { BLOCK } from '../../common/units';
@@ -161,7 +161,7 @@ export const MidiEditor: React.FC = () => {
     <>
       <NoteComposerHeader actionType={actionType} dispatch={setActionType} />
       <div style={{ width: '560px', overflow: 'scroll', height: '350px' }}>
-        <SvgStage
+        <Svg
           width={loopEnd + rulerSize}
           height={canvasHeight}
           style={{ background: '#FFF' }}
@@ -172,7 +172,7 @@ export const MidiEditor: React.FC = () => {
             actionType={actionType}
             loopAccuracy={rulerSize / 8}
           />
-        </SvgStage>
+        </Svg>
       </div>
     </>
   );

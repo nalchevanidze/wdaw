@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useContext, useState } from 'react';
 import { WaveGrid } from '../../../components/wave-grid';
-import { SvgStage, StageContext } from '@wdaw/svg';
+import { Svg, StageContext } from '@wdaw/svg';
 import { ControlPoint, Point } from './control-point';
 import { MouseEventHandler } from 'react';
 import { colors } from '../../../styles';
@@ -124,9 +124,9 @@ const width = 180;
 const height= 100;
 
 const EnvelopeGraphic = (props: Props) => (
-  <SvgStage viewBox={[-padding, -padding, width + padding * 2, height + padding * 2]} width={width} height={height}>
+  <Svg viewBox={[-padding, -padding, width + padding * 2, height + padding * 2]} width={width} height={height}>
     <EnvelopeConsumer {...props} />
-  </SvgStage>
+  </Svg>
 );
 
 export default EnvelopeGraphic;

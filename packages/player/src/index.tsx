@@ -3,7 +3,7 @@ import LevelWaveForm from './components/level-wave-form';
 import DynamicGraphics from './components/dynamic-graphics';
 import { AudioLevel } from './components/audio-level';
 import { AudioObject } from './utils/audio-player';
-import { Annulus, ArcSector, SvgStage } from '@wdaw/svg';
+import { Annulus, ArcSector, Svg } from '@wdaw/svg';
 import PlayAtController from './components/play-at-controller';
 export { Sound } from './components/sound-form';
 import AnimationFrame from './components/animation-frame';
@@ -36,8 +36,7 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
   const innerAnnulus: Annulus = { center, radius: [r1, r2] };
 
   return (
-    <SvgStage width={width ?? size} height={height ?? size}
-    >
+    <Svg width={width ?? size} height={height ?? size}>
       <LevelWaveForm
         annulusSector={{
           center,
@@ -72,7 +71,7 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
         sector={stageSector}
         onClick={audio.playAt}
       />
-    </SvgStage>
+    </Svg>
   );
 };
 
