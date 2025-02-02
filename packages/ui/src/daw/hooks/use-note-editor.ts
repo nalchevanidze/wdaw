@@ -8,8 +8,6 @@ import {
   selectNotesIn,
   UINote,
   Selected,
-  Dimentions,
-  normalize
 } from '../utils/notes';
 import { Point } from '@wdaw/svg';
 import { useOnDelete } from '../utils/key-actions';
@@ -17,7 +15,7 @@ import { addTracking, dropTracking } from '../utils/tracking';
 import { deepen, flatten } from '../utils/midi';
 import { useTrack } from './use-track';
 
-export const useNoteEditor = (dimentions: Dimentions) => {
+export const useNoteEditor = () => {
   const [{ midi, id }, dispatch] = useTrack();
 
   const [notes, setNotes] = useState<Selected<UINote>>({
@@ -63,7 +61,7 @@ export const useNoteEditor = (dimentions: Dimentions) => {
 
   const addAt = (point: Point) =>
     update({
-      selected: [genNoteAt(normalize(dimentions, point))].map(addTracking),
+      selected: [genNoteAt(point)].map(addTracking),
       inactive: allNotes.map(dropTracking)
     });
 
@@ -74,7 +72,7 @@ export const useNoteEditor = (dimentions: Dimentions) => {
     });
 
   const selectIn = (area?: Area) =>
-    update(selectNotesIn(dimentions, allNotes, area));
+    update(selectNotesIn(allNotes, area));
 
   const removeSelected = () =>
     update({ selected: [], inactive: notes.inactive });

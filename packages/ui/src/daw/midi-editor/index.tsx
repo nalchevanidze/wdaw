@@ -10,7 +10,7 @@ import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { useNoteEditor } from '../hooks/use-note-editor';
 import { useTime } from '../hooks/use-time';
 import { SelectionArea } from './selection-area';
-import { UINote } from '../utils/notes';
+import { mapAera, normalizer, UINote } from '../utils/notes';
 import { Keyboard } from './keyboard';
 import { Loop } from './loop';
 import { LoopTarget, useLoop } from '../hooks/use-loop-editor';
@@ -31,15 +31,16 @@ const keyboardWidth = 20;
 const ocatveHeight = noteHeight * OCTAVE_SIZE;
 const canvasHeight = ocatveHeight * octaveCount;
 const rulerSize = BLOCK;
+const normalize = normalizer({ noteHeight, canvasHeight });
 
 const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
   const { time, end } = useTime();
-  const notes = useNoteEditor({ noteHeight, canvasHeight });
+  const notes = useNoteEditor();
   const loop = useLoop(loopAccuracy);
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
     draw: (point) => {
-      notes.addAt(point);
+      notes.addAt(normalize(point));
       return 'scale';
     },
     select: () => {
@@ -61,7 +62,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
 
   const dragging = useDragging({
     onMove: {
-      select: notes.selectIn,
+      select: (area) => notes.selectIn(mapAera(normalize, area)),
       scale: notes.scale,
       move: (x, y) => {
         return loop.target

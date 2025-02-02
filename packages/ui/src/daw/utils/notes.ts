@@ -1,5 +1,5 @@
 import { Point } from '@wdaw/svg';
-import { Area } from '../types';
+import { Area, Maybe } from '../types';
 import { addTracking, dropTracking, Tracked } from './tracking';
 
 export type Selected<T> = {
@@ -21,10 +21,15 @@ export type Dimentions = {
 const getPositionY = ({ canvasHeight, noteHeight }: Dimentions, y: number) =>
   Math.floor(1 + (canvasHeight - y) / noteHeight);
 
-export const normalize = (d: Dimentions, { x, y }: Point): Point => ({
-  x: Math.floor(x),
-  y: getPositionY(d, y)
-});
+export const normalizer =
+  (d: Dimentions) =>
+  ({ x, y }: Point): Point => ({
+    x: Math.floor(x),
+    y: getPositionY(d, y)
+  });
+
+export const mapAera = (f: (p: Point) => Point, area?: Area): Maybe<Area> =>
+  area ? [f(area[0]), f(area[1])] : undefined;
 
 export const moveNotes = (
   notes: Tracked<UINote>[],
@@ -80,14 +85,14 @@ const inArea = (
   return xIsInArea && inRange(positionY, yRange);
 };
 
-export const selectNotesIn = (d: Dimentions, input: UINote[], zone?: Area) => {
+export const selectNotesIn = (input: UINote[], zone?: Area) => {
   const notes: Selected<UINote> = { selected: [], inactive: [] };
 
   if (!zone) return { selected: [], inactive: input };
 
   const [start, end] = zone;
   const xRange = getRange(start.x, end.x);
-  const yRange = getRange(getPositionY(d, start.y), getPositionY(d, end.y));
+  const yRange = getRange(start.y, end.y);
 
   input.forEach((note) =>
     inArea(xRange, yRange, note)
