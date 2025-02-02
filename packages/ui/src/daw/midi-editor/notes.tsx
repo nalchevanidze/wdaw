@@ -24,7 +24,7 @@ const Notes: React.FC<Props> = ({
 }) => (
   <g fill={color}>
     {notes.map((note, noteIndex) => {
-      const start = note.at;
+      const start = note.x;
       const width = note.length;
       const y = height - note.y * noteHeight;
 

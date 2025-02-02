@@ -50,7 +50,7 @@ const MidiLoop: React.FC<Props> = ({
                 key={noteIndex}
                 width={note.length}
                 height={1}
-                x={note.at - loopStart}
+                x={note.x - loopStart}
                 y={height - note.y}
               />
             ))}

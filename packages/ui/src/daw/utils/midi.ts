@@ -4,16 +4,16 @@ import { UINote } from './notes';
 export const flatten = ({ notes }: Midi): UINote[] =>
   notes.map(
     ({ id, at, length }: Note): UINote => ({
+      x: at,
+      y: UIPosition.fromNote(id),
       length,
-      at,
-      y: UIPosition.fromNote(id)
     })
   );
 
 export const deepen = (notes: UINote[]): Partial<Midi> => ({
-  notes: notes.map(({ length, at, y }: UINote) => ({
-    at,
-    length,
-    id: UIPosition.toNote(y)
+  notes: notes.map(({ length, x, y }: UINote) => ({
+    at: x,
+    id: UIPosition.toNote(y),
+    length
   }))
 });
