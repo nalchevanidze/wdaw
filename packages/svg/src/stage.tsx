@@ -6,11 +6,13 @@ type Fun = (_: React.MouseEvent<SVGGElement, MouseEvent>) => Point;
 const StageContext = React.createContext<Fun>((): Point => ({ x: 0, y: 0 }));
 
 type SvgStageProps = {
-  viewBox: string;
-  height?: string | number;
-  width?: string | number;
+  width: number;
+  height: number;
+  viewBox?: [number, number, number, number];
   style?: React.CSSProperties;
   children: React.ReactNode;
+  shift?: { x: number; y: number };
+  zoom?: number;
 };
 
 const svgCoordinates =
@@ -25,13 +27,31 @@ const svgCoordinates =
 
 const fallback = () => ({ x: 0, y: 0 });
 
-const SvgStage: React.FC<SvgStageProps> = ({ children, ...props }) => {
+const SvgStage: React.FC<SvgStageProps> = ({
+  width,
+  height,
+  viewBox = [0, 0, width, height],
+  style,
+  children,
+  shift,
+  zoom = 1
+}) => {
   const [, setClient] = React.useState(false);
   const ref = React.useRef<SVGSVGElement>(null);
   React.useEffect(() => setClient(true), []);
 
+  const w = shift ? width + shift.x : width;
+  const h = shift ? height + shift.y : height;
+  const vb = shift ? [-shift.x, -shift.y, w, h] : viewBox;
+
   return (
-    <svg {...props} ref={ref}>
+    <svg
+      width={w * zoom}
+      height={h * zoom}
+      style={style}
+      ref={ref}
+      viewBox={vb.join(' ')}
+    >
       <StageContext.Provider
         value={ref.current ? svgCoordinates(ref.current) : fallback}
       >

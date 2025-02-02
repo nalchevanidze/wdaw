@@ -10,8 +10,8 @@ import AnimationFrame from './components/animation-frame';
 
 export type AudioVisualizerProps = {
   src: string;
-  height?: string | number;
-  width?: string | number;
+  height?: number;
+  width?: number;
   play?: boolean;
   radius?: readonly [number, number, number];
   levelSector?: ArcSector;
@@ -36,7 +36,8 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
   const innerAnnulus: Annulus = { center, radius: [r1, r2] };
 
   return (
-    <SvgStage viewBox={`0 0 ${size} ${size}`} width={width} height={height}>
+    <SvgStage width={width ?? size} height={height ?? size}
+    >
       <LevelWaveForm
         annulusSector={{
           center,

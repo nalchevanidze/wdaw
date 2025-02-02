@@ -25,15 +25,14 @@ const rulerSize = BLOCK;
 export const TrackList: React.FC = () => {
   const [{ tracks, player }] = React.useContext(DawApiContext);
   const maxTrackSize = Math.max(...tracks.tracks.map((t) => t.midi.end));
-  const width = maxTrackSize + panelWidth + rulerSize;
   const height = trackHeight * tracks.tracks.length + timelineHeight;
 
   return (
     <div style={styles.container}>
       <SvgStage
-        viewBox={[-panelWidth, -timelineHeight, width, height].join(' ')}
-        width={width}
-        height={height}
+        width={maxTrackSize + rulerSize}
+        height={trackHeight * tracks.tracks.length}
+        shift={{ x: panelWidth, y: timelineHeight }}
       >
         <NoteGrid size={rulerSize} />
         <Timeline height={timelineHeight} size={rulerSize} />

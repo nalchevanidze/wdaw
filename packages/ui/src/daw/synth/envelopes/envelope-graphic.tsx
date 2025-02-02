@@ -119,8 +119,12 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
   );
 };
 
+const padding = 5;
+const width = 180;
+const height= 100;
+
 const EnvelopeGraphic = (props: Props) => (
-  <SvgStage viewBox="-5 -5 210 110" width="180px" height="100px">
+  <SvgStage viewBox={[-padding, -padding, width + padding * 2, height + padding * 2]} width={width} height={height}>
     <EnvelopeConsumer {...props} />
   </SvgStage>
 );

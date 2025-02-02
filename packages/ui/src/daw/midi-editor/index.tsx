@@ -29,7 +29,6 @@ const timelineHeight = 8;
 const keyboardWidth = 20;
 const ocatveHeight = noteHeight * OCTAVE_SIZE;
 const canvasHeight = ocatveHeight * octaveCount;
-const stageHeight = timelineHeight + canvasHeight;
 const rulerSize = BLOCK;
 
 const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
@@ -133,7 +132,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
         size={rulerSize}
         time={time}
         timeline={timelineHeight}
-        height={stageHeight}
+        height={timelineHeight + canvasHeight}
       />
       <Loop
         controlerWidth={4}
@@ -148,8 +147,6 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
   );
 };
 
-const scale = 4;
-
 export const MidiEditor: React.FC = () => {
   const [actionType, setActionType] = React.useState<EditActionType>('select');
   const [
@@ -159,21 +156,17 @@ export const MidiEditor: React.FC = () => {
       }
     }
   ] = useTrack();
-  const width = keyboardWidth + loopEnd + rulerSize;
-
-  const viewBox = [-keyboardWidth, -timelineHeight, width, stageHeight].join(
-    ' '
-  );
 
   return (
     <>
       <NoteComposerHeader actionType={actionType} dispatch={setActionType} />
       <div style={{ width: '560px', overflow: 'scroll', height: '350px' }}>
         <SvgStage
-          viewBox={viewBox}
-          width={width * scale + 'px'}
-          height={stageHeight * scale + 'px'}
+          width={loopEnd + rulerSize}
+          height={canvasHeight}
           style={{ background: '#FFF' }}
+          shift={{ x: keyboardWidth, y: timelineHeight }}
+          zoom={4}
         >
           <MidiEditorCanvas
             actionType={actionType}

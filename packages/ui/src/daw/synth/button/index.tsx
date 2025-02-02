@@ -24,9 +24,9 @@ const WaveButton: React.FC<WaveButtonProps> = ({
 }) => (
   <div>
     <SvgStage
-      viewBox="0 0 100 100"
-      width="50px"
-      height="50px"
+      width={100}
+      height={100}
+      zoom={0.5}
       style={{ margin: '5px', flexShrink: 0 }}
     >
       {range ? (

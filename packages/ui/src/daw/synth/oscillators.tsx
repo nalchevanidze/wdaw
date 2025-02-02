@@ -64,7 +64,7 @@ const Oscillators: React.FC = () => {
   return (
     <div style={styles.main}>
       <Panel label="Global" size={2}>
-        <svg viewBox="-1 0 202 200" width="90px" height="90px">
+        <svg viewBox={[-1, 0, 202, 200].join(' ')} width="90px" height="90px">
           <path d={waveForm} stroke="#444" strokeWidth={2} fill="none" />
           <WaveGrid color="gray" />
         </svg>
