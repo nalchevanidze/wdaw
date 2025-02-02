@@ -2,12 +2,11 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Area } from '../types';
 import {
-  genNoteAt,
   scaleNotes,
   moveNotes,
   selectNotesIn,
   UINote,
-  Selected,
+  Selected
 } from '../utils/notes';
 import { Point } from '@wdaw/svg';
 import { useOnDelete } from '../utils/key-actions';
@@ -59,9 +58,9 @@ export const useNoteEditor = () => {
       inactive: allNotes.filter((n) => n !== note)
     });
 
-  const addAt = (point: Point) =>
+  const addAt = ({ x, y }: Point) =>
     update({
-      selected: [genNoteAt(point)].map(addTracking),
+      selected: [addTracking({ length: 1, x, y })],
       inactive: allNotes.map(dropTracking)
     });
 
@@ -71,8 +70,7 @@ export const useNoteEditor = () => {
       inactive: notes.inactive
     });
 
-  const selectIn = (area?: Area) =>
-    update(selectNotesIn(allNotes, area));
+  const selectIn = (area?: Area) => update(selectNotesIn(allNotes, area));
 
   const removeSelected = () =>
     update({ selected: [], inactive: notes.inactive });

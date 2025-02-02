@@ -38,7 +38,6 @@ export const scaleNotes = (
     note.origin ? { ...note, length: note.origin.length + size } : note
   );
 
-export const genNoteAt = ({ x, y }: Point): UINote => ({ length: 1, y, x });
 
 const inArea = (rx: Range, ry: Range, { x, y, length }: UINote): boolean => {
   const x2 = x + length;
