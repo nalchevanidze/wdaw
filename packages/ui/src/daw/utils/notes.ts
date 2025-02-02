@@ -1,6 +1,6 @@
 import { Point } from '@wdaw/svg';
 import { Area, Maybe } from '../types';
-import { addTracking, dropTracking, Tracked } from './tracking';
+import { addTracking, Tracked } from './tracking';
 
 export type Selected<T> = {
   selected: Tracked<T>[];
