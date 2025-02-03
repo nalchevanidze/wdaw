@@ -5,9 +5,9 @@ export type Selected<T> = {
   inactive: T[];
 };
 
-export type Selector<T> = (t: T) => boolean;
+export type Predicate<T> = (t: T) => boolean;
 
-export const selectBy = <T extends object>(ts: T[], f: Selector<T>) => {
+export const selectWith = <T extends object>(ts: T[], f: Predicate<T>) => {
   const result: Selected<T> = { selected: [], inactive: [] };
 
   ts.forEach((t) =>

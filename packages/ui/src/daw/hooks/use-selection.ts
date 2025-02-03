@@ -3,10 +3,10 @@ import {
   addTracking,
   dropTracking,
   EditFunc,
-  mapTracked,
-  Tracked
+  mapTracked
 } from '../utils/tracking';
-import { selectBy, Selected, Selector } from '../utils/selection';
+import { selectWith, Selected, Predicate } from '../utils/selection';
+import { useOnDelete } from '../utils/key-actions';
 
 export const useSelection = <T extends object>(initial: T[]) => {
   const [{ selected, inactive }, set] = useState<Selected<T>>({
@@ -31,6 +31,14 @@ export const useSelection = <T extends object>(initial: T[]) => {
   const edit = (f: EditFunc<T>) =>
     set({ selected: mapTracked(selected, f), inactive });
 
+  const removeWith = (f: Predicate<T>) =>
+    set({
+      selected: [],
+      inactive: all.filter((t) => !f(t)).map(dropTracking)
+    });
+
+  useOnDelete(removeSelected, [selected, inactive]);
+
   return {
     add,
     edit,
@@ -40,7 +48,7 @@ export const useSelection = <T extends object>(initial: T[]) => {
     set,
     clear,
     track,
-    removeSelected,
-    selectBy: (f: Selector<T>) => set(selectBy(all, f))
+    selectWith: (f: Predicate<T>) => set(selectWith(all, f)),
+    removeWith
   };
 };

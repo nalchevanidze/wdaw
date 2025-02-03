@@ -13,26 +13,22 @@ export const useNoteEditor = () => {
     all,
     add,
     set,
-    removeSelected,
     track,
     clear,
     selected,
     inactive,
     edit,
-    selectBy
+    selectWith,
+    removeWith
   } = useSelection<UINote>(flatten(midi));
 
   const sync = () => dispatch({ id, type: 'SET_MIDI', payload: deepen(all) });
 
   React.useEffect(() => set({ selected: [], inactive: flatten(midi) }), [midi]);
 
-  const remove = (note: UINote) =>
-    set({
-      selected: [],
-      inactive: all.filter((n) => n !== note).map(dropTracking)
-    });
+  const remove = (note: UINote) => removeWith((n) => n === note);
 
-  const select = (note: UINote) => selectBy((n) => n == note);
+  const select = (note: UINote) => selectWith((n) => n == note);
 
   const scale = (moveX: number) =>
     edit(({ length }) => ({ length: length + moveX }));
@@ -43,9 +39,7 @@ export const useNoteEditor = () => {
   const addAt = ({ x, y }: Point) => add({ length: 1, x, y });
 
   const selectIn = (area?: Area) =>
-    selectBy((note) => area?.isOverlaping(toArea(note)) ?? false);
-
-  useOnDelete(removeSelected, [selected, inactive]);
+    selectWith((note) => area?.isOverlaping(toArea(note)) ?? false);
 
   return {
     selected,
