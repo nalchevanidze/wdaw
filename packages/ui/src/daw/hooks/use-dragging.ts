@@ -1,6 +1,6 @@
-import { Point, usePoint } from '@wdaw/svg';
+import { Area, Point, usePoint } from '@wdaw/svg';
 import * as React from 'react';
-import { Area, Maybe, MEvent, MHandler } from '../types';
+import { Maybe, MEvent, MHandler } from '../types';
 import { distanceX, distanceY } from '../utils/area';
 
 export type MODE = 'scale' | 'move' | 'select';

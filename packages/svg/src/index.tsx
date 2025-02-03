@@ -2,7 +2,14 @@ export { percentFromPoints, getDistance } from './arc-circle';
 export { renderArcs } from './radial-math';
 export { flatStripes, circleFill } from './sound-form';
 export { roundFillStat, roundStatStripes } from './statistics';
-export { Circle, Point, ArcSector, Annulus, AnnulusSector } from './types';
+export {
+  Circle,
+  Point,
+  ArcSector,
+  Annulus,
+  AnnulusSector,
+  Area
+} from './types';
 export {
   arcPoint,
   arc,

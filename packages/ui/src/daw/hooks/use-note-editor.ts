@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Area } from '../types';
 import { selectNotesIn, UINote, Selected } from '../utils/notes';
-import { Point } from '@wdaw/svg';
+import { Area, Point } from '@wdaw/svg';
 import { useOnDelete } from '../utils/key-actions';
 import { addTracking, dropTracking, mapTracked } from '../utils/tracking';
 import { deepen, flatten } from '../utils/midi';

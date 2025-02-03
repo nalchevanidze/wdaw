@@ -1,5 +1,4 @@
-import { inRange, isOverlaping, makeRange, Range } from '@wdaw/svg';
-import { Area } from '../types';
+import { Area, isOverlaping, makeRange } from '@wdaw/svg';
 import { addTracking, Tracked } from './tracking';
 
 export type Selected<T> = {
@@ -24,7 +23,7 @@ export const selectNotesIn = (input: UINote[], zone?: Area) => {
 
   input.forEach((note) =>
     isOverlaping(xRange, [note.x, note.x + note.length]) &&
-    inRange(note.y, yRange)
+    isOverlaping(yRange, [note.y, note.y + 1])
       ? notes.selected.push(addTracking(note))
       : notes.inactive.push(note)
   );

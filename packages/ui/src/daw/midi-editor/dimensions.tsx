@@ -1,5 +1,5 @@
-import { Point } from '@wdaw/svg';
-import { Area, Maybe } from '../types';
+import { Area, Point } from '@wdaw/svg';
+import { Maybe } from '../types';
 
 export type Dimentions = {
   noteHeight: number;

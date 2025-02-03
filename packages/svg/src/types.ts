@@ -21,3 +21,5 @@ export type Annulus = {
 export type AnnulusSector = Annulus & {
   sector: ArcSector;
 };
+
+export type Area = readonly [Point, Point];

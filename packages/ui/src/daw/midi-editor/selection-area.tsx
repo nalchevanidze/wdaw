@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Area } from '../types';
+import { Area } from '@wdaw/svg';
 
 export const SelectionArea: React.FC<{ area: Area }> = ({ area: [start, end] }) => (
   <rect
