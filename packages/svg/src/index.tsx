@@ -8,7 +8,7 @@ export {
   ArcSector,
   Annulus,
   AnnulusSector,
-  Area
+  Trajectory
 } from './types';
 export {
   arcPoint,

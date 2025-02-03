@@ -1,11 +1,10 @@
-import { Area } from './types';
+import { Point } from './types';
 
 export type Range = [number, number];
 
 export const inRange = (n: number, [min, max]: Range) => min < n && n < max;
 
-const makeRange = (a: number, b: number): Range =>
-  a < b ? [a, b] : [b, a];
+const makeRange = (a: number, b: number): Range => (a < b ? [a, b] : [b, a]);
 
 const isOverlaping = (range: Range, [start, end]: Range): boolean => {
   const inside = start < range[0] && range[1] < end;
@@ -20,15 +19,26 @@ export type IZone = {
   y2: number;
 };
 
-export class Zone {
-  xrange: Range;
-  yrange: Range;
+export class Zone implements IZone {
+  x1: number;
+  x2: number;
+  y1: number;
+  y2: number;
 
-  constructor([start, end]: Area) {
-    this.xrange = makeRange(start.x, end.x);
-    this.yrange = makeRange(start.y, end.y);
+  constructor(start: Point, end: Point) {
+    const xrange = makeRange(start.x, end.x);
+    const yrange = makeRange(start.y, end.y);
+
+    this.x1 = xrange[0];
+    this.x2 = xrange[1];
+    this.y1 = yrange[0];
+    this.y2 = yrange[1];
   }
 
+  transform = (f: (x: Point) => Point) =>
+    new Zone(f({ x: this.x1, y: this.y1 }), f({ x: this.x2, y: this.y2 }));
+
   isOverlaping = ({ x1, x2, y1, y2 }: IZone) =>
-    isOverlaping(this.xrange, [x1, x2]) && isOverlaping(this.yrange, [y1, y2]);
+    isOverlaping([this.x1, this.x2], [x1, x2]) &&
+    isOverlaping([this.y1, this.y2], [y1, y2]);
 }

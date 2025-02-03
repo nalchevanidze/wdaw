@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { Area } from '@wdaw/svg';
+import { IZone } from '@wdaw/svg';
 
-export const SelectionArea: React.FC<{ area: Area }> = ({ area: [start, end] }) => (
+export const SelectionArea: React.FC<{ area: IZone }> = ({ area }) => (
   <rect
     stroke="red"
     fill="red"
     fillOpacity={0.1}
-    x={Math.min(start.x, end.x)}
-    y={Math.min(start.y, end.y)}
-    width={Math.abs(end.x - start.x)}
-    height={Math.abs(end.y - start.y)}
+    x={area.x1}
+    y={area.y1}
+    width={area.x2 - area.x1}
+    height={area.y2 - area.y1}
   />
 );

@@ -1,4 +1,4 @@
-import { Area, Point, usePoint } from '@wdaw/svg';
+import {  Point, Trajectory, usePoint, Zone } from '@wdaw/svg';
 import * as React from 'react';
 import { Maybe, MEvent, MHandler } from '../types';
 import { distanceX, distanceY } from '../utils/area';
@@ -8,8 +8,7 @@ export type MODE = 'scale' | 'move' | 'select';
 type OnBackgroundHandler = (p: Point) => Maybe<MODE>;
 type onInactiveHandler<T> = (p: T) => Maybe<MODE>;
 
-export type AreaHandler = (a: Maybe<Area>) => void;
-
+export type AreaHandler = (a: Maybe<Zone>) => void;
 
 type Optins<T> = {
   onMove: {
@@ -31,7 +30,7 @@ export type HandlerMap<K extends string, T> = Record<
 export const useDragging = <T>(ops: Optins<T>) => {
   const toPoint = usePoint();
 
-  const [area, setSelectionArea] = React.useState<Area | undefined>();
+  const [area, setSelectionArea] = React.useState<Zone | undefined>();
   const [mode, setMode] = React.useState<MODE | undefined>(undefined);
   const [dragging, setDragging] = React.useState<Maybe<Point>>(undefined);
 
@@ -48,24 +47,23 @@ export const useDragging = <T>(ops: Optins<T>) => {
 
   const onMove: MHandler = (e) => {
     if (mode) {
-      const area: Maybe<Area> = dragging ? [dragging, toPoint(e)] : undefined;
+      const area: Maybe<Trajectory> = dragging ? [dragging, toPoint(e)] : undefined;
+      const zone: Maybe<Zone> = area ? new Zone(...area) : undefined;
 
       if (mode == 'select') {
-        setSelectionArea(area);
+        setSelectionArea(zone);
       }
 
       switch (mode) {
-        case "select": 
-          setSelectionArea(area);
-          return ops.onMove.select(area)
-        case "move":
-          if(!area) return
+        case 'select':
+          setSelectionArea(zone);
+          return ops.onMove.select(zone);
+        case 'move':
+          if (!area) return;
           return ops.onMove.move(distanceX(area), distanceY(area));
-        case "scale":
-          if(!area) return
-          return ops.onMove.scale(distanceX(area))
-
-
+        case 'scale':
+          if (!area) return;
+          return ops.onMove.scale(distanceX(area));
       }
     }
   };
