@@ -1,5 +1,4 @@
 export type Maybe<T> = T | undefined;
-
 // SYNTH
 
 export type Sequence = Record<number, Maybe<number[]>> & { enabled?: boolean };
