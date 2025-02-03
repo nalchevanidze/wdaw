@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { addTracking, dropTracking, mapTracked } from '../utils/tracking';
 import { Selected } from '../utils/selection';
 
-
 export const useSelection = <T extends object>(initial: T[]) => {
   const [{ selected, inactive }, set] = useState<Selected<T>>({
     selected: [],
@@ -17,5 +16,11 @@ export const useSelection = <T extends object>(initial: T[]) => {
 
   const removeSelected = () => set({ selected: [], inactive });
 
-  return { all, selected, inactive, set, clear, track, removeSelected };
+  const add = (...ts: T[]) =>
+    set({
+      selected: ts.map(addTracking),
+      inactive: all.map(dropTracking)
+    });
+
+  return { add, all, selected, inactive, set, clear, track, removeSelected };
 };
