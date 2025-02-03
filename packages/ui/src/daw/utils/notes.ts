@@ -12,6 +12,13 @@ export type UINote = {
   length: number;
 };
 
+const toZone = ({ x, y, length }: UINote) => ({
+  x1: x,
+  x2: x + length,
+  y1: y - 1,
+  y2: y + 1
+});
+
 export const selectNotesIn = (input: UINote[], area?: Area) => {
   const notes: Selected<UINote> = { selected: [], inactive: [] };
 
@@ -20,12 +27,7 @@ export const selectNotesIn = (input: UINote[], area?: Area) => {
   const zone = new Zone(area);
 
   input.forEach((note) =>
-    zone.isOverlaping({
-      x1: note.x,
-      x2: note.x + note.length,
-      y1: note.y - 1,
-      y2: note.y + 1
-    })
+    zone.isOverlaping(toZone(note))
       ? notes.selected.push(addTracking(note))
       : notes.inactive.push(note)
   );
