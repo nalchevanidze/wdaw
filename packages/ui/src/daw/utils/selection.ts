@@ -1,4 +1,4 @@
-import { Zone, IZone } from '@wdaw/svg';
+import { Area, IZone } from '@wdaw/svg';
 import { addTracking, Tracked } from './tracking';
 
 export type Selected<T> = {
@@ -7,7 +7,7 @@ export type Selected<T> = {
 };
 export const selectIn =
   <T extends object>(f: (t: T) => IZone) =>
-  (input: T[], zone?: Zone) => {
+  (input: T[], zone?: Area) => {
     const result: Selected<T> = { selected: [], inactive: [] };
 
     if (!zone) return { selected: [], inactive: input };

@@ -19,7 +19,7 @@ export type IZone = {
   y2: number;
 };
 
-export class Zone implements IZone {
+export class Area implements IZone {
   x1: number;
   x2: number;
   y1: number;
@@ -36,7 +36,7 @@ export class Zone implements IZone {
   }
 
   transform = (f: (x: Point) => Point) =>
-    new Zone(f({ x: this.x1, y: this.y1 }), f({ x: this.x2, y: this.y2 }));
+    new Area(f({ x: this.x1, y: this.y1 }), f({ x: this.x2, y: this.y2 }));
 
   isOverlaping = ({ x1, x2, y1, y2 }: IZone) =>
     isOverlaping([this.x1, this.x2], [x1, x2]) &&

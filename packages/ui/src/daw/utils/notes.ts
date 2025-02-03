@@ -1,4 +1,4 @@
-import { Zone } from '@wdaw/svg';
+import { Area } from '@wdaw/svg';
 import { selectIn } from './selection';
 
 export type UINote = {

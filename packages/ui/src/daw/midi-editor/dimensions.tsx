@@ -1,4 +1,4 @@
-import { Point, Zone } from '@wdaw/svg';
+import { Point, Area } from '@wdaw/svg';
 import { Maybe } from '../types';
 
 export type Dimentions = {
@@ -16,5 +16,5 @@ export const normalizer =
     y: getPositionY(d, y)
   });
 
-export const mapAera = (f: (p: Point) => Point, area?: Zone): Maybe<Zone> =>
+export const mapAera = (f: (p: Point) => Point, area?: Area): Maybe<Area> =>
   area ? area.transform(f) : undefined;
