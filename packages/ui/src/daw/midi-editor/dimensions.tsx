@@ -1,5 +1,4 @@
-import { Point, Area } from '@wdaw/svg';
-import { Maybe } from '../types';
+import { Point } from '@wdaw/svg';
 
 export type Dimentions = {
   noteHeight: number;
@@ -15,4 +14,3 @@ export const normalizer =
     x: Math.floor(x),
     y: getPositionY(d, y)
   });
-
