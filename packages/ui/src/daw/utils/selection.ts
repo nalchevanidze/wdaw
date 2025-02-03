@@ -7,13 +7,13 @@ export type Selected<T> = {
 };
 export const selectIn =
   <T extends object>(f: (t: T) => IZone) =>
-  (input: T[], zone?: Area) => {
+  (input: T[], area?: Area) => {
     const result: Selected<T> = { selected: [], inactive: [] };
 
-    if (!zone) return { selected: [], inactive: input };
+    if (!area) return { selected: [], inactive: input };
 
     input.forEach((t) =>
-      zone.isOverlaping(f(t))
+      area.isOverlaping(f(t))
         ? result.selected.push(addTracking(t))
         : result.inactive.push(t)
     );
