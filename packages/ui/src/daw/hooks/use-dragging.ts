@@ -1,4 +1,4 @@
-import {  Point, Trajectory, usePoint, Area } from '@wdaw/svg';
+import { Point, Trajectory, usePoint, Area } from '@wdaw/svg';
 import * as React from 'react';
 import { Maybe, MEvent, MHandler } from '../types';
 import { distanceX, distanceY } from '../utils/area';
@@ -47,23 +47,23 @@ export const useDragging = <T>(ops: Optins<T>) => {
 
   const onMove: MHandler = (e) => {
     if (mode) {
-      const area: Maybe<Trajectory> = dragging ? [dragging, toPoint(e)] : undefined;
-      const zone: Maybe<Area> = area ? new Area(...area) : undefined;
-
-      if (mode == 'select') {
-        setSelectionArea(zone);
-      }
+      const trajectory: Maybe<Trajectory> = dragging
+        ? [dragging, toPoint(e)]
+        : undefined;
+      const zone: Maybe<Area> = trajectory
+        ? new Area(...trajectory)
+        : undefined;
 
       switch (mode) {
         case 'select':
           setSelectionArea(zone);
           return ops.onMove.select(zone);
         case 'move':
-          if (!area) return;
-          return ops.onMove.move(distanceX(area), distanceY(area));
+          if (!trajectory) return;
+          return ops.onMove.move(distanceX(trajectory), distanceY(trajectory));
         case 'scale':
-          if (!area) return;
-          return ops.onMove.scale(distanceX(area));
+          if (!trajectory) return;
+          return ops.onMove.scale(distanceX(trajectory));
       }
     }
   };
