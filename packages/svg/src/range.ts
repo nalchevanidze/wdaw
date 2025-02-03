@@ -35,7 +35,7 @@ export class Area implements IZone {
     this.y2 = yrange[1];
   }
 
-  transform = (f: (x: Point) => Point) =>
+  map = (f: (x: Point) => Point) =>
     new Area(f({ x: this.x1, y: this.y1 }), f({ x: this.x2, y: this.y2 }));
 
   isOverlaping = ({ x1, x2, y1, y2 }: IZone) =>

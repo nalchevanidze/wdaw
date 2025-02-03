@@ -10,7 +10,6 @@ import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { useNoteEditor } from '../hooks/use-note-editor';
 import { useTime } from '../hooks/use-time';
 import { SelectionArea } from './selection-area';
-import { mapAera, normalizer } from './dimensions';
 import { Keyboard } from './keyboard';
 import { Loop } from './loop';
 import { LoopTarget, useLoop } from '../hooks/use-loop-editor';
@@ -19,6 +18,7 @@ import { NoteGrid } from '../../components/note-grid';
 import { Keys } from '../../components/keys';
 import { toAccuracy } from '../utils/area';
 import { UINote } from '../utils/notes';
+import { normalizer } from './dimensions';
 
 type Props = {
   actionType: EditActionType;
@@ -63,7 +63,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
 
   const dragging = useDragging({
     onMove: {
-      select: (area) => notes.selectIn(mapAera(normalize, area)),
+      select: (area) => notes.selectIn(area ? area.map(normalize) : undefined),
       scale: notes.scale,
       move: (x, y) => {
         return loop.target

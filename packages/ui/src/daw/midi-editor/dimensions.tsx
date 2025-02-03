@@ -16,5 +16,3 @@ export const normalizer =
     y: getPositionY(d, y)
   });
 
-export const mapAera = (f: (p: Point) => Point, area?: Area): Maybe<Area> =>
-  area ? area.transform(f) : undefined;
