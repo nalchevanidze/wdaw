@@ -12,4 +12,4 @@ export {
   filledSector
 } from './arc-circle';
 export { Svg, usePoint } from './stage';
-export { Range, inRange, makeRange } from './range';
+export { Range, inRange, makeRange, isOverlaping } from './range';
