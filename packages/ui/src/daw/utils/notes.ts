@@ -1,5 +1,4 @@
-import { Area } from '@wdaw/svg';
-import { selectIn } from './selection';
+import { Area, IArea } from '@wdaw/svg';
 
 export type UINote = {
   x: number;
@@ -7,9 +6,10 @@ export type UINote = {
   length: number;
 };
 
-export const selectNotesIn = selectIn<UINote>(({ x, y, length }) => ({
+export const toArea = ({ x, y, length }: UINote): IArea => ({
   x1: x,
   x2: x + length,
   y1: y - 1,
   y2: y + 1
-}));
+});
+

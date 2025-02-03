@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { selectNotesIn, UINote } from '../utils/notes';
+import {  toArea, UINote } from '../utils/notes';
 import { Point, Area } from '@wdaw/svg';
 import { useOnDelete } from '../utils/key-actions';
 import { addTracking, dropTracking } from '../utils/tracking';
 import { deepen, flatten } from '../utils/midi';
 import { useTrack } from './use-track';
 import { useSelection } from './use-selection';
+import { selectIn } from '../utils/selection';
 
 export const useNoteEditor = () => {
   const [{ midi, id }, dispatch] = useTrack();
@@ -37,8 +38,6 @@ export const useNoteEditor = () => {
       inactive: all.filter((n) => n !== note)
     });
 
-  const selectIn = (zone?: Area) => set(selectNotesIn(all, zone));
-
   const scale = (moveX: number) =>
     edit(({ length }) => ({ length: length + moveX }));
 
@@ -54,7 +53,7 @@ export const useNoteEditor = () => {
     inactive,
     track,
     clear,
-    selectIn,
+    selectIn: (zone?: Area) => set(selectIn(toArea)(all, zone)),
     remove,
     select,
     addAt,
