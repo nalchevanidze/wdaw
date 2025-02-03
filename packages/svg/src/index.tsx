@@ -19,4 +19,4 @@ export {
   filledSector
 } from './arc-circle';
 export { Svg, usePoint } from './stage';
-export { Range, inRange, Zone } from './range';
+export { Range, inRange, Zone, IZone } from './range';

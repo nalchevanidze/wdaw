@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { selectNotesIn, UINote, Selected } from '../utils/notes';
+import { selectNotesIn, UINote } from '../utils/notes';
 import { Point, Zone } from '@wdaw/svg';
 import { useOnDelete } from '../utils/key-actions';
 import { addTracking, dropTracking, mapTracked } from '../utils/tracking';
 import { deepen, flatten } from '../utils/midi';
 import { useTrack } from './use-track';
+import { Selected } from '../utils/selection';
 
 export const useNoteEditor = () => {
   const [{ midi, id }, dispatch] = useTrack();
