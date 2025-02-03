@@ -1,4 +1,4 @@
-import { inRange, makeRange, Point, Range } from '@wdaw/svg';
+import { inRange, makeRange, Range } from '@wdaw/svg';
 import { Area } from '../types';
 import { addTracking, Tracked } from './tracking';
 
@@ -12,12 +12,6 @@ export type UINote = {
   y: number;
   length: number;
 };
-
-export const mapNotes = (
-  notes: Tracked<UINote>[],
-  f: (n: UINote) => Partial<UINote>
-): Tracked<UINote>[] =>
-  notes.map((note) => (note.origin ? { ...note, ...f(note.origin) } : note));
 
 const inArea = (rx: Range, ry: Range, { x, y, length }: UINote): boolean => {
   const x2 = x + length;
