@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { addTracking, dropTracking, mapTracked } from '../utils/tracking';
+import {
+  addTracking,
+  dropTracking,
+  EditFunc,
+  mapTracked
+} from '../utils/tracking';
 import { Selected } from '../utils/selection';
 
 export const useSelection = <T extends object>(initial: T[]) => {
@@ -22,5 +27,18 @@ export const useSelection = <T extends object>(initial: T[]) => {
       inactive: all.map(dropTracking)
     });
 
-  return { add, all, selected, inactive, set, clear, track, removeSelected };
+  const edit = (f: EditFunc<T>) =>
+    set({ selected: mapTracked(selected, f), inactive });
+
+  return {
+    add,
+    edit,
+    all,
+    selected,
+    inactive,
+    set,
+    clear,
+    track,
+    removeSelected
+  };
 };

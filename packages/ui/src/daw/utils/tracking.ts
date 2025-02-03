@@ -2,9 +2,11 @@ export type Tracked<T> = T & {
   origin: T;
 };
 
+export type EditFunc<T> = (t: T) => Partial<T>;
+
 export const mapTracked = <T extends object>(
   notes: Tracked<T>[],
-  f: (t: T) => Partial<T>
+  f: EditFunc<T>
 ): Tracked<T>[] =>
   notes.map((note) => (note.origin ? { ...note, ...f(note.origin) } : note));
 
