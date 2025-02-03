@@ -30,7 +30,7 @@ export type HandlerMap<K extends string, T> = Record<
 export const useDragging = <T>(ops: Optins<T>) => {
   const toPoint = usePoint();
 
-  const [area, setSelectionArea] = React.useState<Area | undefined>();
+  const [area, setArea] = React.useState<Area | undefined>();
   const [mode, setMode] = React.useState<MODE | undefined>(undefined);
   const [dragging, setDragging] = React.useState<Maybe<Point>>(undefined);
 
@@ -39,7 +39,7 @@ export const useDragging = <T>(ops: Optins<T>) => {
     setDragging(toPoint(e));
   };
   const end = () => {
-    setSelectionArea(undefined);
+    setArea(undefined);
     setMode(undefined);
     setDragging(undefined);
     ops.onEnd?.(mode);
@@ -56,7 +56,7 @@ export const useDragging = <T>(ops: Optins<T>) => {
 
       switch (mode) {
         case 'select':
-          setSelectionArea(zone);
+          setArea(zone);
           return ops.onMove.select(zone);
         case 'move':
           if (!trajectory) return;
