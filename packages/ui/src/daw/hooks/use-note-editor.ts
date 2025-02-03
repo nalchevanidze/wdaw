@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { selectNotesIn, UINote } from '../utils/notes';
 import { Point, Area } from '@wdaw/svg';
 import { useOnDelete } from '../utils/key-actions';
@@ -7,16 +6,11 @@ import { addTracking, dropTracking, mapTracked } from '../utils/tracking';
 import { deepen, flatten } from '../utils/midi';
 import { useTrack } from './use-track';
 import { Selected } from '../utils/selection';
+import { useSelection } from './use-selection';
 
 export const useNoteEditor = () => {
   const [{ midi, id }, dispatch] = useTrack();
-
-  const [notes, setNotes] = useState<Selected<UINote>>({
-    selected: [],
-    inactive: flatten(midi)
-  });
-
-  const allNotes = [...notes.selected, ...notes.inactive];
+  const notes = useSelection<UINote>(flatten(midi));
 
   const dispatchMidi = (ns: Selected<UINote>) =>
     dispatch({
@@ -25,52 +19,35 @@ export const useNoteEditor = () => {
       payload: deepen([...ns.selected, ...ns.inactive])
     });
 
-  const update = (ns: Selected<UINote>) => setNotes(ns);
-
   React.useEffect(() => {
-    setNotes({
+    notes.set({
       selected: [],
       inactive: flatten(midi)
     });
   }, [midi]);
 
-  const clear = () =>
-    update({
-      selected: [],
-      inactive: allNotes.map(dropTracking)
-    });
-
   const remove = (note: UINote) =>
-    update({
+    notes.set({
       selected: [],
-      inactive: allNotes.filter((n) => n !== note).map(dropTracking)
+      inactive: notes.all.filter((n) => n !== note).map(dropTracking)
     });
 
   const select = (note: UINote) =>
-    update({
+    notes.set({
       selected: [note].map(addTracking),
-      inactive: allNotes.filter((n) => n !== note)
+      inactive: notes.all.filter((n) => n !== note)
     });
 
   const addAt = ({ x, y }: Point) =>
-    update({
+    notes.set({
       selected: [addTracking({ length: 1, x, y })],
-      inactive: allNotes.map(dropTracking)
+      inactive: notes.all.map(dropTracking)
     });
 
-  const track = () =>
-    update({
-      selected: notes.selected.map(addTracking),
-      inactive: notes.inactive
-    });
-
-  const selectIn = (zone?: Area) => update(selectNotesIn(allNotes, zone));
-
-  const removeSelected = () =>
-    update({ selected: [], inactive: notes.inactive });
+  const selectIn = (zone?: Area) => notes.set(selectNotesIn(notes.all, zone));
 
   const scale = (moveX: number) =>
-    update({
+    notes.set({
       selected: mapTracked(notes.selected, ({ length }) => ({
         length: length + moveX
       })),
@@ -78,7 +55,7 @@ export const useNoteEditor = () => {
     });
 
   const move = (moveX: number, moveY: number) =>
-    update({
+    notes.set({
       selected: mapTracked(notes.selected, ({ x, y }) => ({
         x: x + moveX,
         y: y - moveY
@@ -86,16 +63,16 @@ export const useNoteEditor = () => {
       inactive: notes.inactive
     });
 
-  useOnDelete(removeSelected, [notes.selected, notes.inactive]);
+  useOnDelete(notes.removeSelected, [notes.selected, notes.inactive]);
 
   const sync = () => dispatchMidi(notes);
 
   return {
     selected: notes.selected,
     inactive: notes.inactive,
+    track: notes.track,
+    clear: notes.clear,
     selectIn,
-    track,
-    clear,
     remove,
     select,
     addAt,
