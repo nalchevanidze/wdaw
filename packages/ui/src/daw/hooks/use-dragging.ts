@@ -47,23 +47,21 @@ export const useDragging = <T>(ops: Optins<T>) => {
 
   const onMove: MHandler = (e) => {
     if (mode) {
-      const trajectory: Maybe<Trajectory> = dragging
+      const t: Maybe<Trajectory> = dragging
         ? [dragging, toPoint(e)]
-        : undefined;
-      const zone: Maybe<Area> = trajectory
-        ? new Area(...trajectory)
         : undefined;
 
       switch (mode) {
         case 'select':
-          setArea(zone);
-          return ops.onMove.select(zone);
+          const area = t ? new Area(...t) : undefined;
+          setArea(area);
+          return ops.onMove.select(area);
         case 'move':
-          if (!trajectory) return;
-          return ops.onMove.move(distanceX(trajectory), distanceY(trajectory));
+          if (!t) return;
+          return ops.onMove.move(distanceX(t), distanceY(t));
         case 'scale':
-          if (!trajectory) return;
-          return ops.onMove.scale(distanceX(trajectory));
+          if (!t) return;
+          return ops.onMove.scale(distanceX(t));
       }
     }
   };
