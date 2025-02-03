@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { usePoint } from '@wdaw/svg';
-import { intRange, unitInterval, Range } from '../daw/utils/math';
+import { usePoint, Range } from '@wdaw/svg';
+import { intRange, unitInterval } from '../daw/utils/math';
 import { MHandler } from '../daw/types';
 
 const dashes = (size: number, steps: number) =>
