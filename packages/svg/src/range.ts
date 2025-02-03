@@ -12,14 +12,14 @@ const isOverlaping = (range: Range, [start, end]: Range): boolean => {
   return inRange(start, range) || inRange(end, range) || inside;
 };
 
-export type IZone = {
+export type IArea = {
   x1: number;
   x2: number;
   y1: number;
   y2: number;
 };
 
-export class Area implements IZone {
+export class Area implements IArea {
   x1: number;
   x2: number;
   y1: number;
@@ -38,7 +38,7 @@ export class Area implements IZone {
   map = (f: (x: Point) => Point) =>
     new Area(f({ x: this.x1, y: this.y1 }), f({ x: this.x2, y: this.y2 }));
 
-  isOverlaping = ({ x1, x2, y1, y2 }: IZone) =>
+  isOverlaping = ({ x1, x2, y1, y2 }: IArea) =>
     isOverlaping([this.x1, this.x2], [x1, x2]) &&
     isOverlaping([this.y1, this.y2], [y1, y2]);
 }

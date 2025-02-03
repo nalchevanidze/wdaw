@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { IZone } from '@wdaw/svg';
+import { IArea } from '@wdaw/svg';
 
-export const SelectionArea: React.FC<{ area: IZone }> = ({ area }) => (
+export const SelectionArea: React.FC<{ area: IArea }> = ({ area }) => (
   <rect
     stroke="red"
     fill="red"
