@@ -4,7 +4,7 @@ import { useTrack } from './use-track';
 
 export type LoopTarget = 'start' | 'end';
 
-export const useLoop = (accuracy: number) => {
+export const useLoop = () => {
   const [{ id, midi }, dispatch] = useTrack();
 
   const [origin, setOrigin] = React.useState<Maybe<number>>(undefined);
