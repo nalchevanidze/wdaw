@@ -3,9 +3,10 @@ import {
   addTracking,
   dropTracking,
   EditFunc,
-  mapTracked
+  mapTracked,
+  Tracked
 } from '../utils/tracking';
-import { Selected } from '../utils/selection';
+import { selectBy, Selected, Selector } from '../utils/selection';
 
 export const useSelection = <T extends object>(initial: T[]) => {
   const [{ selected, inactive }, set] = useState<Selected<T>>({
@@ -39,6 +40,7 @@ export const useSelection = <T extends object>(initial: T[]) => {
     set,
     clear,
     track,
-    removeSelected
+    removeSelected,
+    selectBy: (f: Selector<T>) => set(selectBy(all, f))
   };
 };

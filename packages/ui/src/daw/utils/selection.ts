@@ -1,22 +1,20 @@
-import { Area, IArea } from '@wdaw/svg';
-import { addTracking, Tracked } from './tracking';
+import { addTracking, dropTracking, Tracked } from './tracking';
 
 export type Selected<T> = {
   selected: Tracked<T>[];
   inactive: T[];
 };
-export const selectIn =
-  <T extends object>(f: (t: T) => IArea) =>
-  (input: T[], area?: Area) => {
-    const result: Selected<T> = { selected: [], inactive: [] };
 
-    if (!area) return { selected: [], inactive: input };
+export type Selector<T> = (t: T) => boolean;
 
-    input.forEach((t) =>
-      area.isOverlaping(f(t))
-        ? result.selected.push(addTracking(t))
-        : result.inactive.push(t)
-    );
+export const selectBy = <T extends object>(ts: T[], f: Selector<T>) => {
+  const result: Selected<T> = { selected: [], inactive: [] };
 
-    return result;
-  };
+  ts.forEach((t) =>
+    f(t)
+      ? result.selected.push(addTracking(t))
+      : result.inactive.push(dropTracking(t as Tracked<T>))
+  );
+
+  return result;
+};

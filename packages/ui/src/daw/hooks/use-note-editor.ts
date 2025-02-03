@@ -1,12 +1,11 @@
 import * as React from 'react';
-import {  toArea, UINote } from '../utils/notes';
+import { toArea, UINote } from '../utils/notes';
 import { Point, Area } from '@wdaw/svg';
 import { useOnDelete } from '../utils/key-actions';
-import { addTracking, dropTracking } from '../utils/tracking';
+import { dropTracking } from '../utils/tracking';
 import { deepen, flatten } from '../utils/midi';
 import { useTrack } from './use-track';
 import { useSelection } from './use-selection';
-import { selectIn } from '../utils/selection';
 
 export const useNoteEditor = () => {
   const [{ midi, id }, dispatch] = useTrack();
@@ -19,7 +18,8 @@ export const useNoteEditor = () => {
     clear,
     selected,
     inactive,
-    edit
+    edit,
+    selectBy
   } = useSelection<UINote>(flatten(midi));
 
   const sync = () => dispatch({ id, type: 'SET_MIDI', payload: deepen(all) });
@@ -32,11 +32,7 @@ export const useNoteEditor = () => {
       inactive: all.filter((n) => n !== note).map(dropTracking)
     });
 
-  const select = (note: UINote) =>
-    set({
-      selected: [note].map(addTracking),
-      inactive: all.filter((n) => n !== note)
-    });
+  const select = (note: UINote) => selectBy((n) => n == note);
 
   const scale = (moveX: number) =>
     edit(({ length }) => ({ length: length + moveX }));
@@ -46,6 +42,9 @@ export const useNoteEditor = () => {
 
   const addAt = ({ x, y }: Point) => add({ length: 1, x, y });
 
+  const selectIn = (area?: Area) =>
+    selectBy((note) => area?.isOverlaping(toArea(note)) ?? false);
+
   useOnDelete(removeSelected, [selected, inactive]);
 
   return {
@@ -53,7 +52,7 @@ export const useNoteEditor = () => {
     inactive,
     track,
     clear,
-    selectIn: (zone?: Area) => set(selectIn(toArea)(all, zone)),
+    selectIn,
     remove,
     select,
     addAt,
