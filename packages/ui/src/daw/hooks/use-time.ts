@@ -14,5 +14,5 @@ export const useTime = () => {
       ? 0
       : loopStart - offset + (player.time % size);
 
-  return { time, loop, end };
+  return time 
 };

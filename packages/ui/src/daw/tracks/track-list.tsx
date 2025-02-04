@@ -15,7 +15,6 @@ import { DragingBackground } from '../../common/background';
 
 const panelWidth = 160;
 const trackHeight = 48;
-const timelineHeight = 32;
 
 const styles = {
   container: {
@@ -35,7 +34,7 @@ const toArea = ({ start, end, id }: TState): IArea => ({
 });
 
 export const Tracks: React.FC = () => {
-  const [{ tracks, player }] = React.useContext(DawApiContext);
+  const [{ tracks }] = React.useContext(DawApiContext);
 
   const accuracy = rulerSize / 8;
   const { all, clear, move, scale, select, selectIn, selection, sync } =
@@ -96,13 +95,6 @@ export const Tracks: React.FC = () => {
           </g>
         );
       })}
-      <rect
-        y={-timelineHeight}
-        height={useSvgBoundaries().height + timelineHeight}
-        width={1}
-        x={player.time}
-        fill={colors.critical}
-      />
       {dragging.area ? <SelectionArea area={dragging.area} /> : null}
     </g>
   );
@@ -112,6 +104,7 @@ export const TrackList = () => {
   const [{ tracks }] = React.useContext(DawApiContext);
   const maxTrackSize = Math.max(...tracks.tracks.map((t) => t.midi.end));
   const canvasHeight = trackHeight * tracks.tracks.length;
+  const timelineHeight = 32;
 
   return (
     <div style={styles.container}>
@@ -122,8 +115,8 @@ export const TrackList = () => {
         paddingTop={timelineHeight}
       >
         <NoteGrid size={rulerSize} />
-        <Timeline height={timelineHeight} size={rulerSize} />
         <Tracks />
+        <Timeline height={timelineHeight} size={rulerSize} />
       </Svg>
     </div>
   );

@@ -37,7 +37,7 @@ const rulerSize = BLOCK;
 const normalize = normalizer({ noteHeight, canvasHeight });
 
 const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
-  const { time, end } = useTime();
+  const time = useTime();
   const notes = useNoteEditor();
   const loop = useLoop();
 
