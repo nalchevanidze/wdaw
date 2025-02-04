@@ -32,7 +32,7 @@ export const Tracks: React.FC<{
   const [{ tracks, player }] = React.useContext(DawApiContext);
 
   const accuracy = rulerSize / 8;
-  const { clear, move, scale, select } = useTrackEditor(tracks.tracks);
+  const { all, clear, move, scale, select } = useTrackEditor(tracks.tracks);
 
   const dragging = useDragging<number>({
     onMove: {
@@ -62,12 +62,14 @@ export const Tracks: React.FC<{
         />
         {tracks.tracks.map(({ midi, name }, i) => {
           const y = i * trackHeight;
+          const state = all.find( s=>  s.id === i) ?? midi
+
           return (
             <g key={i}>
               <MidiLoop
                 y={y}
-                start={midi.start}
-                end={midi.end}
+                start={state?.start }
+                end={state?.end}
                 midi={midi}
                 height={trackHeight}
                 startMove={(e) => dragging.onStart('move')(e, i)}
