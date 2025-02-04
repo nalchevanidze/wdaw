@@ -19,6 +19,7 @@ import { Keys } from '../../components/keys';
 import { toAccuracy } from '../utils/area';
 import { UINote } from '../utils/notes';
 import { normalizer } from './dimensions';
+import { Tracked } from '../utils/tracking';
 
 type Props = {
   actionType: EditActionType;
@@ -51,29 +52,22 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
   };
 
   const mouseDownInactive: HandlerMap<EditActionType, UINote> = {
-    draw: (note) => {
-      notes.remove(note);
-      return undefined;
-    },
-    select: (note) => {
-      notes.select(note);
-      return 'move';
-    }
+    draw: (note) => notes.remove(note),
+    select: (note) => notes.select(note)
   };
 
-  const dragging = useDragging({
+  const dragging = useDragging<Tracked<UINote>>({
     onMove: {
       select: (area) => notes.selectIn(area ? area.map(normalize) : undefined),
       scale: notes.scale,
-      move: (x, y) => {
-        return loop.target
+      move: (x, y) =>
+        loop.target
           ? loop.move(toAccuracy(x, loopAccuracy))
-          : notes.move(x, Math.round(y / noteHeight));
-      }
+          : notes.move(x, Math.round(y / noteHeight))
     },
     onBackground: onBackgroundHandler[actionType],
-    onSelected: notes.track,
-    onInactive: mouseDownInactive[actionType],
+    onStart: (note) =>
+      note.origin ? undefined : mouseDownInactive[actionType](note),
     onEnd: (mode) => {
       if (loop.target) {
         return loop.endMove();
@@ -119,16 +113,9 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
         <Notes
           noteHeight={noteHeight}
           height={canvasHeight}
-          notes={notes.inactive}
-          mouseDown={dragging.onInactive}
-        />
-        <Notes
-          noteHeight={noteHeight}
-          height={canvasHeight}
-          notes={notes.selected}
-          color="#03A9F4"
-          mouseDown={dragging.onSelected('move')}
-          scale={dragging.onSelected('scale')}
+          notes={notes.all as any}
+          mouseDown={dragging.onStart('move')}
+          scale={dragging.onStart('scale')}
         />
       </g>
       <Timeline

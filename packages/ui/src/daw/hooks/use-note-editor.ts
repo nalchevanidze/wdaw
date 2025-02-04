@@ -7,20 +7,10 @@ import { useSelection } from './use-selection';
 
 export const useNoteEditor = () => {
   const [{ midi, id }, dispatch] = useTrack();
-  const {
-    all,
-    add,
-    track,
-    clear,
-    selected,
-    inactive,
-    edit,
-    selectWith,
-    removeWith,
-    refresh
-  } = useSelection<UINote>(fromMidi(midi));
+  const { all, add, clear, edit, selectWith, removeWith, reset } =
+    useSelection<UINote>(fromMidi(midi));
 
-  React.useEffect(() => refresh(fromMidi(midi)), [midi]);
+  React.useEffect(() => reset(fromMidi(midi)), [midi]);
 
   const sync = () => dispatch({ id, type: 'SET_MIDI', payload: toMidi(all) });
 
@@ -40,9 +30,6 @@ export const useNoteEditor = () => {
     selectWith((note) => area?.isOverlaping(toArea(note)) ?? false);
 
   return {
-    selected,
-    inactive,
-    track,
     clear,
     selectIn,
     remove,
@@ -50,6 +37,7 @@ export const useNoteEditor = () => {
     addAt,
     move,
     scale,
-    sync
+    sync,
+    all
   };
 };

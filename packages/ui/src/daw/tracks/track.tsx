@@ -48,8 +48,8 @@ export const Track: React.FC<Props> = ({ id, midi, y, height, accuracy }) => {
         end={end}
         midi={midi}
         height={height}
-        startMove={dragging.onSelected('move')}
-        startScale={dragging.onSelected('scale')}
+        startMove={dragging.onStart('move')}
+        startScale={dragging.onStart('scale')}
       />
     </g>
   );

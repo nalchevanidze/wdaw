@@ -5,9 +5,6 @@ import { distanceX, distanceY } from '../utils/area';
 
 export type MODE = 'scale' | 'move' | 'select';
 
-type OnBackgroundHandler = (p: Point) => Maybe<MODE>;
-type onInactiveHandler<T> = (p: T) => Maybe<MODE>;
-
 export type AreaHandler = (a: Maybe<Area>) => void;
 
 type Optins<T> = {
@@ -17,14 +14,13 @@ type Optins<T> = {
     scale: (size: number) => void;
   };
   onEnd?(mode?: MODE): void;
-  onBackground?: OnBackgroundHandler;
-  onSelected?: () => void;
-  onInactive?: onInactiveHandler<T>;
+  onStart?: (p: T) => void;
+  onBackground?: (p: Point) => void | Maybe<MODE>;
 };
 
 export type HandlerMap<K extends string, T> = Record<
   K,
-  (note: T) => Maybe<MODE>
+  (note: T) => void | Maybe<MODE>
 >;
 
 export const useDragging = <T>(ops: Optins<T>) => {
@@ -73,18 +69,10 @@ export const useDragging = <T>(ops: Optins<T>) => {
     }
   };
 
-  const onSelected =
-    (name: MODE): MHandler =>
-    (e) => {
-      start(name, e);
-      ops.onSelected?.();
-    };
-
-  const onInactive = (e: MEvent, t: T) => {
-    const name = ops.onInactive?.(t);
-
-    if (name) {
-      start(name, e);
+  const onStart = (name: MODE) => (e: MEvent, t?: T) => {
+    start(name, e);
+    if (t) {
+      ops.onStart?.(t);
     }
   };
 
@@ -94,7 +82,6 @@ export const useDragging = <T>(ops: Optins<T>) => {
     end,
     onMove,
     onBackground,
-    onSelected,
-    onInactive
+    onStart
   };
 };

@@ -16,11 +16,13 @@ export const useSelection = <T extends object>(initial: T[]) => {
 
   const all = [...selected, ...inactive];
 
-  const clear = () => set({ selected: [], inactive: all.map(dropTracking) });
+  const reset = (ts: T[]) =>
+    set({ selected: [], inactive: ts.map(dropTracking) });
 
-  const track = () => set({ selected: selected.map(addTracking), inactive });
-
-  const removeSelected = () => set({ selected: [], inactive });
+  const clear = () => reset(all);
+  const removeSelected = () => reset(inactive);
+  const removeWith = (f: Predicate<T>) => reset(all.filter((t) => !f(t)));
+  
 
   const add = (...ts: T[]) =>
     set({
@@ -31,23 +33,16 @@ export const useSelection = <T extends object>(initial: T[]) => {
   const edit = (f: EditFunc<T>) =>
     set({ selected: mapTracked(selected, f), inactive });
 
-  const removeWith = (f: Predicate<T>) =>
-    set({
-      selected: [],
-      inactive: all.filter((t) => !f(t)).map(dropTracking)
-    });
-
   useOnDelete(removeSelected, [selected, inactive]);
 
   return {
-    refresh: (ts: T[]) => set({ selected: [], inactive: ts }),
+    reset,
     add,
     edit,
     all,
     selected,
     inactive,
     clear,
-    track,
     selectWith: (f: Predicate<T>) => set(selectWith(all, f)),
     removeWith
   };
