@@ -8,7 +8,9 @@ import { useSelection } from './use-selection';
 export const useNoteEditor = () => {
   const [{ midi, id }, dispatch] = useTrack();
   const { all, add, clear, edit, selectWith, removeWith, sync } =
-    useSelection<UINote>(fromMidi(midi));
+    useSelection<UINote>(fromMidi(midi), (note) =>
+      [note.x, note.y, note.length].join(':')
+    );
 
   React.useEffect(() => sync(fromMidi(midi)), [midi]);
 

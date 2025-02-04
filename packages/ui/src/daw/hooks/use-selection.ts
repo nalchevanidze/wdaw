@@ -16,7 +16,7 @@ type Selected<T> = {
 
 export const useSelection = <T extends object>(
   initial: T[],
-  toId?: (i: T) => string | number
+  toId: (i: T) => string | number
 ) => {
   const [{ selected, inactive }, set] = useState<Selected<T>>({
     selected: [],
@@ -25,18 +25,22 @@ export const useSelection = <T extends object>(
 
   const all = [...selected, ...inactive];
 
+  const setPartition = (ts: T[], f: Predicate<T>) => {
+    const [sel, ina] = partition(all, f);
+    set({
+      selected: sel.map(addTracking),
+      inactive: ina.map(dropTracking)
+    });
+  };
+
   const sync = (ts: T[]) => {
-    if (!toId) {
-      return set({ selected: [], inactive: ts.map(dropTracking) });
+    if (ts.length !== all.length) {
+      return reset(ts);
     }
 
-    const tmap = Object.fromEntries(ts.map((t) => [toId(t), t]));
-    const lookup = (x: T) => tmap[toId(x)];
+    const selectedMap = Object.fromEntries(selected.map((t) => [toId(t), t]));
 
-    set({
-      selected: selected.map(lookup).map(addTracking),
-      inactive: inactive.map(lookup).map(dropTracking)
-    });
+    setPartition(ts, (t) => Boolean(selectedMap[toId(t)]));
   };
 
   const reset = (ts: T[]) =>
@@ -46,13 +50,7 @@ export const useSelection = <T extends object>(
   const removeSelected = () => reset(inactive);
   const removeWith = (f: Predicate<T>) => reset(all.filter((t) => !f(t)));
 
-  const selectWith = (f: Predicate<T>) => {
-    const [sel, ina] = partition(all, f);
-    set({
-      selected: sel.map(addTracking),
-      inactive: ina.map(dropTracking)
-    });
-  };
+  const selectWith = (f: Predicate<T>) => setPartition(all, f);
 
   const add = (...ts: T[]) =>
     set({
