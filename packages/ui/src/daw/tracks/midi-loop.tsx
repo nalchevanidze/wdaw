@@ -2,7 +2,7 @@ import * as React from 'react';
 import { colors } from '../../styles';
 import { Midi } from '@wdaw/engine';
 import { UINote } from '../utils/notes';
-import { flatten } from '../utils/midi';
+import { fromMidi } from '../utils/midi';
 import { MEvent } from '../types';
 
 type Props = {
@@ -24,7 +24,7 @@ const MidiLoop: React.FC<Props> = ({
   y,
   height
 }) => {
-  const notes = React.useMemo<UINote[]>(() => flatten(midi), [midi]);
+  const notes = React.useMemo<UINote[]>(() => fromMidi(midi), [midi]);
   const [loopStart, loopEnd] = midi.loop;
   const id = React.useId();
 

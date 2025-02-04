@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { toArea, UINote } from '../utils/notes';
 import { Point, Area } from '@wdaw/svg';
-import { useOnDelete } from '../utils/key-actions';
-import { dropTracking } from '../utils/tracking';
-import { deepen, flatten } from '../utils/midi';
+import { toMidi, fromMidi } from '../utils/midi';
 import { useTrack } from './use-track';
 import { useSelection } from './use-selection';
 
@@ -20,11 +18,14 @@ export const useNoteEditor = () => {
     edit,
     selectWith,
     removeWith
-  } = useSelection<UINote>(flatten(midi));
+  } = useSelection<UINote>(fromMidi(midi));
 
-  const sync = () => dispatch({ id, type: 'SET_MIDI', payload: deepen(all) });
+  const sync = () => dispatch({ id, type: 'SET_MIDI', payload: toMidi(all) });
 
-  React.useEffect(() => set({ selected: [], inactive: flatten(midi) }), [midi]);
+  React.useEffect(
+    () => set({ selected: [], inactive: fromMidi(midi) }),
+    [midi]
+  );
 
   const remove = (note: UINote) => removeWith((n) => n === note);
 
