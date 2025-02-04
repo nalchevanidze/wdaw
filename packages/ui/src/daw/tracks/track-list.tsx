@@ -53,7 +53,6 @@ export const Tracks: React.FC = () => {
       }
     },
     onBackground: () => {
-      console.log('background');
       clear();
       return 'select';
     }
