@@ -20,6 +20,7 @@ import { toAccuracy } from '../utils/area';
 import { UINote } from '../utils/notes';
 import { normalizer } from './dimensions';
 import { Tracked } from '../utils/tracking';
+import { DragingBackground } from '../../common/background';
 
 type Props = {
   actionType: EditActionType;
@@ -103,12 +104,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
         count={octaveCount}
         noteHeight={noteHeight}
       />
-      <rect
-        fillOpacity={0}
-        width={end}
-        height={canvasHeight}
-        onMouseDown={dragging.onBackground}
-      />
+      <DragingBackground onMouseDown={dragging.onBackground} />
       <g>
         <Notes
           noteHeight={noteHeight}
