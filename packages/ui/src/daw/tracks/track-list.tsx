@@ -41,15 +41,15 @@ export const Tracks: React.FC<{
       scale: withAccuracy(scale, accuracy)
     },
     onEnd: clear,
-    onStart: (t) => select(t)
+    onStart: (t) => select(t),
+    onBackground: () => {
+      clear();
+      return 'select';
+    }
   });
 
   return (
-    <g
-      onMouseMove={dragging.onMove}
-      onMouseLeave={dragging.end}
-      onMouseUp={dragging.end}
-    >
+    <>
       <rect
         y={0}
         onMouseDown={dragging.onBackground}
@@ -57,41 +57,47 @@ export const Tracks: React.FC<{
         width="100%"
         opacity={0}
       />
-      {tracks.tracks.map(({ midi, name }, i) => {
-        const y = i * trackHeight;
-        const state = all.find((s) => s.id === i) ?? midi;
+      <g
+        onMouseMove={dragging.onMove}
+        onMouseLeave={dragging.end}
+        onMouseUp={dragging.end}
+      >
+        {tracks.tracks.map(({ midi, name }, i) => {
+          const y = i * trackHeight;
+          const state = all.find((s) => s.id === i) ?? midi;
 
-        return (
-          <g key={i}>
-            <MidiLoop
-              y={y}
-              start={state?.start}
-              end={state?.end}
-              midi={midi}
-              height={trackHeight}
-              startMove={(e) => dragging.onStart('move')(e, i)}
-              startScale={(e) => dragging.onStart('scale')(e, i)}
-            />
-            <Panel
-              active={i === tracks.currentTrack}
-              name={name}
-              id={i}
-              width={panelWidth}
-              y={y}
-              height={trackHeight}
-            />
-          </g>
-        );
-      })}
-      <rect
-        y={-timelineHeight}
-        height={canvasHeight + timelineHeight}
-        width={1}
-        x={player.time}
-        fill={colors.critical}
-      />
-      {dragging.area ? <SelectionArea area={dragging.area} /> : null}
-    </g>
+          return (
+            <g key={i}>
+              <MidiLoop
+                y={y}
+                start={state?.start}
+                end={state?.end}
+                midi={midi}
+                height={trackHeight}
+                startMove={(e) => dragging.onStart('move')(e, i)}
+                startScale={(e) => dragging.onStart('scale')(e, i)}
+              />
+              <Panel
+                active={i === tracks.currentTrack}
+                name={name}
+                id={i}
+                width={panelWidth}
+                y={y}
+                height={trackHeight}
+              />
+            </g>
+          );
+        })}
+        <rect
+          y={-timelineHeight}
+          height={canvasHeight + timelineHeight}
+          width={1}
+          x={player.time}
+          fill={colors.critical}
+        />
+        {dragging.area ? <SelectionArea area={dragging.area} /> : null}
+      </g>
+    </>
   );
 };
 
