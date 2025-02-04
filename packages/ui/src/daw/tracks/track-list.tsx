@@ -62,7 +62,6 @@ export const Tracks: React.FC = () => {
   return (
     <g
       onMouseMove={dragging.onMove}
-      onMouseLeave={dragging.end}
       onMouseUp={dragging.end}
     >
       <DragingBackground onMouseDown={dragging.onBackground} />
