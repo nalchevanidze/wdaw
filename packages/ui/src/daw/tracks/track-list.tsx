@@ -39,9 +39,8 @@ export const Tracks: React.FC<{
   const [{ tracks, player }] = React.useContext(DawApiContext);
 
   const accuracy = rulerSize / 8;
-  const { all, clear, move, scale, select, selectIn } = useTrackEditor(
-    tracks.tracks
-  );
+  const { all, clear, move, scale, select, selectIn, selection, sync } =
+    useTrackEditor(tracks.tracks);
 
   const dragging = useDragging<number>({
     onMove: {
@@ -49,8 +48,12 @@ export const Tracks: React.FC<{
       move: withAccuracy(move, accuracy),
       scale: withAccuracy(scale, accuracy)
     },
-    onEnd: clear,
-    onStart: (t) => select(t),
+    onEnd: (mode) => (mode !== 'select' ? sync() : undefined),
+    onStart: (t) => {
+      if (!selection) {
+        select(t);
+      }
+    },
     onBackground: () => {
       clear();
       return 'select';
@@ -73,18 +76,21 @@ export const Tracks: React.FC<{
       >
         {tracks.tracks.map(({ midi, name }, i) => {
           const y = i * trackHeight;
-          const state = all.find((s) => s.id === i) ?? midi;
+          const state = all.find((s) => s.id === i);
 
           return (
             <g key={i}>
               <MidiLoop
                 y={y}
-                start={state?.start}
-                end={state?.end}
+                start={state?.start ?? midi.start}
+                end={state?.end ?? midi.end}
                 midi={midi}
                 height={trackHeight}
                 startMove={(e) => dragging.onStart('move')(e, i)}
                 startScale={(e) => dragging.onStart('scale')(e, i)}
+                color={
+                  state?.origin ? colors.notesSelected : colors.notesBackground
+                }
               />
               <Panel
                 active={i === tracks.currentTrack}

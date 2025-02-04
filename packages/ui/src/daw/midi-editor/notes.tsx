@@ -30,7 +30,7 @@ const Notes: React.FC<Props> = ({
       const y = height - note.y * noteHeight;
 
       return (
-        <g key={noteIndex} fill={note.origin ? '#03A9F4' : color}>
+        <g key={noteIndex} fill={note.origin ? colors.notesSelected : color}>
           <rect
             x={start}
             y={y}

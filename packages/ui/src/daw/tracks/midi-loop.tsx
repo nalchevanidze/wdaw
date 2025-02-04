@@ -13,6 +13,7 @@ type Props = {
   height: number;
   startMove?(event: MEvent): void;
   startScale?(event: MEvent): void;
+  color: string
 };
 
 const MidiLoop: React.FC<Props> = ({
@@ -22,6 +23,7 @@ const MidiLoop: React.FC<Props> = ({
   startMove,
   startScale,
   y,
+  color,
   height
 }) => {
   const notes = React.useMemo<UINote[]>(() => fromMidi(midi), [midi]);
@@ -56,7 +58,7 @@ const MidiLoop: React.FC<Props> = ({
             ))}
           </g>
           <rect
-            fill={colors.notesBackground}
+            fill={color}
             opacity={0.4}
             width="100%"
             height="100%"

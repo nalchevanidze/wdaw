@@ -31,16 +31,28 @@ export const useTrackEditor = (tracks: TrackState[]) => {
     }));
 
   const clear = () => {
-    s.selected.forEach(({ start, end, id }) => {
-      dispatch({ type: 'SET_MIDI', id, payload: { start, end } });
-    });
+    sync();
     s.clear();
   };
 
-  const selectIn = (f: (i: TState) => IArea) => (area?: Area) => 
+  const sync = () =>
+    s.selected.forEach(({ start, end, id }) => {
+      dispatch({ type: 'SET_MIDI', id, payload: { start, end } });
+    });
+
+  const selectIn = (f: (i: TState) => IArea) => (area?: Area) =>
     s.selectWith((track) => area?.isOverlaping(f(track)) ?? false);
 
   const select = (i: number) => s.selectWith((x) => x.id === i);
 
-  return { all: s.all, clear, move, scale, select, selectIn };
+  return {
+    all: s.all as TState[],
+    clear,
+    move,
+    scale,
+    select,
+    selectIn,
+    selection: Boolean(s.selected.length),
+    sync
+  };
 };
