@@ -54,58 +54,57 @@ export const Tracks: React.FC = () => {
       }
     },
     onBackground: () => {
+      console.log('background');
       clear();
       return 'select';
     }
   });
 
   return (
-    <>
+    <g
+      onMouseMove={dragging.onMove}
+      onMouseLeave={dragging.end}
+      onMouseUp={dragging.end}
+    >
       <DragingBackground onMouseDown={dragging.onBackground} />
-      <g
-        onMouseMove={dragging.onMove}
-        onMouseLeave={dragging.end}
-        onMouseUp={dragging.end}
-      >
-        {tracks.tracks.map(({ midi, name }, i) => {
-          const y = i * trackHeight;
-          const state = all.find((s) => s.id === i);
+      {tracks.tracks.map(({ midi, name }, i) => {
+        const y = i * trackHeight;
+        const state = all.find((s) => s.id === i);
 
-          return (
-            <g key={i}>
-              <MidiLoop
-                y={y}
-                start={state?.start ?? midi.start}
-                end={state?.end ?? midi.end}
-                midi={midi}
-                height={trackHeight}
-                startMove={(e) => dragging.onStart('move')(e, i)}
-                startScale={(e) => dragging.onStart('scale')(e, i)}
-                color={
-                  state?.origin ? colors.notesSelected : colors.notesBackground
-                }
-              />
-              <Panel
-                active={i === tracks.currentTrack}
-                name={name}
-                id={i}
-                width={panelWidth}
-                y={y}
-                height={trackHeight}
-              />
-            </g>
-          );
-        })}
-        <rect
-          y={-timelineHeight}
-          height={useSvgBoundaries().height + timelineHeight}
-          width={1}
-          x={player.time}
-          fill={colors.critical}
-        />
-        {dragging.area ? <SelectionArea area={dragging.area} /> : null}
-      </g>
-    </>
+        return (
+          <g key={i}>
+            <MidiLoop
+              y={y}
+              start={state?.start ?? midi.start}
+              end={state?.end ?? midi.end}
+              midi={midi}
+              height={trackHeight}
+              startMove={(e) => dragging.onStart('move')(e, i)}
+              startScale={(e) => dragging.onStart('scale')(e, i)}
+              color={
+                state?.origin ? colors.notesSelected : colors.notesBackground
+              }
+            />
+            <Panel
+              active={i === tracks.currentTrack}
+              name={name}
+              id={i}
+              width={panelWidth}
+              y={y}
+              height={trackHeight}
+            />
+          </g>
+        );
+      })}
+      <rect
+        y={-timelineHeight}
+        height={useSvgBoundaries().height + timelineHeight}
+        width={1}
+        x={player.time}
+        fill={colors.critical}
+      />
+      {dragging.area ? <SelectionArea area={dragging.area} /> : null}
+    </g>
   );
 };
 
