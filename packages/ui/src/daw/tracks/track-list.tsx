@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Track } from './track';
 import { Timeline } from './timeline';
 import { BLOCK } from '../../common/units';
 import { Svg } from '@wdaw/svg';
@@ -7,6 +6,11 @@ import { colors } from '../../styles';
 import { Panel } from './panel';
 import { NoteGrid } from '../../components/note-grid';
 import { DawApiContext } from '../../context/state';
+import { SelectionArea } from '../../common/selection-area';
+import { useDragging } from '../hooks/use-dragging';
+import { withAccuracy } from '../utils/area';
+import { TState, useTrackEditor } from '../hooks/use-track-editor';
+import { MidiLoop } from './midi-loop';
 
 const panelWidth = 160;
 const trackHeight = 48;
@@ -22,33 +26,52 @@ const styles = {
 
 const rulerSize = BLOCK;
 
-export const TrackList: React.FC = () => {
+export const Tracks: React.FC<{
+  canvasHeight: number;
+}> = ({ canvasHeight }) => {
   const [{ tracks, player }] = React.useContext(DawApiContext);
-  const maxTrackSize = Math.max(...tracks.tracks.map((t) => t.midi.end));
-  const canvasHeight = trackHeight * tracks.tracks.length;
+
+  const accuracy = rulerSize / 8;
+  const { clear, move, scale, select } = useTrackEditor(tracks.tracks);
+
+  const dragging = useDragging<number>({
+    onMove: {
+      select: () => undefined,
+      move: withAccuracy(move, accuracy),
+      scale: withAccuracy(scale, accuracy)
+    },
+    onEnd: clear,
+    onStart: (t) => select(t)
+  });
 
   return (
-    <div style={styles.container}>
-      <Svg
-        width={maxTrackSize + rulerSize}
-        height={canvasHeight}
-        paddingLeft={panelWidth}
-        paddingTop={timelineHeight}
+    <>
+      <NoteGrid size={rulerSize} />
+      <Timeline height={timelineHeight} size={rulerSize} />
+      <g
+        onMouseMove={dragging.onMove}
+        onMouseLeave={dragging.end}
+        onMouseUp={dragging.end}
       >
-        <NoteGrid size={rulerSize} />
-        <Timeline height={timelineHeight} size={rulerSize} />
-
+        <rect
+          y={0}
+          onMouseDown={dragging.onBackground}
+          height={canvasHeight}
+          width="100%"
+          opacity={0}
+        />
         {tracks.tracks.map(({ midi, name }, i) => {
           const y = i * trackHeight;
-
           return (
             <g key={i}>
-              <Track
-                accuracy={rulerSize / 8}
-                id={i}
+              <MidiLoop
+                y={y}
+                start={midi.start}
+                end={midi.end}
                 midi={midi}
                 height={trackHeight}
-                y={y}
+                startMove={(e) => dragging.onStart('move')(e, i)}
+                startScale={(e) => dragging.onStart('scale')(e, i)}
               />
               <Panel
                 active={i === tracks.currentTrack}
@@ -61,7 +84,6 @@ export const TrackList: React.FC = () => {
             </g>
           );
         })}
-
         <rect
           y={-timelineHeight}
           height={canvasHeight + timelineHeight}
@@ -69,6 +91,26 @@ export const TrackList: React.FC = () => {
           x={player.time}
           fill={colors.critical}
         />
+        {dragging.area ? <SelectionArea area={dragging.area} /> : null}
+      </g>
+    </>
+  );
+};
+
+export const TrackList = () => {
+  const [{ tracks }] = React.useContext(DawApiContext);
+  const maxTrackSize = Math.max(...tracks.tracks.map((t) => t.midi.end));
+  const canvasHeight = trackHeight * tracks.tracks.length;
+
+  return (
+    <div style={styles.container}>
+      <Svg
+        width={maxTrackSize + rulerSize}
+        height={canvasHeight}
+        paddingLeft={panelWidth}
+        paddingTop={timelineHeight}
+      >
+        <Tracks canvasHeight={canvasHeight} />
       </Svg>
     </div>
   );

@@ -1,58 +1,42 @@
 import * as React from 'react';
 import { DawApiContext } from '../../context/state';
+import { useSelection } from './use-selection';
+import { TrackState } from '@wdaw/engine';
 
-type State = { start: number; end: number };
+type State = { id: number; start: number; end: number };
 
-type TrackedState = State & { origin?: State };
+export type TState = State & { origin?: State };
 
-export const useTrackEditor = (
-  inputStart: number,
-  inputEnd: number,
-  id: number
-) => {
+export const useTrackEditor = (tracks: TrackState[]) => {
   const [_, dispatch] = React.useContext(DawApiContext);
-  const [state, setState] = React.useState<TrackedState>({
-    start: inputStart,
-    end: inputEnd
-  });
+
+  const s = useSelection(tracks.map((t, i) => ({ ...t.midi, id: i })));
 
   React.useEffect(
-    () => setState({ start: inputStart, end: inputEnd }),
-    [inputStart, inputEnd]
+    () => s.reset(tracks.map((t, i) => ({ ...t.midi, id: i }))),
+    [tracks]
   );
 
-  const transform = (f: (s: State) => State) => {
-    const origin = state.origin ?? state;
-
-    setState({
-      ...f(origin),
-      origin
-    });
-  };
-
   const move = (time: number) =>
-    transform(({ start, end }) => ({
+    s.edit(({ start, end }) => ({
       start: start + time,
       end: end + time
     }));
 
   const scale = (time: number) =>
-    transform(({ start, end }) => ({
+    s.edit(({ start, end }) => ({
       start: start,
       end: end + time
     }));
 
-  const { start, end } = state;
-
   const clear = () => {
-    setState({ start, end });
-
-    if (inputStart == start && inputEnd == end) {
-      return;
-    }
-
-    dispatch({ type: 'SET_MIDI', id, payload: { start, end } });
+    s.selected.forEach(({ start, end, id }) => {
+      dispatch({ type: 'SET_MIDI', id, payload: { start, end } });
+    });
+    s.clear();
   };
 
-  return { start, end, clear, move, scale };
+  const select = (i: number) => s.selectWith((x) => x.id === i);
+
+  return { all: s.all, clear, move, scale, select };
 };

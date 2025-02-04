@@ -71,7 +71,7 @@ export const useDragging = <T>(ops: Optins<T>) => {
 
   const onStart = (name: MODE) => (e: MEvent, t?: T) => {
     start(name, e);
-    if (t) {
+    if (t !== undefined) {
       ops.onStart?.(t);
     }
   };

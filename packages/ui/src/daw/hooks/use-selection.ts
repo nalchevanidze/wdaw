@@ -54,6 +54,7 @@ export const useSelection = <T extends object>(initial: T[]) => {
     all,
     clear,
     selectWith,
-    removeWith
+    removeWith,
+    selected
   };
 };
