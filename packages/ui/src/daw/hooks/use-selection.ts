@@ -40,12 +40,12 @@ export const useSelection = <T extends object>(initial: T[]) => {
   useOnDelete(removeSelected, [selected, inactive]);
 
   return {
+    refresh: (ts: T[]) => set({ selected: [], inactive: ts }),
     add,
     edit,
     all,
     selected,
     inactive,
-    set,
     clear,
     track,
     selectWith: (f: Predicate<T>) => set(selectWith(all, f)),

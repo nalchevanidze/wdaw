@@ -10,22 +10,19 @@ export const useNoteEditor = () => {
   const {
     all,
     add,
-    set,
     track,
     clear,
     selected,
     inactive,
     edit,
     selectWith,
-    removeWith
+    removeWith,
+    refresh
   } = useSelection<UINote>(fromMidi(midi));
 
-  const sync = () => dispatch({ id, type: 'SET_MIDI', payload: toMidi(all) });
+  React.useEffect(() => refresh(fromMidi(midi)), [midi]);
 
-  React.useEffect(
-    () => set({ selected: [], inactive: fromMidi(midi) }),
-    [midi]
-  );
+  const sync = () => dispatch({ id, type: 'SET_MIDI', payload: toMidi(all) });
 
   const remove = (note: UINote) => removeWith((n) => n === note);
 
