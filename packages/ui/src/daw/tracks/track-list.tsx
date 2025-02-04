@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Timeline } from './timeline';
 import { BLOCK } from '../../common/units';
-import { IArea, Svg } from '@wdaw/svg';
+import { IArea, Svg, useSvgBoundaries } from '@wdaw/svg';
 import { colors } from '../../styles';
 import { Panel } from './panel';
 import { NoteGrid } from '../../components/note-grid';
@@ -11,6 +11,7 @@ import { useDragging } from '../hooks/use-dragging';
 import { withAccuracy } from '../utils/area';
 import { TState, useTrackEditor } from '../hooks/use-track-editor';
 import { MidiLoop } from './midi-loop';
+import { DragingBackground } from '../../common/background';
 
 const panelWidth = 160;
 const trackHeight = 48;
@@ -33,9 +34,7 @@ const toArea = ({ start, end, id }: TState): IArea => ({
   y2: (id + 1) * trackHeight
 });
 
-export const Tracks: React.FC<{
-  canvasHeight: number;
-}> = ({ canvasHeight }) => {
+export const Tracks: React.FC = () => {
   const [{ tracks, player }] = React.useContext(DawApiContext);
 
   const accuracy = rulerSize / 8;
@@ -62,13 +61,7 @@ export const Tracks: React.FC<{
 
   return (
     <>
-      <rect
-        y={0}
-        onMouseDown={dragging.onBackground}
-        height={canvasHeight}
-        width="100%"
-        opacity={0}
-      />
+      <DragingBackground onMouseDown={dragging.onBackground} />
       <g
         onMouseMove={dragging.onMove}
         onMouseLeave={dragging.end}
@@ -105,7 +98,7 @@ export const Tracks: React.FC<{
         })}
         <rect
           y={-timelineHeight}
-          height={canvasHeight + timelineHeight}
+          height={useSvgBoundaries().height + timelineHeight}
           width={1}
           x={player.time}
           fill={colors.critical}
@@ -131,7 +124,7 @@ export const TrackList = () => {
       >
         <NoteGrid size={rulerSize} />
         <Timeline height={timelineHeight} size={rulerSize} />
-        <Tracks canvasHeight={canvasHeight} />
+        <Tracks />
       </Svg>
     </div>
   );

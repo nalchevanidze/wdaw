@@ -1,13 +1,16 @@
 import * as React from 'react';
 import { Point } from './types';
 
-type Context = {
+type ToPoint = (_: React.MouseEvent<SVGGElement, MouseEvent>) => Point;
+
+type Boundaries = {
   width: number;
   height: number;
   left: number;
   top: number;
-  toPoint: (_: React.MouseEvent<SVGGElement, MouseEvent>) => Point;
 };
+
+type Context = Boundaries & { toPoint: ToPoint };
 
 const Context = React.createContext<Context>({
   toPoint: () => ({ x: 0, y: 0 }),
@@ -16,6 +19,8 @@ const Context = React.createContext<Context>({
   left: 0,
   top: 0
 });
+
+export const useSvgBoundaries = (): Boundaries => React.useContext(Context);
 
 type SvgStageProps = {
   children: React.ReactNode;

@@ -18,5 +18,5 @@ export {
   subSectorByPercent,
   filledSector
 } from './arc-circle';
-export { Svg, usePoint } from './stage';
+export { Svg, usePoint, useSvgBoundaries } from './stage';
 export { Range, inRange, Area, IArea } from './range';
