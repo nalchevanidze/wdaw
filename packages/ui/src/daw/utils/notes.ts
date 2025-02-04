@@ -1,4 +1,4 @@
-import { Area, IArea } from '@wdaw/svg';
+import { IArea } from '@wdaw/svg';
 
 export type UINote = {
   x: number;
@@ -12,4 +12,3 @@ export const toArea = ({ x, y, length }: UINote): IArea => ({
   y1: y - 1,
   y2: y + 1
 });
-

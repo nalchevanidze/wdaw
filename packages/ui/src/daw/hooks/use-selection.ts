@@ -14,7 +14,10 @@ type Selected<T> = {
   inactive: T[];
 };
 
-export const useSelection = <T extends object>(initial: T[]) => {
+export const useSelection = <T extends object>(
+  initial: T[],
+  toId?: (i: T) => string | number
+) => {
   const [{ selected, inactive }, set] = useState<Selected<T>>({
     selected: [],
     inactive: initial
@@ -22,8 +25,23 @@ export const useSelection = <T extends object>(initial: T[]) => {
 
   const all = [...selected, ...inactive];
 
+  const sync = (ts: T[]) => {
+    if (!toId) {
+      return set({ selected: [], inactive: ts.map(dropTracking) });
+    }
+
+    const tmap = Object.fromEntries(ts.map((t) => [toId(t), t]));
+    const lookup = (x: T) => tmap[toId(x)];
+
+    set({
+      selected: selected.map(lookup).map(addTracking),
+      inactive: inactive.map(lookup).map(dropTracking)
+    });
+  };
+
   const reset = (ts: T[]) =>
     set({ selected: [], inactive: ts.map(dropTracking) });
+
   const clear = () => reset(all);
   const removeSelected = () => reset(inactive);
   const removeWith = (f: Predicate<T>) => reset(all.filter((t) => !f(t)));
@@ -48,7 +66,7 @@ export const useSelection = <T extends object>(initial: T[]) => {
   useOnDelete(removeSelected, [selected, inactive]);
 
   return {
-    reset,
+    sync,
     add,
     edit,
     all,

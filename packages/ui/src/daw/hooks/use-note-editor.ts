@@ -7,12 +7,10 @@ import { useSelection } from './use-selection';
 
 export const useNoteEditor = () => {
   const [{ midi, id }, dispatch] = useTrack();
-  const { all, add, clear, edit, selectWith, removeWith, reset } =
+  const { all, add, clear, edit, selectWith, removeWith, sync } =
     useSelection<UINote>(fromMidi(midi));
 
-  React.useEffect(() => reset(fromMidi(midi)), [midi]);
-
-  const sync = () => dispatch({ id, type: 'SET_MIDI', payload: toMidi(all) });
+  React.useEffect(() => sync(fromMidi(midi)), [midi]);
 
   const remove = (note: UINote) => removeWith((n) => n === note);
 
@@ -37,7 +35,7 @@ export const useNoteEditor = () => {
     addAt,
     move,
     scale,
-    sync,
-    all
+    all,
+    sync: () => dispatch({ id, type: 'SET_MIDI', payload: toMidi(all) })
   };
 };

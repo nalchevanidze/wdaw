@@ -11,10 +11,10 @@ export type TState = State & { origin?: State };
 export const useTrackEditor = (tracks: TrackState[]) => {
   const [_, dispatch] = React.useContext(DawApiContext);
 
-  const s = useSelection(tracks.map((t, i) => ({ ...t.midi, id: i })));
+  const s = useSelection(tracks.map((t, i) => ({ ...t.midi, id: i })), t => t.id);
 
   React.useEffect(
-    () => s.reset(tracks.map((t, i) => ({ ...t.midi, id: i }))),
+    () => s.sync(tracks.map((t, i) => ({ ...t.midi, id: i }))),
     [tracks]
   );
 
