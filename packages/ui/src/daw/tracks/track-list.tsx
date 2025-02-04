@@ -60,10 +60,7 @@ export const Tracks: React.FC = () => {
   });
 
   return (
-    <g
-      onMouseMove={dragging.onMove}
-      onMouseUp={dragging.end}
-    >
+    <g onMouseMove={dragging.onMove} onMouseUp={dragging.end}>
       <DragingBackground onMouseDown={dragging.onBackground} />
       {tracks.tracks.map(({ midi, name }, i) => {
         const y = i * trackHeight;
