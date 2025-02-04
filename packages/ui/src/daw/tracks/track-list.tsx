@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Timeline } from './timeline';
 import { BLOCK } from '../../common/units';
-import { Svg } from '@wdaw/svg';
+import { IArea, Svg } from '@wdaw/svg';
 import { colors } from '../../styles';
 import { Panel } from './panel';
 import { NoteGrid } from '../../components/note-grid';
@@ -26,17 +26,26 @@ const styles = {
 
 const rulerSize = BLOCK;
 
+const toArea = ({ start, end, id }: TState): IArea => ({
+  x1: start,
+  x2: end,
+  y1: id * trackHeight,
+  y2: (id + 1) * trackHeight
+});
+
 export const Tracks: React.FC<{
   canvasHeight: number;
 }> = ({ canvasHeight }) => {
   const [{ tracks, player }] = React.useContext(DawApiContext);
 
   const accuracy = rulerSize / 8;
-  const { all, clear, move, scale, select } = useTrackEditor(tracks.tracks);
+  const { all, clear, move, scale, select, selectIn } = useTrackEditor(
+    tracks.tracks
+  );
 
   const dragging = useDragging<number>({
     onMove: {
-      select: () => undefined,
+      select: selectIn(toArea),
       move: withAccuracy(move, accuracy),
       scale: withAccuracy(scale, accuracy)
     },

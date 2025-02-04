@@ -2,6 +2,7 @@ import * as React from 'react';
 import { DawApiContext } from '../../context/state';
 import { useSelection } from './use-selection';
 import { TrackState } from '@wdaw/engine';
+import { Area, IArea } from '@wdaw/svg';
 
 type State = { id: number; start: number; end: number };
 
@@ -36,7 +37,10 @@ export const useTrackEditor = (tracks: TrackState[]) => {
     s.clear();
   };
 
+  const selectIn = (f: (i: TState) => IArea) => (area?: Area) => 
+    s.selectWith((track) => area?.isOverlaping(f(track)) ?? false);
+
   const select = (i: number) => s.selectWith((x) => x.id === i);
 
-  return { all: s.all, clear, move, scale, select };
+  return { all: s.all, clear, move, scale, select, selectIn };
 };
