@@ -9,10 +9,7 @@ export const useTime = () => {
 
   const offset = start % size;
 
-  const time =
-    player.time < start || player.time > end
-      ? 0
-      : loopStart - offset + (player.time % size);
-
-  return time 
+  return player.time < start || player.time > end
+    ? 0
+    : loopStart - offset + (player.time % size);
 };
