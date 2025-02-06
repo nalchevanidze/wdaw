@@ -18,7 +18,7 @@ export type DAWState = {
 export type TrackState = {
   name: string;
   preset: Preset;
-  midi: Midi;
+  midi: [Midi];
   gain: number;
 };
 
@@ -31,7 +31,7 @@ const getPreset = (name: string) =>
   presets.find((p) => p.name === name) ?? newPreset(name);
 
 export const dawState = (): DAWState => {
-  const fragments: MidiFragments = {
+  const midiFragments: MidiFragments = {
     piano: {
       loop: [0, 256],
       notes: [
@@ -93,35 +93,31 @@ export const dawState = (): DAWState => {
     {
       name: 'piano',
       preset: getPreset('pluck'),
-      midi: { start: 256, end: 512, fragmentId: 'piano' },
+      midi: [{ start: 256, end: 512, fragmentId: 'piano' }],
       gain: 0.4
     },
     {
       name: 'bass',
       preset: getPreset('bass'),
       gain: 0.3,
-      midi: { start: 0, end: 512, fragmentId: 'bass' }
+      midi: [{ start: 0, end: 512, fragmentId: 'bass' }]
     },
     {
       name: 'kick',
       preset: getPreset('kick'),
-      midi: { start: 0, end: 512, fragmentId: 'kick' },
+      midi: [{ start: 0, end: 512, fragmentId: 'kick' }],
       gain: 1
     },
     {
       name: 'clap',
       preset: getPreset('clap'),
-      midi: {
-        start: 128,
-        end: 512,
-        fragmentId: 'clap'
-      },
+      midi: [{ start: 128, end: 512, fragmentId: 'clap' }],
       gain: 0.3
     }
   ];
 
   return {
-    midiFragments: {},
+    midiFragments,
     presets: [...presets],
     player: {
       isPlaying: false,
