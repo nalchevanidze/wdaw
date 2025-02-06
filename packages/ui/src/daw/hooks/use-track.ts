@@ -12,5 +12,6 @@ export const useTrack = (): [TrackState & { id: number }, DawDispatch] => {
   ] = React.useContext(DawApiContext);
 
   const track = tracks[currentTrack];
+
   return [{ id: currentTrack, ...track }, dispatch];
 };

@@ -8,6 +8,7 @@ type PlayerState = {
 };
 
 export type DAWState = {
+  currentFragment: string;
   midiFragments: MidiFragments;
   player: PlayerState;
   tracks: TracksState;
@@ -117,6 +118,7 @@ export const dawState = (): DAWState => {
   ];
 
   return {
+    currentFragment: "bass",
     midiFragments,
     presets: [...presets],
     player: {
