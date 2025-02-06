@@ -58,9 +58,16 @@ export type Note = {
 
 export type PLAYER_ACTION = 'play' | 'pause' | 'stop';
 
+export type MidiFragment = {
+  notes: Note[];
+  loop: [number, number];
+}
+
+
+export type MidiFragments = Record<string, MidiFragment>
+
 export type Midi = {
   start: number;
   end: number;
-  loop: [number, number];
-  notes: Note[];
+  fragmentId: string;
 };
