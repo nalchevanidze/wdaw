@@ -10,7 +10,7 @@ export const setMidiFragment = (
 ) => ({
   midiFragments: {
     ...midiFragments,
-    [id]: { ...midiFragments[id], fields }
+    [id]: { ...midiFragments[id], ...fields }
   }
 });
 

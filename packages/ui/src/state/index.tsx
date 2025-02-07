@@ -78,6 +78,9 @@ const engineEffects = (
     case 'SET_TIME':
       return engine.setTime(action.payload);
     case 'SET_MIDI_FRAGMENT':
+      return state.tracks.forEach(({ midi }, i) =>
+        engine.setMidi(i, midi, state.midiFragments)
+      );
     case 'SET_TRACK_MIDI':
       return engine.setMidi(
         state.currentTrack,
@@ -104,7 +107,7 @@ export const makeReducer =
       engine.setPreset(track.preset);
     }
 
-    console.log(state, action)
+    console.log(state, action);
 
     const newState = stateChanges ? { ...state, ...stateChanges } : state;
 
