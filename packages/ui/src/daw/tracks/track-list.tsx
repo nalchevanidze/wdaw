@@ -26,11 +26,11 @@ const styles = {
 
 const rulerSize = BLOCK;
 
-const toArea = ({ start, end, id }: TState): IArea => ({
+const toArea = ({ start, end, id: [trackIndex, _] }: TState): IArea => ({
   x1: start,
   x2: end,
-  y1: id * trackHeight,
-  y2: (id + 1) * trackHeight
+  y1: trackIndex * trackHeight,
+  y2: (trackIndex + 1) * trackHeight
 });
 
 export const Tracks: React.FC = () => {
