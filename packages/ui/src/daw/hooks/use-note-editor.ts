@@ -12,7 +12,7 @@ export const useNoteEditor = () => {
       [note.x, note.y, note.length].join(':')
     );
 
-  React.useEffect(() => sync(fromMidiFragment(fragment)), [fragment]);
+  React.useEffect(() => sync(fromMidiFragment(fragment)), [fragment.notes]);
 
   const remove = (note: UINote) => removeWith((n) => n === note);
 
