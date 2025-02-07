@@ -73,7 +73,15 @@ type KEY_DOWN = {
   payload: number;
 };
 
-type SynthActions = KEY_UP | KEY_DOWN;
+type SynthActions =
+  | KEY_UP
+  | KEY_DOWN
+  | SET_SEQUENCE
+  | TOGGLE_PANEL
+  | SET_ENVELOPE
+  | SET_WAVE
+  | SET_FILTER
+  | SET_PRESET;
 
 // Midi Actions
 
@@ -109,17 +117,7 @@ type MidiActions =
   | SET_CURRENT_TRACK
   | SET_MIDI_FRAGMENT
   | SET_TRACK_MIDI
-  | PLAYER;
+  | PLAYER
+  | SET_GAIN;
 
-export type EngineAction =
-  | SynthActions
-  | SET_SEQUENCE
-  | TOGGLE_PANEL
-  | MidiActions
-  | SET_ENVELOPE
-  | SET_WAVE
-  | SET_FILTER
-  | SET_PRESET
-  | REFRESH
-  | SET_GAIN
-  | SET_BPM;
+export type EngineAction = SynthActions | MidiActions | REFRESH | SET_BPM;
