@@ -9,7 +9,12 @@ import { DawApiContext } from '../../context/state';
 import { SelectionArea } from '../../common/selection-area';
 import { useDragging } from '../hooks/use-dragging';
 import { withAccuracy } from '../utils/area';
-import { MidiID, TState, useTrackEditor } from '../hooks/use-track-editor';
+import {
+  eqID,
+  MidiID,
+  TState,
+  useTrackEditor
+} from '../hooks/use-track-editor';
 import { MidiLoop } from './midi-loop';
 import { DragingBackground } from '../../common/background';
 
@@ -72,7 +77,7 @@ export const Tracks: React.FC = () => {
           <g key={trackIndex}>
             {midi.map(({ fragmentId, start, end }, midiIndex) => {
               const id: MidiID = [trackIndex, midiIndex];
-              const state = all.find((s) => s.id.join(':') === id.join(':'));
+              const state = all.find((s) => eqID(s.id, id));
               return (
                 <MidiLoop
                   key={midiIndex}

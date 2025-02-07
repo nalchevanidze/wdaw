@@ -57,6 +57,12 @@ type SET_MIDI = {
   id: number;
 };
 
+type SET_TRACK_MIDI = {
+  type: 'SET_TRACK_MIDI';
+  payload: Partial<Midi>;
+  id: [number,number];
+};
+
 type SET_MIDI_FRAGMENT = {
   type: 'SET_MIDI_FRAGMENT';
   payload: Partial<MidiFragment>;
@@ -108,6 +114,7 @@ export type EngineAction =
   | SET_SEQUENCE
   | TOGGLE_PANEL
   | SET_MIDI_FRAGMENT
+  | SET_TRACK_MIDI
   | SET_MIDI
   | SET_ENVELOPE
   | SET_WAVE
