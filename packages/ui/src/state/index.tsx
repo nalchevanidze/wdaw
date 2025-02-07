@@ -24,11 +24,13 @@ const dispatcher = (
               }
             }
       );
-    // case 'SET_MIDI':
-    //   return mapTrack(action.id, state, ({ midi, ...rest }) => ({
-    //     ...rest,
-    //     midi: { ...midi, ...action.payload }
-    //   }));
+    case 'SET_TRACK_MIDI':
+      return mapTrack(action.id[0], state, ({ midi, ...rest }) => ({
+        ...rest,
+        midi: midi.map((m, i) =>
+          i === action.id[1] ? { ...m, ...action.payload } : m
+        )
+      }));
     case 'SET_MIDI_FRAGMENT':
       return setMidiFragment(action.id, state, action.payload);
     case 'SET_GAIN':
@@ -66,6 +68,8 @@ const engineEffects = (
   engine: SynthEngine,
   action: EngineAction
 ): void => {
+  const trackId = state.tracks.currentTrack;
+
   switch (action.type) {
     case 'PLAYER':
       return engine.setPlay(action.payload);
@@ -75,8 +79,13 @@ const engineEffects = (
       return engine.startNote(action.payload);
     case 'SET_TIME':
       return engine.setTime(action.payload);
-    case 'SET_MIDI':
-      return engine.setMidi(action.id, state.tracks.tracks[action.id].midi, state.midiFragments);
+    case 'SET_MIDI_FRAGMENT':
+    case 'SET_TRACK_MIDI':
+      return engine.setMidi(
+        trackId,
+        state.tracks.tracks[trackId].midi,
+        state.midiFragments
+      );
     case 'SET_TRACK':
       return engine.setTrack(action.payload);
     case 'SET_GAIN':

@@ -51,12 +51,6 @@ type TOGGLE_PANEL = {
   id: PANEL_ID;
 };
 
-type SET_MIDI = {
-  type: 'SET_MIDI';
-  payload: Partial<Midi>;
-  id: number;
-};
-
 type SET_TRACK_MIDI = {
   type: 'SET_TRACK_MIDI';
   payload: Partial<Midi>;
@@ -115,7 +109,6 @@ export type EngineAction =
   | TOGGLE_PANEL
   | SET_MIDI_FRAGMENT
   | SET_TRACK_MIDI
-  | SET_MIDI
   | SET_ENVELOPE
   | SET_WAVE
   | SET_FILTER
