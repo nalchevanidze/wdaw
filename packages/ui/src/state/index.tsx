@@ -64,7 +64,7 @@ const dispatcher = (
 };
 
 const engineEffects = (
-  state: DAWState,
+  { tracks, midiFragments }: DAWState,
   engine: SynthEngine,
   action: EngineAction
 ): void => {
@@ -78,14 +78,9 @@ const engineEffects = (
     case 'SET_TIME':
       return engine.setTime(action.payload);
     case 'SET_MIDI_FRAGMENT':
-      return state.tracks.forEach(({ midi }, i) =>
-        engine.setMidi(i, midi, state.midiFragments)
-      );
     case 'SET_TRACK_MIDI':
-      return engine.setMidi(
-        state.currentTrack,
-        state.tracks[state.currentTrack].midi,
-        state.midiFragments
+      return tracks.forEach(({ midi }, i) =>
+        engine.setMidi(i, midi, midiFragments)
       );
     case 'SET_CURRENT_TRACK':
       return engine.setTrack(action.payload);
