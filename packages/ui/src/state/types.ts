@@ -63,16 +63,6 @@ type SET_PRESET = {
   payload: string;
 };
 
-type PLAYER = {
-  type: 'PLAYER';
-  payload: PLAYER_ACTION;
-};
-
-type SET_TIME = {
-  type: 'SET_TIME';
-  payload: number;
-};
-
 type KEY_UP = {
   type: 'KEY_UP';
   payload: number;
@@ -83,7 +73,15 @@ type KEY_DOWN = {
   payload: number;
 };
 
+type SynthActions = KEY_UP | KEY_DOWN;
+
 // Midi Actions
+
+type SET_TIME = {
+  type: 'SET_TIME';
+  payload: number;
+};
+
 type SET_CURRENT_TRACK = {
   type: 'SET_CURRENT_TRACK';
   payload: number;
@@ -101,13 +99,20 @@ type SET_MIDI_FRAGMENT = {
   id: string;
 };
 
-type MidiActions = SET_CURRENT_TRACK | SET_MIDI_FRAGMENT | SET_TRACK_MIDI;
+type PLAYER = {
+  type: 'PLAYER';
+  payload: PLAYER_ACTION;
+};
+
+type MidiActions =
+  | SET_TIME
+  | SET_CURRENT_TRACK
+  | SET_MIDI_FRAGMENT
+  | SET_TRACK_MIDI
+  | PLAYER;
 
 export type EngineAction =
-  | KEY_UP
-  | KEY_DOWN
-  | PLAYER
-  | SET_TIME
+  | SynthActions
   | SET_SEQUENCE
   | TOGGLE_PANEL
   | MidiActions
