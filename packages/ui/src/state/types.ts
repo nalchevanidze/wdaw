@@ -46,24 +46,6 @@ type TOGGLE_PANEL = {
   id: PANEL_ID;
 };
 
-// Midi Actions
-type SET_CURRENT_TRACK = {
-  type: 'SET_CURRENT_TRACK';
-  payload: number;
-};
-
-type SET_TRACK_MIDI = {
-  type: 'SET_TRACK_MIDI';
-  payload: Partial<Midi>;
-  id: [number,number];
-};
-
-type SET_MIDI_FRAGMENT = {
-  type: 'SET_MIDI_FRAGMENT';
-  payload: Partial<MidiFragment>;
-  id: string;
-};
-
 type SET_GAIN = {
   type: 'SET_GAIN';
   payload: number;
@@ -101,6 +83,26 @@ type KEY_DOWN = {
   payload: number;
 };
 
+// Midi Actions
+type SET_CURRENT_TRACK = {
+  type: 'SET_CURRENT_TRACK';
+  payload: number;
+};
+
+type SET_TRACK_MIDI = {
+  type: 'SET_TRACK_MIDI';
+  payload: Partial<Midi>;
+  id: [number, number];
+};
+
+type SET_MIDI_FRAGMENT = {
+  type: 'SET_MIDI_FRAGMENT';
+  payload: Partial<MidiFragment>;
+  id: string;
+};
+
+type MidiActions = SET_CURRENT_TRACK | SET_MIDI_FRAGMENT | SET_TRACK_MIDI;
+
 export type EngineAction =
   | KEY_UP
   | KEY_DOWN
@@ -108,13 +110,11 @@ export type EngineAction =
   | SET_TIME
   | SET_SEQUENCE
   | TOGGLE_PANEL
-  | SET_MIDI_FRAGMENT
-  | SET_TRACK_MIDI
+  | MidiActions
   | SET_ENVELOPE
   | SET_WAVE
   | SET_FILTER
   | SET_PRESET
-  | SET_CURRENT_TRACK
   | REFRESH
   | SET_GAIN
   | SET_BPM;
