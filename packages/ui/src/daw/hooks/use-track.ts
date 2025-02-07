@@ -4,12 +4,7 @@ import { DawDispatch } from '../types';
 import { DawApiContext } from '../../context/state';
 
 export const useTrack = (): [TrackState & { id: number }, DawDispatch] => {
-  const [
-    {
-      tracks: { currentTrack, tracks }
-    },
-    dispatch
-  ] = React.useContext(DawApiContext);
+  const [{ currentTrack, tracks }, dispatch] = React.useContext(DawApiContext);
 
   const track = tracks[currentTrack];
 

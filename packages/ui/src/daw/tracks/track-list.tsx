@@ -39,11 +39,11 @@ const toArea = ({ start, end, id: [trackIndex, _] }: TState): IArea => ({
 });
 
 export const Tracks: React.FC = () => {
-  const [{ tracks }] = React.useContext(DawApiContext);
+  const [{ tracks, currentTrack }] = React.useContext(DawApiContext);
 
   const accuracy = rulerSize / 8;
   const { all, clear, move, scale, select, selectIn, selection, sync } =
-    useTrackEditor(tracks.tracks);
+    useTrackEditor(tracks);
 
   const dragging = useDragging<MidiID>({
     onMove: {
@@ -70,7 +70,7 @@ export const Tracks: React.FC = () => {
       onMouseUp={dragging.end}
     >
       <DragingBackground onMouseDown={dragging.onBackground} />
-      {tracks.tracks.map(({ midi, name }, trackIndex) => {
+      {tracks.map(({ midi, name }, trackIndex) => {
         const y = trackIndex * trackHeight;
 
         return (
@@ -97,7 +97,7 @@ export const Tracks: React.FC = () => {
               );
             })}
             <Panel
-              active={trackIndex === tracks.currentTrack}
+              active={trackIndex === currentTrack}
               name={name}
               id={trackIndex}
               width={panelWidth}
@@ -115,9 +115,9 @@ export const Tracks: React.FC = () => {
 export const TrackList = () => {
   const [{ tracks }] = React.useContext(DawApiContext);
   const maxTrackSize = Math.max(
-    ...tracks.tracks.flatMap((t) => t.midi.map((x) => x.end))
+    ...tracks.flatMap((t) => t.midi.map((x) => x.end))
   );
-  const canvasHeight = trackHeight * tracks.tracks.length;
+  const canvasHeight = trackHeight * tracks.length;
   const timelineHeight = 32;
 
   return (

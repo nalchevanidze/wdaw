@@ -12,7 +12,7 @@ type Props = {
   height: number;
 };
 
-const levelSize = 16
+const levelSize = 16;
 
 export const Panel: React.FC<Props> = ({
   name,
@@ -28,13 +28,13 @@ export const Panel: React.FC<Props> = ({
   const setGain = (payload: number) =>
     dispatch({ type: 'SET_GAIN', id, payload });
 
-  const gain = tracks.tracks[id].gain;
+  const gain = tracks[id].gain;
 
   return (
     <>
       <text
         x={-width * 0.9}
-        y={y + height/ 2}
+        y={y + height / 2}
         fill={active ? colors.notes : 'gray'}
         fontFamily="sanf-serif"
         textAnchor="center"
@@ -61,7 +61,7 @@ export const Panel: React.FC<Props> = ({
         size={16}
         steps={48}
         y={y + height / 6}
-        x={- levelSize * 3}
+        x={-levelSize * 3}
         stepOpacity={0.2}
         bold={0.1}
       />

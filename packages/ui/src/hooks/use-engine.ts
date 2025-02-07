@@ -11,7 +11,7 @@ export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
 
   useEffect(() => {
     const engine = new SynthEngine();
-    engine.setTracks(state.tracks, state.midiFragments);
+    engine.setTracks(state, state.midiFragments);
     engine.setBPM(state.bpm);
     engine.setMidiCallback((payload) => dispatch({ type: 'REFRESH', payload }));
     setReducerState({ reducer: makeReducer(engine) });

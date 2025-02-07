@@ -8,7 +8,7 @@ const dispatcher = (
 ): Partial<DAWState> | undefined => {
   switch (action.type) {
     case 'SET_CURRENT_TRACK':
-      return { tracks: { ...state.tracks, currentTrack: action.payload } };
+      return { currentTrack: action.payload };
     case 'SET_BPM':
       return { bpm: action.payload };
     case 'SET_SEQUENCE':
@@ -68,8 +68,6 @@ const engineEffects = (
   engine: SynthEngine,
   action: EngineAction
 ): void => {
-  const trackId = state.tracks.currentTrack;
-
   switch (action.type) {
     case 'PLAYER':
       return engine.setPlay(action.payload);
@@ -82,8 +80,8 @@ const engineEffects = (
     case 'SET_MIDI_FRAGMENT':
     case 'SET_TRACK_MIDI':
       return engine.setMidi(
-        trackId,
-        state.tracks.tracks[trackId].midi,
+        state.currentTrack,
+        state.tracks[state.currentTrack].midi,
         state.midiFragments
       );
     case 'SET_CURRENT_TRACK':
@@ -102,7 +100,7 @@ export const makeReducer =
     const stateChanges = dispatcher(state, action);
 
     if (stateChanges) {
-      const track = state.tracks.tracks[state.tracks.currentTrack];
+      const track = state.tracks[state.currentTrack];
       engine.setPreset(track.preset);
     }
 
