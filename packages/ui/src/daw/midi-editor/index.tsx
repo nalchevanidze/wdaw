@@ -8,7 +8,7 @@ import { Notes } from './notes';
 import { EditActionType, MHandler } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { useNoteEditor } from '../hooks/use-note-editor';
-import { useTime } from '../hooks/use-time';
+import { useFragmentTime } from '../hooks/use-time';
 import { SelectionArea } from '../../common/selection-area';
 import { Keyboard } from './keyboard';
 import { Loop } from './loop';
@@ -38,7 +38,7 @@ const rulerSize = BLOCK;
 const normalize = normalizer({ noteHeight, canvasHeight });
 
 const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
-  const time = useTime();
+  const time = useFragmentTime();
   const notes = useNoteEditor();
   const loop = useLoop();
 
