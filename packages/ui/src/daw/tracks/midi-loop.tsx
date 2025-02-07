@@ -29,10 +29,13 @@ const MidiLoop: React.FC<Props> = ({
 }) => {
   const [{ midiFragments }] = React.useContext(DawApiContext);
 
-  const {notes} = midiFragments[fragmentId];
+  const fragment = midiFragments[fragmentId];
 
-  const notes = React.useMemo<UINote[]>(() => fromMidiFragment(notes), [midi]);
-  const [loopStart, loopEnd] = midi.loop;
+  const notes = React.useMemo<UINote[]>(
+    () => fromMidiFragment(fragment),
+    [fragment]
+  );
+  const [loopStart, loopEnd] = fragment.loop;
   const id = React.useId();
 
   const loopWidth = loopEnd - loopStart;
