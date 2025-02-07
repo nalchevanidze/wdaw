@@ -31,11 +31,6 @@ type REFRESH = {
   };
 };
 
-type SET_TRACK = {
-  type: 'SET_TRACK';
-  payload: number;
-};
-
 type SET_BPM = {
   type: 'SET_BPM';
   payload: number;
@@ -49,6 +44,12 @@ type SET_SEQUENCE = {
 type TOGGLE_PANEL = {
   type: 'TOGGLE_PANEL';
   id: PANEL_ID;
+};
+
+// Midi Actions
+type SET_CURRENT_TRACK = {
+  type: 'SET_CURRENT_TRACK';
+  payload: number;
 };
 
 type SET_TRACK_MIDI = {
@@ -113,7 +114,7 @@ export type EngineAction =
   | SET_WAVE
   | SET_FILTER
   | SET_PRESET
-  | SET_TRACK
+  | SET_CURRENT_TRACK
   | REFRESH
   | SET_GAIN
   | SET_BPM;

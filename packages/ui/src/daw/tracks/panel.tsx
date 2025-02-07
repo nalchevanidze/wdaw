@@ -23,7 +23,7 @@ export const Panel: React.FC<Props> = ({
   height
 }) => {
   const [{ tracks }, dispatch] = React.useContext(DawApiContext);
-  const setTrack = () => dispatch({ type: 'SET_TRACK', payload: id });
+  const setTrack = () => dispatch({ type: 'SET_CURRENT_TRACK', payload: id });
 
   const setGain = (payload: number) =>
     dispatch({ type: 'SET_GAIN', id, payload });

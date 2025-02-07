@@ -7,7 +7,7 @@ const dispatcher = (
   action: EngineAction
 ): Partial<DAWState> | undefined => {
   switch (action.type) {
-    case 'SET_TRACK':
+    case 'SET_CURRENT_TRACK':
       return { tracks: { ...state.tracks, currentTrack: action.payload } };
     case 'SET_BPM':
       return { bpm: action.payload };
@@ -86,7 +86,7 @@ const engineEffects = (
         state.tracks.tracks[trackId].midi,
         state.midiFragments
       );
-    case 'SET_TRACK':
+    case 'SET_CURRENT_TRACK':
       return engine.setTrack(action.payload);
     case 'SET_GAIN':
       return engine.setGain(action.id, action.payload);
