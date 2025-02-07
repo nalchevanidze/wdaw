@@ -10,7 +10,7 @@ export const fromMidiFragment = ({ notes }: MidiFragment): UINote[] =>
     })
   );
 
-export const toMidi = (notes: UINote[]): Partial<Midi> => ({
+export const toMidiFragment = (notes: UINote[]): Partial<MidiFragment> => ({
   notes: notes.map(({ length, x, y }: UINote) => ({
     at: x,
     id: UIPosition.toNote(y),

@@ -1,18 +1,19 @@
 import * as React from 'react';
 import { toArea, UINote } from '../utils/notes';
 import { Point, Area } from '@wdaw/svg';
-import { toMidi, fromMidiFragment } from '../utils/midi';
+import { toMidiFragment, fromMidiFragment } from '../utils/midi';
 import { useTrack } from './use-track';
 import { useSelection } from './use-selection';
+import { useMidiFragment } from './use-midi-fragment';
 
 export const useNoteEditor = () => {
-  const [{ midi, id }, dispatch] = useTrack();
+  const [fragment, dispatch] = useMidiFragment();
   const { all, add, clear, edit, selectWith, removeWith, sync } =
-    useSelection<UINote>(fromMidiFragment(midi), (note) =>
+    useSelection<UINote>(fromMidiFragment(fragment), (note) =>
       [note.x, note.y, note.length].join(':')
     );
 
-  React.useEffect(() => sync(fromMidiFragment(midi)), [midi]);
+  React.useEffect(() => sync(fromMidiFragment(fragment)), [fragment]);
 
   const remove = (note: UINote) => removeWith((n) => n === note);
 
@@ -38,6 +39,7 @@ export const useNoteEditor = () => {
     move,
     scale,
     all,
-    sync: () => dispatch({ id, type: 'SET_MIDI', payload: toMidi(all) })
+    sync: () =>
+      dispatch({ id: fragment.id, type: 'SET_MIDI_FRAGMENT', payload: toMidiFragment(all) })
   };
 };
