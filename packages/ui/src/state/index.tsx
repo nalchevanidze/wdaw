@@ -102,8 +102,6 @@ export const makeReducer =
       engine.setPreset(track.preset);
     }
 
-    console.log(state, action);
-
     const newState = stateChanges ? { ...state, ...stateChanges } : state;
 
     engineEffects(newState, engine, action);
