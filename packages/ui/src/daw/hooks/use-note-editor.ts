@@ -2,7 +2,6 @@ import * as React from 'react';
 import { toArea, UINote } from '../utils/notes';
 import { Point, Area } from '@wdaw/svg';
 import { toMidiFragment, fromMidiFragment } from '../utils/midi';
-import { useTrack } from './use-track';
 import { useSelection } from './use-selection';
 import { useMidiFragment } from './use-midi-fragment';
 

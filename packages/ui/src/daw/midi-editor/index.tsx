@@ -21,6 +21,7 @@ import { UINote } from '../utils/notes';
 import { normalizer } from './dimensions';
 import { Tracked } from '../utils/tracking';
 import { DragingBackground } from '../../common/background';
+import { useMidiFragment } from '../hooks/use-midi-fragment';
 
 type Props = {
   actionType: EditActionType;
@@ -135,20 +136,14 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
 
 export const MidiEditor: React.FC = () => {
   const [actionType, setActionType] = React.useState<EditActionType>('select');
-  const [
-    {
-      midi: {
-        loop: [_, loopEnd]
-      }
-    }
-  ] = useTrack();
+  const [{ loop }] = useMidiFragment();
 
   return (
     <>
       <NoteComposerHeader actionType={actionType} dispatch={setActionType} />
       <div style={{ width: '560px', overflow: 'scroll', height: '350px' }}>
         <Svg
-          width={loopEnd + rulerSize}
+          width={loop[1] + rulerSize}
           height={canvasHeight}
           paddingLeft={keyboardWidth}
           paddingTop={timelineHeight}
