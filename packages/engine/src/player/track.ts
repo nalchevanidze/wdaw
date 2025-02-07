@@ -1,7 +1,6 @@
 import { Preset } from '../common/types';
 import { Synth } from '../synth';
-import { Midi, NoteAction } from '../common/types';
-import { NoteLoop, NoteLoops, toActions } from './utils/actions';
+import { NoteLoop, NoteLoops } from './utils/actions';
 
 class Track {
   // private actions: NoteAction[] = [];
