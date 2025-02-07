@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Timeline } from './timeline';
 import { BLOCK } from '../../common/units';
-import { IArea, Svg, useSvgBoundaries } from '@wdaw/svg';
+import { IArea, Svg } from '@wdaw/svg';
 import { colors } from '../../styles';
 import { Panel } from './panel';
 import { NoteGrid } from '../../components/note-grid';
@@ -9,7 +9,7 @@ import { DawApiContext } from '../../context/state';
 import { SelectionArea } from '../../common/selection-area';
 import { useDragging } from '../hooks/use-dragging';
 import { withAccuracy } from '../utils/area';
-import { TState, useTrackEditor } from '../hooks/use-track-editor';
+import { MidiID, TState, useTrackEditor } from '../hooks/use-track-editor';
 import { MidiLoop } from './midi-loop';
 import { DragingBackground } from '../../common/background';
 
@@ -40,7 +40,7 @@ export const Tracks: React.FC = () => {
   const { all, clear, move, scale, select, selectIn, selection, sync } =
     useTrackEditor(tracks.tracks);
 
-  const dragging = useDragging<number>({
+  const dragging = useDragging<MidiID>({
     onMove: {
       select: selectIn(toArea),
       move: withAccuracy(move, accuracy),
@@ -65,28 +65,36 @@ export const Tracks: React.FC = () => {
       onMouseUp={dragging.end}
     >
       <DragingBackground onMouseDown={dragging.onBackground} />
-      {tracks.tracks.map(({ midi, name }, i) => {
-        const y = i * trackHeight;
-        const state = all.find((s) => s.id === i);
+      {tracks.tracks.map(({ midi, name }, trackIndex) => {
+        const y = trackIndex * trackHeight;
 
         return (
-          <g key={i}>
-            <MidiLoop
-              y={y}
-              start={state?.start ?? midi.start}
-              end={state?.end ?? midi.end}
-              midi={midi}
-              height={trackHeight}
-              startMove={(e) => dragging.onStart('move')(e, i)}
-              startScale={(e) => dragging.onStart('scale')(e, i)}
-              color={
-                state?.origin ? colors.notesSelected : colors.notesBackground
-              }
-            />
+          <g key={trackIndex}>
+            {midi.map(({ fragmentId, start, end }, midiIndex) => {
+              const id: MidiID = [trackIndex, midiIndex];
+              const state = all.find((s) => s.id.join(':') === id.join(':'));
+              return (
+                <MidiLoop
+                  key={midiIndex}
+                  y={y}
+                  start={state?.start ?? start}
+                  end={state?.end ?? end}
+                  fragmentId={fragmentId}
+                  height={trackHeight}
+                  startMove={(e) => dragging.onStart('move')(e, id)}
+                  startScale={(e) => dragging.onStart('scale')(e, id)}
+                  color={
+                    state?.origin
+                      ? colors.notesSelected
+                      : colors.notesBackground
+                  }
+                />
+              );
+            })}
             <Panel
-              active={i === tracks.currentTrack}
+              active={trackIndex === tracks.currentTrack}
               name={name}
-              id={i}
+              id={trackIndex}
               width={panelWidth}
               y={y}
               height={trackHeight}
@@ -101,7 +109,9 @@ export const Tracks: React.FC = () => {
 
 export const TrackList = () => {
   const [{ tracks }] = React.useContext(DawApiContext);
-  const maxTrackSize = Math.max(...tracks.tracks.map((t) => t.midi.end));
+  const maxTrackSize = Math.max(
+    ...tracks.tracks.flatMap((t) => t.midi.map((x) => x.end))
+  );
   const canvasHeight = trackHeight * tracks.tracks.length;
   const timelineHeight = 32;
 

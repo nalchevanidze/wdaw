@@ -1,7 +1,18 @@
-import { TrackState, DAWState, Preset } from '@wdaw/engine';
+import { TrackState, DAWState, Preset, MidiFragment } from '@wdaw/engine';
 
 const mapCurrentTrack = (state: DAWState, f: (a: TrackState) => TrackState) =>
   mapTrack(state.tracks.currentTrack, state, f);
+
+export const setMidiFragment = (
+  id: string,
+  { midiFragments }: DAWState,
+  fields: Partial<MidiFragment>
+) => ({
+  midiFragments: {
+    ...midiFragments,
+    [id]: { ...midiFragments[id], fields }
+  }
+});
 
 export const mapTrack = (
   target: number,

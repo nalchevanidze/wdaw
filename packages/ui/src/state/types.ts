@@ -5,7 +5,8 @@ import {
   WAVE_ID,
   ENVELOPE_ID,
   EnvelopeConfig,
-  PLAYER_ACTION
+  PLAYER_ACTION,
+  MidiFragment
 } from '@wdaw/engine';
 
 export type PANEL_ID = 'filter' | 'sequence' | 'wave';
@@ -56,6 +57,12 @@ type SET_MIDI = {
   id: number;
 };
 
+type SET_MIDI_FRAGMENT = {
+  type: 'SET_MIDI_FRAGMENT';
+  payload: Partial<MidiFragment>;
+  id: string;
+};
+
 type SET_GAIN = {
   type: 'SET_GAIN';
   payload: number;
@@ -100,6 +107,7 @@ export type EngineAction =
   | SET_TIME
   | SET_SEQUENCE
   | TOGGLE_PANEL
+  | SET_MIDI_FRAGMENT
   | SET_MIDI
   | SET_ENVELOPE
   | SET_WAVE

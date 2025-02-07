@@ -1,15 +1,14 @@
 import { Preset } from '../common/types';
 import { Synth } from '../synth';
 import { Midi, NoteAction } from '../common/types';
-import { toActions } from './utils/actions';
+import { NoteLoop, NoteLoops, toActions } from './utils/actions';
 
 class Track {
-  private actions: NoteAction[] = [];
+  // private actions: NoteAction[] = [];
   private preset: Preset;
   private gain: number = 1;
-  private midi: Midi;
-  private loopSize: number;
-  private offset: number;
+  private loops: NoteLoop[];
+  public size = 0;
 
   public startNote = (n: number) => this.synth.startNote(this.preset, n);
 
@@ -18,19 +17,20 @@ class Track {
   constructor(private synth: Synth) {}
 
   public nextActions = (isPlaying: boolean, current: number) => {
-    const { start, end } = this.midi;
-
-    if (isPlaying && (current < start || current > end)) {
+    if (isPlaying && current > this.size) {
       this.clear();
       return;
     }
 
-    const loopCurrent = (current - this.offset) % this.loopSize;
-
-    this.synth.nextActions(
-      this.preset,
-      isPlaying ? this.actions[loopCurrent] : undefined
-    );
+    for (const loop of this.loops) {
+      const { start, end, size, offset, notes } = loop;
+      if (start < current && current < end) {
+        this.synth.nextActions(
+          this.preset,
+          isPlaying ? notes[(current - offset) % size] : undefined
+        );
+      }
+    }
   };
 
   public setGain(n: number) {
@@ -43,18 +43,9 @@ class Track {
 
   public clear = () => this.synth.clear();
 
-  public size = () => this.midi.end;
-
-  public setMidi = (midi: Midi): void => {
-    this.midi = midi;
-    const {
-      start,
-      loop: [loopStart, loopEnd]
-    } = this.midi;
-
-    this.loopSize = loopEnd - loopStart;
-    this.offset = start % this.loopSize;
-    this.actions = toActions(midi);
+  public setNoteLoops = ({ loops, size }: NoteLoops): void => {
+    this.loops = loops;
+    this.size = size;
   };
 
   public setPreset = (preset: Preset) => {

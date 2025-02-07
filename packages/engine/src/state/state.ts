@@ -19,7 +19,7 @@ export type DAWState = {
 export type TrackState = {
   name: string;
   preset: Preset;
-  midi: [Midi];
+  midi: Midi[];
   gain: number;
 };
 

@@ -1,17 +1,15 @@
-import * as React from "react";
-import { DawDispatch } from "../types";
-import { DawApiContext } from "../../context/state";
-import { MidiFragment } from "@wdaw/engine";
+import * as React from 'react';
+import { DawDispatch } from '../types';
+import { DawApiContext } from '../../context/state';
+import { MidiFragment } from '@wdaw/engine';
 
-export const useTrack = (): [MidiFragment & { id: number }, DawDispatch] => {
-  const [
-    {
-      tracks: { currentTrack, tracks }
-    },
-    dispatch
-  ] = React.useContext(DawApiContext);
+export const useMidiFragment = (): [MidiFragment & { id: string }, DawDispatch] => {
+  const [{ currentFragment, midiFragments }, dispatch] =
+    React.useContext(DawApiContext);
 
-  const track = tracks[currentTrack];
+  const id = currentFragment;
 
-  return [{ id: currentTrack, ...track }, dispatch];
+  const fragment = midiFragments[id];
+
+  return [{ ...fragment, id }, dispatch];
 };

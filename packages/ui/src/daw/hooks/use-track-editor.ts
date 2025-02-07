@@ -4,14 +4,19 @@ import { useSelection } from './use-selection';
 import { TrackState } from '@wdaw/engine';
 import { Area, IArea } from '@wdaw/svg';
 
-type State = { id: number; start: number; end: number };
+export type MidiID = [number, number];
+
+type State = { id: MidiID; start: number; end: number };
 
 export type TState = State & { origin?: State };
 
 export const useTrackEditor = (tracks: TrackState[]) => {
   const [_, dispatch] = React.useContext(DawApiContext);
 
-  const s = useSelection(tracks.map((t, i) => ({ ...t.midi, id: i })), t => t.id);
+  const s = useSelection(
+    tracks.map((t, i) => ({ ...t.midi, id: i })),
+    (t) => t.id
+  );
 
   React.useEffect(
     () => s.sync(tracks.map((t, i) => ({ ...t.midi, id: i }))),
@@ -43,7 +48,7 @@ export const useTrackEditor = (tracks: TrackState[]) => {
   const selectIn = (f: (i: TState) => IArea) => (area?: Area) =>
     s.selectWith((track) => area?.isOverlaping(f(track)) ?? false);
 
-  const select = (i: number) => s.selectWith((x) => x.id === i);
+  const select = (id: MidiID) => s.selectWith((x) => x.id === i);
 
   return {
     all: s.all as TState[],

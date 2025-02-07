@@ -1,22 +1,21 @@
 import * as React from 'react';
 import { Maybe } from '../types';
 import { useTrack } from './use-track';
+import { useMidiFragment } from './use-midi-fragment';
 
 export type LoopTarget = 'start' | 'end';
 
 export const useLoop = () => {
-  const [{ id, midi }, dispatch] = useTrack();
+  const [{ id, loop }, dispatch] = useMidiFragment();
 
   const [origin, setOrigin] = React.useState<Maybe<number>>(undefined);
   const [target, setTarget] = React.useState<Maybe<LoopTarget>>(undefined);
-  const [state, setLoop] = React.useState(midi.loop);
+  const [state, setLoop] = React.useState(loop);
 
-  React.useEffect(() => {
-    setLoop(midi.loop);
-  }, [midi.loop]);
+  React.useEffect(() => setLoop(loop), [loop]);
 
   const sync = () =>
-    dispatch({ id, type: 'SET_MIDI', payload: { loop: state } });
+    dispatch({ id, type: 'SET_MIDI_FRAGMENT', payload: { loop: state } });
 
   const [start, end] = state;
 
@@ -32,7 +31,6 @@ export const useLoop = () => {
   };
 
   const move = (time: number) => {
-
     if (origin === undefined) return;
 
     const [start, end] = state;

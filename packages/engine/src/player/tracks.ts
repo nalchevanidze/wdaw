@@ -1,15 +1,16 @@
-import { Preset } from '../common/types';
+import { MidiFragments, Preset } from '../common/types';
 import { TracksState } from '../state/state';
 import { Synth } from '../synth';
 import { Midi } from '../common/types';
 import { Track } from './track';
+import { NoteLoops, toActions } from './utils/actions';
 
 export class Tracks {
   public current: Track;
   private size: number;
 
   constructor(private tracks: Track[]) {
-    this.setTrack(0)
+    this.setTrack(0);
   }
 
   public setTrack = (n: number) => {
@@ -17,18 +18,22 @@ export class Tracks {
     this.refresh();
   };
 
-  public set = ({ currentTrack, tracks }: TracksState) => {
+  public set = (
+    { currentTrack, tracks }: TracksState,
+    midiFragments: MidiFragments
+  ) => {
     this.tracks = tracks.map((s) => {
       const track = new Track(new Synth());
 
-      track.setMidi(s.midi);
+      const noteloops = toActions(s.midi, midiFragments);
+      track.setNoteLoops(noteloops);
       track.setPreset(s.preset);
       track.setGain(s.gain);
 
       return track;
     });
 
-    this.setTrack(currentTrack)
+    this.setTrack(currentTrack);
   };
 
   public nextActions = (isPlaying: boolean, index: number) => {
@@ -38,7 +43,7 @@ export class Tracks {
   };
 
   private refresh() {
-    this.size = Math.max(...this.tracks.map((t) => t.size()));
+    this.size = Math.max(...this.tracks.map((t) => t.size));
   }
 
   public next = () => {
@@ -59,12 +64,13 @@ export class Tracks {
 
   public isDone = (current: number) => current >= this.size;
 
-  public setGain = (i: number, gain: number)=> {
-    this.tracks[i].setGain(gain)
-  }
+  public setGain = (i: number, gain: number) => {
+    this.tracks[i].setGain(gain);
+  };
 
-  public setMidi = (i: number, midi: Midi) => {
-    this.tracks[i].setMidi(midi);
+  public setMidi = (i: number, midis: Midi[], fragments: MidiFragments) => {
+    const noteLoops = toActions(midis, fragments);
+    this.tracks[i].setNoteLoops(noteLoops);
     this.refresh();
   };
 

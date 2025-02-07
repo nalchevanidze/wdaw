@@ -1,7 +1,7 @@
-import { Midi, Note, UIPosition } from '@wdaw/engine';
+import { Midi, MidiFragment, Note, UIPosition } from '@wdaw/engine';
 import { UINote } from './notes';
 
-export const fromMidi = ({ notes }: Midi): UINote[] =>
+export const fromMidiFragment = ({ notes }: MidiFragment): UINote[] =>
   notes.map(
     ({ id, at, length }: Note): UINote => ({
       x: at,
