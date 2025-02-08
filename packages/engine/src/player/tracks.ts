@@ -1,9 +1,9 @@
-import { MidiFragments, Preset } from '../common/types';
+import { MidiFragments, Preset, Presets } from '../common/types';
 import { TracksState } from '../state/state';
 import { Synth } from '../synth';
 import { Midi } from '../common/types';
 import { Track } from './track';
-import { NoteLoops, toActions } from './utils/actions';
+import { toActions } from './utils/actions';
 
 export class Tracks {
   public current: Track;
@@ -20,14 +20,15 @@ export class Tracks {
 
   public set = (
     { currentTrack, tracks }: TracksState,
-    midiFragments: MidiFragments
+    midiFragments: MidiFragments,
+    presets: Presets
   ) => {
     this.tracks = tracks.map((s) => {
       const track = new Track(new Synth());
 
       const noteloops = toActions(s.midi, midiFragments);
       track.setNoteLoops(noteloops);
-      track.setPreset(s.preset);
+      track.setPreset(presets[s.preset]);
       track.setGain(s.gain);
 
       return track;

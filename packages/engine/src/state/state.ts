@@ -1,4 +1,4 @@
-import { Preset, Midi, MidiFragments } from '../common/types';
+import { Presets, Midi, MidiFragments } from '../common/types';
 import { genMidiFragments } from './fragments';
 import { genPresets, newPreset } from './presets';
 
@@ -13,12 +13,12 @@ export type DAWState = TracksState & {
   midiFragments: MidiFragments;
   player: PlayerState;
   bpm: number;
-  presets: Preset[];
+  presets: Presets;
 };
 
 export type TrackState = {
   name: string;
-  preset: Preset;
+  preset: string;
   midi: Midi[];
   gain: number;
 };
@@ -29,33 +29,30 @@ export type TracksState = {
 };
 
 export const dawState = (): DAWState => {
-  const presets = genPresets();
-
-  const getPreset = (name: string) =>
-    presets.find((p) => p.name === name) ?? newPreset(name);
-
+  const presets = Object.fromEntries(genPresets().map(p => [p.name,p]));
+  
   const tracks: TrackState[] = [
     {
       name: 'piano',
-      preset: getPreset('pluck'),
+      preset: 'pluck',
       midi: [{ start: 256, end: 512, fragmentId: 'piano' }],
       gain: 0.4
     },
     {
       name: 'bass',
-      preset: getPreset('bass'),
+      preset: 'bass',
       gain: 0.3,
       midi: [{ start: 0, end: 512, fragmentId: 'bass' }]
     },
     {
       name: 'kick',
-      preset: getPreset('kick'),
+      preset: 'kick',
       midi: [{ start: 0, end: 512, fragmentId: 'kick' }],
       gain: 1
     },
     {
       name: 'clap',
-      preset: getPreset('clap'),
+      preset: 'clap',
       midi: [
         { start: 128, end: 256, fragmentId: 'clap' },
         { start: 384, end: 512, fragmentId: 'clap' }

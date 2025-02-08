@@ -18,6 +18,8 @@ export type Preset = {
   sequence: Sequence;
 };
 
+export type Presets = Record<string, Preset>;
+
 export type WaveConfig = {
   sine: number;
   square: number;
@@ -61,10 +63,9 @@ export type PLAYER_ACTION = 'play' | 'pause' | 'stop';
 export type MidiFragment = {
   notes: Note[];
   loop: [number, number];
-}
+};
 
-
-export type MidiFragments = Record<string, MidiFragment>
+export type MidiFragments = Record<string, MidiFragment>;
 
 export type Midi = {
   start: number;
