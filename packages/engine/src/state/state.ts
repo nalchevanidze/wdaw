@@ -1,5 +1,5 @@
 import { Preset, Midi, MidiFragments } from '../common/types';
-import { newPreset, presets } from './presets';
+import { genPresets, newPreset } from './presets';
 
 type PlayerState = {
   isPlaying: boolean;
@@ -27,10 +27,12 @@ export type TracksState = {
   tracks: TrackState[];
 };
 
-const getPreset = (name: string) =>
-  presets.find((p) => p.name === name) ?? newPreset(name);
-
 export const dawState = (): DAWState => {
+  const presets = genPresets();
+
+  const getPreset = (name: string) =>
+    presets.find((p) => p.name === name) ?? newPreset(name);
+
   const midiFragments: MidiFragments = {
     piano: {
       loop: [0, 256],
@@ -122,14 +124,14 @@ export const dawState = (): DAWState => {
   return {
     currentFragment: 'bass',
     currentTrack: 0,
+    bpm: 120,
     midiFragments,
-    presets: [...presets],
+    presets,
     player: {
       isPlaying: false,
       time: 0,
       notes: []
     },
-    bpm: 120,
     tracks
   };
 };

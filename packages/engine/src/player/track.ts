@@ -3,7 +3,6 @@ import { Synth } from '../synth';
 import { NoteLoop, NoteLoops } from './utils/actions';
 
 class Track {
-  // private actions: NoteAction[] = [];
   private preset: Preset;
   private gain: number = 1;
   private loops: NoteLoop[];
