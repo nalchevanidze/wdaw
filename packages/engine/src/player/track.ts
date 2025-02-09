@@ -22,7 +22,9 @@ class Track {
 
     for (const loop of this.loops) {
       const { start, end, size, offset, notes } = loop;
-      if (start <= current && current <= end) {
+      const inRange = start <= current && current <= end;
+
+      if (inRange || !isPlaying) {
         this.synth.nextActions(
           this.preset,
           isPlaying ? notes[(current - offset) % size] : undefined
