@@ -69,10 +69,13 @@ const dispatcher = (
 };
 
 const engineEffects = (
-  { tracks, midiFragments }: DAWState,
+  { tracks, midiFragments, currentTrack, presets }: DAWState,
   engine: SynthEngine,
   action: EngineAction
 ): void => {
+  const track = tracks[currentTrack];
+  const preset = presets[track.presetId];
+
   switch (action.type) {
     case 'PLAYER':
       return engine.setPlay(action.payload);
@@ -93,8 +96,13 @@ const engineEffects = (
       return engine.setGain(action.id, action.payload);
     case 'SET_BPM':
       return engine.setBPM(action.payload);
-    default:
-      return;
+    case 'SET_SEQUENCE':
+    case 'TOGGLE_PANEL':
+    case 'SET_ENVELOPE':
+    case 'SET_WAVE':
+    case 'SET_FILTER':
+    case 'SET_PRESET':
+      return engine.setPreset(preset);
   }
 };
 
@@ -102,12 +110,6 @@ export const makeReducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
     const stateChanges = dispatcher(state, action);
     const newState = stateChanges ? { ...state, ...stateChanges } : state;
-
-    if (stateChanges) {
-      const track = state.tracks[state.currentTrack];
-      const preset = state.presets[track.presetId];
-      engine.setPreset(preset);
-    }
 
     engineEffects(newState, engine, action);
 
