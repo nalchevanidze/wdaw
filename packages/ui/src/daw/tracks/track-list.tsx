@@ -15,7 +15,7 @@ import {
   TState,
   useTrackEditor
 } from '../hooks/use-track-editor';
-import { MidiLoop } from './midi-loop';
+import { Fragment } from './fragment';
 import { DragingBackground } from '../../common/background';
 
 const panelWidth = 160;
@@ -79,7 +79,7 @@ export const Tracks: React.FC = () => {
               const id: MidiID = [trackIndex, midiIndex];
               const state = all.find(eqID(id));
               return (
-                <MidiLoop
+                <Fragment
                   key={midiIndex}
                   y={y}
                   start={state?.start ?? start}

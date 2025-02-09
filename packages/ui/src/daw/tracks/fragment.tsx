@@ -17,7 +17,7 @@ type Props = {
   color: string;
 };
 
-const MidiLoop: React.FC<Props> = ({
+export const Fragment: React.FC<Props> = ({
   fragmentId,
   start,
   end,
@@ -68,6 +68,7 @@ const MidiLoop: React.FC<Props> = ({
           <rect fill={color} opacity={0.4} width="100%" height="100%" />
         </pattern>
       </defs>
+
       <rect
         y={y}
         onMouseDown={(event) => startMove?.(event)}
@@ -88,8 +89,15 @@ const MidiLoop: React.FC<Props> = ({
         onMouseDown={(event) => startScale?.(event)}
         style={{ cursor: 'e-resize' }}
       />
+      <text
+        x={start + 4}
+        y={y + height / 3}
+        fontSize="12px"
+        textAnchor="start"
+        fontFamily="sans-serif"
+      >
+        {fragmentId}
+      </text>
     </g>
   );
 };
-
-export { MidiLoop };
