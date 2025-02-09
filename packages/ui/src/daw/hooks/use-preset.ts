@@ -7,6 +7,7 @@ export const usePreset = (): [Preset & { names: string[] }, DawDispatch] => {
   const [{ presets, currentTrack, tracks }, dispatch] =
     React.useContext(DawApiContext);
 
-  const track = tracks[currentTrack];
-  return [{ ...track.preset, names: presets.map((p) => p.name) }, dispatch];
+  const { presetId } = tracks[currentTrack];
+
+  return [{ ...presets[presetId], names: Object.keys(presets) }, dispatch];
 };

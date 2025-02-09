@@ -28,7 +28,7 @@ export class Tracks {
 
       const noteloops = toActions(s.midi, midiFragments);
       track.setNoteLoops(noteloops);
-      track.setPreset(presets[s.preset]);
+      track.setPreset(presets[s.presetId]);
       track.setGain(s.gain);
 
       return track;

@@ -8,9 +8,14 @@ type PlayerState = {
   notes: number[];
 };
 
+export type TracksState = {
+  currentTrack: number;
+  tracks: TrackState[];
+  midiFragments: MidiFragments;
+};
+
 export type DAWState = TracksState & {
   currentFragment: string;
-  midiFragments: MidiFragments;
   player: PlayerState;
   bpm: number;
   presets: Presets;
@@ -18,41 +23,36 @@ export type DAWState = TracksState & {
 
 export type TrackState = {
   name: string;
-  preset: string;
-  midi: Midi[];
   gain: number;
-};
-
-export type TracksState = {
-  currentTrack: number;
-  tracks: TrackState[];
+  presetId: string;
+  midi: Midi[];
 };
 
 export const dawState = (): DAWState => {
-  const presets = Object.fromEntries(genPresets().map(p => [p.name,p]));
-  
+  const presets = Object.fromEntries(genPresets().map((p) => [p.name, p]));
+
   const tracks: TrackState[] = [
     {
       name: 'piano',
-      preset: 'pluck',
+      presetId: 'pluck',
       midi: [{ start: 256, end: 512, fragmentId: 'piano' }],
       gain: 0.4
     },
     {
       name: 'bass',
-      preset: 'bass',
+      presetId: 'bass',
       gain: 0.3,
       midi: [{ start: 0, end: 512, fragmentId: 'bass' }]
     },
     {
       name: 'kick',
-      preset: 'kick',
+      presetId: 'kick',
       midi: [{ start: 0, end: 512, fragmentId: 'kick' }],
       gain: 1
     },
     {
       name: 'clap',
-      preset: 'clap',
+      presetId: 'clap',
       midi: [
         { start: 128, end: 256, fragmentId: 'clap' },
         { start: 384, end: 512, fragmentId: 'clap' }
