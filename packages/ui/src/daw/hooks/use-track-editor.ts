@@ -7,7 +7,8 @@ import { Area, IArea } from '@wdaw/svg';
 export type MidiID = [number, number];
 
 const idToString = (t: MidiID) => t.join(':');
-export const eqID = (m1: MidiID, m2: MidiID) => idToString(m1) === idToString(m2);
+export const eqID = (m1: MidiID) => (s: State) =>
+  idToString(m1) === idToString(s.id);
 
 type State = {
   id: MidiID;
@@ -52,7 +53,9 @@ export const useTrackEditor = (tracks: TrackState[]) => {
   const selectIn = (f: (i: TState) => IArea) => (area?: Area) =>
     s.selectWith((track) => area?.isOverlaping(f(track)) ?? false);
 
-  const select = (id: MidiID) => s.selectWith((x) => eqID(x.id, id));
+  const select = (id: MidiID) => s.selectWith(eqID(id));
+
+  const isSelected = (id: MidiID) => Boolean(s.selected.find(eqID(id)));
 
   return {
     all: s.all as TState[],
@@ -61,7 +64,7 @@ export const useTrackEditor = (tracks: TrackState[]) => {
     scale,
     select,
     selectIn,
-    selection: Boolean(s.selected.length),
+    isSelected,
     sync
   };
 };

@@ -42,7 +42,7 @@ export const Tracks: React.FC = () => {
   const [{ tracks, currentTrack }] = React.useContext(DawApiContext);
 
   const accuracy = rulerSize / 8;
-  const { all, clear, move, scale, select, selectIn, selection, sync } =
+  const { all, clear, move, scale, select, selectIn, isSelected, sync } =
     useTrackEditor(tracks);
 
   const dragging = useDragging<MidiID>({
@@ -53,7 +53,7 @@ export const Tracks: React.FC = () => {
     },
     onEnd: (mode) => (mode !== 'select' ? sync() : undefined),
     onStart: (t) => {
-      if (!selection) {
+      if (!isSelected(t)) {
         select(t);
       }
     },
@@ -77,7 +77,7 @@ export const Tracks: React.FC = () => {
           <g key={trackIndex}>
             {midi.map(({ fragmentId, start, end }, midiIndex) => {
               const id: MidiID = [trackIndex, midiIndex];
-              const state = all.find((s) => eqID(s.id, id));
+              const state = all.find(eqID(id));
               return (
                 <MidiLoop
                   key={midiIndex}
