@@ -104,8 +104,8 @@ export const makeReducer =
     const newState = stateChanges ? { ...state, ...stateChanges } : state;
 
     if (stateChanges) {
-      const track = newState.tracks[newState.currentTrack];
-      const preset = newState.presets[track.presetId];
+      const track = state.tracks[state.currentTrack];
+      const preset = state.presets[track.presetId];
       engine.setPreset(preset);
     }
 
