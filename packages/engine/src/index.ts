@@ -11,7 +11,8 @@ export {
   Preset,
   Note,
   Midi,
-  PLAYER_ACTION
+  PLAYER_ACTION,
+  MidiFragment
 } from './common/types';
 export { UIPosition, OCTAVE_SIZE } from './utils/notes';
 export { TrackState } from './state/state';

@@ -1,7 +1,7 @@
-import { Midi, Note, UIPosition } from '@wdaw/engine';
+import { Midi, MidiFragment, Note, UIPosition } from '@wdaw/engine';
 import { UINote } from './notes';
 
-export const fromMidi = ({ notes }: Midi): UINote[] =>
+export const fromMidiFragment = ({ notes }: MidiFragment): UINote[] =>
   notes.map(
     ({ id, at, length }: Note): UINote => ({
       x: at,
@@ -10,7 +10,7 @@ export const fromMidi = ({ notes }: Midi): UINote[] =>
     })
   );
 
-export const toMidi = (notes: UINote[]): Partial<Midi> => ({
+export const toMidiFragment = (notes: UINote[]): Partial<MidiFragment> => ({
   notes: notes.map(({ length, x, y }: UINote) => ({
     at: x,
     id: UIPosition.toNote(y),

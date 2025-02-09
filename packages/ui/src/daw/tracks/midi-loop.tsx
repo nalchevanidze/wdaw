@@ -2,22 +2,23 @@ import * as React from 'react';
 import { colors } from '../../styles';
 import { Midi } from '@wdaw/engine';
 import { UINote } from '../utils/notes';
-import { fromMidi } from '../utils/midi';
+import { fromMidiFragment } from '../utils/midi';
 import { MEvent } from '../types';
+import { DawApiContext } from '../../context/state';
 
 type Props = {
   start: number;
   end: number;
-  midi: Midi;
+  fragmentId: string;
   y: number;
   height: number;
   startMove?(event: MEvent): void;
   startScale?(event: MEvent): void;
-  color: string
+  color: string;
 };
 
 const MidiLoop: React.FC<Props> = ({
-  midi,
+  fragmentId,
   start,
   end,
   startMove,
@@ -26,8 +27,15 @@ const MidiLoop: React.FC<Props> = ({
   color,
   height
 }) => {
-  const notes = React.useMemo<UINote[]>(() => fromMidi(midi), [midi]);
-  const [loopStart, loopEnd] = midi.loop;
+  const [{ midiFragments }] = React.useContext(DawApiContext);
+
+  const fragment = midiFragments[fragmentId];
+
+  const notes = React.useMemo<UINote[]>(
+    () => fromMidiFragment(fragment),
+    [fragment]
+  );
+  const [loopStart, loopEnd] = fragment.loop;
   const id = React.useId();
 
   const loopWidth = loopEnd - loopStart;
@@ -57,12 +65,7 @@ const MidiLoop: React.FC<Props> = ({
               />
             ))}
           </g>
-          <rect
-            fill={color}
-            opacity={0.4}
-            width="100%"
-            height="100%"
-          />
+          <rect fill={color} opacity={0.4} width="100%" height="100%" />
         </pattern>
       </defs>
       <rect

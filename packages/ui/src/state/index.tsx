@@ -1,20 +1,24 @@
 import { SynthEngine, DAWState } from '@wdaw/engine';
-import { mapPreset, mapTrack } from './utils';
+import { mapPreset, mapTrack, setMidiFragment } from './utils';
 import { EngineAction } from './types';
 
 const dispatcher = (
   state: DAWState,
   action: EngineAction
 ): Partial<DAWState> | undefined => {
+  const { currentTrack, tracks } = state;
+  const track = tracks[currentTrack];
+  const { presetId } = track;
+
   switch (action.type) {
-    case 'SET_TRACK':
-      return { tracks: { ...state.tracks, currentTrack: action.payload } };
+    case 'SET_CURRENT_TRACK':
+      return { currentTrack: action.payload };
     case 'SET_BPM':
       return { bpm: action.payload };
     case 'SET_SEQUENCE':
-      return mapPreset(state, () => ({ sequence: action.payload }));
+      return mapPreset(presetId, state, () => ({ sequence: action.payload }));
     case 'TOGGLE_PANEL':
-      return mapPreset(state, (preset) =>
+      return mapPreset(presetId, state, (preset) =>
         action.id === 'wave'
           ? {}
           : {
@@ -24,34 +28,37 @@ const dispatcher = (
               }
             }
       );
-    case 'SET_MIDI':
-      return mapTrack(action.id, state, ({ midi, ...rest }) => ({
-        ...rest,
-        midi: { ...midi, ...action.payload }
+    case 'SET_TRACK_MIDI':
+      return mapTrack(action.id[0], state, ({ midi }) => ({
+        midi: midi.map((m, i) =>
+          i === action.id[1] ? { ...m, ...action.payload } : m
+        )
       }));
+    case 'SET_MIDI_FRAGMENT':
+      return setMidiFragment(action.id, state, action.payload);
     case 'SET_GAIN':
-      return mapTrack(action.id, state, (rest) => ({
-        ...rest,
+      return mapTrack(action.id, state, () => ({
         gain: action.payload
       }));
     case 'SET_ENVELOPE':
-      return mapPreset(state, ({ envelopes }) => ({
+      return mapPreset(presetId, state, ({ envelopes }) => ({
         envelopes: {
           ...envelopes,
           [action.id]: { ...envelopes[action.id], ...action.payload }
         }
       }));
     case 'SET_WAVE':
-      return mapPreset(state, ({ wave }) => ({
+      return mapPreset(presetId, state, ({ wave }) => ({
         wave: { ...wave, [action.id]: action.payload }
       }));
     case 'SET_FILTER':
-      return mapPreset(state, ({ filter }) => ({
+      return mapPreset(presetId, state, ({ filter }) => ({
         filter: { ...filter, [action.id]: action.payload }
       }));
     case 'SET_PRESET':
-      const preset = state.presets.find((p) => p.name === action.payload);
-      return preset ? mapPreset(state, () => preset) : undefined;
+      return mapTrack(currentTrack, state, () => ({
+        presetId: action.payload
+      }));
     case 'REFRESH':
       return { player: { ...state.player, ...action.payload } };
     default:
@@ -60,7 +67,7 @@ const dispatcher = (
 };
 
 const engineEffects = (
-  state: DAWState,
+  { tracks, midiFragments }: DAWState,
   engine: SynthEngine,
   action: EngineAction
 ): void => {
@@ -73,9 +80,12 @@ const engineEffects = (
       return engine.startNote(action.payload);
     case 'SET_TIME':
       return engine.setTime(action.payload);
-    case 'SET_MIDI':
-      return engine.setMidi(action.id, state.tracks.tracks[action.id].midi);
-    case 'SET_TRACK':
+    case 'SET_MIDI_FRAGMENT':
+    case 'SET_TRACK_MIDI':
+      return tracks.forEach(({ midi }, i) =>
+        engine.setMidi(i, midi, midiFragments)
+      );
+    case 'SET_CURRENT_TRACK':
       return engine.setTrack(action.payload);
     case 'SET_GAIN':
       return engine.setGain(action.id, action.payload);
@@ -89,13 +99,13 @@ const engineEffects = (
 export const makeReducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
     const stateChanges = dispatcher(state, action);
+    const newState = stateChanges ? { ...state, ...stateChanges } : state;
 
     if (stateChanges) {
-      const track = state.tracks.tracks[state.tracks.currentTrack];
-      engine.setPreset(track.preset);
+      const track = newState.tracks[newState.currentTrack];
+      const preset = newState.presets[track.presetId];
+      engine.setPreset(preset);
     }
-
-    const newState = stateChanges ? { ...state, ...stateChanges } : state;
 
     engineEffects(newState, engine, action);
 

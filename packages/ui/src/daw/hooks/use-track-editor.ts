@@ -1,22 +1,30 @@
 import * as React from 'react';
 import { DawApiContext } from '../../context/state';
 import { useSelection } from './use-selection';
-import { TrackState } from '@wdaw/engine';
+import { Midi, TrackState } from '@wdaw/engine';
 import { Area, IArea } from '@wdaw/svg';
 
-type State = { id: number; start: number; end: number };
+export type MidiID = [number, number];
+
+const idToString = (t: MidiID) => t.join(':');
+export const eqID = (m1: MidiID, m2: MidiID) => idToString(m1) === idToString(m2);
+
+type State = {
+  id: MidiID;
+  start: number;
+  end: number;
+};
 
 export type TState = State & { origin?: State };
+const toState = (tracks: TrackState[]): State[] =>
+  tracks.flatMap((t, ti) => t.midi.map((m, mi) => ({ ...m, id: [ti, mi] })));
 
 export const useTrackEditor = (tracks: TrackState[]) => {
   const [_, dispatch] = React.useContext(DawApiContext);
 
-  const s = useSelection(tracks.map((t, i) => ({ ...t.midi, id: i })), t => t.id);
+  const s = useSelection<State>(toState(tracks), (t) => idToString(t.id));
 
-  React.useEffect(
-    () => s.sync(tracks.map((t, i) => ({ ...t.midi, id: i }))),
-    [tracks]
-  );
+  React.useEffect(() => s.sync(toState(tracks)), [tracks]);
 
   const move = (time: number) =>
     s.edit(({ start, end }) => ({
@@ -35,15 +43,16 @@ export const useTrackEditor = (tracks: TrackState[]) => {
     s.clear();
   };
 
-  const sync = () =>
+  const sync = () => {
     s.selected.forEach(({ start, end, id }) => {
-      dispatch({ type: 'SET_MIDI', id, payload: { start, end } });
+      dispatch({ type: 'SET_TRACK_MIDI', id, payload: { start, end } });
     });
+  };
 
   const selectIn = (f: (i: TState) => IArea) => (area?: Area) =>
     s.selectWith((track) => area?.isOverlaping(f(track)) ?? false);
 
-  const select = (i: number) => s.selectWith((x) => x.id === i);
+  const select = (id: MidiID) => s.selectWith((x) => eqID(x.id, id));
 
   return {
     all: s.all as TState[],

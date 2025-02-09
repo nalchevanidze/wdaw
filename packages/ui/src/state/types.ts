@@ -5,7 +5,8 @@ import {
   WAVE_ID,
   ENVELOPE_ID,
   EnvelopeConfig,
-  PLAYER_ACTION
+  PLAYER_ACTION,
+  MidiFragment
 } from '@wdaw/engine';
 
 export type PANEL_ID = 'filter' | 'sequence' | 'wave';
@@ -30,11 +31,6 @@ type REFRESH = {
   };
 };
 
-type SET_TRACK = {
-  type: 'SET_TRACK';
-  payload: number;
-};
-
 type SET_BPM = {
   type: 'SET_BPM';
   payload: number;
@@ -48,12 +44,6 @@ type SET_SEQUENCE = {
 type TOGGLE_PANEL = {
   type: 'TOGGLE_PANEL';
   id: PANEL_ID;
-};
-
-type SET_MIDI = {
-  type: 'SET_MIDI';
-  payload: Partial<Midi>;
-  id: number;
 };
 
 type SET_GAIN = {
@@ -73,16 +63,6 @@ type SET_PRESET = {
   payload: string;
 };
 
-type PLAYER = {
-  type: 'PLAYER';
-  payload: PLAYER_ACTION;
-};
-
-type SET_TIME = {
-  type: 'SET_TIME';
-  payload: number;
-};
-
 type KEY_UP = {
   type: 'KEY_UP';
   payload: number;
@@ -93,19 +73,51 @@ type KEY_DOWN = {
   payload: number;
 };
 
-export type EngineAction =
+type SynthActions =
   | KEY_UP
   | KEY_DOWN
-  | PLAYER
-  | SET_TIME
   | SET_SEQUENCE
   | TOGGLE_PANEL
-  | SET_MIDI
   | SET_ENVELOPE
   | SET_WAVE
   | SET_FILTER
-  | SET_PRESET
-  | SET_TRACK
-  | REFRESH
-  | SET_GAIN
-  | SET_BPM;
+  | SET_PRESET;
+
+// Midi Actions
+
+type SET_TIME = {
+  type: 'SET_TIME';
+  payload: number;
+};
+
+type SET_CURRENT_TRACK = {
+  type: 'SET_CURRENT_TRACK';
+  payload: number;
+};
+
+type SET_TRACK_MIDI = {
+  type: 'SET_TRACK_MIDI';
+  payload: Partial<Midi>;
+  id: [number, number];
+};
+
+type SET_MIDI_FRAGMENT = {
+  type: 'SET_MIDI_FRAGMENT';
+  payload: Partial<MidiFragment>;
+  id: string;
+};
+
+type PLAYER = {
+  type: 'PLAYER';
+  payload: PLAYER_ACTION;
+};
+
+type MidiActions =
+  | SET_TIME
+  | SET_CURRENT_TRACK
+  | SET_MIDI_FRAGMENT
+  | SET_TRACK_MIDI
+  | PLAYER
+  | SET_GAIN;
+
+export type EngineAction = SynthActions | MidiActions | REFRESH | SET_BPM;

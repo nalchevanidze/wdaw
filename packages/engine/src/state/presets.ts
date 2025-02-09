@@ -40,7 +40,7 @@ export const newPreset = (name: string) => ({
   }
 });
 
-export const presets: Preset[] = [
+export const genPresets = (): Preset[] => [
   {
     name: 'prelude',
     wave: {
@@ -331,5 +331,3 @@ export const presets: Preset[] = [
     }
   }
 ];
-
-
