@@ -41,11 +41,20 @@ export const genMidiFragments = (): MidiFragments => ({
       { length: 4, id: 'D#2', at: 124 }
     ]
   },
-  clap: {
+  clap1: {
     loop: [32, 64],
     notes: [
       { length: 4, id: 'C#1', at: 44 },
       { length: 4, id: 'C#1', at: 56 }
+    ]
+  },
+  clap2: {
+    loop: [0, 32],
+    notes: [
+      { length: 4, id: 'C#1', at: 4 },
+      { length: 4, id: 'C#1', at: 12 }
+      { length: 4, id: 'C#1', at: 18 }
+      { length: 4, id: 'C#1', at: 24 }
     ]
   },
   kick: {

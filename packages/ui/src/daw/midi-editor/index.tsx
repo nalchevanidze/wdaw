@@ -136,11 +136,15 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
 
 export const MidiEditor: React.FC = () => {
   const [actionType, setActionType] = React.useState<EditActionType>('select');
-  const [{ loop }] = useMidiFragment();
+  const [{ id, loop }] = useMidiFragment();
 
   return (
     <>
-      <NoteComposerHeader actionType={actionType} dispatch={setActionType} />
+      <NoteComposerHeader
+        label={id}
+        actionType={actionType}
+        dispatch={setActionType}
+      />
       <div style={{ width: '560px', overflow: 'scroll', height: '350px' }}>
         <Svg
           width={loop[1] + rulerSize}

@@ -68,7 +68,17 @@ export const Fragment: React.FC<Props> = ({
           <rect fill={color} opacity={0.4} width="100%" height="100%" />
         </pattern>
       </defs>
-
+      <text
+        color={colors.black}
+        x={start + 4}
+        y={y + height / 3}
+        fontSize="12px"
+        textAnchor="start"
+        fontFamily="sans-serif"
+        opacity={0.6}
+      >
+        {fragmentId}
+      </text>
       <rect
         y={y}
         onMouseDown={(event) => startMove?.(event)}
@@ -89,15 +99,6 @@ export const Fragment: React.FC<Props> = ({
         onMouseDown={(event) => startScale?.(event)}
         style={{ cursor: 'e-resize' }}
       />
-      <text
-        x={start + 4}
-        y={y + height / 3}
-        fontSize="12px"
-        textAnchor="start"
-        fontFamily="sans-serif"
-      >
-        {fragmentId}
-      </text>
     </g>
   );
 };

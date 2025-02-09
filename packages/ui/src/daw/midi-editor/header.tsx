@@ -3,21 +3,35 @@ import { EditActionType } from '../types';
 import { colors } from '../../styles';
 import HeaderButton from '../../components/header-button';
 
-const containerStyle = {
-  display: 'flex',
-  background: colors.background,
-  padding: '5px',
-  border: '0.05em solid #BBB'
+const styles = {
+  container: {
+    display: 'flex',
+    background: colors.background,
+    padding: '2px',
+    border: '0.05em solid #BBB',
+    alignItems: 'center'
+  },
+  label: {
+    margin: '0px 16px',
+    fontSize: '16px',
+    padding: '0 24px',
+    borderLeft: '1px solid gray'
+  }
 };
 
 type Props = {
+  label: string;
   actionType: EditActionType;
   dispatch(x: EditActionType): void;
 };
 
-const NoteComposerHeader: React.FC<Props> = ({ actionType, dispatch }) => {
+const NoteComposerHeader: React.FC<Props> = ({
+  label,
+  actionType,
+  dispatch
+}) => {
   return (
-    <section style={containerStyle}>
+    <section style={styles.container}>
       <HeaderButton
         id={'draw'}
         color={colors.button(actionType === 'draw')}
@@ -28,6 +42,7 @@ const NoteComposerHeader: React.FC<Props> = ({ actionType, dispatch }) => {
         color={colors.button(actionType === 'select')}
         onClick={() => dispatch('select')}
       />
+      <p style={styles.label}>{label}</p>
     </section>
   );
 };
