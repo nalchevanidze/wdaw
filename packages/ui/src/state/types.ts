@@ -95,6 +95,11 @@ type SET_CURRENT_TRACK = {
   payload: number;
 };
 
+type SET_CURRENT_FRAGMENT = {
+  type: 'SET_CURRENT_FRAGMENT';
+  payload: string;
+};
+
 type SET_TRACK_MIDI = {
   type: 'SET_TRACK_MIDI';
   payload: Partial<Midi>;
@@ -118,6 +123,7 @@ type MidiActions =
   | SET_MIDI_FRAGMENT
   | SET_TRACK_MIDI
   | PLAYER
-  | SET_GAIN;
+  | SET_GAIN
+  | SET_CURRENT_FRAGMENT;
 
 export type EngineAction = SynthActions | MidiActions | REFRESH | SET_BPM;

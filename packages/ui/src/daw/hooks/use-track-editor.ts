@@ -14,6 +14,7 @@ type State = {
   id: MidiID;
   start: number;
   end: number;
+  fragmentId: string;
 };
 
 export type TState = State & { origin?: State };
@@ -53,7 +54,16 @@ export const useTrackEditor = (tracks: TrackState[]) => {
   const selectIn = (f: (i: TState) => IArea) => (area?: Area) =>
     s.selectWith((track) => area?.isOverlaping(f(track)) ?? false);
 
-  const select = (id: MidiID) => s.selectWith(eqID(id));
+  const select = (id: MidiID) => {
+    s.selectWith(eqID(id));
+
+    const fid = s.all.find(eqID(id))?.fragmentId
+
+    if(fid){
+      dispatch({ type: 'SET_CURRENT_FRAGMENT', payload: fid });
+    }
+
+  };
 
   const isSelected = (id: MidiID) => Boolean(s.selected.find(eqID(id)));
 

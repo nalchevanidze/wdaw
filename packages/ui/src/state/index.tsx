@@ -13,6 +13,8 @@ const dispatcher = (
   switch (action.type) {
     case 'SET_CURRENT_TRACK':
       return { currentTrack: action.payload };
+    case 'SET_CURRENT_FRAGMENT':
+      return { currentFragment: action.payload };
     case 'SET_BPM':
       return { bpm: action.payload };
     case 'SET_SEQUENCE':
