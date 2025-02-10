@@ -1,6 +1,7 @@
 import { NoteAction } from '../common/types';
 
 export class RecordLoop {
+  samples: number = 1
   buffer: NoteAction[];
 
   constructor(size: number) {
