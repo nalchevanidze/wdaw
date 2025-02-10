@@ -2,22 +2,32 @@ import { NoteAction } from '../common/types';
 
 export class RecordLoop {
   samples: number = 4;
+  offset: number;
 
   buffer: NoteAction[];
 
-  constructor(public size: number) {
+  constructor(
+    public start: number,
+    public end: number,
+    public size: number
+  ) {
+    this.offset = start % size;
     this.buffer = Array(size * this.samples).fill(undefined);
   }
 
-  public get = (index: number) => this.buffer[index];
+  public get = (index: number) => {
+    const i = (index - this.offset) % this.size;
 
-  public start = (i: number, key: number) => {
+    return this.buffer[i];
+  };
+
+  public startKey = (i: number, key: number) => {
     const step = this.lookup(i);
     step.start = step.start ?? [];
     step.start.push(key);
   };
 
-  public end = (i: number, key: number) => {
+  public endKey = (i: number, key: number) => {
     const step = this.lookup(i);
     step.end = step.end ?? [];
     step.end.push(key);

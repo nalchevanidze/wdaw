@@ -4,27 +4,19 @@ import { RecordLoop } from '../record';
 
 export type NoteLoops = {
   size: number;
-  loops: NoteLoop[];
-};
-
-export type NoteLoop = {
-  start: number;
-  end: number;
-  offset: number;
-  record: RecordLoop;
+  loops: RecordLoop[];
 };
 
 export const toActions = (
   midis: Midi[],
   fragments: MidiFragments
 ): NoteLoops => {
-  const loops = midis.map(({ end, start, fragmentId }): NoteLoop => {
+  const loops = midis.map(({ end, start, fragmentId }): RecordLoop => {
     const { notes, loop } = fragments[fragmentId];
 
     const [loopStart, loopEnd] = loop;
-    const size = loopEnd - loopStart;
 
-    const record = new RecordLoop(size);
+    const record = new RecordLoop(start, end, loopEnd - loopStart);
 
     notes.forEach((note) => {
       const noteStart = note.at - loopStart;
@@ -33,16 +25,11 @@ export const toActions = (
 
       const key = keysToIndexes(note.id);
 
-      record.start(noteStart, key);
-      record.end(noteStart + note.length - 1, key);
+      record.startKey(noteStart, key);
+      record.endKey(noteStart + note.length - 1, key);
     });
 
-    return {
-      start,
-      end,
-      offset: start % size,
-      record
-    };
+    return record;
   });
 
   const size = Math.max(...midis.map((m) => m.end));

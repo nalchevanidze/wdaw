@@ -21,13 +21,12 @@ class Track {
     }
 
     for (const loop of this.loops) {
-      const { start, end, offset, record } = loop;
-      const inRange = start <= current && current <= end;
+      const inRange = loop.start <= current && current <= loop.end;
 
       if (inRange || !isPlaying) {
         this.synth.nextActions(
           this.preset,
-          isPlaying ? record.get((current - offset) % record.size) : undefined
+          isPlaying ? loop.get(current) : undefined
         );
       }
     }
