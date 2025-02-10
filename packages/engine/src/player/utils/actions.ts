@@ -1,4 +1,4 @@
-import { Midi, MidiFragments, NoteAction } from '../../common/types';
+import { Midi, MidiFragments } from '../../common/types';
 import { keysToIndexes } from '../../utils/notes';
 import { RecordLoop } from '../record';
 

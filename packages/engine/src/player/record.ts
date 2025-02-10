@@ -1,4 +1,4 @@
-import { NoteAction } from "../common/types";
+import { NoteAction } from '../common/types';
 
 export class RecordLoop {
   buffer: NoteAction[];
@@ -7,8 +7,6 @@ export class RecordLoop {
     this.buffer = Array(size).fill(undefined);
   }
 
-  
-  
   public get = (index: number) => this.buffer[index];
 
   public start = (i: number, key: number) => {
@@ -24,5 +22,4 @@ export class RecordLoop {
   };
 
   private lookup = (i: number) => (this.buffer[i] = this.buffer[i] ?? {});
-
 }
