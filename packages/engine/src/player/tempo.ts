@@ -1,4 +1,5 @@
-const NOTE = 8;
+const BEAT_SIZE = 8;
+const SECOND = 60;
 
 class Tempo {
   public BPM: number;
@@ -16,7 +17,8 @@ class Tempo {
   };
 
   private adjust() {
-    this.subStep = 1 / ((60 * this.sampleRate) / (this.BPM * NOTE));
+    const totalSteps = (SECOND * this.sampleRate) / (this.BPM * BEAT_SIZE);
+    this.subStep = 1 / totalSteps;
   }
 
   public next(): boolean {
