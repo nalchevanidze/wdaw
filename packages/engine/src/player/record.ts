@@ -1,11 +1,12 @@
 import { NoteAction } from '../common/types';
 
 export class RecordLoop {
-  samples: number = 1
+  samples: number = 4;
+
   buffer: NoteAction[];
 
-  constructor(size: number) {
-    this.buffer = Array(size).fill(undefined);
+  constructor(public size: number) {
+    this.buffer = Array(size * this.samples).fill(undefined);
   }
 
   public get = (index: number) => this.buffer[index];

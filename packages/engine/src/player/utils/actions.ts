@@ -8,11 +8,10 @@ export type NoteLoops = {
 };
 
 export type NoteLoop = {
-  size: number;
   start: number;
   end: number;
   offset: number;
-  notes: RecordLoop;
+  record: RecordLoop;
 };
 
 export const toActions = (
@@ -41,9 +40,8 @@ export const toActions = (
     return {
       start,
       end,
-      size,
       offset: start % size,
-      notes: record
+      record
     };
   });
 
