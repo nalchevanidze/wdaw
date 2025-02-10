@@ -38,11 +38,8 @@ class MidiPlayer {
       this.track.nextActions(this.isPlaying, this.current);
 
       if (this.isPlaying) {
+        this.current = this.current + this.tempo.size;
         this.refresh();
-      }
-
-      if (this.isPlaying) {
-        this.current = this.current + 1;
       }
 
       if (this.track.isDone(this.current)) {

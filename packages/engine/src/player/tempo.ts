@@ -5,6 +5,7 @@ class Tempo {
   public BPM: number;
   private counter = 0;
   private subStep = 0;
+  public size = 1
 
   constructor(private sampleRate: number) {
     this.BPM = 130;
@@ -23,7 +24,7 @@ class Tempo {
 
   public next(): boolean {
     this.counter += this.subStep;
-    if (this.counter > 1) {
+    if (this.counter > this.size) {
       //next step
       this.counter = 0;
       return true;
