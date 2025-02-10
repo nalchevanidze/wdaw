@@ -54,7 +54,8 @@ export const dawState = (): DAWState => {
       name: 'clap',
       presetId: 'clap',
       midi: [
-        { start: 128, end: 256, fragmentId: 'clap1' },
+        { start: 128, end: 192, fragmentId: 'clap1' },
+        { start: 192, end: 256, fragmentId: 'clap-fast' },
         { start: 384, end: 512, fragmentId: 'clap2' }
       ],
       gain: 0.3

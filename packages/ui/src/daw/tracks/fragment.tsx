@@ -76,6 +76,7 @@ export const Fragment: React.FC<Props> = ({
         textAnchor="start"
         fontFamily="sans-serif"
         opacity={0.6}
+        width={midiWith}
       >
         {fragmentId}
       </text>

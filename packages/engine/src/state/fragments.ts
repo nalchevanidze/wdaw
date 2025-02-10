@@ -48,6 +48,33 @@ export const genMidiFragments = (): MidiFragments => ({
       { length: 4, id: 'C#1', at: 56 }
     ]
   },
+  ["clap-fast"]: {
+    loop: [0, 64],
+    notes: [
+      { length: 2, id: 'C#1', at: 0 },
+      { length: 2, id: 'C#1', at: 4 },
+      { length: 2, id: 'C#1', at: 8 },
+      { length: 2, id: 'C#1', at: 12 },
+      { length: 2, id: 'C#1', at: 16 },
+      { length: 2, id: 'C#1', at: 20 },
+      { length: 2, id: 'C#1', at: 24 },
+      { length: 2, id: 'C#1', at: 28 },
+      { length: 2, id: 'C#1', at: 32 },
+      { length: 2, id: 'C#1', at: 36 },
+      { length: 2, id: 'C#1', at: 40 },
+      { length: 2, id: 'C#1', at: 42 },
+      { length: 2, id: 'C#1', at: 44 },
+      { length: 2, id: 'C#1', at: 46 },
+      { length: 2, id: 'C#1', at: 48 },
+      { length: 2, id: 'C#1', at: 50 },
+      { length: 2, id: 'C#1', at: 52 },
+      { length: 2, id: 'C#1', at: 54 },
+      { length: 2, id: 'C#1', at: 56 },
+      { length: 2, id: 'C#1', at: 58 },
+      { length: 2, id: 'C#1', at: 60 },
+      { length: 2, id: 'C#1', at: 62 },
+    ]
+  },
   clap2: {
     loop: [0, 32],
     notes: [
