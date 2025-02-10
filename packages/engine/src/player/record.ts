@@ -1,7 +1,7 @@
 import { NoteAction } from '../common/types';
 
 export class RecordLoop {
-  samples: number = 4;
+  samples: number = 1;
   offset: number;
 
   buffer: NoteAction[];
@@ -18,7 +18,7 @@ export class RecordLoop {
   public get = (index: number) => {
     const i = (index - this.offset) % this.size;
 
-    return this.buffer[i];
+    return this.buffer[this.samples * i];
   };
 
   public startKey = (i: number, key: number) => {
@@ -33,5 +33,8 @@ export class RecordLoop {
     step.end.push(key);
   };
 
-  private lookup = (i: number) => (this.buffer[i] = this.buffer[i] ?? {});
+  private lookup = (index: number) => {
+    const i = index * this.samples;
+    return (this.buffer[i] = this.buffer[i] ?? {});
+  };
 }
