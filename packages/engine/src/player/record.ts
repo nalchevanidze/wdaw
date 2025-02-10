@@ -1,7 +1,7 @@
 import { NoteAction } from '../common/types';
 
 export class RecordLoop {
-  samples: number = 1;
+  samples: number = 4;
   offset: number;
 
   buffer: NoteAction[];
