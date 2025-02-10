@@ -27,7 +27,7 @@ class Track {
       if (inRange || !isPlaying) {
         this.synth.nextActions(
           this.preset,
-          isPlaying ? notes[(current - offset) % size] : undefined
+          isPlaying ? notes.get((current - offset) % size) : undefined
         );
       }
     }
