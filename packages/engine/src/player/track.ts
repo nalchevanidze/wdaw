@@ -1,11 +1,12 @@
 import { Preset } from '../common/types';
 import { Synth } from '../synth';
-import { NoteLoop, NoteLoops } from './utils/actions';
+import { RecordLoop } from './record';
+import { NoteLoops } from './utils/actions';
 
 class Track {
   private preset: Preset;
   private gain: number = 1;
-  private loops: NoteLoop[];
+  private loops: RecordLoop[];
   public size = 0;
 
   public startNote = (n: number) => this.synth.startNote(this.preset, n);
