@@ -10,8 +10,8 @@ export class Sound {
   private notes: NotesRegister;
   private stack: SoundEvent[];
 
-  constructor() {
-    this.stack = nList(6, () => new SoundEvent());
+  constructor(private sampleRate: number) {
+    this.stack = nList(6, () => new SoundEvent(this.sampleRate));
     this.notes = {};
   }
 
@@ -37,7 +37,7 @@ export class Sound {
   };
 
   newEvent() {
-    const event = new SoundEvent();
+    const event = new SoundEvent(this.sampleRate);
     this.stack.push(event);
     return event;
   }

@@ -2,13 +2,11 @@ const NOTE = 8;
 
 class Tempo {
   public BPM: number;
-  private sampleRate: number;
   private counter = 0;
   private subStep = 0;
 
-  constructor(sampleRate: number) {
+  constructor(private sampleRate: number) {
     this.BPM = 130;
-    this.sampleRate = sampleRate;
     this.adjust();
   }
 

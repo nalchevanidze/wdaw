@@ -1,7 +1,6 @@
 import { nList, noteToFrequency } from '../utils';
 import { waveFunction } from './wave';
 import { WaveNode } from '../types';
-import { SAMPLE_RATE } from '../../../common/defs';
 import { WaveConfig } from '../../../common/types';
 
 const rescale = (value: number, deep: number): number => {
@@ -15,10 +14,12 @@ export class OSC implements WaveNode<WaveConfig> {
   private fmPhase = 0;
   private freq: number;
 
+  constructor(private sampleRate: number) {}
+
   set(freq: number) {
     this.freq = freq;
     this.phase = Math.random();
-    this.length = this.freq / SAMPLE_RATE;
+    this.length = this.freq / this.sampleRate;
     this.fmPhase = Math.random();
   }
 
@@ -49,7 +50,9 @@ const MAX_OSCILLATORS = 12;
 const MAX_OFFSET = 2;
 
 export class Oscillators implements WaveNode<WaveConfig> {
-  private all = nList(MAX_OSCILLATORS, () => new OSC());
+  constructor(private sampleRate: number) {}
+
+  private all = nList(MAX_OSCILLATORS, () => new OSC(this.sampleRate));
   private poly: OSC[] = [];
 
   open(wave: WaveConfig, note: number) {

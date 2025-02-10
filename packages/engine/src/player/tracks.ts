@@ -9,7 +9,10 @@ export class Tracks {
   public current: Track;
   private size: number;
 
-  constructor(private tracks: Track[]) {
+  constructor(
+    private tracks: Track[],
+    private sampleRate: number
+  ) {
     this.setTrack(0);
   }
 
@@ -24,7 +27,7 @@ export class Tracks {
     presets: Presets
   ) => {
     this.tracks = tracks.map((s) => {
-      const track = new Track(new Synth());
+      const track = new Track(new Synth(this.sampleRate));
 
       const noteloops = toActions(s.midi, midiFragments);
       track.setNoteLoops(noteloops);

@@ -1,5 +1,4 @@
 import { Tempo } from './tempo';
-import { SAMPLE_RATE } from '../common/defs';
 import { Tracks } from './tracks';
 
 export type MidiState = {
@@ -12,12 +11,15 @@ export type MidiCallback = (s: MidiState) => void;
 
 class MidiPlayer {
   private current = 0;
-  private tempo = new Tempo(SAMPLE_RATE);
+  private tempo = new Tempo(this.sampleRate);
   private isPlaying = false;
 
   onChange: MidiCallback;
 
-  constructor(private track: Tracks) {}
+  constructor(
+    private track: Tracks,
+    private sampleRate: number
+  ) {}
 
   public refresh() {
     requestAnimationFrame(() =>
@@ -29,7 +31,7 @@ class MidiPlayer {
     );
   }
 
-  public setBPM = this.tempo.setBPM
+  public setBPM = this.tempo.setBPM;
 
   public next = () => {
     if (this.tempo.next()) {

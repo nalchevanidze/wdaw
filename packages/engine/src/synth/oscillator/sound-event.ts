@@ -7,8 +7,10 @@ import { Preset } from '../../common/types';
 export class SoundEvent implements WaveNode<Preset> {
   private gainEnvelope = new Envelope();
   private filterEnvelope = new Envelope();
-  private oscillators = new Oscillators();
+  private oscillators = new Oscillators(this.sampleRate);
   private filter = new MoogFilter();
+
+  constructor(private sampleRate: number) {}
 
   public open = (config: Preset, note: number): void => {
     this.oscillators.open(config.wave, note);

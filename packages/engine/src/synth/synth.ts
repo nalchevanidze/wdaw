@@ -6,8 +6,10 @@ const toSequence = (preset: Preset, note: number) =>
   preset.sequence.enabled ? undefined : [note];
 
 export class Synth {
-  private sound = new Sound();
+  private sound = new Sound(this.sampleRate);
   private arp = new Arpeggiator();
+
+  constructor(private sampleRate: number) {}
 
   public startNote(preset: Preset, note: number) {
     this.arp.startNote(note);

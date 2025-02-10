@@ -5,8 +5,9 @@ import { Tracks } from './player/tracks';
 import { TracksState } from './state/state';
 
 export class SynthEngine implements SoundIterator {
-  private tracks = new Tracks([]);
-  private player = new MidiPlayer(this.tracks);
+  private sampleRate = 44100;
+  private tracks = new Tracks([], this.sampleRate);
+  private player = new MidiPlayer(this.tracks, this.sampleRate);
 
   private closeContext: () => void;
 
