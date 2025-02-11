@@ -10,8 +10,6 @@ class Arpeggiator {
   private index: number = 0;
   public notes: Set<number> = new Set([]);
 
-  public getNotes = () => Array.from(this.notes);
-
   startNote(note: number) {
     if (!this.notes.has(note)) {
       this.index = 0;

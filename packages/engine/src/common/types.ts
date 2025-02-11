@@ -73,18 +73,9 @@ export type Midi = {
   fragmentId: string;
 };
 
-export type EngineUpdate = PlayerState | NotesState;
-
-type PlayerState = {
-  type: 'PLAYER';
+export type EngineUpdate = {
   isPlaying: boolean;
   time: number;
-};
-
-type NotesState = {
-  type: 'NOTES';
-  id: number;
-  notes: number[];
 };
 
 export type MidiCallback = (s: EngineUpdate) => void;

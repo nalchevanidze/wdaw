@@ -1,4 +1,4 @@
-export { DAWState, dawState } from './state';
+export { EngineState, engineState } from './state';
 export { waveFunction } from './synth';
 export { SynthEngine } from './engine';
 export { SEQUENCE_LENGTH } from './common/defs';

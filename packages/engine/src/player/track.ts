@@ -41,8 +41,6 @@ class Track {
 
   public next = () => this.synth.next(this.preset) * this.gain;
 
-  public notes = () => this.synth.getNotes();
-
   public clear = () => this.synth.clear();
 
   public setNoteLoops = ({ loops, size }: NoteLoops): void => {

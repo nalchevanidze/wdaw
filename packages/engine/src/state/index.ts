@@ -1,2 +1,2 @@
-export type { DAWState } from './state';
-export { dawState } from './state';
+export type { EngineState } from './state';
+export { engineState  } from './state';

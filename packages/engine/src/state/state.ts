@@ -18,18 +18,12 @@ export type TracksState = {
 type PlayerState = {
   isPlaying: boolean;
   time: number;
-  notes: number[];
   bpm: number;
 };
 
-type ExternalState = {
-  currentTrack: number;
-  currentFragment: string;
-};
+export type EngineState = PlayerState & TracksState;
 
-export type DAWState = PlayerState & TracksState & ExternalState;
-
-export const dawState = (): DAWState => {
+export const engineState = (): EngineState => {
   const presets = Object.fromEntries(genPresets().map((p) => [p.name, p]));
 
   const tracks: TrackState[] = [
@@ -64,16 +58,11 @@ export const dawState = (): DAWState => {
   ];
 
   return {
-    currentFragment: 'bass',
-    currentTrack: 0,
     bpm: 120,
     midiFragments: genMidiFragments(),
     presets,
-
     isPlaying: false,
     time: 0,
-    notes: [],
-
     tracks
   };
 };

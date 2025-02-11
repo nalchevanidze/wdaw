@@ -1,4 +1,5 @@
-import { TrackState, DAWState, Preset, MidiFragment } from '@wdaw/engine';
+import { TrackState, Preset, MidiFragment } from '@wdaw/engine';
+import { DAWState } from './types';
 
 export const setMidiFragment = (
   id: string,

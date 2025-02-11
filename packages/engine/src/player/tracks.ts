@@ -10,9 +10,6 @@ const getSize = (tracks: Track[]) => Math.max(...tracks.map((t) => t.size));
 export class Tracks {
   private size: number = getSize(this.tracks);
 
-  onChange: MidiCallback = () => {
-    console.warn('default onChange handler call');
-  };
 
   constructor(
     private tracks: Track[],
@@ -26,9 +23,7 @@ export class Tracks {
   public set = ({ tracks, midiFragments, presets }: TracksState) => {
     this.tracks = tracks.map(({ midi, presetId, gain }, id) => {
       const track = new Track(
-        new Synth(this.sampleRate, (notes: number[]) =>
-          this.onChange({ type: 'NOTES', notes, id })
-        ),
+        new Synth(this.sampleRate),
         presets[presetId]
       );
 

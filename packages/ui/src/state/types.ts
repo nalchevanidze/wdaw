@@ -7,7 +7,8 @@ import {
   EnvelopeConfig,
   PLAYER_ACTION,
   MidiFragment,
-  EngineUpdate
+  EngineUpdate,
+  EngineState
 } from '@wdaw/engine';
 
 export type PANEL_ID = 'filter' | 'sequence' | 'wave';
@@ -124,3 +125,9 @@ type MidiActions =
   | SET_CURRENT_FRAGMENT;
 
 export type EngineAction = SynthActions | MidiActions | REFRESH | SET_BPM;
+
+export type DAWState = EngineState & {
+  currentFragment: string;
+  currentTrack: number;
+  notes: number[];
+};

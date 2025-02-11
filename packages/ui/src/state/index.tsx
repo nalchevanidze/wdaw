@@ -1,6 +1,6 @@
-import { SynthEngine, DAWState } from '@wdaw/engine';
+import { SynthEngine } from '@wdaw/engine';
 import { mapPreset, mapTrack, mapTracks, setMidiFragment } from './utils';
-import { EngineAction } from './types';
+import { DAWState, EngineAction } from './types';
 import { idString } from '../common/utils';
 
 const dispatcher = (
@@ -66,11 +66,6 @@ const dispatcher = (
         presetId: action.payload
       }));
     case 'REFRESH':
-      if (action.payload.type === 'NOTES') {
-        return action.payload.id === currentTrack
-          ? { notes: action.payload.notes }
-          : undefined;
-      }
       return {
         time: action.payload.time,
         isPlaying: action.payload.isPlaying

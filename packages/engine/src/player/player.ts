@@ -18,7 +18,6 @@ class MidiPlayer {
 
   public refresh() {
     this.onChange({
-      type: 'PLAYER',
       isPlaying: this.isPlaying,
       time: this.current
     });
@@ -46,7 +45,6 @@ class MidiPlayer {
   public setTime = (time: number) => {
     this.current = time;
     this.onChange({
-      type: 'PLAYER',
       isPlaying: this.isPlaying,
       time
     });
@@ -68,7 +66,6 @@ class MidiPlayer {
     const time = 0;
     this.current = time;
     this.onChange({
-      type: 'PLAYER',
       isPlaying: false,
       time
     });

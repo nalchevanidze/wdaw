@@ -23,7 +23,6 @@ export class SynthEngine implements SoundIterator {
   public setMidiCallback(f: MidiCallback) {
     const onChange = (s: EngineUpdate) => requestAnimationFrame(() => f(s));
     this.player.onChange = onChange;
-    this.tracks.onChange = onChange;
   }
 
   public setMidi = this.tracks.setMidi;
