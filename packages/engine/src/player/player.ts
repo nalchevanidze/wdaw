@@ -17,13 +17,11 @@ class MidiPlayer {
   ) {}
 
   public refresh() {
-    requestAnimationFrame(() =>
-      this.onChange({
-        type: 'PLAYER',
-        isPlaying: this.isPlaying,
-        time: this.current
-      })
-    );
+    this.onChange({
+      type: 'PLAYER',
+      isPlaying: this.isPlaying,
+      time: this.current
+    });
   }
 
   public setBPM = this.tempo.setBPM;

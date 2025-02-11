@@ -62,6 +62,11 @@ const dispatcher = (
         presetId: action.payload
       }));
     case 'REFRESH':
+      if (action.payload.type === 'NOTES') {
+        return action.payload.id === currentTrack
+          ? { player: { ...state.player, notes: action.payload.notes } }
+          : undefined;
+      }
       return { player: { ...state.player, ...action.payload } };
     default:
       return;
@@ -110,10 +115,6 @@ export const makeReducer =
   (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
     const stateChanges = dispatcher(state, action);
     const newState = stateChanges ? { ...state, ...stateChanges } : state;
-
-    if(action.type === "REFRESH"){
-      console.log(action.payload)
-    }
 
     engineEffects(newState, engine, action);
 

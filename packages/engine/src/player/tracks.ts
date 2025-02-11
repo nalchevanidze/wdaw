@@ -38,9 +38,7 @@ export class Tracks {
     this.tracks = tracks.map(({ midi, presetId, gain }, id) => {
       const track = new Track(
         new Synth(this.sampleRate, (notes: number[]) =>
-          requestAnimationFrame(() =>
-            this.onChange({ type: 'NOTES', notes, id })
-          )
+          this.onChange({ type: 'NOTES', notes, id })
         ),
         presets[presetId]
       );
