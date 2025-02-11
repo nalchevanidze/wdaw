@@ -41,7 +41,7 @@ export class MidiPlayer {
 
   public setTime = (time: number) => {
     this.current = time;
-    this.onChange({ isPlaying: this.isPlaying, time });
+    this.refresh();
   };
 
   public play = (): void => {
