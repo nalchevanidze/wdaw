@@ -12,14 +12,14 @@ enum STAGE {
 const toMilliseconds = (n: number) => Math.min((n * 3) ** 3, 200);
 
 export class Envelope implements WaveNode<EnvelopeConfig> {
-  private iter: IterableIterator<number>;
+  private iter?: IterableIterator<number>;
   private stage: STAGE = STAGE.ATTACK;
   private level = 0;
 
   live = false;
 
   next = (env: EnvelopeConfig): number => {
-    if (!this.live) return 0;
+    if (!this.live || !this.iter) return 0;
 
     switch (this.stage) {
       case STAGE.ATTACK: {
