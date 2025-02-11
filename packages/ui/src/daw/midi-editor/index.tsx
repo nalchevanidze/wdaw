@@ -13,7 +13,6 @@ import { SelectionArea } from '../../common/selection-area';
 import { Keyboard } from './keyboard';
 import { Loop } from './loop';
 import { LoopTarget, useLoop } from '../hooks/use-loop-editor';
-import { useTrack } from '../hooks/use-track';
 import { NoteGrid } from '../../components/note-grid';
 import { Keys } from '../../components/keys';
 import { toAccuracy } from '../utils/area';
