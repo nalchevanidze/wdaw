@@ -1,6 +1,6 @@
 import { audioProcessor, SoundIterator } from './audio-processor';
-import { Midi, PLAYER_ACTION } from './common/types';
-import { MidiCallback, MidiPlayer } from './player';
+import { Midi, MidiCallback, PLAYER_ACTION } from './common/types';
+import { MidiPlayer } from './player';
 import { Tracks } from './player/tracks';
 import { TracksState } from './state/state';
 
@@ -17,6 +17,7 @@ export class SynthEngine implements SoundIterator {
 
   public setMidiCallback(f: MidiCallback) {
     this.player.onChange = f;
+    this.tracks.onChange = f;
   }
 
   public setMidi = this.tracks.setMidi;

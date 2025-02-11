@@ -1,4 +1,4 @@
-import { MidiFragments, Preset, Presets } from '../common/types';
+import { MidiCallback, MidiFragments, Preset, Presets } from '../common/types';
 import { TracksState } from '../state/state';
 import { Synth } from '../synth';
 import { Midi } from '../common/types';
@@ -10,6 +10,10 @@ const getSize = (tracks: Track[]) => Math.max(...tracks.map((t) => t.size));
 export class Tracks {
   private currentTrack: number = 0;
   private size: number = getSize(this.tracks);
+
+  onChange: MidiCallback = () => {
+    console.warn('default onChange handler call');
+  };
 
   constructor(
     private tracks: Track[],
@@ -31,8 +35,15 @@ export class Tracks {
     midiFragments: MidiFragments,
     presets: Presets
   ) => {
-    this.tracks = tracks.map(({ midi, presetId, gain }) => {
-      const track = new Track(new Synth(this.sampleRate), presets[presetId]);
+    this.tracks = tracks.map(({ midi, presetId, gain }, id) => {
+      const track = new Track(
+        new Synth(this.sampleRate, (notes: number[]) =>
+          requestAnimationFrame(() =>
+            this.onChange({ type: 'NOTES', notes, id })
+          )
+        ),
+        presets[presetId]
+      );
 
       track.setNoteLoops(toActions(midi, midiFragments));
       track.setGain(gain);

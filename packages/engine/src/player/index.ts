@@ -1,2 +1,2 @@
-export { MidiCallback, MidiPlayer } from './player';
+export { MidiPlayer } from './player';
 export { Track } from './track';

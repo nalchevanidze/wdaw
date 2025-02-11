@@ -1,19 +1,6 @@
+import { MidiCallback } from '../common/types';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
-
-export type EngineUpdate = PlayerState | NotesState;
-
-type PlayerState = {
-  isPlaying: boolean;
-  time: number;
-};
-
-type NotesState = {
-  id: number;
-  notes: number[];
-};
-
-export type MidiCallback = (s: EngineUpdate) => void;
 
 class MidiPlayer {
   private current = 0;
@@ -25,16 +12,16 @@ class MidiPlayer {
   };
 
   constructor(
-    private track: Tracks,
+    private tracks: Tracks,
     private sampleRate: number
   ) {}
 
   public refresh() {
     requestAnimationFrame(() =>
       this.onChange({
+        type: 'PLAYER',
         isPlaying: this.isPlaying,
-        time: this.current,
-        notes: this.track.notes()
+        time: this.current
       })
     );
   }
@@ -43,27 +30,27 @@ class MidiPlayer {
 
   public next = () => {
     if (this.tempo.next()) {
-      this.track.nextActions(this.isPlaying, this.current);
+      this.tracks.nextActions(this.isPlaying, this.current);
 
       if (this.isPlaying) {
         this.current = this.current + this.tempo.size;
         this.refresh();
       }
 
-      if (this.track.isDone(this.current)) {
+      if (this.tracks.isDone(this.current)) {
         this.current = 0;
       }
     }
 
-    return this.track.next();
+    return this.tracks.next();
   };
 
   public setTime = (time: number) => {
     this.current = time;
     this.onChange({
+      type: 'PLAYER',
       isPlaying: this.isPlaying,
-      time,
-      notes: this.track.notes()
+      time
     });
   };
 
@@ -74,7 +61,7 @@ class MidiPlayer {
 
   public pause = (): void => {
     this.isPlaying = false;
-    this.track.clear();
+    this.tracks.clear();
     this.refresh();
   };
 
@@ -83,9 +70,9 @@ class MidiPlayer {
     const time = 0;
     this.current = time;
     this.onChange({
+      type: 'PLAYER',
       isPlaying: false,
-      time,
-      notes: []
+      time
     });
   }
 }

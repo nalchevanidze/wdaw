@@ -111,6 +111,10 @@ export const makeReducer =
     const stateChanges = dispatcher(state, action);
     const newState = stateChanges ? { ...state, ...stateChanges } : state;
 
+    if(action.type === "REFRESH"){
+      console.log(action.payload)
+    }
+
     engineEffects(newState, engine, action);
 
     return newState;
