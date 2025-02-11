@@ -12,7 +12,7 @@ export class OSC implements WaveNode<WaveConfig> {
   private phase = 0;
   private length = 0.1;
   private fmPhase = 0;
-  private freq: number;
+  private freq: number = 0;
 
   constructor(private sampleRate: number) {}
 

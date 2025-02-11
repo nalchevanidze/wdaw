@@ -36,12 +36,13 @@ const defaultAudioState = {
 };
 
 export class AudioObject {
+  private allowed = false;
+  private mode: PlayingMode = 'stop';
+  
   private src: string;
-  private waveForm: WaveForm;
   private gain: AudioParam;
   private audio: HTMLMediaElement;
-  private mode: PlayingMode = 'stop';
-  private allowed = false;
+  private waveForm: WaveForm;
 
   private allowAudioContext = (): void => {
     this.allowed = true;

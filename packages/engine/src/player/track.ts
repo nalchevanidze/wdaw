@@ -4,9 +4,9 @@ import { RecordLoop } from './record';
 import { NoteLoops } from './utils/actions';
 
 class Track {
+  private loops: RecordLoop[] = [];
   private preset: Preset;
   private gain: number = 1;
-  private loops: RecordLoop[];
   public size = 0;
 
   public startNote = (n: number) => this.synth.startNote(this.preset, n);
