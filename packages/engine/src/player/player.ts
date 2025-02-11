@@ -17,10 +17,7 @@ class MidiPlayer {
   ) {}
 
   public refresh() {
-    this.onChange({
-      isPlaying: this.isPlaying,
-      time: this.current
-    });
+    this.onChange({ isPlaying: this.isPlaying, time: this.current });
   }
 
   public setBPM = this.tempo.setBPM;
@@ -44,10 +41,7 @@ class MidiPlayer {
 
   public setTime = (time: number) => {
     this.current = time;
-    this.onChange({
-      isPlaying: this.isPlaying,
-      time
-    });
+    this.onChange({ isPlaying: this.isPlaying, time });
   };
 
   public play = (): void => {
@@ -65,10 +59,7 @@ class MidiPlayer {
     this.pause();
     const time = 0;
     this.current = time;
-    this.onChange({
-      isPlaying: false,
-      time
-    });
+    this.onChange({ isPlaying: false, time });
   }
 }
 
