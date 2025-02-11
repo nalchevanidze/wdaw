@@ -24,7 +24,7 @@ export class Tracks {
   public get = (i: number) => this.tracks[i];
 
   public set = (
-    { currentTrack, tracks }: TracksState,
+    { tracks }: TracksState,
     midiFragments: MidiFragments,
     presets: Presets
   ) => {

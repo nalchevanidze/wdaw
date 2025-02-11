@@ -9,12 +9,12 @@ type PlayerState = {
 };
 
 export type TracksState = {
-  currentTrack: number;
   tracks: TrackState[];
   midiFragments: MidiFragments;
 };
 
 export type DAWState = TracksState & {
+  currentTrack: number;
   currentFragment: string;
   player: PlayerState;
   bpm: number;
