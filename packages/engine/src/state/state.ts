@@ -19,14 +19,15 @@ type PlayerState = {
   isPlaying: boolean;
   time: number;
   notes: number[];
+  bpm: number;
 };
 
-export type DAWState = PlayerState &
-  TracksState & {
-    currentTrack: number;
-    currentFragment: string;
-    bpm: number;
-  };
+type ExternalState = {
+  currentTrack: number;
+  currentFragment: string;
+};
+
+export type DAWState = PlayerState & TracksState & ExternalState;
 
 export const dawState = (): DAWState => {
   const presets = Object.fromEntries(genPresets().map((p) => [p.name, p]));
