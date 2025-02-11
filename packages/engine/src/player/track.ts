@@ -5,15 +5,17 @@ import { NoteLoops } from './utils/actions';
 
 class Track {
   private loops: RecordLoop[] = [];
-  private preset: Preset;
   private gain: number = 1;
   public size = 0;
+
+  constructor(
+    private synth: Synth,
+    private preset: Preset
+  ) {}
 
   public startNote = (n: number) => this.synth.startNote(this.preset, n);
 
   public endNote = (n: number) => this.synth.endNote(this.preset, n);
-
-  constructor(private synth: Synth) {}
 
   public nextActions = (isPlaying: boolean, current: number) => {
     if (isPlaying && current > this.size) {

@@ -32,10 +32,9 @@ export class Tracks {
     presets: Presets
   ) => {
     this.tracks = tracks.map(({ midi, presetId, gain }) => {
-      const track = new Track(new Synth(this.sampleRate));
+      const track = new Track(new Synth(this.sampleRate), presets[presetId]);
 
       track.setNoteLoops(toActions(midi, midiFragments));
-      track.setPreset(presets[presetId]);
       track.setGain(gain);
 
       return track;

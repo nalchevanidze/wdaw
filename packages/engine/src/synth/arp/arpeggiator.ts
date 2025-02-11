@@ -7,7 +7,7 @@ const END_INDEX = SEQUENCE_LENGTH * 2;
 
 class Arpeggiator {
   private last: Maybe<number[]>;
-  private index: number;
+  private index: number = 0;
   public notes: Set<number> = new Set([]);
 
   public getNotes = () => Array.from(this.notes);
