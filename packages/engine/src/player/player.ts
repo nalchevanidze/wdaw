@@ -2,7 +2,7 @@ import { MidiCallback } from '../common/types';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
 
-class MidiPlayer {
+export class MidiPlayer {
   private current = 0;
   private tempo = new Tempo(this.sampleRate);
   private isPlaying = false;
@@ -56,11 +56,7 @@ class MidiPlayer {
   };
 
   stop() {
+    this.current = 0;
     this.pause();
-    const time = 0;
-    this.current = time;
-    this.onChange({ isPlaying: false, time });
   }
 }
-
-export { MidiPlayer };
