@@ -38,13 +38,13 @@ export class SynthEngine implements SoundIterator {
 
   public setGain = this.tracks.setGain;
 
-  public startNote(n: number) {
-    this.tracks.current.startNote(n);
+  public startNote(i: number, n: number) {
+    this.tracks.get(i).startNote(n);
     this.player.refresh();
   }
 
-  public endNote(n: number) {
-    this.tracks.current.endNote(n);
+  public endNote(i: number, n: number) {
+    this.tracks.get(i).endNote(n);
     this.player.refresh();
   }
 

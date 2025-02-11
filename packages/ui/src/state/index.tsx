@@ -80,9 +80,9 @@ const engineEffects = (
     case 'PLAYER':
       return engine.setPlay(action.payload);
     case 'KEY_UP':
-      return engine.endNote(action.payload);
+      return engine.endNote(currentTrack, action.payload);
     case 'KEY_DOWN':
-      return engine.startNote(action.payload);
+      return engine.startNote(currentTrack, action.payload);
     case 'SET_TIME':
       return engine.setTime(action.payload);
     case 'SET_MIDI_FRAGMENT':

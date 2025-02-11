@@ -6,7 +6,7 @@ import { Track } from './track';
 import { toActions } from './utils/actions';
 
 export class Tracks {
-  public current: Track;
+  private current: Track;
   private size: number;
 
   constructor(
@@ -15,6 +15,8 @@ export class Tracks {
   ) {
     this.setTrack(0);
   }
+
+  public get = (i: number) => this.tracks[i];
 
   public setTrack = (n: number) => {
     this.current = this.tracks[n];
