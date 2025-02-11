@@ -4,12 +4,13 @@ import {
   dropTracking,
   EditFunc,
   mapTracked,
+  Mixed,
   Tracked
 } from '../utils/tracking';
 import { useOnDelete } from '../utils/key-actions';
 import { partition, Predicate } from '../../common/utils';
 
-type Selected<T> = {
+type Selected<T extends object> = {
   selected: Tracked<T>[];
   inactive: T[];
 };
@@ -23,7 +24,7 @@ export const useSelection = <T extends object>(
     inactive: initial
   });
 
-  const all = [...selected, ...inactive];
+  const all: Mixed<T>[] = [...selected, ...inactive];
 
   const setPartition = (ts: T[], f: Predicate<T>) => {
     const [sel, ina] = partition(all, f);

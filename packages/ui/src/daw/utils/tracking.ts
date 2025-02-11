@@ -1,6 +1,8 @@
-export type Tracked<T> = T & {
+export type Tracked<T extends object> = T & {
   origin: T;
 };
+
+export type Mixed<T extends object> = Tracked<T> | T;
 
 export type EditFunc<T> = (t: T) => Partial<T>;
 
@@ -15,7 +17,7 @@ export const addTracking = <T extends object>({ ...note }: T): Tracked<T> => ({
   origin: { ...note }
 });
 
-export const dropTracking = <T extends object>({
-  origin,
-  ...n
-}: Tracked<T>): T => n as T;
+const drop = <T extends object>({ origin, ...n }: Tracked<T>): T => n as T;
+
+export const dropTracking = <T extends object>(o: Mixed<T>): T =>
+  'origin' in o ? drop(o) : o;
