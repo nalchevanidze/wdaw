@@ -67,7 +67,7 @@ export class Tracks {
     }
   };
 
-  public isDone = (current: number) => current >= this.size;
+  public isDone = (time: number) => time >= this.size;
 
   public setGain = (i: number, gain: number) => {
     this.tracks[i].setGain(gain);
