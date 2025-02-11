@@ -68,10 +68,13 @@ const dispatcher = (
     case 'REFRESH':
       if (action.payload.type === 'NOTES') {
         return action.payload.id === currentTrack
-          ? { player: { ...state.player, notes: action.payload.notes } }
+          ? { notes: action.payload.notes }
           : undefined;
       }
-      return { player: { ...state.player, ...action.payload } };
+      return {
+        time: action.payload.time,
+        isPlaying: action.payload.isPlaying
+      };
     default:
       return;
   }

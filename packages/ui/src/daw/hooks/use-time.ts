@@ -2,12 +2,7 @@ import { useContext } from 'react';
 import { DawApiContext } from '../../context/state';
 
 export const useFragmentTime = () => {
-  const [
-    {
-      player: { time },
-      tracks
-    }
-  ] = useContext(DawApiContext);
+  const [{ time, tracks }] = useContext(DawApiContext);
   // const { start, end, loop } = tracks.tracks[tracks.currentTrack].midi;
   // const [loopStart, loopEnd] = loop;
   // const size = loopEnd - loopStart;
@@ -16,5 +11,5 @@ export const useFragmentTime = () => {
   //   ? 0
   //   : loopStart - (start % size) + (time % size);
 
-  return 0
+  return 0;
 };

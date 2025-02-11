@@ -5,7 +5,7 @@ import { DawApiContext } from '../../context/state';
 import { noteFromKeyboard } from '../utils/keyboard';
 
 const Keyboard: React.FC = () => {
-  const [{ player }, dispatch] = React.useContext(DawApiContext);
+  const [{ notes }, dispatch] = React.useContext(DawApiContext);
 
   const handler =
     (type: KEY_EVENT_TYPE): KeyHandler =>
@@ -33,7 +33,7 @@ const Keyboard: React.FC = () => {
           octave={i}
           keyPress={handler('KEY_DOWN')}
           keyUp={handler('KEY_UP')}
-          active={player.notes}
+          active={notes}
         />
       ))}
     </ul>

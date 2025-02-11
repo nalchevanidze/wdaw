@@ -36,13 +36,7 @@ const maxBPM = 200;
 const minBPM = 0;
 
 const Header: React.FC = () => {
-  const [
-    {
-      player: { isPlaying },
-      bpm
-    },
-    dispatch
-  ] = useContext(DawApiContext);
+  const [{ isPlaying, bpm }, dispatch] = useContext(DawApiContext);
 
   const player = (payload: PLAYER_ACTION) =>
     dispatch({ type: 'PLAYER', payload });
