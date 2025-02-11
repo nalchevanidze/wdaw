@@ -16,3 +16,4 @@ export {
 } from './common/types';
 export { UIPosition, OCTAVE_SIZE } from './utils/notes';
 export { TrackState } from './state/state';
+export { EngineUpdate } from './player/player';

@@ -1,7 +1,7 @@
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
 
-export type MidiState = PlayerState | NotesState;
+export type EngineUpdate = PlayerState | NotesState;
 
 type PlayerState = {
   isPlaying: boolean;
@@ -13,7 +13,7 @@ type NotesState = {
   notes: number[];
 };
 
-export type MidiCallback = (s: MidiState) => void;
+export type MidiCallback = (s: EngineUpdate) => void;
 
 class MidiPlayer {
   private current = 0;

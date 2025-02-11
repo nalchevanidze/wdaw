@@ -6,7 +6,8 @@ import {
   ENVELOPE_ID,
   EnvelopeConfig,
   PLAYER_ACTION,
-  MidiFragment
+  MidiFragment,
+  EngineUpdate
 } from '@wdaw/engine';
 
 export type PANEL_ID = 'filter' | 'sequence' | 'wave';
@@ -25,10 +26,7 @@ type SET_FILTER = {
 
 type REFRESH = {
   type: 'REFRESH';
-  payload: {
-    time: number;
-    notes: number[];
-  };
+  payload: EngineUpdate;
 };
 
 type SET_BPM = {
