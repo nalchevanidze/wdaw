@@ -1,6 +1,6 @@
 import { Presets, Midi, MidiFragments } from '../common/types';
 import { genMidiFragments } from './fragments';
-import { genPresets, newPreset } from './presets';
+import { genPresets } from './presets';
 
 export type TrackState = {
   name: string;
