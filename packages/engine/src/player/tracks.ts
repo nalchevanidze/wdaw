@@ -23,11 +23,7 @@ export class Tracks {
 
   public get = (i: number) => this.tracks[i];
 
-  public set = (
-    { tracks }: TracksState,
-    midiFragments: MidiFragments,
-    presets: Presets
-  ) => {
+  public set = ({ tracks, midiFragments, presets }: TracksState) => {
     this.tracks = tracks.map(({ midi, presetId, gain }, id) => {
       const track = new Track(
         new Synth(this.sampleRate, (notes: number[]) =>

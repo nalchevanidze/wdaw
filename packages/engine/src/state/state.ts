@@ -2,30 +2,30 @@ import { Presets, Midi, MidiFragments } from '../common/types';
 import { genMidiFragments } from './fragments';
 import { genPresets, newPreset } from './presets';
 
+export type TrackState = {
+  name: string;
+  gain: number;
+  presetId: string;
+  midi: Midi[];
+};
+
+export type TracksState = {
+  tracks: TrackState[];
+  midiFragments: MidiFragments;
+  presets: Presets;
+};
+
 type PlayerState = {
   isPlaying: boolean;
   time: number;
   notes: number[];
 };
 
-export type TracksState = {
-  tracks: TrackState[];
-  midiFragments: MidiFragments;
-};
-
 export type DAWState = TracksState & {
   currentTrack: number;
   currentFragment: string;
-  player: PlayerState;
   bpm: number;
-  presets: Presets;
-};
-
-export type TrackState = {
-  name: string;
-  gain: number;
-  presetId: string;
-  midi: Midi[];
+  player: PlayerState;
 };
 
 export const dawState = (): DAWState => {
