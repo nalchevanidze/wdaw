@@ -79,7 +79,8 @@ export class Tracks {
     this.refresh();
   };
 
-  public setPreset = (preset: Preset) => this.current.setPreset(preset);
+  public setPreset = (i: number, preset: Preset) =>
+    this.get(i).setPreset(preset);
 }
 
 export { Track };

@@ -102,7 +102,7 @@ const engineEffects = (
     case 'SET_WAVE':
     case 'SET_FILTER':
     case 'SET_PRESET':
-      return engine.setPreset(preset);
+      return engine.setPreset(currentTrack, preset);
   }
 };
 
