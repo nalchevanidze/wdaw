@@ -6,7 +6,7 @@ import { Track } from './track';
 import { toActions } from './utils/actions';
 
 export class Tracks {
-  private current: Track;
+  private currentTrack: number;
   private size: number;
 
   constructor(
@@ -14,13 +14,15 @@ export class Tracks {
     private sampleRate: number
   ) {
     this.setTrack(0);
+    this.refresh();
   }
 
   public get = (i: number) => this.tracks[i];
+  
+  public notes = () => this.get(this.currentTrack).notes();
 
   public setTrack = (n: number) => {
-    this.current = this.tracks[n];
-    this.refresh();
+    this.currentTrack = n;
   };
 
   public set = (
@@ -39,6 +41,7 @@ export class Tracks {
     });
 
     this.setTrack(currentTrack);
+    this.refresh();
   };
 
   public nextActions = (isPlaying: boolean, index: number) => {
@@ -58,8 +61,6 @@ export class Tracks {
     }
     return result;
   };
-
-  public notes = () => this.current.notes();
 
   public clear = () => {
     for (const track of this.tracks) {
