@@ -5,20 +5,21 @@ import { Midi } from '../common/types';
 import { Track } from './track';
 import { toActions } from './utils/actions';
 
+const getSize = (tracks: Track[]) => Math.max(...tracks.map((t) => t.size));
+
 export class Tracks {
-  private currentTrack: number;
-  private size: number;
+  private currentTrack: number = 0;
+  private size: number = getSize(this.tracks);
 
   constructor(
     private tracks: Track[],
     private sampleRate: number
   ) {
-    this.setTrack(0);
     this.refresh();
   }
 
   public get = (i: number) => this.tracks[i];
-  
+
   public notes = () => this.get(this.currentTrack).notes();
 
   public setTrack = (n: number) => {

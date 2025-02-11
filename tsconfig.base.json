@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "module": "ES2022",
+    "strict": true,
     "target": "ES5",
     "composite": true,
     "incremental": true,

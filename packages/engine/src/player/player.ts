@@ -1,9 +1,15 @@
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
 
-export type MidiState = {
+export type MidiState = PlayerState | NotesState;
+
+type PlayerState = {
   isPlaying: boolean;
   time: number;
+};
+
+type NotesState = {
+  id: number;
   notes: number[];
 };
 
@@ -14,7 +20,9 @@ class MidiPlayer {
   private tempo = new Tempo(this.sampleRate);
   private isPlaying = false;
 
-  onChange: MidiCallback;
+  onChange: MidiCallback = () => {
+    console.warn('default onChange handler call');
+  };
 
   constructor(
     private track: Tracks,
