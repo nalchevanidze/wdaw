@@ -1,4 +1,10 @@
-class WaveForm {
+type WaveForm = {
+  freq: Uint8Array;
+  spec: Uint8Array;
+  render: () => void;
+};
+
+class WaveFormImpl implements WaveForm {
   public freq: Uint8Array;
   public spec: Uint8Array;
   private analyser: AnalyserNode;
@@ -38,11 +44,15 @@ const defaultAudioState = {
 export class AudioObject {
   private allowed = false;
   private mode: PlayingMode = 'stop';
-  
-  private src: string;
-  private gain: AudioParam;
-  private audio: HTMLMediaElement;
-  private waveForm: WaveForm;
+  private setGain: (i: number) => void = () => {};
+  private src: string = '';
+  private waveForm: WaveForm = {
+    freq: new Uint8Array(200),
+    spec: new Uint8Array(400),
+    render: () => undefined
+  };
+
+  private audio?: HTMLMediaElement;
 
   private allowAudioContext = (): void => {
     this.allowed = true;
@@ -53,8 +63,10 @@ export class AudioObject {
     const gainObj = context.createGain();
     audioSrc.connect(gainObj);
     gainObj.connect(context.destination);
-    this.gain = gainObj.gain;
-    this.waveForm = new WaveForm(context, audioSrc);
+
+    this.setGain = (v: number) => gainObj.gain.setValueAtTime(v, 0);
+
+    this.waveForm = new WaveFormImpl(context, audioSrc);
     this.setVolume(0.1);
   };
 
@@ -69,8 +81,10 @@ export class AudioObject {
 
   private loadSource = () =>
     new Promise((resolve) => {
-      this.audio.src = this.src + '.mp3';
-      this.audio.addEventListener('canplaythrough', resolve, true);
+      if (this.audio) {
+        this.audio.src = this.src + '.mp3';
+        this.audio.addEventListener('canplaythrough', resolve, true);
+      }
     });
 
   private loadAudio = async () => {
@@ -84,13 +98,13 @@ export class AudioObject {
   private play = async () => {
     await this.loadAudio();
     this.mode = 'play';
-    this.audio.play();
+    this.audio?.play();
   };
 
   private generateState = (): AudioState => {
     const { mode } = this;
-    const time = this.audio.currentTime;
-    const percent = time / this.audio.duration;
+    const time = this.audio?.currentTime ?? 0;
+    const percent = time / (this.audio?.duration ?? 1);
     const pro = isNaN(percent) ? 0 : percent;
     return {
       time,
@@ -110,14 +124,16 @@ export class AudioObject {
 
   public setVolume = (value: number): void => {
     if (this.allowed) {
-      this.gain.setValueAtTime(value, 0);
+      this.setGain(value);
     }
   };
 
   public playAt = async (pro: number): Promise<AudioState> => {
     await this.loadAudio();
-    const time = this.audio.duration * pro;
-    this.audio.currentTime = time;
+    const time = this.audio ? this.audio.duration * pro : 1;
+    if (this.audio) {
+      this.audio.currentTime = time;
+    }
     return {
       pro,
       time,
@@ -139,14 +155,14 @@ export class AudioObject {
 
   private pause = (): void => {
     this.mode = 'paused';
-    if (this.allowed) {
+    if (this.allowed && this.audio) {
       this.audio.pause();
     }
   };
 
   public stop = (): void => {
     this.mode = 'stop';
-    if (this.allowed) {
+    if (this.allowed && this.audio) {
       this.audio.pause();
       this.audio.currentTime = 0;
     }
