@@ -96,7 +96,7 @@ const engineEffects = (
         engine.setMidi(i, midi, midiFragments)
       );
     case 'SET_CURRENT_TRACK':
-      return engine.setTrack(action.payload);
+      return;
     case 'SET_GAIN':
       return engine.setGain(action.id, action.payload);
     case 'SET_BPM':

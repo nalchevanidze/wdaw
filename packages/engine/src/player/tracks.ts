@@ -8,7 +8,6 @@ import { toActions } from './utils/actions';
 const getSize = (tracks: Track[]) => Math.max(...tracks.map((t) => t.size));
 
 export class Tracks {
-  private currentTrack: number = 0;
   private size: number = getSize(this.tracks);
 
   onChange: MidiCallback = () => {
@@ -23,12 +22,6 @@ export class Tracks {
   }
 
   public get = (i: number) => this.tracks[i];
-
-  public notes = () => this.get(this.currentTrack).notes();
-
-  public setTrack = (n: number) => {
-    this.currentTrack = n;
-  };
 
   public set = (
     { currentTrack, tracks }: TracksState,
@@ -49,7 +42,6 @@ export class Tracks {
       return track;
     });
 
-    this.setTrack(currentTrack);
     this.refresh();
   };
 
