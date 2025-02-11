@@ -11,12 +11,18 @@ export const setMidiFragment = (
   }
 });
 
+export const mapTracks = (
+  { tracks }: DAWState,
+  f: (a: TrackState, i: number) => Partial<TrackState>
+): Partial<DAWState> => ({
+  tracks: tracks.map((t, i) => ({ ...t, ...f(t, i) }))
+});
+
 export const mapTrack = (
   id: number,
-  { tracks, currentTrack }: DAWState,
+  { tracks }: DAWState,
   f: (a: TrackState) => Partial<TrackState>
 ): Partial<DAWState> => ({
-  currentTrack: currentTrack,
   tracks: tracks.map((t, i) => (id === i ? { ...t, ...f(t) } : t))
 });
 

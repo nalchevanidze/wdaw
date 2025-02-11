@@ -1,6 +1,7 @@
 import { SynthEngine, DAWState } from '@wdaw/engine';
-import { mapPreset, mapTrack, setMidiFragment } from './utils';
+import { mapPreset, mapTrack, mapTracks, setMidiFragment } from './utils';
 import { EngineAction } from './types';
+import { idString } from '../common/utils';
 
 const dispatcher = (
   state: DAWState,
@@ -31,10 +32,13 @@ const dispatcher = (
             }
       );
     case 'SET_TRACK_MIDI':
-      return mapTrack(action.id[0], state, ({ midi }) => ({
-        midi: midi.map((m, i) =>
-          i === action.id[1] ? { ...m, ...action.payload } : m
-        )
+      return mapTracks(state, ({ midi }, ti) => ({
+        midi: midi.map((n, ni) => {
+          const key = idString([ti, ni]);
+          const update = action.payload.get(key);
+
+          return update ? { ...n, ...update } : n;
+        })
       }));
     case 'SET_MIDI_FRAGMENT':
       return setMidiFragment(action.id, state, action.payload);

@@ -100,8 +100,7 @@ type SET_CURRENT_FRAGMENT = {
 
 type SET_TRACK_MIDI = {
   type: 'SET_TRACK_MIDI';
-  payload: Partial<Midi>;
-  id: [number, number];
+  payload: Map<string, Partial<Midi>>;
 };
 
 type SET_MIDI_FRAGMENT = {

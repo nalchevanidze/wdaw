@@ -8,3 +8,5 @@ export const partition = <T extends object>(ts: T[], f: Predicate<T>) => {
 
   return [as, bs];
 };
+
+export const idString = (t: (number | string)[]) => t.join(':');
