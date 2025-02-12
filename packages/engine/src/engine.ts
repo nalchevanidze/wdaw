@@ -1,5 +1,5 @@
 import { audioProcessor } from './audio-processor';
-import { EventHandler, EventName, makeHandler } from './common/events';
+import { EngineEvents, EventHandler, EventName } from './common/events';
 import { Midi } from './common/types';
 import { MidiPlayer } from './player';
 import { Tracks } from './player/tracks';
@@ -7,7 +7,7 @@ import { TracksState } from './state/state';
 
 export class SynthEngine {
   private sampleRate = 44100;
-  private events = new EventTarget();
+  private events = new EngineEvents();
   private tracks = new Tracks([], this.sampleRate);
   private player = new MidiPlayer(this.events, this.tracks, this.sampleRate);
   private closeContext: () => void;
@@ -16,11 +16,8 @@ export class SynthEngine {
     this.closeContext = audioProcessor(this.player);
   }
 
-  public addEventListener = <N extends EventName>(
-    name: N,
-    f: EventHandler<N>
-  ) => this.events.addEventListener(name, makeHandler(name, f));
-
+  public addEventListener = this.events.addEventListener
+  
   public play = this.player.play;
   public pause = this.player.pause;
   public stop = this.player.stop;

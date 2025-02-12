@@ -14,10 +14,10 @@ export type EventName = keyof EventTypes;
 
 export type EventHandler<T extends EventName> = (e: EventTypes[T]) => void;
 
-export const makeEvent = <T extends EventName>(name: T, value: EventTypes[T]) =>
+const makeEvent = <T extends EventName>(name: T, value: EventTypes[T]) =>
   new CustomEvent(name, { detail: value });
 
-export const makeHandler =
+const makeHandler =
   <N extends EventName>(name: N, f: EventHandler<N>) =>
   (event: Event): void => {
     if (!(event instanceof CustomEvent)) return undefined;
@@ -26,3 +26,18 @@ export const makeHandler =
 
     f(value);
   };
+
+export class EngineEvents {
+  private target = new EventTarget();
+
+  constructor() {}
+
+  dispatch<T extends EventName>(name: T, value: EventTypes[T]) {
+    this.target.dispatchEvent(makeEvent(name, value));
+  }
+
+  public addEventListener = <N extends EventName>(
+    name: N,
+    f: EventHandler<N>
+  ) => this.target.addEventListener(name, makeHandler(name, f));
+}

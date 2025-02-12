@@ -1,4 +1,4 @@
-import { mkEvent } from '../common/events';
+import { EngineEvents } from '../common/events';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
 
@@ -8,19 +8,19 @@ export class MidiPlayer {
   private tempo = new Tempo(this.sampleRate);
 
   constructor(
-    private target: EventTarget,
+    private events: EngineEvents,
     private tracks: Tracks,
     private sampleRate: number
   ) {}
 
   private setIsPlaying(isPlaying: boolean) {
     this.isPlaying = isPlaying;
-    this.target.dispatchEvent(makeEvent('isPlayingChanged', isPlaying));
+    this.events.dispatch('isPlayingChanged', isPlaying);
   }
 
   public setTime = (time: number) => {
     this.time = time;
-    this.target.dispatchEvent(makeEvent('timeChanged', time));
+    this.events.dispatch('timeChanged', time);
   };
 
   public setBPM = this.tempo.setBPM;
