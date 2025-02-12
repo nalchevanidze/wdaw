@@ -1,5 +1,5 @@
 import { audioProcessor } from './audio-processor';
-import { EngineEvents, EventName } from './common/events';
+import { EngineEvents } from './common/events';
 import { Midi } from './common/types';
 import { MidiPlayer } from './player';
 import { Tracks } from './player/tracks';
