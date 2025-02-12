@@ -21,14 +21,14 @@ export class SynthEngine {
     f: EventHandler<N>
   ) => this.events.addEventListener(name, mapHandler(name, f));
 
-  public setMidi = this.tracks.setMidi;
   public play = this.player.play;
   public pause = this.player.pause;
   public stop = this.player.stop;
   public setBPM = this.player.setBPM;
   public setTime = this.player.setTime;
-
+  
   public setGain = this.tracks.setGain;
+  public setMidi = this.tracks.setMidi;
   public setTracks = this.tracks.set;
   public setPreset = this.tracks.setPreset;
   public startNote = (i: number, n: number) => this.tracks.get(i).startNote(n);
