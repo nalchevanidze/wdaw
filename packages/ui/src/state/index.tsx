@@ -7,7 +7,7 @@ const dispatcher = (
   state: DAWState,
   action: EngineAction
 ): Partial<DAWState> | undefined => {
-  const { currentTrack, tracks } = state;
+  const { currentTrack, tracks, notes } = state;
   const track = tracks[currentTrack];
   const { presetId } = track;
 
@@ -69,6 +69,10 @@ const dispatcher = (
       return { time: action.payload };
     case 'REFRESH_IS_PLAYING':
       return { isPlaying: action.payload };
+    case 'KEY_DOWN':
+      return { notes: [...notes, action.payload] };
+    case 'KEY_UP':
+      return { notes: [action.payload].filter((n) => n !== action.payload) };
     default:
       return;
   }
