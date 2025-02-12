@@ -7,10 +7,10 @@ import { TracksState } from './state/state';
 
 export class SynthEngine {
   private sampleRate = 44100;
+  private target = new EventTarget();
   private tracks = new Tracks([], this.sampleRate);
-  private player = new MidiPlayer(this.tracks, this.sampleRate);
+  private player = new MidiPlayer(this.target, this.tracks, this.sampleRate);
   private closeContext: () => void;
-  private target = this.player.target;
 
   constructor() {
     this.closeContext = audioProcessor(this.player);

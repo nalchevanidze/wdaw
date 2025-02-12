@@ -6,9 +6,9 @@ export class MidiPlayer {
   private isPlaying = false;
   private time = 0;
   private tempo = new Tempo(this.sampleRate);
-  public target = new EventTarget();
 
   constructor(
+    private target: EventTarget,
     private tracks: Tracks,
     private sampleRate: number
   ) {}
