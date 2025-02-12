@@ -22,38 +22,20 @@ export class SynthEngine {
   ) => this.target.addEventListener(name, mapHandler(name, f));
 
   public setMidi = this.tracks.setMidi;
-
-  public setPlay(mode: PLAYER_ACTION) {
-    switch (mode) {
-      case 'play':
-        return this.player.play();
-      case 'pause':
-        return this.player.pause();
-      case 'stop':
-        return this.player.stop();
-    }
-  }
-
+  public play = this.player.play;
+  public pause = this.player.pause;
+  public stop = this.player.stop;
   public setBPM = this.player.setBPM;
+  public setTime = this.player.setTime;
 
   public setGain = this.tracks.setGain;
-
-  public startNote(i: number, n: number) {
-    this.tracks.get(i).startNote(n);
-  }
-
-  public endNote(i: number, n: number) {
-    this.tracks.get(i).endNote(n);
-  }
-
-  public setPreset = this.tracks.setPreset;
-
   public setTracks = this.tracks.set;
+  public setPreset = this.tracks.setPreset;
+  public startNote = (i: number, n: number) => this.tracks.get(i).startNote(n);
+  public endNote = (i: number, n: number) => this.tracks.get(i).endNote(n);
 
   public destroy() {
     this.tracks.clear();
     this.closeContext();
   }
-
-  public setTime = (t: number) => this.player.setTime(t);
 }
