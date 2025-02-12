@@ -15,12 +15,12 @@ export class MidiPlayer {
 
   private setIsPlaying(isPlaying: boolean) {
     this.isPlaying = isPlaying;
-    this.target.dispatchEvent(mkEvent('isPlayingChanged', isPlaying));
+    this.target.dispatchEvent(makeEvent('isPlayingChanged', isPlaying));
   }
 
   public setTime = (time: number) => {
     this.time = time;
-    this.target.dispatchEvent(mkEvent('timeChanged', time));
+    this.target.dispatchEvent(makeEvent('timeChanged', time));
   };
 
   public setBPM = this.tempo.setBPM;
