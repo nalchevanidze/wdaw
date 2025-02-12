@@ -13,7 +13,6 @@ export {
   Midi,
   PLAYER_ACTION,
   MidiFragment,
-  EngineUpdate
 } from './common/types';
 export { UIPosition, OCTAVE_SIZE } from './utils/notes';
 export { TrackState } from './state/state';

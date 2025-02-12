@@ -7,7 +7,6 @@ import {
   EnvelopeConfig,
   PLAYER_ACTION,
   MidiFragment,
-  EngineUpdate,
   EngineState
 } from '@wdaw/engine';
 
