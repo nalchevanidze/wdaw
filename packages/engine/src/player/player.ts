@@ -1,23 +1,61 @@
-import { MidiCallback } from '../common/types';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
 
-export class MidiPlayer {
-  private current = 0;
-  private tempo = new Tempo(this.sampleRate);
-  private isPlaying = false;
+export type EventTypes = {
+  isPlayingChanged: boolean;
+  timeChanged: number;
+};
 
-  onChange: MidiCallback = () => {
-    console.warn('default onChange handler call');
-  };
+export type EventName = keyof EventTypes;
+
+const mkEvent = <T extends EventName>(name: T, value: EventTypes[T]) =>
+  new CustomEvent(name, { detail: value });
+
+export const parseEvent = <T extends EventName>(
+  eventName: T,
+  e: Event
+): EventTypes[T] | undefined => {
+  if (!(e instanceof CustomEvent)) return undefined;
+
+  const { detail } = e;
+
+  switch (eventName) {
+    case 'isPlayingChanged':
+      return typeof detail === 'boolean'
+        ? (detail as EventTypes[T])
+        : undefined;
+    case 'timeChanged':
+      return typeof detail === 'number' ? (detail as EventTypes[T]) : undefined;
+  }
+};
+
+export class MidiPlayer {
+  private _current = 0;
+  private tempo = new Tempo(this.sampleRate);
+  private _isPlaying = false;
+  public target = new EventTarget();
 
   constructor(
     private tracks: Tracks,
     private sampleRate: number
   ) {}
 
-  public refresh() {
-    this.onChange({ isPlaying: this.isPlaying, time: this.current });
+  set isPlaying(isPlaying: boolean) {
+    this._isPlaying = isPlaying;
+    this.target.dispatchEvent(mkEvent('isPlayingChanged', isPlaying));
+  }
+
+  get isPlaying() {
+    return this._isPlaying;
+  }
+
+  set current(current: number) {
+    this._current = current;
+    this.target.dispatchEvent(mkEvent('timeChanged', current));
+  }
+
+  get current() {
+    return this._current;
   }
 
   public setBPM = this.tempo.setBPM;
@@ -28,7 +66,6 @@ export class MidiPlayer {
 
       if (this.isPlaying) {
         this.current = this.current + this.tempo.size;
-        this.refresh();
       }
 
       if (this.tracks.isDone(this.current)) {
@@ -41,18 +78,15 @@ export class MidiPlayer {
 
   public setTime = (time: number) => {
     this.current = time;
-    this.refresh();
   };
 
   public play = (): void => {
     this.isPlaying = true;
-    this.refresh();
   };
 
   public pause = (): void => {
     this.isPlaying = false;
     this.tracks.clear();
-    this.refresh();
   };
 
   stop() {

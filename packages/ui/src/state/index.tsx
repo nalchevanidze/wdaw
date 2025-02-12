@@ -65,11 +65,10 @@ const dispatcher = (
       return mapTrack(currentTrack, state, () => ({
         presetId: action.payload
       }));
-    case 'REFRESH':
-      return {
-        time: action.payload.time,
-        isPlaying: action.payload.isPlaying
-      };
+    case 'REFRESH_TIME':
+      return { time: action.payload };
+    case 'REFRESH_IS_PLAYING':
+      return { isPlaying: action.payload };
     default:
       return;
   }

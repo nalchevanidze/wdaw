@@ -10,13 +10,21 @@ export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
     reducer: (a, _) => a
   });
 
+  const isPlayingChanged = (payload: boolean) =>
+    dispatch({ type: 'REFRESH_IS_PLAYING', payload });
+
+  const timeChanged = (payload: number) =>
+    dispatch({ type: 'REFRESH_TIME', payload });
+
   useEffect(() => {
     const engine = new SynthEngine();
     engine.setTracks(state);
     engine.setBPM(state.bpm);
-    engine.setMidiCallback((payload) => dispatch({ type: 'REFRESH', payload }));
-    setReducerState({ reducer: makeReducer(engine) });
 
+    engine.addEventListener('isPlayingChanged', isPlayingChanged);
+    engine.addEventListener('timeChanged', timeChanged);
+
+    setReducerState({ reducer: makeReducer(engine) });
     return () => engine.destroy();
   }, [makeReducer]);
 

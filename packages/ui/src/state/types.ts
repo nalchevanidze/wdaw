@@ -25,9 +25,14 @@ type SET_FILTER = {
   payload: number;
 };
 
-type REFRESH = {
-  type: 'REFRESH';
-  payload: EngineUpdate;
+type REFRESH_TIME = {
+  type: 'REFRESH_TIME';
+  payload: number;
+};
+
+type REFRESH_IS_PLAYING = {
+  type: 'REFRESH_IS_PLAYING';
+  payload: boolean;
 };
 
 type SET_BPM = {
@@ -124,7 +129,12 @@ type MidiActions =
   | SET_GAIN
   | SET_CURRENT_FRAGMENT;
 
-export type EngineAction = SynthActions | MidiActions | REFRESH | SET_BPM;
+export type EngineAction =
+  | SynthActions
+  | MidiActions
+  | REFRESH_TIME
+  | REFRESH_IS_PLAYING
+  | SET_BPM;
 
 export type DAWState = EngineState & {
   currentFragment: string;
