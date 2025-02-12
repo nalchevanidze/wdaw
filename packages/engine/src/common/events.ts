@@ -14,7 +14,7 @@ export type EventName = keyof EventTypes;
 
 export type EventHandler<T extends EventName> = (e: EventTypes[T]) => void;
 
-export const mkEvent = <T extends EventName>(name: T, value: EventTypes[T]) =>
+export const makeEvent = <T extends EventName>(name: T, value: EventTypes[T]) =>
   new CustomEvent(name, { detail: value });
 
 export const makeHandler =
