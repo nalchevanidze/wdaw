@@ -6,6 +6,7 @@ export type EventTypes = {
   timeChanged: number;
 };
 
+export type EventHandler<T extends EventName> = (e: EventTypes[T]) => void
 export type EventName = keyof EventTypes;
 
 const mkEvent = <T extends EventName>(name: T, value: EventTypes[T]) =>

@@ -6,30 +6,34 @@ import {
   PLAYER_ACTION
 } from './common/types';
 import { MidiPlayer } from './player';
-import { EventName, EventTypes, parseEvent } from './player/player';
+import {
+  EventHandler,
+  EventName,
+  EventTypes,
+  parseEvent
+} from './player/player';
 import { Tracks } from './player/tracks';
 import { TracksState } from './state/state';
 
-export class SynthEngine implements SoundIterator {
+export class SynthEngine {
   private sampleRate = 44100;
   private tracks = new Tracks([], this.sampleRate);
   private player = new MidiPlayer(this.tracks, this.sampleRate);
   private closeContext: () => void;
-  private events = this.player.target;
-
-  public addEventListener = <T extends EventName>(
-    name: T,
-    f: (e: EventTypes[T]) => void
-  ) =>
-    this.events.addEventListener(name, (e: Event) => {
-      const value = parseEvent(name, e);
-      if (value === undefined) return;
-      requestAnimationFrame(() => f(value));
-    });
+  private target = this.player.target;
 
   constructor() {
-    this.closeContext = audioProcessor(this);
+    this.closeContext = audioProcessor(this.player);
   }
+
+  public addEventListener = <N extends EventName>(
+    name: N,
+    f: EventHandler<N>
+  ) =>
+    this.target.addEventListener(name, (e) => {
+      const value = parseEvent(name, e);
+      return value !== undefined ? f(value) : undefined;
+    });
 
   public setMidi = this.tracks.setMidi;
 
@@ -67,6 +71,4 @@ export class SynthEngine implements SoundIterator {
   }
 
   public setTime = (t: number) => this.player.setTime(t);
-
-  public next = this.player.next;
 }
