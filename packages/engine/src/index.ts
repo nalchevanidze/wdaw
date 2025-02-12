@@ -15,4 +15,3 @@ export {
 } from './common/types';
 export { UIPosition, OCTAVE_SIZE } from './utils/notes';
 export { TrackState } from './state/state';
-export { makeHandler } from './common/events';
