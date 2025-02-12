@@ -89,9 +89,9 @@ const engineEffects = (
   switch (action.type) {
     case 'PLAY':
       return engine.play();
-    case 'PLAYER_PAUSE':
+    case 'PAUSE':
       return engine.pause();
-    case 'PLAYER_STOP':
+    case 'STOP':
       return engine.pause();
     case 'KEY_UP':
       return engine.endNote(currentTrack, action.payload);

@@ -116,12 +116,12 @@ type PLAY = {
   type: 'PLAY';
 };
 
-type PLAYER_STOP = {
-  type: 'PLAYER_STOP';
+type STOP = {
+  type: 'STOP';
 };
 
-type PLAYER_PAUSE = {
-  type: 'PLAYER_PAUSE';
+type PAUSE = {
+  type: 'PAUSE';
 };
 
 type MidiActions =
@@ -130,8 +130,8 @@ type MidiActions =
   | SET_MIDI_FRAGMENT
   | SET_TRACK_MIDI
   | PLAY
-  | PLAYER_PAUSE
-  | PLAYER_STOP
+  | PAUSE
+  | STOP
   | SET_GAIN
   | SET_CURRENT_FRAGMENT;
 

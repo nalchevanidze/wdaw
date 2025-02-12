@@ -48,14 +48,9 @@ const Header: React.FC = () => {
     <section style={styles.container}>
       <HeaderButton
         id={isPlaying ? 'pause' : 'play'}
-        onClick={() =>
-          dispatch({ type: isPlaying ? 'PLAYER_PAUSE' : 'PLAY' })
-        }
+        onClick={() => dispatch({ type: isPlaying ? 'PAUSE' : 'PLAY' })}
       />
-      <HeaderButton
-        id={'stop'}
-        onClick={() => dispatch({ type: 'PLAYER_STOP' })}
-      />
+      <HeaderButton id={'stop'} onClick={() => dispatch({ type: 'STOP' })} />
       <div style={styles.bpm}>
         <label htmlFor="bpm-input">BPM</label>
         <input
