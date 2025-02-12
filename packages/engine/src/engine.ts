@@ -1,5 +1,5 @@
 import { audioProcessor } from './audio-processor';
-import { EventHandler, EventName, mapHandler } from './common/events';
+import { EventHandler, EventName, makeHandler } from './common/events';
 import { Midi } from './common/types';
 import { MidiPlayer } from './player';
 import { Tracks } from './player/tracks';
@@ -19,7 +19,7 @@ export class SynthEngine {
   public addEventListener = <N extends EventName>(
     name: N,
     f: EventHandler<N>
-  ) => this.events.addEventListener(name, mapHandler(name, f));
+  ) => this.events.addEventListener(name, makeHandler(name, f));
 
   public play = this.player.play;
   public pause = this.player.pause;
