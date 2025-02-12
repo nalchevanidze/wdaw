@@ -1,7 +1,7 @@
 import { audioProcessor } from './audio-processor';
+import { EventHandler, EventName, mapHandler } from './common/events';
 import { Midi, PLAYER_ACTION } from './common/types';
 import { MidiPlayer } from './player';
-import { EventHandler, EventName, mapHandler } from './player/player';
 import { Tracks } from './player/tracks';
 import { TracksState } from './state/state';
 
