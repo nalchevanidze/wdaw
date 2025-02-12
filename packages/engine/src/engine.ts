@@ -7,9 +7,9 @@ import { TracksState } from './state/state';
 
 export class SynthEngine {
   private sampleRate = 44100;
-  private target = new EventTarget();
+  private events = new EventTarget();
   private tracks = new Tracks([], this.sampleRate);
-  private player = new MidiPlayer(this.target, this.tracks, this.sampleRate);
+  private player = new MidiPlayer(this.events, this.tracks, this.sampleRate);
   private closeContext: () => void;
 
   constructor() {
@@ -19,7 +19,7 @@ export class SynthEngine {
   public addEventListener = <N extends EventName>(
     name: N,
     f: EventHandler<N>
-  ) => this.target.addEventListener(name, mapHandler(name, f));
+  ) => this.events.addEventListener(name, mapHandler(name, f));
 
   public setMidi = this.tracks.setMidi;
   public play = this.player.play;
