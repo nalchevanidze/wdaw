@@ -20,7 +20,6 @@ export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
     const engine = new SynthEngine();
     engine.setTracks(state);
     engine.setBPM(state.bpm);
-
     engine.addEventListener('isPlayingChanged', isPlayingChanged);
     engine.addEventListener('timeChanged', timeChanged);
 
