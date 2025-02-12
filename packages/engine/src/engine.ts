@@ -1,17 +1,7 @@
-import { audioProcessor, SoundIterator } from './audio-processor';
-import {
-  EngineUpdate,
-  Midi,
-  MidiCallback,
-  PLAYER_ACTION
-} from './common/types';
+import { audioProcessor } from './audio-processor';
+import { Midi, PLAYER_ACTION } from './common/types';
 import { MidiPlayer } from './player';
-import {
-  EventHandler,
-  EventName,
-  EventTypes,
-  parseEvent
-} from './player/player';
+import { EventHandler, EventName, mapHandler } from './player/player';
 import { Tracks } from './player/tracks';
 import { TracksState } from './state/state';
 
@@ -29,11 +19,7 @@ export class SynthEngine {
   public addEventListener = <N extends EventName>(
     name: N,
     f: EventHandler<N>
-  ) =>
-    this.target.addEventListener(name, (e) => {
-      const value = parseEvent(name, e);
-      return value !== undefined ? f(value) : undefined;
-    });
+  ) => this.target.addEventListener(name, mapHandler(name, f));
 
   public setMidi = this.tracks.setMidi;
 
@@ -65,7 +51,6 @@ export class SynthEngine {
   public setTracks = this.tracks.set;
 
   public destroy() {
-    this.player.setTime(0);
     this.tracks.clear();
     this.closeContext();
   }

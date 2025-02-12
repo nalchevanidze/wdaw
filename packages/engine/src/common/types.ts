@@ -72,10 +72,3 @@ export type Midi = {
   end: number;
   fragmentId: string;
 };
-
-export type EngineUpdate = {
-  isPlaying: boolean;
-  time: number;
-};
-
-export type MidiCallback = (s: EngineUpdate) => void;

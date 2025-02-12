@@ -1,4 +1,4 @@
-import { MidiCallback, MidiFragments, Preset, Presets } from '../common/types';
+import { MidiFragments, Preset } from '../common/types';
 import { TracksState } from '../state/state';
 import { Synth } from '../synth';
 import { Midi } from '../common/types';
@@ -9,7 +9,6 @@ const getSize = (tracks: Track[]) => Math.max(...tracks.map((t) => t.size));
 
 export class Tracks {
   private size: number = getSize(this.tracks);
-
 
   constructor(
     private tracks: Track[],
@@ -22,10 +21,7 @@ export class Tracks {
 
   public set = ({ tracks, midiFragments, presets }: TracksState) => {
     this.tracks = tracks.map(({ midi, presetId, gain }, id) => {
-      const track = new Track(
-        new Synth(this.sampleRate),
-        presets[presetId]
-      );
+      const track = new Track(new Synth(this.sampleRate), presets[presetId]);
 
       track.setNoteLoops(toActions(midi, midiFragments));
       track.setGain(gain);

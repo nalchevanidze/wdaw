@@ -6,29 +6,32 @@ export type EventTypes = {
   timeChanged: number;
 };
 
-export type EventHandler<T extends EventName> = (e: EventTypes[T]) => void
+export type EventHandler<T extends EventName> = (e: EventTypes[T]) => void;
 export type EventName = keyof EventTypes;
 
 const mkEvent = <T extends EventName>(name: T, value: EventTypes[T]) =>
   new CustomEvent(name, { detail: value });
 
-export const parseEvent = <T extends EventName>(
-  eventName: T,
-  e: Event
-): EventTypes[T] | undefined => {
-  if (!(e instanceof CustomEvent)) return undefined;
+export const mapHandler =
+  <N extends EventName>(name: N, f: EventHandler<N>) =>
+  (e: Event): void => {
+    if (!(e instanceof CustomEvent)) return undefined;
 
-  const { detail } = e;
+    const { detail } = e;
 
-  switch (eventName) {
-    case 'isPlayingChanged':
-      return typeof detail === 'boolean'
-        ? (detail as EventTypes[T])
-        : undefined;
-    case 'timeChanged':
-      return typeof detail === 'number' ? (detail as EventTypes[T]) : undefined;
-  }
-};
+    switch (name) {
+      case 'isPlayingChanged':
+        if (typeof detail !== 'boolean') {
+          return;
+        }
+        return f(detail as EventTypes[N]);
+      case 'timeChanged':
+        if (typeof detail !== 'number') {
+          return;
+        }
+        return f(detail as EventTypes[N]);
+    }
+  };
 
 export class MidiPlayer {
   private _current = 0;
