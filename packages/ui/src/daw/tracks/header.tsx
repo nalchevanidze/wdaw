@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useContext } from 'react';
 import HeaderButton from '../../components/header-button';
 import { colors } from '../../styles';
-import { PLAYER_ACTION } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
 
 const styles = {
@@ -38,9 +37,6 @@ const minBPM = 0;
 const Header: React.FC = () => {
   const [{ isPlaying, bpm }, dispatch] = useContext(DawApiContext);
 
-  const player = (payload: PLAYER_ACTION) =>
-    dispatch({ type: 'PLAYER', payload });
-
   const setBPM = (value: string) => {
     dispatch({
       type: 'SET_BPM',
@@ -52,9 +48,14 @@ const Header: React.FC = () => {
     <section style={styles.container}>
       <HeaderButton
         id={isPlaying ? 'pause' : 'play'}
-        onClick={() => player(isPlaying ? 'pause' : 'play')}
+        onClick={() =>
+          dispatch({ type: isPlaying ? 'PLAYER_PAUSE' : 'PLAY' })
+        }
       />
-      <HeaderButton id={'stop'} onClick={() => player('stop')} />
+      <HeaderButton
+        id={'stop'}
+        onClick={() => dispatch({ type: 'PLAYER_STOP' })}
+      />
       <div style={styles.bpm}>
         <label htmlFor="bpm-input">BPM</label>
         <input

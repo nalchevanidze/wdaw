@@ -58,8 +58,6 @@ export type Note = {
   at: number;
 };
 
-export type PLAYER_ACTION = 'play' | 'pause' | 'stop';
-
 export type MidiFragment = {
   notes: Note[];
   loop: [number, number];

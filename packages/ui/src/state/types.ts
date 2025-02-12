@@ -5,7 +5,6 @@ import {
   WAVE_ID,
   ENVELOPE_ID,
   EnvelopeConfig,
-  PLAYER_ACTION,
   MidiFragment,
   EngineState
 } from '@wdaw/engine';
@@ -87,7 +86,6 @@ type SynthActions =
   | SET_PRESET;
 
 // Midi Actions
-
 type SET_TIME = {
   type: 'SET_TIME';
   payload: number;
@@ -114,9 +112,16 @@ type SET_MIDI_FRAGMENT = {
   id: string;
 };
 
-type PLAYER = {
-  type: 'PLAYER';
-  payload: PLAYER_ACTION;
+type PLAY = {
+  type: 'PLAY';
+};
+
+type PLAYER_STOP = {
+  type: 'PLAYER_STOP';
+};
+
+type PLAYER_PAUSE = {
+  type: 'PLAYER_PAUSE';
 };
 
 type MidiActions =
@@ -124,7 +129,9 @@ type MidiActions =
   | SET_CURRENT_TRACK
   | SET_MIDI_FRAGMENT
   | SET_TRACK_MIDI
-  | PLAYER
+  | PLAY
+  | PLAYER_PAUSE
+  | PLAYER_STOP
   | SET_GAIN
   | SET_CURRENT_FRAGMENT;
 

@@ -87,17 +87,12 @@ const engineEffects = (
   const preset = presets[track.presetId];
 
   switch (action.type) {
-    case 'PLAYER':
-      switch (action.payload) {
-        case 'play':
-          return engine.play();
-        case 'pause':
-          return engine.pause();
-        case 'stop':
-          return engine.stop();
-        default:
-          return;
-      }
+    case 'PLAY':
+      return engine.play();
+    case 'PLAYER_PAUSE':
+      return engine.pause();
+    case 'PLAYER_STOP':
+      return engine.pause();
     case 'KEY_UP':
       return engine.endNote(currentTrack, action.payload);
     case 'KEY_DOWN':
