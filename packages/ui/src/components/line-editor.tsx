@@ -54,22 +54,17 @@ export const LineEditor: React.FC<Props> = ({
       onMouseUp={clear}
     >
       {children}
-      <path
-        stroke={colors.prime}
-        fill={colors.prime}
-        fillOpacity="0.10"
-        d={'M' + upscaled.flatMap(({ x, y }) => [x, y])}
-      />
-      <g
-        stroke={colors.prime}
-        fill="none"
-        strokeWidth="0.75"
-        strokeOpacity={0.5}
-      >
+      <g stroke={colors.prime} fill="none" strokeOpacity={0.7}>
         {upscaled.map((c, i) => (
           <path key={i} d={'M' + [c.x, height, c.x, c.y]} />
         ))}
       </g>
+      <path
+        stroke={colors.prime}
+        fill={colors.prime}
+        fillOpacity={0.1}
+        d={'M' + upscaled.flatMap(({ x, y }) => [x, y])}
+      />
       <g fillOpacity={0.8} fill="gray" stroke="#333">
         {upscaled.map((c, i) =>
           c.id ? (
