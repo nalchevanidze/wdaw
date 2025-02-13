@@ -6,6 +6,8 @@ import { toggleARPNote } from '../utils/arp';
 import { usePreset } from '../hooks/use-preset';
 
 const STEP_SIZE = 10;
+const range = Array.from({ length: SEQUENCE_LENGTH }, (_, i) => i);
+const OCTAVES = [4, 3, 2, 1];
 
 type Props = {
   chord: number[];
@@ -18,11 +20,12 @@ const styles = {
     border: 'none',
     outline: 'none'
   },
-  element: {
+  element: (active: boolean) => ({
     width: STEP_SIZE + 'px',
     border: '0.025em solid #BBB',
-    height: STEP_SIZE + 'px'
-  },
+    height: STEP_SIZE + 'px',
+    background: active ? colors.secondary : '#2220'
+  }),
   container: {
     display: 'flex',
     margin: '0px',
@@ -30,22 +33,17 @@ const styles = {
   }
 } as const;
 
-const Sequence: React.FC<Props> = ({ chord, onClick }) => (
+const Chord: React.FC<Props> = ({ chord, onClick }) => (
   <li style={styles.li}>
-    {[1, 2, 3, 4].reverse().map((index) => (
+    {OCTAVES.map((index) => (
       <div
-        style={{
-          ...styles.element,
-          background: chord.indexOf(index) !== -1 ? colors.secondary : '#2220'
-        }}
+        style={styles.element(chord.indexOf(index) !== -1)}
         key={index}
         onClick={() => onClick(index)}
       />
     ))}
   </li>
 );
-
-const range = Array.from({ length: SEQUENCE_LENGTH }, (_, i) => i);
 
 export const Sequencer: React.FC = () => {
   const [{ sequence }, dispatch] = usePreset();
@@ -60,7 +58,7 @@ export const Sequencer: React.FC = () => {
     <Panel label="sequencer" size={3} optional id="sequence">
       <ul style={styles.container}>
         {range.map((i) => (
-          <Sequence key={i} chord={sequence[i] ?? []} onClick={setNote(i)} />
+          <Chord key={i} chord={sequence[i] ?? []} onClick={setNote(i)} />
         ))}
       </ul>
     </Panel>
