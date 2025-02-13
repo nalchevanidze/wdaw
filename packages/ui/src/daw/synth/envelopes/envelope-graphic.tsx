@@ -47,6 +47,31 @@ type Props = {
   id: ENVELOPE_ID;
 };
 
+type Controler = {
+  point: Point;
+  onClick?: () => void;
+};
+
+const LineEditor: React.FC<{ controlers: Controler[] }> = ({ controlers }) => {
+  return (
+    <g>
+      <path
+        stroke={colors.prime}
+        fill={colors.prime}
+        fillOpacity="0.10"
+        d={'M' + controlers.map((x) => x.point)}
+      />
+      <g fillOpacity={0.8} fill="gray" stroke="#333">
+        {controlers.map((c, i) =>
+          c.onClick ? (
+            <ControlPoint xy={c.point} key={i} onClick={c.onClick} />
+          ) : null
+        )}
+      </g>
+    </g>
+  );
+};
+
 const type = 'SET_ENVELOPE';
 const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
   const [{ envelopes }, dispatch] = usePreset();
@@ -85,6 +110,14 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
 
   const { start, attack, decay, release, sustain } = toPoints(params);
 
+  const controlers: Controler[] = [
+    { point: start },
+    { point: attack, onClick: setTarget('attack') },
+    { point: decay, onClick: setTarget('decay') },
+    { point: sustain },
+    { point: release, onClick: setTarget('release') }
+  ];
+
   return (
     <g
       onMouseMove={onMove}
@@ -94,12 +127,6 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
     >
       <WaveGrid />
       <g>
-        <path
-          stroke={colors.prime}
-          fill={colors.prime}
-          fillOpacity="0.10"
-          d={'M' + [start, attack, decay, sustain, release]}
-        />
         <g
           stroke={colors.prime}
           fill="none"
@@ -110,11 +137,7 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
           <path d={'M' + [sustain[0], 100, ...sustain]} />
         </g>
       </g>
-      <g fillOpacity={0.8} fill="gray" stroke="#333">
-        <ControlPoint xy={attack} onClick={setTarget('attack')} />
-        <ControlPoint xy={decay} onClick={setTarget('decay')} />
-        <ControlPoint xy={release} onClick={setTarget('release')} />
-      </g>
+      <LineEditor controlers={controlers} />
     </g>
   );
 };
