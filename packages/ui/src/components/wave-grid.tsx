@@ -2,11 +2,17 @@ import * as React from 'react';
 
 type Props = {
   color?: string;
+  width?: number | string;
+  height?: number | string;
 };
 
-export const WaveGrid: React.FC<Props> = ({ color = '#FFEB3B' }) => {
-  const gridId = "waveGridBig";
-  const smallGridId = "waveGridSmall";
+export const WaveGrid: React.FC<Props> = ({
+  color = '#FFEB3B',
+  width = '100%',
+  height = '100%'
+}) => {
+  const gridId = 'waveGridBig';
+  const smallGridId = 'waveGridSmall';
 
   return (
     <>
@@ -31,11 +37,7 @@ export const WaveGrid: React.FC<Props> = ({ color = '#FFEB3B' }) => {
           </g>
         </pattern>
       </defs>
-      <rect
-        width="100%"
-        height="100%"
-        fill={`url(#${gridId})`}
-      />
+      <rect width={width} height={height} fill={`url(#${gridId})`} />
     </>
   );
 };

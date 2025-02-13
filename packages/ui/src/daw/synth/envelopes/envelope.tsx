@@ -7,7 +7,7 @@ import { positive } from '../../utils/math';
 import { LineEditor } from '../../../components/line-editor';
 
 const height = 100;
-const width = 120;
+const width = 150;
 const padding = 10;
 
 type Props = { id: ENVELOPE_ID };
@@ -35,7 +35,7 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
   return (
     <LineEditor
       height={height}
-      width={width}
+      width={width * 0.8}
       onMove={onMove}
       controlers={[
         { x: 0, y: 0 },
@@ -45,7 +45,17 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
         { id: 'release', x: sustainX + env.release, y: 0 }
       ]}
     >
-      <WaveGrid />
+      <rect
+        x={-padding}
+        y={-padding}
+        width={width + padding * 2}
+        height={height + padding * 2}
+        opacity={0}
+      />
+      <WaveGrid 
+        width={width}
+        height={height}
+      />
     </LineEditor>
   );
 };
@@ -54,7 +64,7 @@ export const Envelope = (props: Props) => (
   <Svg
     paddingLeft={padding}
     paddingTop={padding}
-    width={width * 1.5 + padding * 2}
+    width={width + padding * 2}
     height={height + padding * 2}
     zoom={0.8}
   >
