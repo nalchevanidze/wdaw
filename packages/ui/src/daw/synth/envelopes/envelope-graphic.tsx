@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { WaveGrid } from '../../../components/wave-grid';
-import { Svg, usePoint } from '@wdaw/svg';
+import { Svg, Point as SVGPoint } from '@wdaw/svg';
 import { Point } from '../../../common/control-point';
 import { MouseEventHandler } from 'react';
 import { EnvelopeConfig, ENVELOPE_ID } from '@wdaw/engine';
@@ -37,15 +37,9 @@ const type = 'SET_ENVELOPE';
 const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
   const [{ envelopes }, dispatch] = usePreset();
   const state = envelopes[id];
-  const params = getParams(state);
+  const p = getParams(state);
 
-  const toPoint = usePoint();
-  const [target, setCurrent] = useState<Target | undefined>();
-  const clear = () => setCurrent(undefined);
-  const setTarget = (name: Target) => () => setCurrent(name);
-
-  const onMove: EnvelopeHandler = (event) => {
-    const point = toPoint(event);
+  const onMove = (target: string, point: SVGPoint) => {
     const x = positive(point.x / 100);
 
     switch (target) {
@@ -64,37 +58,32 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
         return dispatch({
           type,
           id,
-          payload: { release: positive(x - params.sustainX / 100) }
+          payload: { release: positive(x - p.sustainX / 100) }
         });
     }
   };
 
   return (
-    <g
-      onMouseMove={onMove}
-      onMouseLeave={clear}
-      onTouchEnd={clear}
-      onMouseUp={clear}
+    <LineEditor
+      onMove={onMove}
+      height={STAGE_HEIGHT}
+      controlers={[
+        { point: [0, STAGE_HEIGHT] },
+        { point: [p.attack, 0], id: 'attack' },
+        {
+          point: [p.decay, p.sustain],
+          id: 'decay',
+          emphasize: true
+        },
+        { point: [p.sustainX, p.sustain], emphasize: true },
+        {
+          point: [p.release, STAGE_HEIGHT],
+          id: 'release'
+        }
+      ]}
     >
       <WaveGrid />
-      <LineEditor
-        height={STAGE_HEIGHT}
-        controlers={[
-          { point: [0, STAGE_HEIGHT] },
-          { point: [params.attack, 0], onClick: setTarget('attack') },
-          {
-            point: [params.decay, params.sustain],
-            onClick: setTarget('decay'),
-            emphasize: true
-          },
-          { point: [params.sustainX, params.sustain], emphasize: true },
-          {
-            point: [params.release, STAGE_HEIGHT],
-            onClick: setTarget('release')
-          }
-        ]}
-      />
-    </g>
+    </LineEditor>
   );
 };
 
