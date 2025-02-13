@@ -12,8 +12,8 @@ type EType<K extends EName> = Events[K];
 type Parsers = { [K in EName]: (i: any) => Maybe<EType<K>> };
 
 const parsers: Parsers = {
-  isPlayingChanged: (v) => (typeof v !== 'boolean' ? v : undefined),
-  timeChanged: (v) => (typeof v !== 'number' ? v : undefined)
+  isPlayingChanged: (v) => (typeof v === 'boolean' ? v : undefined),
+  timeChanged: (v) => (typeof v === 'number' ? v : undefined)
 };
 
 type Handler<N extends EName> = (e: EType<N>) => void;
