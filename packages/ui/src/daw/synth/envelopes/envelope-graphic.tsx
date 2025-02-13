@@ -15,11 +15,8 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
   const [{ envelopes }, dispatch] = usePreset();
   const env = envelopes[id];
   const { attack, sustain } = env;
-
   const decay = attack + env.decay;
-
   const sustainX = decay + 0.25;
-  const release = sustainX + env.release;
 
   const setEnvelope = (payload: Partial<EnvelopeConfig>) =>
     dispatch({ type: 'SET_ENVELOPE', id, payload });
@@ -50,7 +47,7 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
         },
         { point: [sustainX, sustain], emphasize: true },
         {
-          point: [release, 0],
+          point: [sustainX + env.release, 0],
           id: 'release'
         }
       ]}
