@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { Point } from './types';
 
-type ToPoint = (_: React.MouseEvent<SVGGElement, MouseEvent>) => Point;
+type MEvent = React.MouseEvent<any, MouseEvent> | MouseEvent;
+
+type ToPoint = (_: MEvent) => Point;
 
 type Boundaries = {
   width: number;
@@ -33,8 +35,8 @@ type SvgStageProps = {
 };
 
 const svgCoordinates =
-  (svg: SVGSVGElement) =>
-  (event: React.MouseEvent<SVGGElement, MouseEvent>): Point => {
+  (svg: SVGSVGElement): ToPoint =>
+  (event) => {
     const { clientX, clientY } = event;
     const point = svg.createSVGPoint();
     point.x = clientX;
