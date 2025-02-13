@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { WaveGrid } from '../../../components/wave-grid';
 import { Svg, usePoint } from '@wdaw/svg';
-import { ControlPoint, Point } from './control-point';
+import { ControlPoint, Point } from '../../../common/control-point';
 import { MouseEventHandler } from 'react';
 import { colors } from '../../../styles';
 import { EnvelopeConfig, ENVELOPE_ID } from '@wdaw/engine';
