@@ -64,7 +64,7 @@ export const LineEditor: React.FC<Props> = ({
         stroke={colors.prime}
         fill="none"
         strokeWidth="0.75"
-        strokeOpacity={0.2}
+        strokeOpacity={0.5}
       >
         {upscaledControlers.map((c, i) =>
           c.emphasize ? (
