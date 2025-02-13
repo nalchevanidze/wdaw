@@ -59,7 +59,7 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
 
 const padding = 10;
 
-const EnvelopeGraphic = (props: Props) => (
+export const Envelope = (props: Props) => (
   <Svg
     paddingLeft={padding}
     paddingTop={padding}
@@ -70,5 +70,3 @@ const EnvelopeGraphic = (props: Props) => (
     <EnvelopeConsumer {...props} />
   </Svg>
 );
-
-export default EnvelopeGraphic;

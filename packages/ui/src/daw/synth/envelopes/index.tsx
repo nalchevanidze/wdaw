@@ -1,5 +1,5 @@
 import * as React from 'react';
-import EnvelopeGraphic from './envelope-graphic';
+import { Envelope } from './envelope';
 import { Panel } from '../panel';
 import { colors } from '../../../styles';
 import { ENVELOPE_ID } from '@wdaw/engine';
@@ -47,7 +47,7 @@ const Envelopes: React.FC = () => {
         <Button id="gain" active={id} onClick={setId} />
         <Button id="filter" active={id} onClick={setId} />
       </div>
-      <EnvelopeGraphic id={id} />
+      <Envelope id={id} />
     </Panel>
   );
 };
