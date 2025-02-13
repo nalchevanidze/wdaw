@@ -26,7 +26,7 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
       case 'attack':
         return setEnvelope({ attack: x });
       case 'decay':
-        return setEnvelope({ decay: positive(x - env.attack), sustain: y });
+        return setEnvelope({ decay: positive(x - attack), sustain: y });
       case 'release':
         return setEnvelope({ release: positive(x - sustainX) });
     }
