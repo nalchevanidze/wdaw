@@ -6,7 +6,7 @@ import { colors } from '../../styles';
 import { Panel } from './panel';
 import { NoteGrid } from '../../components/note-grid';
 import { DawApiContext } from '../../context/state';
-import { SelectionArea } from '../../common/selection-area';
+import { SelectionArea } from '../../components/selection-area';
 import { useDragging } from '../hooks/use-dragging';
 import { withAccuracy } from '../utils/area';
 import {
@@ -16,7 +16,7 @@ import {
   useTrackEditor
 } from '../hooks/use-track-editor';
 import { Fragment } from './fragment';
-import { DragingBackground } from '../../common/background';
+import { DragingBackground } from '../../components/background';
 
 const panelWidth = 160;
 const trackHeight = 48;

@@ -9,7 +9,7 @@ import { EditActionType, MHandler } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { useNoteEditor } from '../hooks/use-note-editor';
 import { useFragmentTime } from '../hooks/use-time';
-import { SelectionArea } from '../../common/selection-area';
+import { SelectionArea } from '../../components/selection-area';
 import { Keyboard } from './keyboard';
 import { Loop } from './loop';
 import { LoopTarget, useLoop } from '../hooks/use-loop-editor';
@@ -19,7 +19,7 @@ import { toAccuracy } from '../utils/area';
 import { UINote } from '../utils/notes';
 import { normalizer } from './dimensions';
 import { Tracked } from '../utils/tracking';
-import { DragingBackground } from '../../common/background';
+import { DragingBackground } from '../../components/background';
 import { useMidiFragment } from '../hooks/use-midi-fragment';
 
 type Props = {

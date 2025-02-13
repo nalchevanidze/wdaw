@@ -4,7 +4,7 @@ import { Svg, Point } from '@wdaw/svg';
 import { ENVELOPE_ID, EnvelopeConfig } from '@wdaw/engine';
 import { usePreset } from '../../hooks/use-preset';
 import { positive, unitInterval } from '../../utils/math';
-import { LineEditor } from '../../../common/line-editor';
+import { LineEditor } from '../../../components/line-editor';
 
 const height = 100;
 const width = 120;
