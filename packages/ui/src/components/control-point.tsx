@@ -1,13 +1,12 @@
+import { Point } from '@wdaw/svg';
 import * as React from 'react';
 
-export type Point = [number, number];
-
 type Props = {
-  xy: Point;
+  point: Point;
   onClick: () => void;
 };
 
-const ControlPoint: React.FC<Props> = ({ onClick, xy: [x, y] }) => (
+const ControlPoint: React.FC<Props> = ({ onClick, point: { x, y } }) => (
   <circle
     cx={x}
     cy={y}

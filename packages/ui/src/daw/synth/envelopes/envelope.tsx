@@ -8,14 +8,14 @@ import { LineEditor } from '../../../components/line-editor';
 
 const height = 100;
 const width = 120;
+const padding = 10;
 
 type Props = { id: ENVELOPE_ID };
 
 const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
   const [{ envelopes }, dispatch] = usePreset();
   const env = envelopes[id];
-  const { attack, sustain } = env;
-  const decay = attack + env.decay;
+  const decay = env.attack + env.decay;
   const sustainX = decay + 0.25;
 
   const setEnvelope = (payload: Partial<EnvelopeConfig>) =>
@@ -26,7 +26,7 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
       case 'attack':
         return setEnvelope({ attack: x });
       case 'decay':
-        return setEnvelope({ decay: positive(x - attack), sustain: y });
+        return setEnvelope({ decay: positive(x - env.attack), sustain: y });
       case 'release':
         return setEnvelope({ release: positive(x - sustainX) });
     }
@@ -38,26 +38,17 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
       width={width}
       onMove={onMove}
       controlers={[
-        { point: [0, 0] },
-        { point: [attack, 1], id: 'attack' },
-        {
-          point: [decay, sustain],
-          id: 'decay',
-          emphasize: true
-        },
-        { point: [sustainX, sustain], emphasize: true },
-        {
-          point: [sustainX + env.release, 0],
-          id: 'release'
-        }
+        { x: 0, y: 0 },
+        { id: 'attack', x: env.attack, y: 1 },
+        { id: 'decay', x: decay, y: env.sustain },
+        { x: sustainX, y: env.sustain },
+        { id: 'release', x: sustainX + env.release, y: 0 }
       ]}
     >
       <WaveGrid />
     </LineEditor>
   );
 };
-
-const padding = 10;
 
 export const Envelope = (props: Props) => (
   <Svg

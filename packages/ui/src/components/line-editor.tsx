@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { ControlPoint, Point } from './control-point';
+import { ControlPoint } from './control-point';
 import { colors } from '../styles';
-import { usePoint, Point as SVGPoint } from '@wdaw/svg';
+import { usePoint, Point } from '@wdaw/svg';
 import { unitInterval } from '../daw/utils/math';
 
-export type Controler = {
-  point: Point;
+type Controler = Point & {
   id?: string;
-  emphasize?: boolean;
 };
 
 type Props = {
@@ -15,7 +13,7 @@ type Props = {
   width: number;
   controlers: Controler[];
   children: React.ReactNode;
-  onMove(target: string, point: SVGPoint): void;
+  onMove(target: string, point: Point): void;
 };
 
 type EnvelopeHandler = React.MouseEventHandler<SVGGElement>;
@@ -32,19 +30,21 @@ export const LineEditor: React.FC<Props> = ({
   const setTarget = (name: string) => () => setCurrent(name);
   const toPoint = usePoint();
 
-  const upscale = ([x, y]: Point): Point => [x * width, (1 - y) * height];
-  const downScale = ({ x, y }: SVGPoint): SVGPoint => ({
+  const upscale = ({ x, y, ...props }: Controler): Controler => ({
+    x: x * width,
+    y: (1 - y) * height,
+    ...props
+  });
+
+  const normalize = ({ x, y }: Point): Point => ({
     x: unitInterval(x / width),
     y: unitInterval(1 - y / height)
   });
 
-  const upscaledControlers = controlers.map((c) => ({
-    ...c,
-    point: upscale(c.point)
-  }));
+  const upscaled = controlers.map(upscale);
 
   const localOnMove: EnvelopeHandler = (event) =>
-    target ? onMove(target, downScale(toPoint(event))) : undefined;
+    target ? onMove(target, normalize(toPoint(event))) : undefined;
 
   return (
     <g
@@ -58,7 +58,7 @@ export const LineEditor: React.FC<Props> = ({
         stroke={colors.prime}
         fill={colors.prime}
         fillOpacity="0.10"
-        d={'M' + upscaledControlers.map((x) => x.point)}
+        d={'M' + upscaled.flatMap(({ x, y }) => [x, y])}
       />
       <g
         stroke={colors.prime}
@@ -66,16 +66,14 @@ export const LineEditor: React.FC<Props> = ({
         strokeWidth="0.75"
         strokeOpacity={0.5}
       >
-        {upscaledControlers.map((c, i) =>
-          c.emphasize ? (
-            <path key={i} d={'M' + [c.point[0], height, ...c.point]} />
-          ) : null
-        )}
+        {upscaled.map((c, i) => (
+          <path key={i} d={'M' + [c.x, height, c.x, c.y]} />
+        ))}
       </g>
       <g fillOpacity={0.8} fill="gray" stroke="#333">
-        {upscaledControlers.map((c, i) =>
+        {upscaled.map((c, i) =>
           c.id ? (
-            <ControlPoint xy={c.point} key={i} onClick={setTarget(c.id)} />
+            <ControlPoint point={c} key={i} onClick={setTarget(c.id)} />
           ) : null
         )}
       </g>
