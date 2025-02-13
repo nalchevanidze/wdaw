@@ -2,12 +2,13 @@ import * as React from 'react';
 import { useState } from 'react';
 import { WaveGrid } from '../../../components/wave-grid';
 import { Svg, usePoint } from '@wdaw/svg';
-import { ControlPoint, Point } from '../../../common/control-point';
+import { Point } from '../../../common/control-point';
 import { MouseEventHandler } from 'react';
 import { colors } from '../../../styles';
 import { EnvelopeConfig, ENVELOPE_ID } from '@wdaw/engine';
 import { usePreset } from '../../hooks/use-preset';
 import { positive, unitInterval } from '../../utils/math';
+import { LineEditor } from '../../../common/line-editor';
 
 type Points = Record<'start' | keyof EnvelopeConfig, Point>;
 type Params = Record<'sustainX' | keyof EnvelopeConfig, number>;
@@ -45,31 +46,6 @@ type Target = 'attack' | 'decay' | 'release';
 
 type Props = {
   id: ENVELOPE_ID;
-};
-
-type Controler = {
-  point: Point;
-  onClick?: () => void;
-};
-
-const LineEditor: React.FC<{ controlers: Controler[] }> = ({ controlers }) => {
-  return (
-    <g>
-      <path
-        stroke={colors.prime}
-        fill={colors.prime}
-        fillOpacity="0.10"
-        d={'M' + controlers.map((x) => x.point)}
-      />
-      <g fillOpacity={0.8} fill="gray" stroke="#333">
-        {controlers.map((c, i) =>
-          c.onClick ? (
-            <ControlPoint xy={c.point} key={i} onClick={c.onClick} />
-          ) : null
-        )}
-      </g>
-    </g>
-  );
 };
 
 const type = 'SET_ENVELOPE';
@@ -110,14 +86,6 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
 
   const { start, attack, decay, release, sustain } = toPoints(params);
 
-  const controlers: Controler[] = [
-    { point: start },
-    { point: attack, onClick: setTarget('attack') },
-    { point: decay, onClick: setTarget('decay') },
-    { point: sustain },
-    { point: release, onClick: setTarget('release') }
-  ];
-
   return (
     <g
       onMouseMove={onMove}
@@ -137,7 +105,15 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
           <path d={'M' + [sustain[0], 100, ...sustain]} />
         </g>
       </g>
-      <LineEditor controlers={controlers} />
+      <LineEditor
+        controlers={[
+          { point: start },
+          { point: attack, onClick: setTarget('attack') },
+          { point: decay, onClick: setTarget('decay') },
+          { point: sustain },
+          { point: release, onClick: setTarget('release') }
+        ]}
+      />
     </g>
   );
 };
