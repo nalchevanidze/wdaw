@@ -14,36 +14,35 @@ type Props = { id: ENVELOPE_ID };
 const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
   const [{ envelopes }, dispatch] = usePreset();
   const env = envelopes[id];
-  const attack = env.attack * width;
-  const decay = attack + env.decay * width;
-  const sustainX = decay + height / 4;
-  const sustain = (1 - env.sustain) * height;
-  const release = sustainX + env.release * width;
+  const { attack, sustain } = env;
+
+  const decay = attack + env.decay;
+
+  const sustainX = decay + 0.25;
+  const release = sustainX + env.release;
 
   const setEnvelope = (payload: Partial<EnvelopeConfig>) =>
     dispatch({ type: 'SET_ENVELOPE', id, payload });
 
-  const onMove = (target: string, point: Point) => {
-    const x = positive(point.x / width);
-    const y = unitInterval(point.y / height);
-
+  const onMove = (target: string, { x, y }: Point) => {
     switch (target) {
       case 'attack':
         return setEnvelope({ attack: x });
       case 'decay':
-        return setEnvelope({ decay: positive(x - attack), sustain: 1 - y });
+        return setEnvelope({ decay: positive(x - env.attack), sustain: y });
       case 'release':
-        return setEnvelope({ release: positive(x - sustainX / width) });
+        return setEnvelope({ release: positive(x - sustainX) });
     }
   };
 
   return (
     <LineEditor
-      onMove={onMove}
       height={height}
+      width={width}
+      onMove={onMove}
       controlers={[
-        { point: [0, height] },
-        { point: [attack, 0], id: 'attack' },
+        { point: [0, 0] },
+        { point: [attack, 1], id: 'attack' },
         {
           point: [decay, sustain],
           id: 'decay',
@@ -51,7 +50,7 @@ const EnvelopeConsumer: React.FC<Props> = ({ id }) => {
         },
         { point: [sustainX, sustain], emphasize: true },
         {
-          point: [release, height],
+          point: [release, 0],
           id: 'release'
         }
       ]}
