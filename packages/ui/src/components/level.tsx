@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { usePoint, Range } from '@wdaw/svg';
+import { Range } from '@wdaw/svg';
 import { intRange, unitInterval } from '../daw/utils/math';
-import { MHandler } from '../daw/types';
 import { useMouseEvent } from '../hooks/use-mouse-event';
 
 const dashes = (size: number, steps: number) =>
@@ -39,14 +38,13 @@ export const Level: React.FC<Props> = ({
 }) => {
   const [listen, setListen] = React.useState(false);
   const mouseDown = () => setListen(true);
-  
+
   useMouseEvent(
     (e) => {
       switch (e.type) {
         case 'move': {
           if (!listen || !onChange) return;
-          const diff = (1.5 * (e.y - y - size / 2)) / size;
-          const value = 1 - unitInterval(diff);
+          const value = 1 - unitInterval((e.y - y) / size - 0.5);
           return onChange(range ? intRange(value, range) : value);
         }
         case 'up': {
