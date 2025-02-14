@@ -21,30 +21,33 @@ const styles = {
       textTransform: 'capitalize',
       userSelect: 'none'
     }) as const,
-  toggle: (optional?: boolean) => ({
-    display: 'flex',
-    height: 10,
-    cursor: optional ? 'pointer' : 'default'
-  }),
-  button: (active: boolean) => ({
-    display: 'block',
-    width: '7px',
-    height: '7px',
-    borderRadius: '50%',
-    margin: '2px',
-    border: '2px solid #888888',
-    padding: '0px',
-    cursor: 'pointer',
-    flexShrink: 0,
-    background: active ? colors.highlight : colors.black
-  }),
-  grid: (size: number) => ({
-    display: 'grid',
-    margin: 0,
-    paddingTop: '12px',
-    gap: '6px',
-    gridTemplateColumns: Array.from({ length: size }, () => '1fr').join(' ')
-  })
+  toggle: (optional?: boolean) =>
+    ({
+      display: 'flex',
+      height: 10,
+      cursor: optional ? 'pointer' : 'default'
+    }) as const,
+  button: (active: boolean) =>
+    ({
+      display: 'block',
+      width: '7px',
+      height: '7px',
+      borderRadius: '50%',
+      margin: '2px',
+      border: '2px solid #888888',
+      padding: '0px',
+      cursor: 'pointer',
+      flexShrink: 0,
+      background: active ? colors.highlight : colors.black
+    }) as const,
+  grid: (size: number) =>
+    ({
+      display: 'grid',
+      margin: 0,
+      paddingTop: '12px',
+      gap: '6px',
+      gridTemplateColumns: Array.from({ length: size }, () => '1fr').join(' ')
+    }) as const
 };
 
 type Props = {
@@ -86,4 +89,3 @@ export const Panel: React.FC<Props> = ({
     </div>
   );
 };
-
