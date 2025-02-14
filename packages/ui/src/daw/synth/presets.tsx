@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { colors } from '../../styles';
 import { usePreset } from '../hooks/use-preset';
 import { TextButton } from '../../components/text-button';
 
@@ -26,7 +25,7 @@ const styles = {
   }
 } as const;
 
-const PanelPresets: React.FC = () => {
+const Presets: React.FC = () => {
   const [{ name: active, names }, dispatch] = usePreset();
   const [hover, setHover] = React.useState<string | undefined>(undefined);
 
@@ -52,4 +51,4 @@ const PanelPresets: React.FC = () => {
   );
 };
 
-export default PanelPresets;
+export default Presets;

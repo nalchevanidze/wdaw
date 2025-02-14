@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { WaveGrid } from '../../components/wave-grid';
 import { Panel } from './panel';
-import PanelPresets from './presets';
+import Presets from './presets';
 import { Range } from '@wdaw/svg';
 import { WaveButton } from './wave-button';
 import { FILTER_ID, WAVE_ID, waveFunction } from '@wdaw/engine';
@@ -63,7 +63,7 @@ const Oscillators: React.FC = () => {
           <path d={waveForm} stroke="#444" strokeWidth={2} fill="none" />
           <WaveGrid color="gray" />
         </svg>
-        <PanelPresets />
+        <Presets />
       </Panel>
       <Panel id="wave" label="Oscillator" size={3}>
         {oscillators.map(({ id, range, steps }) => (

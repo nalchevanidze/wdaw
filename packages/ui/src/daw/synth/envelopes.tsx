@@ -12,7 +12,7 @@ const styles = {
   }
 } as const;
 
-const Envelopes: React.FC = () => {
+export const Envelopes: React.FC = () => {
   const [id, setId] = React.useState<ENVELOPE_ID>('gain');
 
   return (
@@ -33,5 +33,3 @@ const Envelopes: React.FC = () => {
     </Panel>
   );
 };
-
-export { Envelopes };
