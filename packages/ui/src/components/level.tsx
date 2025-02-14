@@ -34,20 +34,17 @@ export const Level: React.FC<Props> = ({
   bold = 0.2,
   stepOpacity = 0.5
 }) => {
-  const [listen, setListen] = React.useState(false);
-  const mouseDown = () => setListen(true);
+  const [isListening, setIsListening] = React.useState(false);
+  const mouseDown = () => setIsListening(true);
 
-  useMouseEvent(
-    {
-      move: (p) => {
-        if (!listen) return;
-        const value = 1 - unitInterval((p.y - y) / size - 0.5);
-        return onChange?.(range ? intRange(value, range) : value);
-      },
-      end: () => setListen(false)
+  useMouseEvent({
+    move: (p) => {
+      const value = 1 - unitInterval((p.y - y) / size - 0.5);
+      return onChange?.(range ? intRange(value, range) : value);
     },
-    [listen]
-  );
+    end: () => setIsListening(false),
+    isListening
+  });
 
   const cx = size + x;
   const cy = size + y;

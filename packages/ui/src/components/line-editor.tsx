@@ -25,7 +25,6 @@ export const LineEditor: React.FC<Props> = ({
   onMove
 }) => {
   const [target, setCurrent] = React.useState<string | undefined>();
-  const clear = () => setCurrent(undefined);
   const setTarget = (name: string) => () => setCurrent(name);
 
   const upscale = ({ x, y, ...props }: Controler): Controler => ({
@@ -39,13 +38,11 @@ export const LineEditor: React.FC<Props> = ({
     y: unitInterval(1 - y / height)
   });
 
-  useMouseEvent(
-    {
-      move: (p) => (target ? onMove(target, normalize(p)) : undefined),
-      end: clear
-    },
-    [target]
-  );
+  useMouseEvent({
+    move: (p) => (target ? onMove(target, normalize(p)) : undefined),
+    end: () => setCurrent(undefined),
+    isListening: Boolean(target)
+  });
 
   const upscaled = controlers.map(upscale);
 

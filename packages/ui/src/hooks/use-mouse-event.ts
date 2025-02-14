@@ -1,24 +1,27 @@
 import { Point, usePoint } from '@wdaw/svg';
-import * as React from 'react';
+import { useEffect } from 'react';
 
 type Handlers = {
   move: (p: Point) => void;
   end: () => void;
+  isListening: boolean;
 };
 
-export const useMouseEvent = (handlers: Handlers, args: unknown[] = []) => {
+export const useMouseEvent = ({ end, move, isListening }: Handlers) => {
   const toPoint = usePoint();
-  const onMove = (event: MouseEvent) => handlers.move(toPoint(event));
 
-  const onUp = (_: MouseEvent) => handlers.end();
+  useEffect(() => {
+    if (!isListening) return;
 
-  React.useEffect(() => {
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseup', onUp);
+    const onMousemove = (event: MouseEvent) => move(toPoint(event));
+    const onMouseup = () => end();
+
+    document.addEventListener('mousemove', onMousemove);
+    document.addEventListener('mouseup', onMouseup);
 
     return () => {
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseup', onUp);
+      document.removeEventListener('mousemove', onMousemove);
+      document.removeEventListener('mouseup', onMouseup);
     };
-  }, args);
+  }, [isListening]);
 };
