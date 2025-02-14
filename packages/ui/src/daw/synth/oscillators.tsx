@@ -47,7 +47,7 @@ export const Oscillators: React.FC = () => {
   return (
     <div style={styles.main}>
       <Panel label="Global" size={2}>
-        <WaveForm />
+        <WaveForm size={200}/>
         <Presets />
       </Panel>
       <Panel id="wave" label="Oscillator" size={3}>

@@ -18,10 +18,11 @@ const genPath = (wave: WaveConfig, width: number) => {
   return 'M 0 ' + middlePoint + ' ' + waveList + ` ${width}` + middlePoint;
 };
 
-export const WaveForm: React.FC = () => {
+type Props = {
+  size: number;
+};
+export const WaveForm: React.FC<Props> = ({ size }) => {
   const [{ wave }] = usePreset();
-
-  const size = 200;
 
   return (
     <svg viewBox={[0, 0, size, size].join(' ')} width="90px" height="90px">
