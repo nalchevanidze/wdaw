@@ -44,6 +44,7 @@ const WaveButton: React.FC<WaveButtonProps> = ({
         <path fill="none" d={lib[id]} strokeWidth={2} stroke={color} />
       )}
       <Level
+        id={id}
         range={range}
         onChange={onChange}
         value={value}

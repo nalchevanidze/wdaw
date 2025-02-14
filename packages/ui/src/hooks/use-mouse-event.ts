@@ -2,7 +2,7 @@ import * as React from 'react';
 
 type Handler = (m: 'MOVE' | 'UP') => (e: MouseEvent) => void;
 
-export const usMouseEvent = (f: Handler, args: unknown[] = []) => {
+export const useMouseEvent = (f: Handler, args: unknown[] = []) => {
   const onMove = f('MOVE');
   const onUp = f('UP');
 

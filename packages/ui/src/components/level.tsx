@@ -2,6 +2,7 @@ import * as React from 'react';
 import { usePoint, Range } from '@wdaw/svg';
 import { intRange, unitInterval } from '../daw/utils/math';
 import { MHandler } from '../daw/types';
+import { useMouseEvent } from '../hooks/use-mouse-event';
 
 const dashes = (size: number, steps: number) =>
   [1, (size * 2 * Math.PI) / steps - 1].toString();
@@ -20,6 +21,7 @@ export type Props = {
   y?: number;
   stepOpacity?: number;
   bold?: number;
+  id?: string;
 };
 
 export const Level: React.FC<Props> = ({
@@ -32,20 +34,30 @@ export const Level: React.FC<Props> = ({
   x = 0,
   y = 0,
   bold = 0.2,
-  stepOpacity = 0.5
+  stepOpacity = 0.5,
+  id
 }) => {
   const [listen, setListen] = React.useState(false);
   const toPoint = usePoint();
 
   const mouseDown = () => setListen(true);
-  const mouseUp = () => setListen(false);
 
-  const onMove: MHandler = (e) => {
-    if (!listen || !onChange) return;
-    const diff = (1.5 * (toPoint(e).y - y - size / 2)) / size;
-    const value = 1 - unitInterval(diff);
-    onChange(range ? intRange(value, range) : value);
-  };
+  useMouseEvent(
+    (type) => (e) => {
+      switch (type) {
+        case 'MOVE': {
+          if (!listen || !onChange) return;
+          const diff = (1.5 * (toPoint(e).y - y - size / 2)) / size;
+          const value = 1 - unitInterval(diff);
+          return onChange(range ? intRange(value, range) : value);
+        }
+        case 'UP': {
+          return setListen(false);
+        }
+      }
+    },
+    [listen, onChange]
+  );
 
   const cx = size + x;
   const cy = size + y;
@@ -80,10 +92,7 @@ export const Level: React.FC<Props> = ({
         cy={cy}
         r={size}
         fillOpacity={0}
-        onMouseLeave={mouseUp}
-        onMouseUp={mouseUp}
         onMouseDown={mouseDown}
-        onMouseMove={onMove}
         style={{ cursor: 'grab' }}
       />
     </>
