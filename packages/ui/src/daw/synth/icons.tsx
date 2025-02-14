@@ -20,7 +20,7 @@ const noise = [
   0.46, 0.8, 1, 0.85, 0, 0.9, 0.96, 0.95, 0, 1, 0.5
 ];
 
-export const lib: IconLib = {
+export const icons: IconLib = {
   saw: rescale([0, 0.5, 0, 0, 1, 1, 1, 0.5]),
   square: rescale([0, 0.5, 0, 0, 0.5, 0, 0.5, 1, 1, 1, 1, 0.5]),
   saw2: rescale([0, 0.5, 0, 0, 0.5, 1, 0.5, 0, 1, 1, 1, 0.5]),
@@ -39,3 +39,5 @@ export const lib: IconLib = {
     'M22 49.8h6.5v20C39 71.3 37.5 30 44.3 30 51 30 50 70 56.7 70c6.7 0 2.6-39.7 6.5-40C67 30 63.8 70 70 70V50h8',
   offset: 'M30 50 l0 10 m10-20 l0 20 m10-30 l0 30 m10-20 l0 20 m10-10 l0 10'
 };
+
+export const getIcon = (id: string) => icons[id];

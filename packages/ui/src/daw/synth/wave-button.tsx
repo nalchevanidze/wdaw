@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { lib } from './icons';
+import { icons } from './icons';
 import { Svg } from '@wdaw/svg';
-import { Level, Props } from '../../../components/level';
+import { Level, Props } from '../../components/level';
 
 const styles = {
   p: {
@@ -39,7 +39,7 @@ export const WaveButton: React.FC<Props & { id: string }> = ({
           {value}
         </text>
       ) : (
-        <path fill="none" d={lib[id]} strokeWidth={2} stroke={color} />
+        <path fill="none" d={icons[id]} strokeWidth={2} stroke={color} />
       )}
       <Level
         range={range}

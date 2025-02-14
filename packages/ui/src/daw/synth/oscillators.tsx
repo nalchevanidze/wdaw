@@ -3,7 +3,7 @@ import { WaveGrid } from '../../components/wave-grid';
 import { Panel } from './panel';
 import PanelPresets from './presets';
 import { Range } from '@wdaw/svg';
-import { WaveButton } from './button/wave-button';
+import { WaveButton } from './wave-button';
 import { FILTER_ID, WAVE_ID, waveFunction } from '@wdaw/engine';
 import { usePreset } from '../hooks/use-preset';
 
