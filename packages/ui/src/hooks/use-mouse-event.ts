@@ -1,18 +1,16 @@
 import { Point, usePoint } from '@wdaw/svg';
 import * as React from 'react';
 
-type Event =
-  | {
-      type: 'move';
-      point: Point;
-    }
-  | { type: 'up' };
+type Move = { type: 'move' } & Point;
+type Up = { type: 'up' };
+
+type Event = Move | Up;
 
 type Handler = (e: Event) => void;
 
 export const useMouseEvent = (f: Handler, args: unknown[] = []) => {
   const toPoint = usePoint();
-  const onMove = (e: MouseEvent) => f({ type: 'move', point: toPoint(e) });
+  const onMove = (e: MouseEvent) => f({ type: 'move', ...toPoint(e) });
   const onUp = (_: MouseEvent) => f({ type: 'up' });
 
   React.useEffect(() => {
