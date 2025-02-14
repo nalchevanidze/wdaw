@@ -1,42 +1,16 @@
 import * as React from 'react';
 import { Envelope } from './envelope';
 import { Panel } from '../panel';
-import { colors } from '../../../styles';
 import { ENVELOPE_ID } from '@wdaw/engine';
+import { TextButton } from '../text-button';
 
 const styles = {
-  button: {
-    fontSize: '11px',
-    outline: 'none',
-    background: 'none',
-    border: 'none',
-    width: '50%',
-    cursor: 'pointer',
-    textTransform: 'uppercase'
-  },
   nav: {
-    marginTop: '10px',
-    width: '80%'
+    margin: '6px',
+    display: 'flex',
+    gap: "10px"
   }
 } as const;
-
-export interface ButtonProps {
-  id: ENVELOPE_ID;
-  active: ENVELOPE_ID;
-  onClick: (input: ENVELOPE_ID) => void;
-}
-
-const Button = ({ id, active, onClick }: ButtonProps) => (
-  <button
-    style={{
-      ...styles.button,
-      color: colors.button(id === active)
-    }}
-    onClick={() => onClick(id)}
-  >
-    {id}
-  </button>
-);
 
 const Envelopes: React.FC = () => {
   const [id, setId] = React.useState<ENVELOPE_ID>('gain');
@@ -44,8 +18,16 @@ const Envelopes: React.FC = () => {
   return (
     <Panel label="envelopes" size={3}>
       <div style={styles.nav}>
-        <Button id="gain" active={id} onClick={setId} />
-        <Button id="filter" active={id} onClick={setId} />
+        <TextButton
+          name="gain"
+          active={id === 'gain'}
+          onClick={() => setId('gain')}
+        />
+        <TextButton
+          name="filter"
+          active={id === 'filter'}
+          onClick={() => setId('filter')}
+        />
       </div>
       <Envelope id={id} />
     </Panel>
