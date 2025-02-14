@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { EditActionType } from '../types';
 import { colors } from '../../styles';
-import HeaderButton from '../../components/header-button';
+import { HeaderButton } from '../../components/header-button';
 
 const styles = {
   container: {

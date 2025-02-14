@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import HeaderButton from '../../components/header-button';
+import { HeaderButton } from '../../components/header-button';
 import { colors } from '../../styles';
 import { DawApiContext } from '../../context/state';
 
