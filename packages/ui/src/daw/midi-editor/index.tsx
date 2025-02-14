@@ -86,11 +86,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
     };
 
   return (
-    <g
-      onMouseMove={dragging.onMove}
-      onMouseLeave={dragging.end}
-      onMouseUp={dragging.end}
-    >
+    <g>
       <NoteGrid
         size={rulerSize}
         patternHeight={ocatveHeight}

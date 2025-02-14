@@ -2,6 +2,7 @@ import { Point, Trajectory, usePoint, Area } from '@wdaw/svg';
 import * as React from 'react';
 import { Maybe, MEvent, MHandler } from '../types';
 import { distanceX, distanceY } from '../utils/area';
+import { useMouseEvent } from '../../hooks/use-mouse-event';
 
 export type MODE = 'scale' | 'move' | 'select';
 
@@ -30,10 +31,12 @@ export const useDragging = <T>(ops: Optins<T>) => {
   const [mode, setMode] = React.useState<MODE | undefined>(undefined);
   const [dragging, setDragging] = React.useState<Maybe<Point>>(undefined);
 
+
   const start = (name: MODE, e: MEvent) => {
     setMode(name);
     setDragging(toPoint(e));
   };
+
   const end = () => {
     setArea(undefined);
     setMode(undefined);
@@ -41,24 +44,22 @@ export const useDragging = <T>(ops: Optins<T>) => {
     ops.onEnd?.(mode);
   };
 
-  const onMove: MHandler = (e) => {
-    if (mode) {
-      const t: Maybe<Trajectory> = dragging
-        ? [dragging, toPoint(e)]
-        : undefined;
+  const move = (p: Point) => {
+    if (!mode) return;
 
-      switch (mode) {
-        case 'select':
-          const area = t ? new Area(...t) : undefined;
-          setArea(area);
-          return ops.onMove.select(area);
-        case 'move':
-          if (!t) return;
-          return ops.onMove.move(distanceX(t), distanceY(t));
-        case 'scale':
-          if (!t) return;
-          return ops.onMove.scale(distanceX(t));
-      }
+    const t: Maybe<Trajectory> = dragging ? [dragging, p] : undefined;
+
+    switch (mode) {
+      case 'select':
+        const area = t ? new Area(...t) : undefined;
+        setArea(area);
+        return ops.onMove.select(area);
+      case 'move':
+        if (!t) return;
+        return ops.onMove.move(distanceX(t), distanceY(t));
+      case 'scale':
+        if (!t) return;
+        return ops.onMove.scale(distanceX(t));
     }
   };
 
@@ -76,11 +77,11 @@ export const useDragging = <T>(ops: Optins<T>) => {
     }
   };
 
+  useMouseEvent({ move, end }, [mode]);
+
   return {
     area,
     start,
-    end,
-    onMove,
     onBackground,
     onStart
   };

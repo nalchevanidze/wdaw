@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ControlPoint } from './control-point';
 import { colors } from '../styles';
-import { usePoint, Point } from '@wdaw/svg';
+import { Point } from '@wdaw/svg';
 import { unitInterval } from '../daw/utils/math';
 import { useMouseEvent } from '../hooks/use-mouse-event';
 
@@ -42,9 +42,9 @@ export const LineEditor: React.FC<Props> = ({
   useMouseEvent(
     {
       move: (p) => (target ? onMove(target, normalize(p)) : undefined),
-      up: clear
+      end: clear
     },
-    [clear, onMove, normalize]
+    [target]
   );
 
   const upscaled = controlers.map(upscale);

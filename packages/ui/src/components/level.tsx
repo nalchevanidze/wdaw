@@ -40,13 +40,13 @@ export const Level: React.FC<Props> = ({
   useMouseEvent(
     {
       move: (p) => {
-        if (!listen || !onChange) return;
+        if (!listen) return;
         const value = 1 - unitInterval((p.y - y) / size - 0.5);
-        return onChange(range ? intRange(value, range) : value);
+        return onChange?.(range ? intRange(value, range) : value);
       },
-      up: () => setListen(false)
+      end: () => setListen(false)
     },
-    [listen, onChange]
+    [listen]
   );
 
   const cx = size + x;
