@@ -6,8 +6,6 @@ import { usePreset } from '../../hooks/use-preset';
 import { positive } from '../../utils/math';
 import { LineEditor } from '../../../components/line-editor';
 
-type Props = { id: ENVELOPE_ID };
-
 const genEnvelope = (
   attack: number,
   sustain: number,
@@ -26,12 +24,22 @@ const genEnvelope = (
   }
 };
 
-export const Envelope: React.FC<Props> = ({ id }) => {
+type Props = {
+  id: ENVELOPE_ID;
+  height?: number;
+  width?: number;
+  padding?: number;
+};
+
+export const Envelope: React.FC<Props> = ({
+  id,
+  height = 100,
+  width = 160,
+  padding = 5
+}) => {
   const [{ envelopes }, dispatch] = usePreset();
-  const height = 100;
-  const width = 160;
-  const padding = 5;
   const env = envelopes[id];
+
   const decay = env.attack + env.decay;
   const sustainX = decay + 0.25;
 
