@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { KEY_EVENT_TYPE, useKeyAction } from '../utils/key-actions';
+import { KEY_EVENT_TYPE, useKeyEvent } from '../hooks/use-key-event';
 import { KeyHandler, Octave } from './octave';
 import { DawApiContext } from '../../context/state';
 import { noteFromKeyboard } from '../utils/keyboard';
@@ -16,7 +16,7 @@ const Keyboard: React.FC = () => {
       }
     };
 
-  useKeyAction(handler);
+  useKeyEvent(handler);
 
   return (
     <ul

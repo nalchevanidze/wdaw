@@ -7,7 +7,7 @@ import {
   Mixed,
   Tracked
 } from '../utils/tracking';
-import { useOnDelete } from '../utils/key-actions';
+import { useOnDelete } from './use-key-event';
 import { partition, Predicate } from '../../common/utils';
 
 type Selected<T extends object> = {

@@ -4,7 +4,7 @@ type Handler = (m: KEY_EVENT_TYPE) => (e: KeyboardEvent) => void;
 
 export type KEY_EVENT_TYPE = 'KEY_UP' | 'KEY_DOWN';
 
-export const useKeyAction = (f: Handler, args: unknown[] = []) => {
+export const useKeyEvent = (f: Handler, args: unknown[] = []) => {
   const up = f('KEY_UP');
   const down = f('KEY_DOWN');
 
@@ -27,5 +27,5 @@ export const useOnDelete = (f: () => void, args: unknown[] = []) => {
     }
   };
 
-  useKeyAction(deleteNotes, args);
+  useKeyEvent(deleteNotes, args);
 };
