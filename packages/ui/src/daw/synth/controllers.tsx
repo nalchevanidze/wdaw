@@ -72,6 +72,7 @@ export const Controllers = <K extends string>({
       <Controller
         id={id}
         key={id}
+        color='#555'
         range={range}
         steps={steps}
         value={values[id]}
