@@ -35,6 +35,7 @@ const Presets: React.FC = () => {
       <div style={styles.list}>
         {names.map((name) => (
           <div
+            key={name}
             onMouseOver={() => setHover(name)}
             style={{ background: hover === name ? '#00000010' : 'none' }}
           >

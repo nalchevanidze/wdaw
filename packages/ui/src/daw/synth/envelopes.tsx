@@ -23,6 +23,7 @@ export const Envelopes: React.FC = () => {
       <div style={styles.nav}>
         {ids.map((name) => (
           <TextButton
+            key={name}
             name={name}
             active={id === name}
             onClick={() => setId(name)}
