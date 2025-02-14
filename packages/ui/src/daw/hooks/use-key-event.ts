@@ -18,14 +18,3 @@ export const useKeyEvent = (f: Handler, args: unknown[] = []) => {
     };
   }, args);
 };
-
-export const useOnDelete = (f: () => void, args: unknown[] = []) => {
-  const deleteNotes = () => (e: KeyboardEvent) => {
-    switch (e.key) {
-      case 'Backspace':
-        return f();
-    }
-  };
-
-  useKeyEvent(deleteNotes, args);
-};

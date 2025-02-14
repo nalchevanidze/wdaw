@@ -7,8 +7,8 @@ import {
   Mixed,
   Tracked
 } from '../utils/tracking';
-import { useOnDelete } from './use-key-event';
 import { partition, Predicate } from '../../common/utils';
+import { useOnDeleteKey } from './use-on-delete-key';
 
 type Selected<T extends object> = {
   selected: Tracked<T>[];
@@ -62,7 +62,7 @@ export const useSelection = <T extends object>(
   const edit = (f: EditFunc<T>) =>
     set({ selected: mapTracked(selected, f), inactive });
 
-  useOnDelete(removeSelected, [selected, inactive]);
+  useOnDeleteKey(removeSelected, [selected, inactive]);
 
   return {
     sync,
