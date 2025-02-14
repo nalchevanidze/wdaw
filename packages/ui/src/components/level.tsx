@@ -40,17 +40,13 @@ export const Level: React.FC<Props> = ({
   const mouseDown = () => setListen(true);
 
   useMouseEvent(
-    (e) => {
-      switch (e.type) {
-        case 'move': {
-          if (!listen || !onChange) return;
-          const value = 1 - unitInterval((e.y - y) / size - 0.5);
-          return onChange(range ? intRange(value, range) : value);
-        }
-        case 'up': {
-          return setListen(false);
-        }
-      }
+    {
+      move: (p) => {
+        if (!listen || !onChange) return;
+        const value = 1 - unitInterval((p.y - y) / size - 0.5);
+        return onChange(range ? intRange(value, range) : value);
+      },
+      up: () => setListen(false)
     },
     [listen, onChange]
   );

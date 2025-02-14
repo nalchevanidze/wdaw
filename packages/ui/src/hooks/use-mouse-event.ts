@@ -1,20 +1,16 @@
 import { Point, usePoint } from '@wdaw/svg';
 import * as React from 'react';
 
-type Move = { type: 'move' } & Point;
-type Up = { type: 'up' };
+type Handlers = {
+  move: (p: Point) => void;
+  up: () => void;
+};
 
-type Event = Move | Up;
-
-type Handler = (e: Event) => void;
-
-export const useMouseEvent = (f: Handler, args: unknown[] = []) => {
+export const useMouseEvent = (handlers: Handlers, args: unknown[] = []) => {
   const toPoint = usePoint();
-  const onMove = (event: MouseEvent) => {
-    const { x, y } = toPoint(event);
-    f({ type: 'move', x, y });
-  };
-  const onUp = (_: MouseEvent) => f({ type: 'up' });
+  const onMove = (event: MouseEvent) => handlers.move(toPoint(event));
+
+  const onUp = (_: MouseEvent) => handlers.up();
 
   React.useEffect(() => {
     document.addEventListener('mousemove', onMove);

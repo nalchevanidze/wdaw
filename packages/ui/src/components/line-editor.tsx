@@ -3,6 +3,7 @@ import { ControlPoint } from './control-point';
 import { colors } from '../styles';
 import { usePoint, Point } from '@wdaw/svg';
 import { unitInterval } from '../daw/utils/math';
+import { useMouseEvent } from '../hooks/use-mouse-event';
 
 type Controler = Point & {
   id?: string;
@@ -16,8 +17,6 @@ type Props = {
   onMove(target: string, point: Point): void;
 };
 
-type EnvelopeHandler = React.MouseEventHandler<SVGGElement>;
-
 export const LineEditor: React.FC<Props> = ({
   height,
   width,
@@ -28,7 +27,6 @@ export const LineEditor: React.FC<Props> = ({
   const [target, setCurrent] = React.useState<string | undefined>();
   const clear = () => setCurrent(undefined);
   const setTarget = (name: string) => () => setCurrent(name);
-  const toPoint = usePoint();
 
   const upscale = ({ x, y, ...props }: Controler): Controler => ({
     x: x * width,
@@ -41,18 +39,18 @@ export const LineEditor: React.FC<Props> = ({
     y: unitInterval(1 - y / height)
   });
 
+  useMouseEvent(
+    {
+      move: (p) => (target ? onMove(target, normalize(p)) : undefined),
+      up: clear
+    },
+    [clear, onMove, normalize]
+  );
+
   const upscaled = controlers.map(upscale);
 
-  const localOnMove: EnvelopeHandler = (event) =>
-    target ? onMove(target, normalize(toPoint(event))) : undefined;
-
   return (
-    <g
-      onMouseMove={localOnMove}
-      onMouseLeave={clear}
-      onTouchEnd={clear}
-      onMouseUp={clear}
-    >
+    <g>
       {children}
       <g stroke={colors.prime} fill="none" strokeOpacity={0.7}>
         {upscaled.map((c, i) => (
