@@ -35,16 +35,17 @@ export const Level: React.FC<Props> = ({
   y = 0,
   bold = 0.2,
   stepOpacity = 0.5,
+  id
 }) => {
   const [listen, setListen] = React.useState(false);
   const mouseDown = () => setListen(true);
-
+  
   useMouseEvent(
-    (event) => {
-      switch (event.type) {
+    (e) => {
+      switch (e.type) {
         case 'move': {
           if (!listen || !onChange) return;
-          const diff = (1.5 * (event.y - y - size / 2)) / size;
+          const diff = (1.5 * (e.y - y - size / 2)) / size;
           const value = 1 - unitInterval(diff);
           return onChange(range ? intRange(value, range) : value);
         }
