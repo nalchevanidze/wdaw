@@ -14,8 +14,8 @@ const styles = {
   },
   synth: {
     position: 'relative',
-    width: '660px',
-    height: '350px',
+    width: '540px',
+    height: '340px',
     borderRadius: '2px',
     background: colors.background,
     border: '1px solid #CCC'

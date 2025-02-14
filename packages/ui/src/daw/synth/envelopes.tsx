@@ -7,7 +7,6 @@ import { usePreset } from '../hooks/use-preset';
 
 const styles = {
   nav: {
-    margin: '6px',
     display: 'flex',
     gap: '10px'
   }

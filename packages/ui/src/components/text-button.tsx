@@ -3,7 +3,7 @@ import { colors } from '../styles';
 
 const styles = {
   button: {
-    fontSize: '12px',
+    fontSize: '10px',
     outline: 'none',
     background: 'none',
     border: 'none',

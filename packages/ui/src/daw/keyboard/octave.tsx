@@ -64,7 +64,7 @@ const styles = {
     cursor: 'pointer',
     display: 'flex',
     position: 'relative',
-    width: '300px',
+    width: '180px',
     userSelect: 'none',
     justifyContent: 'space-between',
     alignItems: 'start'

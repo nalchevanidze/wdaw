@@ -5,7 +5,7 @@ import { SEQUENCE_LENGTH } from '@wdaw/engine';
 import { toggleARPNote } from '../utils/arp';
 import { usePreset } from '../hooks/use-preset';
 
-const STEP_SIZE = 10;
+const STEP_SIZE = 8;
 const range = Array.from({ length: SEQUENCE_LENGTH }, (_, i) => i);
 const OCTAVES = [4, 3, 2, 1];
 
@@ -22,7 +22,7 @@ const styles = {
   },
   element: (active: boolean) => ({
     width: STEP_SIZE + 'px',
-    border: '0.025em solid #BBB',
+    border: '0.1px solid #BBB',
     height: STEP_SIZE + 'px',
     background: active ? colors.secondary : '#2220'
   }),
