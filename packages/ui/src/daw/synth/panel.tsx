@@ -4,13 +4,16 @@ import { usePreset } from '../hooks/use-preset';
 import { PANEL_ID } from '../../state/types';
 
 const styles = {
-  label: {
-    fontSize: '12px',
-    margin: '0',
-    width: '100%',
-    textAlign: 'center',
-    textTransform: 'uppercase'
-  },
+  label: (color: string) =>
+    ({
+      color,
+      fontSize: '12px',
+      margin: '0',
+      width: '100%',
+      textAlign: 'center',
+      textTransform: 'uppercase',
+      userSelect: 'none'
+    }) as const,
   toggle: (optional?: boolean) => ({
     display: 'flex',
     height: 10,
@@ -38,7 +41,7 @@ const styles = {
       width: `${size * 50 + (size - 1) * 20}px`,
       opacity: active ? 1 : 0.5
     }) as const
-} as const;
+};
 
 export type Props = {
   id?: PANEL_ID;
@@ -75,7 +78,7 @@ const Panel: React.FC<Props> = ({
         onClick={optional ? toggle : undefined}
       >
         {optional ? <div style={styles.button(active)} /> : null}
-        <h3 style={{ ...styles.label, color }}>{label}</h3>
+        <h3 style={styles.label(color)}>{label}</h3>
       </div>
       <div style={grid}>{children}</div>
     </div>
