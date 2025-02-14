@@ -42,7 +42,6 @@ const icons: IconLib = {
 
 export const getWaveIcon = (id: string) => icons[id];
 
-
 const iconLib = {
   play: 'M20 0 L 90 50 20 100Z',
   pause: 'M30,100V0 M70,0v100',
@@ -52,6 +51,5 @@ const iconLib = {
 };
 
 export type IconName = keyof typeof iconLib;
-
 
 export const getIcon = (id: IconName) => iconLib[id];
