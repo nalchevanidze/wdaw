@@ -26,26 +26,19 @@ const styles = {
 } as const;
 
 const Presets: React.FC = () => {
-  const [{ name: active, names }, dispatch] = usePreset();
-  const [hover, setHover] = React.useState<string | undefined>(undefined);
+  const [{ name, names }, dispatch] = usePreset();
 
   return (
-    <div style={styles.container} onMouseLeave={() => setHover(undefined)}>
+    <div style={styles.container}>
       <h3 style={styles.label}>Presets</h3>
       <div style={styles.list}>
-        {names.map((name) => (
-          <div
-            key={name}
-            onMouseOver={() => setHover(name)}
-            style={{ background: hover === name ? '#00000010' : 'none' }}
-          >
-            <TextButton
-              name={name}
-              key={name}
-              active={name === active}
-              onClick={() => dispatch({ type: 'SET_PRESET', payload: name })}
-            />
-          </div>
+        {names.map((id) => (
+          <TextButton
+            name={id}
+            key={id}
+            active={id === name}
+            onClick={() => dispatch({ type: 'SET_PRESET', payload: id })}
+          />
         ))}
       </div>
     </div>
