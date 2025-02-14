@@ -1,4 +1,4 @@
-import { useKeyEvent } from "./use-key-event";
+import { useKeyEvent } from "../../hooks/use-key-event";
 
 export const useOnDeleteKey = (f: () => void, args: unknown[] = []) => {
   const deleteNotes = () => (e: KeyboardEvent) => {

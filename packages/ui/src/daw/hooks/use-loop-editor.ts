@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Maybe } from '../types';
-import { useTrack } from './use-track';
 import { useMidiFragment } from './use-midi-fragment';
 
 export type LoopTarget = 'start' | 'end';
