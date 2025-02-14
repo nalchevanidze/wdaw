@@ -1,17 +1,10 @@
 import * as React from 'react';
-import { Panel } from './panel';
-import { Range } from '@wdaw/svg';
+import { Items, Panel } from './panel';
 import { WaveButton } from './wave-button';
 import { FILTER_ID, WAVE_ID } from '@wdaw/engine';
 import { usePreset } from '../hooks/use-preset';
 
-type Item<K extends string> = {
-  id: K;
-  steps?: number;
-  range?: Range;
-};
-
-const oscillators: Item<WAVE_ID>[] = [
+const oscillators: Items<WAVE_ID> = [
   { id: 'sine' },
   { id: 'square' },
   { id: 'saw' },
@@ -25,7 +18,7 @@ const oscillators: Item<WAVE_ID>[] = [
   { id: 'octave', range: [-4, 4], steps: 8 }
 ];
 
-const filters: Item<FILTER_ID>[] = [
+const filters: Items<FILTER_ID> = [
   { id: 'cutoff' },
   { id: 'resonance' },
   { id: 'envelope' }

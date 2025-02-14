@@ -2,6 +2,13 @@ import * as React from 'react';
 import { colors } from '../../styles';
 import { usePreset } from '../hooks/use-preset';
 import { PANEL_ID } from '../../state/types';
+import { Range } from '@wdaw/svg';
+
+export type Items<K extends string> = {
+  id: K;
+  steps?: number;
+  range?: Range;
+}[];
 
 const styles = {
   container: (active?: boolean) =>
@@ -10,7 +17,7 @@ const styles = {
       margin: '0',
       opacity: active ? 1 : 0.5,
       flexShrink: 0,
-      padding: '8px',
+      padding: '8px'
     }) as const,
   label: (color: string) =>
     ({
