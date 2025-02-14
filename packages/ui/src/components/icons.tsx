@@ -40,4 +40,4 @@ const icons: IconLib = {
   offset: 'M30 50 l0 10 m10-20 l0 20 m10-30 l0 30 m10-20 l0 20 m10-10 l0 10'
 };
 
-export const getIcon = (id: string) => icons[id];
+export const getWaveIcon = (id: string) => icons[id];
