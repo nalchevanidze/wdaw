@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Envelope } from './envelope';
-import { Panel } from '../panel';
+import { Panel } from './panel';
 import { ENVELOPE_ID } from '@wdaw/engine';
-import { TextButton } from '../../../components/text-button';
+import { TextButton } from '../../components/text-button';
 
 const styles = {
   nav: {
