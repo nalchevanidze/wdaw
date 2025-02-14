@@ -38,20 +38,18 @@ export const Level: React.FC<Props> = ({
   id
 }) => {
   const [listen, setListen] = React.useState(false);
-  const toPoint = usePoint();
-
   const mouseDown = () => setListen(true);
 
   useMouseEvent(
-    (type) => (e) => {
-      switch (type) {
-        case 'MOVE': {
+    (e) => {
+      switch (e.type) {
+        case 'move': {
           if (!listen || !onChange) return;
-          const diff = (1.5 * (toPoint(e).y - y - size / 2)) / size;
+          const diff = (1.5 * (e.point.y - y - size / 2)) / size;
           const value = 1 - unitInterval(diff);
           return onChange(range ? intRange(value, range) : value);
         }
-        case 'UP': {
+        case 'up': {
           return setListen(false);
         }
       }
