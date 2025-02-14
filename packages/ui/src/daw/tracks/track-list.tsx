@@ -82,8 +82,8 @@ export const Tracks: React.FC = () => {
                   end={state?.end ?? end}
                   fragmentId={fragmentId}
                   height={trackHeight}
-                  startMove={(e) => dragging.onStart('move')(e, id)}
-                  startScale={(e) => dragging.onStart('scale')(e, id)}
+                  startMove={(e) => dragging.onElement('move')(e, id)}
+                  startScale={(e) => dragging.onElement('scale')(e, id)}
                   color={
                     state?.origin
                       ? colors.notesSelected

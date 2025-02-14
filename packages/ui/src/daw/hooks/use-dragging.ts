@@ -30,11 +30,6 @@ export const useDragging = <T>(ops: Optins<T>) => {
   const [area, setArea] = React.useState<Area | undefined>();
   const [dragging, setDragging] = React.useState<Maybe<Point>>(undefined);
 
-  const start = (name: MODE, e: MEvent) => {
-    setMode(name);
-    setDragging(toPoint(e));
-  };
-
   const setMode = useMouseEvent<MODE>({
     move: (p: Point, mode) => {
       const t: Maybe<Trajectory> = dragging ? [dragging, p] : undefined;
@@ -59,24 +54,25 @@ export const useDragging = <T>(ops: Optins<T>) => {
     }
   });
 
-  const onBackground = (e: MEvent) => {
-    const name = ops.onBackground?.(toPoint(e));
-    if (name) {
-      start(name, e);
-    }
-  };
+  const onElement = (name: MODE) => (e: MEvent, t?: T) => {
+    setMode(name);
+    setDragging(toPoint(e));
 
-  const onStart = (name: MODE) => (e: MEvent, t?: T) => {
-    start(name, e);
     if (t !== undefined) {
       ops.onStart?.(t);
     }
   };
 
+  const onBackground = (e: MEvent) => {
+    const name = ops.onBackground?.(toPoint(e));
+    if (name) {
+      onElement(name)(e);
+    }
+  };
+
   return {
     area,
-    start,
-    onBackground,
-    onStart
+    onElement,
+    onBackground
   };
 };

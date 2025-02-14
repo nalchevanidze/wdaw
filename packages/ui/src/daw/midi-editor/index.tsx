@@ -82,7 +82,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
     (target: LoopTarget): MHandler =>
     (e) => {
       loop.startMove(target);
-      dragging.start('move', e);
+      dragging.onElement('move')(e);
     };
 
   return (
@@ -106,8 +106,8 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
           noteHeight={noteHeight}
           height={canvasHeight}
           notes={notes.all as any}
-          mouseDown={dragging.onStart('move')}
-          scale={dragging.onStart('scale')}
+          mouseDown={dragging.onElement('move')}
+          scale={dragging.onElement('scale')}
         />
       </g>
       <Timeline
