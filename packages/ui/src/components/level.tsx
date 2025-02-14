@@ -34,16 +34,12 @@ export const Level: React.FC<Props> = ({
   bold = 0.2,
   stepOpacity = 0.5
 }) => {
-  const [isListening, setIsListening] = React.useState(false);
-  const mouseDown = () => setIsListening(true);
 
-  useMouseEvent({
+  const setIsListening = useMouseEvent({
     move: (p) => {
       const value = 1 - unitInterval((p.y - y) / size - 0.5);
       return onChange?.(range ? intRange(value, range) : value);
-    },
-    end: () => setIsListening(false),
-    isListening
+    }
   });
 
   const cx = size + x;
@@ -79,7 +75,7 @@ export const Level: React.FC<Props> = ({
         cy={cy}
         r={size}
         fillOpacity={0}
-        onMouseDown={mouseDown}
+        onMouseDown={() => setIsListening(true)}
         style={{ cursor: 'grab' }}
       />
     </>

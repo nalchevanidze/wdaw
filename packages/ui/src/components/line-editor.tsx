@@ -24,8 +24,9 @@ export const LineEditor: React.FC<Props> = ({
   children,
   onMove
 }) => {
-  const [target, setCurrent] = React.useState<string | undefined>();
-  const setTarget = (name: string) => () => setCurrent(name);
+  const setCurrent = useMouseEvent<string>({
+    move: (p, t) => onMove(t, normalize(p))
+  });
 
   const upscale = ({ x, y, ...props }: Controler): Controler => ({
     x: x * width,
@@ -36,12 +37,6 @@ export const LineEditor: React.FC<Props> = ({
   const normalize = ({ x, y }: Point): Point => ({
     x: unitInterval(x / width),
     y: unitInterval(1 - y / height)
-  });
-
-  useMouseEvent({
-    move: (p) => (target ? onMove(target, normalize(p)) : undefined),
-    end: () => setCurrent(undefined),
-    isListening: Boolean(target)
   });
 
   const upscaled = controlers.map(upscale);
@@ -63,7 +58,7 @@ export const LineEditor: React.FC<Props> = ({
       <g fillOpacity={0.8} fill="gray" stroke="#333">
         {upscaled.map((c, i) =>
           c.id ? (
-            <ControlPoint point={c} key={i} onClick={setTarget(c.id)} />
+            <ControlPoint point={c} key={i} onClick={() => setCurrent(c.id)} />
           ) : null
         )}
       </g>

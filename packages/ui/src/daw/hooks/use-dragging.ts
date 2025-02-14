@@ -1,6 +1,6 @@
 import { Point, Trajectory, usePoint, Area } from '@wdaw/svg';
 import * as React from 'react';
-import { Maybe, MEvent, MHandler } from '../types';
+import { Maybe, MEvent } from '../types';
 import { distanceX, distanceY } from '../utils/area';
 import { useMouseEvent } from '../../hooks/use-mouse-event';
 
@@ -28,7 +28,6 @@ export const useDragging = <T>(ops: Optins<T>) => {
   const toPoint = usePoint();
 
   const [area, setArea] = React.useState<Area | undefined>();
-  const [mode, setMode] = React.useState<MODE | undefined>(undefined);
   const [dragging, setDragging] = React.useState<Maybe<Point>>(undefined);
 
   const start = (name: MODE, e: MEvent) => {
@@ -36,29 +35,29 @@ export const useDragging = <T>(ops: Optins<T>) => {
     setDragging(toPoint(e));
   };
 
-  const end = () => {
-    setArea(undefined);
-    setMode(undefined);
-    setDragging(undefined);
-    ops.onEnd?.(mode);
-  };
+  const setMode = useMouseEvent<MODE>({
+    move: (p: Point, mode) => {
+      const t: Maybe<Trajectory> = dragging ? [dragging, p] : undefined;
 
-  const move = (p: Point) => {
-    const t: Maybe<Trajectory> = dragging ? [dragging, p] : undefined;
-
-    switch (mode) {
-      case 'select':
-        const area = t ? new Area(...t) : undefined;
-        setArea(area);
-        return ops.onMove.select(area);
-      case 'move':
-        if (!t) return;
-        return ops.onMove.move(distanceX(t), distanceY(t));
-      case 'scale':
-        if (!t) return;
-        return ops.onMove.scale(distanceX(t));
+      switch (mode) {
+        case 'select':
+          const area = t ? new Area(...t) : undefined;
+          setArea(area);
+          return ops.onMove.select(area);
+        case 'move':
+          if (!t) return;
+          return ops.onMove.move(distanceX(t), distanceY(t));
+        case 'scale':
+          if (!t) return;
+          return ops.onMove.scale(distanceX(t));
+      }
+    },
+    end: (mode) => {
+      setArea(undefined);
+      setDragging(undefined);
+      ops.onEnd?.(mode);
     }
-  };
+  });
 
   const onBackground = (e: MEvent) => {
     const name = ops.onBackground?.(toPoint(e));
@@ -73,8 +72,6 @@ export const useDragging = <T>(ops: Optins<T>) => {
       ops.onStart?.(t);
     }
   };
-
-  useMouseEvent({ move, end, isListening: Boolean(mode) });
 
   return {
     area,
