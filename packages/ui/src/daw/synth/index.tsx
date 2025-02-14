@@ -3,7 +3,7 @@ import { Envelopes } from './envelopes';
 import { Sequencer } from './sequencer';
 import { Presets } from './presets';
 import { Panel } from './panel';
-import { Controllers } from './controllers';
+import { Controllers } from '../../components/controllers';
 import { usePreset } from '../hooks/use-preset';
 
 const styles = {

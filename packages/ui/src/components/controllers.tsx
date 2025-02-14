@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { getWaveIcon } from '../../components/icons';
+import { getWaveIcon } from './icons';
 import { Svg } from '@wdaw/svg';
-import { Level, Props as LevelProps } from '../../components/level';
+import { Level, Props as LevelProps } from './level';
 import { Range } from '@wdaw/svg';
 
 const styles = {
