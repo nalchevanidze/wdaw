@@ -45,8 +45,8 @@ export const Level: React.FC<Props> = ({
       switch (e.type) {
         case 'move': {
           if (!listen || !onChange) return;
-          const diff = (1.5 * (e.point.y - y - size / 2)) / size;
-          const value = 1 - unitInterval(diff);
+          const value =
+            1 - unitInterval((1.5 * (e.point.y - y - size / 2)) / size);
           return onChange(range ? intRange(value, range) : value);
         }
         case 'up': {
