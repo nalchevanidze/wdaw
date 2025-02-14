@@ -11,7 +11,7 @@ const roundLevel = (level: number, range?: Range) =>
 
 export type Props = {
   value: number;
-  color: string;
+  color?: string;
   steps?: number;
   range?: Range;
   onChange?(v: number): void;
@@ -20,12 +20,11 @@ export type Props = {
   y?: number;
   stepOpacity?: number;
   bold?: number;
-  id?: string;
 };
 
 export const Level: React.FC<Props> = ({
   value,
-  color,
+  color = '#555',
   steps = 16,
   range,
   size = 50,
@@ -33,8 +32,7 @@ export const Level: React.FC<Props> = ({
   x = 0,
   y = 0,
   bold = 0.2,
-  stepOpacity = 0.5,
-  id
+  stepOpacity = 0.5
 }) => {
   const [listen, setListen] = React.useState(false);
   const mouseDown = () => setListen(true);

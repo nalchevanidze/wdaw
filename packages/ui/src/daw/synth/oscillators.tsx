@@ -2,7 +2,8 @@ import * as React from 'react';
 import { WaveGrid } from '../../components/wave-grid';
 import { Panel } from './panel';
 import PanelPresets from './presets';
-import { WaveButton, WaveButtonProps } from './button';
+import { Range } from '@wdaw/svg';
+import { WaveButton } from './button/wave-button';
 import { FILTER_ID, WAVE_ID, waveFunction } from '@wdaw/engine';
 import { usePreset } from '../hooks/use-preset';
 
@@ -14,11 +15,13 @@ const styles = {
   }
 };
 
-type Controllers<K extends string> = ReadonlyArray<
-  Pick<WaveButtonProps, 'range' | 'steps'> & { id: K }
->;
+type Controller<K extends string> = {
+  id: K;
+  steps?: number;
+  range?: Range;
+};
 
-const oscillators: Controllers<WAVE_ID> = [
+const oscillators: Controller<WAVE_ID>[] = [
   { id: 'sine' },
   { id: 'square' },
   { id: 'saw' },
@@ -26,21 +29,13 @@ const oscillators: Controllers<WAVE_ID> = [
   { id: 'tech' },
   { id: 'noise' },
   { id: 'offset' },
-  {
-    id: 'voices',
-    range: [1, 12],
-    steps: 11
-  },
-  {
-    id: 'octave',
-    range: [-4, 4],
-    steps: 8
-  }
+  { id: 'voices', range: [1, 12], steps: 11 },
+  { id: 'octave', range: [-4, 4], steps: 8 }
 ];
 
-const fm: Controllers<WAVE_ID> = [{ id: 'fm' }, { id: 'fmFreq' }];
+const fm: Controller<WAVE_ID>[] = [{ id: 'fm' }, { id: 'fmFreq' }];
 
-const filters: Controllers<FILTER_ID> = [
+const filters: Controller<FILTER_ID>[] = [
   { id: 'cutoff' },
   { id: 'resonance' },
   { id: 'envelope' }

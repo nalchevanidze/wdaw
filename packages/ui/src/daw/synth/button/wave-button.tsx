@@ -12,9 +12,7 @@ const styles = {
   }
 } as const;
 
-type WaveButtonProps = Props & { id: string };
-
-const WaveButton: React.FC<WaveButtonProps> = ({
+export const WaveButton: React.FC<Props & { id: string }> = ({
   id,
   range,
   color,
@@ -44,7 +42,6 @@ const WaveButton: React.FC<WaveButtonProps> = ({
         <path fill="none" d={lib[id]} strokeWidth={2} stroke={color} />
       )}
       <Level
-        id={id}
         range={range}
         onChange={onChange}
         value={value}
@@ -55,5 +52,3 @@ const WaveButton: React.FC<WaveButtonProps> = ({
     <p style={{ ...styles.p, color }}>{id}</p>
   </div>
 );
-
-export { WaveButtonProps, WaveButton };
