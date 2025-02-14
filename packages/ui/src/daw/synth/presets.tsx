@@ -1,37 +1,24 @@
 import * as React from 'react';
 import { usePreset } from '../hooks/use-preset';
 import { TextButton } from '../../components/text-button';
+import { Panel } from './panel';
+import { WaveForm } from '../../components/waveform';
 
 const styles = {
-  container: {
-    margin: '5px',
-    flexWrap: 'wrap',
-    flexShrink: 0,
-    padding: '5px'
-  },
-  label: {
-    fontSize: '12px',
-    margin: 0,
-    width: '100%',
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    color: '#555',
-    padding: '5px 0px'
-  },
-  list: {
-    maxHeight: '70px',
+  items: {
+    maxHeight: '100px',
     overflowY: 'scroll',
-    padding: '6px 20px'
+    width: '100%'
   }
 } as const;
 
-const Presets: React.FC = () => {
+export const Presets: React.FC = () => {
   const [{ name, names }, dispatch] = usePreset();
 
   return (
-    <div style={styles.container}>
-      <h3 style={styles.label}>Presets</h3>
-      <div style={styles.list}>
+    <Panel label="presets" size={1}>
+      <WaveForm quality={200} />
+      <div style={styles.items}>
         {names.map((id) => (
           <TextButton
             name={id}
@@ -41,8 +28,6 @@ const Presets: React.FC = () => {
           />
         ))}
       </div>
-    </div>
+    </Panel>
   );
 };
-
-export default Presets;

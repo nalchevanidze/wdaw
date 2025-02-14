@@ -4,6 +4,13 @@ import { usePreset } from '../hooks/use-preset';
 import { PANEL_ID } from '../../state/types';
 
 const styles = {
+  container: (active?: boolean) =>
+    ({
+      display: 'block',
+      margin: '0',
+      opacity: active ? 1 : 0.5,
+      flexShrink: 0
+    }) as const,
   label: (color: string) =>
     ({
       color,
@@ -11,7 +18,7 @@ const styles = {
       margin: '0',
       width: '100%',
       textAlign: 'center',
-      textTransform: 'uppercase',
+      textTransform: 'capitalize',
       userSelect: 'none'
     }) as const,
   toggle: (optional?: boolean) => ({
@@ -31,16 +38,13 @@ const styles = {
     flexShrink: 0,
     background: active ? colors.highlight : colors.black
   }),
-  grid: (size: number, active?: boolean) =>
-    ({
-      display: 'flex',
-      margin: '5px',
-      justifyContent: 'space-around',
-      flexWrap: 'wrap',
-      flexShrink: '0',
-      width: `${size * 50 + (size - 1) * 20}px`,
-      opacity: active ? 1 : 0.5
-    }) as const
+  grid: (size: number) => ({
+    display: 'grid',
+    margin: 0,
+    padding: '8px',
+    gap: '6px',
+    gridTemplateColumns: Array.from({ length: size }, () => '1fr').join(' ')
+  })
 };
 
 export type Props = {
@@ -69,10 +73,8 @@ const Panel: React.FC<Props> = ({
   const active =
     (optional && target && 'enabled' in target && target.enabled) || !optional;
 
-  const grid = styles.grid(size, active);
-
   return (
-    <div style={grid}>
+    <div style={styles.container(active)}>
       <div
         style={styles.toggle(optional)}
         onClick={optional ? toggle : undefined}
@@ -80,7 +82,7 @@ const Panel: React.FC<Props> = ({
         {optional ? <div style={styles.button(active)} /> : null}
         <h3 style={styles.label(color)}>{label}</h3>
       </div>
-      <div style={grid}>{children}</div>
+      <div style={styles.grid(size)}>{children}</div>
     </div>
   );
 };

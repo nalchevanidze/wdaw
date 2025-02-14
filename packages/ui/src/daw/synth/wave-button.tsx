@@ -4,7 +4,8 @@ import { Svg } from '@wdaw/svg';
 import { Level, Props } from '../../components/level';
 
 const styles = {
-  p: {
+  label: {
+    color: '#555',
     width: '100%',
     textAlign: 'center',
     margin: '0',
@@ -21,12 +22,7 @@ export const WaveButton: React.FC<Props & { id: string }> = ({
   onChange
 }) => (
   <div>
-    <Svg
-      width={100}
-      height={100}
-      zoom={0.5}
-      style={{ margin: '5px', flexShrink: 0 }}
-    >
+    <Svg width={100} height={100} zoom={0.4} style={{ margin: '2px' }}>
       {range ? (
         <text
           x="50"
@@ -49,6 +45,6 @@ export const WaveButton: React.FC<Props & { id: string }> = ({
         color={color}
       />
     </Svg>
-    <p style={{ ...styles.p, color }}>{id}</p>
+    <p style={styles.label}>{id}</p>
   </div>
 );

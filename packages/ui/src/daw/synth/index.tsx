@@ -6,10 +6,8 @@ import { Sequencer } from './sequencer';
 const Synth: React.FC = () => (
   <div style={{ display: 'flex', padding: '5px' }}>
     <Oscillators />
-    <div>
-      <Envelopes />
-      <Sequencer />
-    </div>
+    <Envelopes />
+    <Sequencer />
   </div>
 );
 

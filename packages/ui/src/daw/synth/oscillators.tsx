@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Panel } from './panel';
-import Presets from './presets';
+import { Presets } from './presets';
 import { Range } from '@wdaw/svg';
 import { WaveButton } from './wave-button';
 import { FILTER_ID, WAVE_ID } from '@wdaw/engine';
@@ -29,11 +29,11 @@ const oscillators: Item<WAVE_ID>[] = [
   { id: 'tech' },
   { id: 'noise' },
   { id: 'offset' },
+  { id: 'fm' },
+  { id: 'fmFreq' },
   { id: 'voices', range: [1, 12], steps: 11 },
   { id: 'octave', range: [-4, 4], steps: 8 }
 ];
-
-const fm: Item<WAVE_ID>[] = [{ id: 'fm' }, { id: 'fmFreq' }];
 
 const filters: Item<FILTER_ID>[] = [
   { id: 'cutoff' },
@@ -46,28 +46,12 @@ export const Oscillators: React.FC = () => {
 
   return (
     <div style={styles.main}>
-      <Panel label="Global" size={2}>
-        <WaveForm size={200}/>
-        <Presets />
-      </Panel>
-      <Panel id="wave" label="Oscillator" size={3}>
+      <Presets />
+      <Panel id="wave" label="Oscillators" size={4}>
         {oscillators.map(({ id, range, steps }) => (
           <WaveButton
             key={id}
             id={id}
-            range={range}
-            steps={steps}
-            color="#555"
-            value={wave[id]}
-            onChange={(payload) => dispatch({ type: 'SET_WAVE', id, payload })}
-          />
-        ))}
-      </Panel>
-      <Panel id="wave" label="FM">
-        {fm.map(({ id, range, steps }) => (
-          <WaveButton
-            id={id}
-            key={id}
             range={range}
             steps={steps}
             color="#555"
@@ -83,7 +67,6 @@ export const Oscillators: React.FC = () => {
             key={id}
             range={range}
             steps={steps}
-            color="#555"
             value={filter[id]}
             onChange={(payload) =>
               dispatch({ type: 'SET_FILTER', id, payload })
