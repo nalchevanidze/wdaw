@@ -2,13 +2,7 @@ import * as React from 'react';
 import { colors } from '../../styles';
 import { usePreset } from '../hooks/use-preset';
 import { PANEL_ID } from '../../state/types';
-import { Range } from '@wdaw/svg';
-
-export type Items<K extends string> = {
-  id: K;
-  steps?: number;
-  range?: Range;
-}[];
+import { WaveButton } from './wave-button';
 
 const styles = {
   container: (active?: boolean) =>
@@ -54,7 +48,7 @@ const styles = {
   })
 };
 
-export type Props = {
+type Props = {
   id?: PANEL_ID;
   label: string;
   size?: number;
@@ -64,7 +58,7 @@ export type Props = {
   optional?: boolean;
 };
 
-const Panel: React.FC<Props> = ({
+export const Panel: React.FC<Props> = ({
   children,
   label,
   size = 1,
@@ -94,4 +88,3 @@ const Panel: React.FC<Props> = ({
   );
 };
 
-export { Panel };
