@@ -10,7 +10,7 @@ type Handler = (e: Event) => void;
 
 export const useMouseEvent = (f: Handler, args: unknown[] = []) => {
   const toPoint = usePoint();
-  const onMove = (e: MouseEvent) => f({ type: 'move', ...toPoint(e) });
+  const onMove = (e: MouseEvent) => f({ ...toPoint(e), type: 'move' });
   const onUp = (_: MouseEvent) => f({ type: 'up' });
 
   React.useEffect(() => {
