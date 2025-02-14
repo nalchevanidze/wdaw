@@ -24,7 +24,7 @@ export const WaveForm: React.FC = () => {
   const size = 200;
 
   return (
-    <svg viewBox={[size, 0, size, size].join(' ')} width="90px" height="90px">
+    <svg viewBox={[0, 0, size, size].join(' ')} width="90px" height="90px">
       <path d={genPath(wave, size)} stroke="#444" strokeWidth={2} fill="none" />
       <WaveGrid color="gray" />
     </svg>
