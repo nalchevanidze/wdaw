@@ -3,7 +3,7 @@ import { Envelopes } from './envelopes';
 import { Sequencer } from './sequencer';
 import { Presets } from './presets';
 import { Panel } from './panel';
-import { Controlers } from './wave-button';
+import { Controllers } from './controllers';
 import { usePreset } from '../hooks/use-preset';
 
 const styles = {
@@ -22,7 +22,7 @@ export const Synth: React.FC = () => {
     <div style={styles.main}>
       <Presets />
       <Panel id="wave" label="Oscillators" size={4}>
-        <Controlers
+        <Controllers
           values={wave}
           items={[
             { id: 'sine' },
@@ -43,7 +43,7 @@ export const Synth: React.FC = () => {
         />
       </Panel>
       <Panel id="filter" label="Filter" optional>
-        <Controlers
+        <Controllers
           items={[{ id: 'cutoff' }, { id: 'resonance' }, { id: 'envelope' }]}
           values={filter}
           onChange={(id, payload) =>

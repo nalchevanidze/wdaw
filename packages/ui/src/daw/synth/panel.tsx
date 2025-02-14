@@ -2,7 +2,6 @@ import * as React from 'react';
 import { colors } from '../../styles';
 import { usePreset } from '../hooks/use-preset';
 import { PANEL_ID } from '../../state/types';
-import { WaveButton } from './wave-button';
 
 const styles = {
   container: (active?: boolean) =>

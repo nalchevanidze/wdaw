@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { getWaveIcon } from '../../components/icons';
 import { Svg } from '@wdaw/svg';
-import { Level, Props } from '../../components/level';
+import { Level, Props as LevelProps } from '../../components/level';
 import { Range } from '@wdaw/svg';
 
 const styles = {
@@ -14,7 +14,7 @@ const styles = {
   }
 } as const;
 
-export const WaveButton: React.FC<Props & { id: string }> = ({
+const Controller: React.FC<LevelProps & { id: string }> = ({
   id,
   range,
   color,
@@ -56,20 +56,20 @@ type Item<K extends string> = {
   range?: Range;
 };
 
-type ControlerPanelProps<K extends string> = {
+type Props<K extends string> = {
   items: Item<K>[];
   values: Record<K, number>;
   onChange(id: K, v: number): void;
 };
 
-export const Controlers = <K extends string>({
+export const Controllers = <K extends string>({
   items,
   values,
   onChange
-}: ControlerPanelProps<K>) => (
+}: Props<K>) => (
   <>
     {items.map(({ id, range, steps }) => (
-      <WaveButton
+      <Controller
         id={id}
         key={id}
         range={range}
