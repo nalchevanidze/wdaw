@@ -20,7 +20,7 @@ const noise = [
   0.46, 0.8, 1, 0.85, 0, 0.9, 0.96, 0.95, 0, 1, 0.5
 ];
 
-export const icons: IconLib = {
+const icons: IconLib = {
   saw: rescale([0, 0.5, 0, 0, 1, 1, 1, 0.5]),
   square: rescale([0, 0.5, 0, 0, 0.5, 0, 0.5, 1, 1, 1, 1, 0.5]),
   saw2: rescale([0, 0.5, 0, 0, 0.5, 1, 0.5, 0, 1, 1, 1, 0.5]),
