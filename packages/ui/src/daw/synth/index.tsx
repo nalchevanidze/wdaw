@@ -2,12 +2,25 @@ import * as React from 'react';
 import { Oscillators } from './oscillators';
 import { Envelopes } from './envelopes';
 import { Sequencer } from './sequencer';
+import { Presets } from './presets';
+
+const styles = {
+  main: {
+    display: 'flex',
+    fontSize: '10px',
+    alignItems: 'flex-start',
+    padding: '5px'
+  }
+};
 
 const Synth: React.FC = () => (
-  <div style={{ display: 'flex', padding: '5px' }}>
+  <div style={styles.main}>
+    <Presets />
     <Oscillators />
-    <Envelopes />
-    <Sequencer />
+    <div>
+      <Envelopes />
+      <Sequencer />
+    </div>
   </div>
 );
 

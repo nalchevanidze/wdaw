@@ -19,7 +19,7 @@ export const Envelopes: React.FC = () => {
   const ids = Object.keys(envelopes) as ENVELOPE_ID[];
 
   return (
-    <Panel label="envelopes" size={3}>
+    <Panel label="envelopes" size={1}>
       <div style={styles.nav}>
         {ids.map((name) => (
           <TextButton

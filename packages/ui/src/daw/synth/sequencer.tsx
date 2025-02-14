@@ -55,7 +55,7 @@ export const Sequencer: React.FC = () => {
     });
 
   return (
-    <Panel label="sequencer" size={3} optional id="sequence">
+    <Panel label="sequencer" size={1} optional id="sequence">
       <ul style={styles.container}>
         {range.map((i) => (
           <Chord key={i} chord={sequence[i] ?? []} onClick={setNote(i)} />

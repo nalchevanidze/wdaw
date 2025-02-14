@@ -1,19 +1,9 @@
 import * as React from 'react';
 import { Panel } from './panel';
-import { Presets } from './presets';
 import { Range } from '@wdaw/svg';
 import { WaveButton } from './wave-button';
 import { FILTER_ID, WAVE_ID } from '@wdaw/engine';
 import { usePreset } from '../hooks/use-preset';
-import { WaveForm } from '../../components/waveform';
-
-const styles = {
-  main: {
-    display: 'flex',
-    fontSize: '10px',
-    alignItems: 'flex-start'
-  }
-};
 
 type Item<K extends string> = {
   id: K;
@@ -45,8 +35,7 @@ export const Oscillators: React.FC = () => {
   const [{ wave, filter }, dispatch] = usePreset();
 
   return (
-    <div style={styles.main}>
-      <Presets />
+    <>
       <Panel id="wave" label="Oscillators" size={4}>
         {oscillators.map(({ id, range, steps }) => (
           <WaveButton
@@ -74,6 +63,6 @@ export const Oscillators: React.FC = () => {
           />
         ))}
       </Panel>
-    </div>
+    </>
   );
 };

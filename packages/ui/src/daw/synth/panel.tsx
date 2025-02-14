@@ -9,7 +9,8 @@ const styles = {
       display: 'block',
       margin: '0',
       opacity: active ? 1 : 0.5,
-      flexShrink: 0
+      flexShrink: 0,
+      padding: '8px',
     }) as const,
   label: (color: string) =>
     ({
@@ -17,7 +18,6 @@ const styles = {
       fontSize: '12px',
       margin: '0',
       width: '100%',
-      textAlign: 'center',
       textTransform: 'capitalize',
       userSelect: 'none'
     }) as const,
@@ -41,7 +41,7 @@ const styles = {
   grid: (size: number) => ({
     display: 'grid',
     margin: 0,
-    padding: '8px',
+    paddingTop: '12px',
     gap: '6px',
     gridTemplateColumns: Array.from({ length: size }, () => '1fr').join(' ')
   })
