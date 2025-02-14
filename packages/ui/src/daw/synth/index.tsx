@@ -3,7 +3,7 @@ import { Envelopes } from './envelopes';
 import { Sequencer } from './sequencer';
 import { Presets } from './presets';
 import { Panel } from './panel';
-import { Controlers} from './wave-button';
+import { Controlers } from './wave-button';
 import { usePreset } from '../hooks/use-preset';
 
 const styles = {
