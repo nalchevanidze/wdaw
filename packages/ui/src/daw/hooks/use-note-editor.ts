@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect } from 'react';
 import { toArea, UINote } from '../utils/notes';
 import { Point, Area } from '@wdaw/svg';
 import { toMidiFragment, fromMidiFragment } from '../utils/midi';
@@ -12,7 +12,7 @@ export const useNoteEditor = () => {
       [note.x, note.y, note.length].join(':')
     );
 
-  React.useEffect(() => sync(fromMidiFragment(fragment)), [fragment.notes]);
+  useEffect(() => sync(fromMidiFragment(fragment)), [fragment.notes]);
 
   const remove = (note: UINote) => removeWith((n) => n === note);
 
