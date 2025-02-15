@@ -80,8 +80,14 @@ export const useSelection = <T extends object>(
       inactive
     }));
 
-
   useOnDeleteKey(removeSelected, [state.selected, state.inactive]);
+
+  const refresh = (f: (s: T[]) => void) => {
+    setState((s) => {
+      requestAnimationFrame(() => f([s.selected, s.inactive].flat()));
+      return s;
+    });
+  };
 
   return {
     sync,
@@ -92,6 +98,6 @@ export const useSelection = <T extends object>(
     selectWith,
     removeWith,
     selected: state.selected,
-    setState
+    refresh
   };
 };
