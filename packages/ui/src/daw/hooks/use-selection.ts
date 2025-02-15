@@ -27,7 +27,7 @@ export const useSelection = <T extends object>(
   const all: Mixed<T>[] = [...selected, ...inactive];
 
   const setPartition = (ts: T[], f: Predicate<T>) => {
-    const [sel, ina] = partition(all, f);
+    const [sel, ina] = partition(ts, f);
     set({
       selected: sel.map(addTracking),
       inactive: ina.map(dropTracking)
