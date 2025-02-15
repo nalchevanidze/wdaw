@@ -9,7 +9,7 @@ const noteId = (note: UINote) => [note.x, note.y, note.length].join(':');
 
 export const useNoteEditor = () => {
   const [fragment, dispatch] = useMidiFragment();
-  const { all, add, clear, edit, selectWith, removeWith, sync, refresh } =
+  const { all, add, clear, edit, selectWith, removeWith, sync, dispatcher } =
     useSelection<UINote>(fromMidiFragment(fragment), noteId);
 
   useEffect(() => sync(fromMidiFragment(fragment)), [fragment.notes]);
@@ -29,16 +29,6 @@ export const useNoteEditor = () => {
   const selectIn = (area?: Area) =>
     selectWith((note) => area?.isOverlaping(toArea(note)) ?? false);
 
-  const refresh2 = () => {
-    refresh((ns) =>
-      dispatch({
-        id: fragment.id,
-        type: 'SET_MIDI_FRAGMENT',
-        payload: toMidiFragment(ns)
-      })
-    );
-  };
-
   return {
     clear,
     selectIn,
@@ -48,6 +38,12 @@ export const useNoteEditor = () => {
     move,
     scale,
     all,
-    sync: refresh2
+    sync: dispatcher((ns) =>
+      dispatch({
+        id: fragment.id,
+        type: 'SET_MIDI_FRAGMENT',
+        payload: toMidiFragment(ns)
+      })
+    )
   };
 };
