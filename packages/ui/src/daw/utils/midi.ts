@@ -1,7 +1,7 @@
 import { MidiFragment, Note, UIPosition } from '@wdaw/engine';
 import { UINote } from './notes';
 
-export const fromMidiFragment = (notes: Note[]): UINote[] =>
+export const fromNotes = (notes: Note[]): UINote[] =>
   notes.map(
     ({ id, at, length }: Note): UINote => ({
       x: at,

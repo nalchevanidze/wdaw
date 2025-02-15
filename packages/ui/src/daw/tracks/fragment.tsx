@@ -2,7 +2,7 @@ import * as React from 'react';
 import { colors } from '../../styles';
 import { Midi } from '@wdaw/engine';
 import { UINote } from '../utils/notes';
-import { fromMidiFragment } from '../utils/midi';
+import { fromNotes } from '../utils/midi';
 import { MEvent } from '../types';
 import { DawApiContext } from '../../context/state';
 
@@ -29,13 +29,13 @@ export const Fragment: React.FC<Props> = ({
 }) => {
   const [{ midiFragments }] = React.useContext(DawApiContext);
 
-  const fragment = midiFragments[fragmentId];
+  const {
+    notes,
+    loop: [loopStart, loopEnd]
+  } = midiFragments[fragmentId];
 
-  const notes = React.useMemo<UINote[]>(
-    () => fromMidiFragment(fragment.notes),
-    [fragment]
-  );
-  const [loopStart, loopEnd] = fragment.loop;
+  const uiNotes = React.useMemo<UINote[]>(() => fromNotes(notes), [notes]);
+
   const id = React.useId();
 
   const loopWidth = loopEnd - loopStart;
@@ -55,7 +55,7 @@ export const Fragment: React.FC<Props> = ({
           x={loopOffset}
         >
           <g fill={colors.notes}>
-            {notes.map((note, noteIndex) => (
+            {uiNotes.map((note, noteIndex) => (
               <rect
                 key={noteIndex}
                 width={note.length}
