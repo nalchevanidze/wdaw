@@ -82,9 +82,9 @@ export const useSelection = <T extends object>(
 
   useOnDeleteKey(removeSelected, [state.selected, state.inactive]);
 
-  const dispatcher = (f: (s: T[]) => void) => () => {
+  const dispatcher = (f: (s: Selected<T>) => void) => () => {
     setState((s) => {
-      requestAnimationFrame(() => f([s.selected, s.inactive].flat()));
+      requestAnimationFrame(() => f(s));
       return s;
     });
   };

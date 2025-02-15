@@ -32,7 +32,7 @@ export const Fragment: React.FC<Props> = ({
   const fragment = midiFragments[fragmentId];
 
   const notes = React.useMemo<UINote[]>(
-    () => fromMidiFragment(fragment),
+    () => fromMidiFragment(fragment.notes),
     [fragment]
   );
   const [loopStart, loopEnd] = fragment.loop;

@@ -45,14 +45,14 @@ export const useTrackEditor = (tracks: TrackState[]) => {
     s.clear();
   };
 
-  const sync = () => {
+  const sync = s.dispatcher(({ selected }) =>
     dispatch({
       type: 'SET_TRACK_MIDI',
       payload: new Map(
-        s.selected.map(({ id, start, end }) => [idString(id), { start, end }])
+        selected.map(({ id, start, end }) => [idString(id), { start, end }])
       )
-    });
-  };
+    })
+  );
 
   const selectIn = (f: (i: TState) => IArea) => (area?: Area) =>
     s.selectWith((track) => area?.isOverlaping(f(track)) ?? false);
