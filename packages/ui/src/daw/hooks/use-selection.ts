@@ -15,63 +15,83 @@ type Selected<T extends object> = {
   inactive: T[];
 };
 
+const toAll = <T extends object>(s: Selected<T>): Mixed<T>[] => [
+  ...s.selected,
+  ...s.inactive
+];
+
 export const useSelection = <T extends object>(
   initial: T[],
   toId: (i: T) => string | number
 ) => {
-  const [{ selected, inactive }, set] = useState<Selected<T>>({
+  const [state, setState] = useState<Selected<T>>({
     selected: [],
     inactive: initial
   });
 
-  const all: Mixed<T>[] = [...selected, ...inactive];
-
-  const setPartition = (ts: T[], f: Predicate<T>) => {
-    const [sel, ina] = partition(ts, f);
-    set({
-      selected: sel.map(addTracking),
-      inactive: ina.map(dropTracking)
+  const setPartition = (f1: (s: Selected<T>) => T[], f2: Predicate<T>) => {
+    setState((s) => {
+      const [sel, ina] = partition(f1(s), f2);
+      return {
+        selected: sel.map(addTracking),
+        inactive: ina.map(dropTracking)
+      };
     });
   };
 
-  const sync = (ts: T[]) => {
-    if (ts.length !== all.length) {
-      return reset(ts);
-    }
+  const sync = (ts: T[]) =>
+    setState((s) => {
+      const all = toAll(s);
+      if (ts.length !== all.length) {
+        return { selected: [], inactive: ts.map(dropTracking) };
+      }
 
-    const selectedMap = Object.fromEntries(selected.map((t) => [toId(t), t]));
+      const selectedMap = Object.fromEntries(
+        s.selected.map((t) => [toId(t), t])
+      );
 
-    setPartition(ts, (t) => Boolean(selectedMap[toId(t)]));
-  };
+      const [sel, ina] = partition(ts, (t) => Boolean(selectedMap[toId(t)]));
 
-  const reset = (ts: T[]) =>
-    set({ selected: [], inactive: ts.map(dropTracking) });
+      return {
+        selected: sel.map(addTracking),
+        inactive: ina.map(dropTracking)
+      };
+    });
 
-  const clear = () => reset(all);
-  const removeSelected = () => reset(inactive);
-  const removeWith = (f: Predicate<T>) => reset(all.filter((t) => !f(t)));
+  const modify = (f: (s: Selected<T>) => Mixed<T>[]) =>
+    setState((s) => ({ selected: [], inactive: f(s).map(dropTracking) }));
 
-  const selectWith = (f: Predicate<T>) => setPartition(all, f);
+  const clear = () => modify(toAll);
+  const removeSelected = () => modify(({ inactive }) => inactive);
+  const removeWith = (f: Predicate<T>) =>
+    modify((s) => toAll(s).filter((t) => !f(t)));
+
+  const selectWith = (f: Predicate<T>) => setPartition(toAll, f);
 
   const add = (...ts: T[]) =>
-    set({
+    setState((s) => ({
       selected: ts.map(addTracking),
-      inactive: all.map(dropTracking)
-    });
+      inactive: toAll(s).map(dropTracking)
+    }));
 
   const edit = (f: EditFunc<T>) =>
-    set({ selected: mapTracked(selected, f), inactive });
+    setState(({ selected, inactive }) => ({
+      selected: mapTracked(selected, f),
+      inactive
+    }));
 
-  useOnDeleteKey(removeSelected, [selected, inactive]);
+
+  useOnDeleteKey(removeSelected, [state.selected, state.inactive]);
 
   return {
     sync,
     add,
     edit,
-    all,
+    all: toAll(state),
     clear,
     selectWith,
     removeWith,
-    selected
+    selected: state.selected,
+    setState
   };
 };

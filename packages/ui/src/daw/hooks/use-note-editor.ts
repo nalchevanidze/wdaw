@@ -5,12 +5,12 @@ import { toMidiFragment, fromMidiFragment } from '../utils/midi';
 import { useSelection } from './use-selection';
 import { useMidiFragment } from './use-midi-fragment';
 
+const noteId = (note: UINote) => [note.x, note.y, note.length].join(':');
+
 export const useNoteEditor = () => {
   const [fragment, dispatch] = useMidiFragment();
-  const { all, add, clear, edit, selectWith, removeWith, sync } =
-    useSelection<UINote>(fromMidiFragment(fragment), (note) =>
-      [note.x, note.y, note.length].join(':')
-    );
+  const { all, add, clear, edit, selectWith, removeWith, sync, setState } =
+    useSelection<UINote>(fromMidiFragment(fragment), noteId);
 
   useEffect(() => sync(fromMidiFragment(fragment)), [fragment.notes]);
 
@@ -29,6 +29,24 @@ export const useNoteEditor = () => {
   const selectIn = (area?: Area) =>
     selectWith((note) => area?.isOverlaping(toArea(note)) ?? false);
 
+  console.log('render', toMidiFragment(all).notes?.[0].id);
+
+  const refresh = () => {
+    setState((s) => {
+      const all = [s.selected, s.inactive].flat();
+
+      requestAnimationFrame(() => {
+        dispatch({
+          id: fragment.id,
+          type: 'SET_MIDI_FRAGMENT',
+          payload: toMidiFragment(all)
+        });
+      });
+
+      return s;
+    });
+  };
+
   return {
     clear,
     selectIn,
@@ -38,7 +56,6 @@ export const useNoteEditor = () => {
     move,
     scale,
     all,
-    sync: () =>
-      dispatch({ id: fragment.id, type: 'SET_MIDI_FRAGMENT', payload: toMidiFragment(all) })
+    sync: refresh
   };
 };
