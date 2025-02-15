@@ -29,8 +29,6 @@ export const useNoteEditor = () => {
   const selectIn = (area?: Area) =>
     selectWith((note) => area?.isOverlaping(toArea(note)) ?? false);
 
-  console.log('render', toMidiFragment(all).notes?.[0].id);
-
   const refresh = () => {
     setState((s) => {
       const all = [s.selected, s.inactive].flat();
