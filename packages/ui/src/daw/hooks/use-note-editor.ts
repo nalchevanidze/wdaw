@@ -8,7 +8,7 @@ import { useMidiFragment } from './use-midi-fragment';
 const noteId = (note: UINote) => [note.x, note.y, note.length].join(':');
 
 export const useNoteEditor = () => {
-  const [{ notes, id }, dispatch] = useMidiFragment();
+  const [{ notes }, dispatch] = useMidiFragment();
   const { all, add, clear, edit, selectWith, removeWith, sync, dispatcher } =
     useSelection(notes, noteId);
 
@@ -39,11 +39,7 @@ export const useNoteEditor = () => {
     move,
     scale,
     sync: dispatcher((s) =>
-      dispatch({
-        id,
-        type: 'SET_MIDI_FRAGMENT',
-        payload: toMidiFragment([s.selected, s.inactive].flat())
-      })
+      dispatch(toMidiFragment([s.selected, s.inactive].flat()))
     )
   };
 };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DawApiContext } from '../../context/state';
 import { UINote } from '../utils/notes';
-import { Note, UIPosition } from '@wdaw/engine';
+import { MidiFragment, Note, UIPosition } from '@wdaw/engine';
 
 export const fromNotes = (notes: Note[]): UINote[] =>
   notes.map(
@@ -22,5 +22,8 @@ export const useMidiFragment = (targetId?: string) => {
 
   const uiNotes = React.useMemo<UINote[]>(() => fromNotes(notes), [notes]);
 
-  return [{ notes: uiNotes, loop, id }, dispatch] as const;
+  const sync = (payload: Partial<MidiFragment>) =>
+    dispatch({ id, type: 'SET_MIDI_FRAGMENT', payload });
+
+  return [{ notes: uiNotes, loop, id }, sync] as const;
 };
