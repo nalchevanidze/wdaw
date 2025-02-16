@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { toArea, UINote } from '../utils/notes';
 import { Point, Area } from '@wdaw/svg';
-import { toMidiFragment, fromNotes } from '../utils/midi';
+import { toMidiFragment } from '../utils/midi';
 import { useSelection } from './use-selection';
 import { useMidiFragment } from './use-midi-fragment';
 
@@ -10,9 +10,9 @@ const noteId = (note: UINote) => [note.x, note.y, note.length].join(':');
 export const useNoteEditor = () => {
   const [{ notes, id }, dispatch] = useMidiFragment();
   const { all, add, clear, edit, selectWith, removeWith, sync, dispatcher } =
-    useSelection<UINote>(fromNotes(notes), noteId);
+    useSelection(notes, noteId);
 
-  useEffect(() => sync(fromNotes(notes)), [notes]);
+  useEffect(() => sync(notes), [notes]);
 
   const remove = (note: UINote) => removeWith((n) => n === note);
 
@@ -30,6 +30,7 @@ export const useNoteEditor = () => {
     selectWith((note) => area?.isOverlaping(toArea(note)) ?? false);
 
   return {
+    all,
     clear,
     selectIn,
     remove,
@@ -37,7 +38,6 @@ export const useNoteEditor = () => {
     addAt,
     move,
     scale,
-    all,
     sync: dispatcher((s) =>
       dispatch({
         id,

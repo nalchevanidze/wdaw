@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { DawApiContext } from '../../context/state';
+import { fromNotes } from '../utils/midi';
 
 export const useMidiFragment = () => {
   const [{ currentFragment, midiFragments }, dispatch] =
@@ -8,5 +9,5 @@ export const useMidiFragment = () => {
   const id = currentFragment;
   const { notes, loop } = midiFragments[id];
 
-  return [{ notes, loop, id }, dispatch] as const;
+  return [{ notes: fromNotes(notes), loop, id }, dispatch] as const;
 };
