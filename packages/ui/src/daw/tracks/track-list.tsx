@@ -41,9 +41,7 @@ const toArea = ({ start, end, id: [trackIndex, _] }: TState): IArea => ({
 });
 
 export const Tracks: React.FC = () => {
-  const { tracks, currentTrack } = useTracks();
-
-  const { all, clear, move, scale, select, selectIn, isSelected, sync } =
+  const { tracks, clear, move, scale, select, selectIn, isSelected, sync } =
     useTrackEditor();
 
   const dragging = useDragging<MidiID>({
@@ -64,28 +62,10 @@ export const Tracks: React.FC = () => {
     }
   });
 
-  const ts = tracks.map(({ midi, name }, trackIndex) => ({
-    index: trackIndex,
-    active: trackIndex === currentTrack,
-    name,
-    midi: midi.map(({ fragmentId, start, end }, midiIndex) => {
-      const id: MidiID = [trackIndex, midiIndex];
-      const { origin, ...state } = all.find(eqID(id)) ?? {
-        start,
-        end,
-        fragmentId,
-        id
-      };
-      const selected = Boolean(origin);
-
-      return { selected, ...state };
-    })
-  }));
-
   return (
     <g>
       <DragingBackground onMouseDown={dragging.onBackground} />
-      {ts.map(({ midi, name, index, active }) => {
+      {tracks.map(({ midi, name, index, active }) => {
         const y = index * trackHeight;
         return (
           <g key={index}>
@@ -119,18 +99,14 @@ export const Tracks: React.FC = () => {
 };
 
 export const TrackList = () => {
-  const [{ tracks }] = React.useContext(DawApiContext);
-  const maxTrackSize = Math.max(
-    ...tracks.flatMap((t) => t.midi.map((x) => x.end))
-  );
-  const canvasHeight = trackHeight * tracks.length;
+  const { count, length } = useTracks();
   const timelineHeight = 32;
 
   return (
     <div style={styles.container}>
       <Svg
-        width={maxTrackSize + rulerSize}
-        height={canvasHeight}
+        width={length + rulerSize}
+        height={trackHeight * count}
         paddingLeft={panelWidth}
         paddingTop={timelineHeight}
       >

@@ -25,8 +25,15 @@ export type TState = State & { origin?: State };
 const toState = (tracks: TrackState[]): State[] =>
   tracks.flatMap((t, ti) => t.midi.map((m, mi) => ({ ...m, id: [ti, mi] })));
 
+type TrackResult = {
+  name: string;
+  index: number;
+  active: boolean;
+  midi: (State & { selected: boolean })[];
+};
+
 export const useTrackEditor = () => {
-  const {tracks, dispatch} = useTracks();
+  const { tracks, currentTrack, dispatch } = useTracks();
 
   const s = useSelection<State>(toState(tracks), toId, toHash);
 
@@ -71,8 +78,28 @@ export const useTrackEditor = () => {
 
   const isSelected = (id: MidiID) => Boolean(s.selected.find(eqID(id)));
 
+  const result = tracks.map(
+    ({ midi, name }, trackIndex): TrackResult => ({
+      index: trackIndex,
+      active: trackIndex === currentTrack,
+      name,
+      midi: midi.map(({ fragmentId, start, end }, midiIndex) => {
+        const id: MidiID = [trackIndex, midiIndex];
+        const { origin, ...state } = (s.all as TState[]).find(eqID(id)) ?? {
+          start,
+          end,
+          fragmentId,
+          id
+        };
+        const selected = Boolean(origin);
+
+        return { selected, ...state };
+      })
+    })
+  );
+
   return {
-    all: s.all as TState[],
+    tracks: result,
     clear,
     move,
     scale,

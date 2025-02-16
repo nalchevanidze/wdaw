@@ -8,5 +8,8 @@ export const useTracks = () => {
 
   // const track = tracks[currentTrack];
 
-  return { tracks, currentTrack, dispatch };
+  const length = Math.max(...tracks.flatMap((t) => t.midi.map((x) => x.end)));
+  const count = tracks.length;
+
+  return { tracks, currentTrack, dispatch, length, count };
 };
