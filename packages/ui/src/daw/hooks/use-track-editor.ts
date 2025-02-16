@@ -1,6 +1,4 @@
-import * as React from 'react';
 import { useSelection } from './use-selection';
-import { TrackState } from '@wdaw/engine';
 import { Area, IArea } from '@wdaw/svg';
 import { idString } from '../../common/utils';
 import { MidiID, UITrack, useTracks } from './use-tracks';
@@ -13,13 +11,6 @@ const toHash = (t: UITrack) =>
   idString([...t.id, t.start, t.end, t.fragmentId]);
 
 export type TrackedTrack = UITrack & { origin?: UITrack };
-
-type TrackResult = {
-  name: string;
-  index: number;
-  active: boolean;
-  midi: UITrack[];
-};
 
 export const useTrackEditor = () => {
   const { panels, tracks, setMidis, setCurrent } = useTracks();
