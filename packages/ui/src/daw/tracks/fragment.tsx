@@ -24,14 +24,9 @@ export const Fragment: React.FC<Props> = ({
   color,
   height
 }) => {
-  const {
-    notes,
-    loop: [lStart, lEnd]
-  } = useMidiFragment(fragmentId);
+  const { notes, loopStart, loopWidth } = useMidiFragment(fragmentId);
 
   const id = React.useId();
-
-  const loopWidth = lEnd - lStart;
   const midiWith = end - start;
   const containerEnd = start + midiWith;
   const scaleWidth = 5;
@@ -53,7 +48,7 @@ export const Fragment: React.FC<Props> = ({
                 key={noteIndex}
                 width={note.length}
                 height={1}
-                x={note.x - lStart}
+                x={note.x - loopStart}
                 y={height - note.y}
               />
             ))}

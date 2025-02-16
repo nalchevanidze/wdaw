@@ -39,5 +39,18 @@ export const useMidiFragment = (targetId?: string) => {
 
   const uiNotes = React.useMemo<UINote[]>(() => fromNotes(notes), [notes]);
 
-  return { notes: uiNotes, loop, id, syncNotes, syncLoop };
+  const [loopStart, loopEnd] = loop;
+
+  const loopWidth = loopEnd - loopStart;
+
+  return {
+    loopStart,
+    loopEnd,
+    loopWidth,
+    notes: uiNotes,
+    loop,
+    id,
+    syncNotes,
+    syncLoop
+  };
 };
