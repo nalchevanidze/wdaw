@@ -38,13 +38,6 @@ export const useTrackEditor = () => {
       end: end + time
     }));
 
-  const clear = () => {
-    sync();
-    s.clear();
-  };
-
-  const sync = s.dispatcher(({ selected }) => setMidis(selected));
-
   const selectIn = (f: (i: TrackedTrack) => IArea) => (area?: Area) =>
     s.selectWith((t) => area?.isOverlaping(f(t)) ?? false);
 
@@ -53,17 +46,15 @@ export const useTrackEditor = () => {
     setCurrent(s.all.find(eqID(id))?.fragmentId);
   };
 
-  const isSelected = (id: MidiID) => Boolean(s.selected.find(eqID(id)));
-
   return {
     panels,
     tracks: tracks.map(resolveTrack(s.all)),
-    clear,
+    clear: s.clear,
+    sync: s.dispatcher(({ selected }) => setMidis(selected)),
+    isSelected: (id: MidiID) => Boolean(s.selected.find(eqID(id))),
     move,
     scale,
     select,
-    selectIn,
-    isSelected,
-    sync
+    selectIn
   };
 };
