@@ -26,8 +26,6 @@ export const useTrackEditor = (tracks: TrackState[]) => {
 
   const s = useSelection<State>(toState(tracks), (t) => idString(t.id));
 
-  React.useEffect(() => s.sync(toState(tracks)), [tracks]);
-
   const move = (time: number) =>
     s.edit(({ start, end }) => ({
       start: start + time,

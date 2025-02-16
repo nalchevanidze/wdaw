@@ -8,10 +8,8 @@ const noteId = (note: UINote) => [note.x, note.y, note.length].join(':');
 
 export const useNoteEditor = () => {
   const { notes, syncNotes } = useMidiFragment();
-  const { all, add, clear, edit, selectWith, removeWith, sync, dispatcher } =
+  const { all, add, clear, edit, selectWith, removeWith, dispatcher } =
     useSelection(notes, noteId);
-
-  useEffect(() => sync(notes), [notes]);
 
   const remove = (note: UINote) => removeWith((n) => n === note);
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   addTracking,
   dropTracking,
@@ -22,10 +22,10 @@ const toAll = <T extends object>(s: Selected<T>): Mixed<T>[] => [
 
 type ToId<T> = (i: T) => string | number;
 
-export const useSelection = <T extends object>(initial: T[], toId: ToId<T>) => {
+export const useSelection = <T extends object>(list: T[], toId: ToId<T>) => {
   const [state, setState] = useState<Selected<T>>({
     selected: [],
-    inactive: initial
+    inactive: list
   });
 
   const setPartition = (f1: (s: Selected<T>) => T[], f2: Predicate<T>) => {
@@ -88,8 +88,10 @@ export const useSelection = <T extends object>(initial: T[], toId: ToId<T>) => {
     });
   };
 
+  useEffect(() => sync(list), [list.map(toId).join("-")]);
+
+
   return {
-    sync,
     add,
     edit,
     all: toAll(state),
