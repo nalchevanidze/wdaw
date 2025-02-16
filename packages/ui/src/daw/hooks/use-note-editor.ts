@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { toArea, UINote } from '../utils/notes';
 import { Point, Area } from '@wdaw/svg';
 import { useSelection } from './use-selection';
