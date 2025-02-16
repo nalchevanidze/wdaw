@@ -46,7 +46,7 @@ export const useTrackEditor = () => {
   const sync = s.dispatcher(({ selected }) => setMidis(selected));
 
   const selectIn = (f: (i: TrackedTrack) => IArea) => (area?: Area) =>
-    s.selectWith((track) => area?.isOverlaping(f(track)) ?? false);
+    s.selectWith((t) => area?.isOverlaping(f(t)) ?? false);
 
   const select = (id: MidiID) => {
     s.selectWith(eqID(id));
