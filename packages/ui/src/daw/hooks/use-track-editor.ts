@@ -50,7 +50,7 @@ export const useTrackEditor = () => {
 
   const isSelected = (id: MidiID) => Boolean(s.selected.find(eqID(id)));
 
-  const tracksResult = tracks.map(({ id, fragmentId, start, end }) => {
+  const tracksResult = tracks.map(({ id, fragmentId, start, end }): UITrack => {
     const state = (s.all as TrackedTrack[]).find(eqID(id)) ?? {
       id,
       fragmentId,
