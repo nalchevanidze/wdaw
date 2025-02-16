@@ -12,6 +12,7 @@ import { TrackedTrack, useTrackEditor } from '../hooks/use-track-editor';
 import { Fragment } from './fragment';
 import { DragingBackground } from '../../components/background';
 import { MidiID, useTracks } from '../hooks/use-tracks';
+import { DawApiContext } from '../../context/state';
 
 const panelWidth = 160;
 const trackHeight = 48;
@@ -65,6 +66,8 @@ export const Tracks: React.FC = () => {
     }
   });
 
+  const [_, dispatch] = React.useContext(DawApiContext);
+
   return (
     <g>
       <DragingBackground onMouseDown={dragging.onBackground} />
@@ -86,11 +89,16 @@ export const Tracks: React.FC = () => {
           key={index}
           active={active}
           name={name}
-          id={index}
           width={panelWidth}
           y={index * trackHeight}
           height={trackHeight}
           gain={gain}
+          setGain={(payload) =>
+            dispatch({ type: 'SET_GAIN', id: index, payload })
+          }
+          setTrack={() =>
+            dispatch({ type: 'SET_CURRENT_TRACK', payload: index })
+          }
         />
       ))}
       {dragging.area ? <SelectionArea area={dragging.area} /> : null}

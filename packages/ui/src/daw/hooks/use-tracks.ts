@@ -18,7 +18,7 @@ type Panel = {
   name: string;
   index: number;
   active: boolean;
-  gain: number
+  gain: number;
 };
 
 const unfold = (tracks: TrackState[]): UITrack[] =>
@@ -45,7 +45,8 @@ export const useTracks = () => {
     ({ name }, trackIndex): Panel => ({
       index: trackIndex,
       active: trackIndex === currentTrack,
-      name
+      name,
+      gain: tracks[trackIndex].gain
     })
   );
 
