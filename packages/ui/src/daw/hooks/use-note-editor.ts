@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
 import { toArea, UINote } from '../utils/notes';
 import { Point, Area } from '@wdaw/svg';
-import { toMidiFragment } from '../utils/midi';
 import { useSelection } from './use-selection';
 import { useMidiFragment } from './use-midi-fragment';
 
 const noteId = (note: UINote) => [note.x, note.y, note.length].join(':');
 
 export const useNoteEditor = () => {
-  const [{ notes }, dispatch] = useMidiFragment();
+  const { notes, syncNotes } = useMidiFragment();
   const { all, add, clear, edit, selectWith, removeWith, sync, dispatcher } =
     useSelection(notes, noteId);
 
@@ -38,8 +37,6 @@ export const useNoteEditor = () => {
     addAt,
     move,
     scale,
-    sync: dispatcher((s) =>
-      dispatch(toMidiFragment([s.selected, s.inactive].flat()))
-    )
+    sync: dispatcher((s) => syncNotes([...s.selected, ...s.inactive]))
   };
 };

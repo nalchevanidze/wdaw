@@ -131,7 +131,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
 
 export const MidiEditor: React.FC = () => {
   const [actionType, setActionType] = React.useState<EditActionType>('select');
-  const [{ id, loop }] = useMidiFragment();
+  const { id, loop } = useMidiFragment();
 
   return (
     <>
