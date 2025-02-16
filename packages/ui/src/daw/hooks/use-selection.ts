@@ -22,7 +22,7 @@ const toAll = <T extends object>(s: Selected<T>): Mixed<T>[] => [
 
 type ToId<T> = (i: T) => string | number;
 
-export const useSelection = <T extends object>(list: T[], toId: ToId<T>) => {
+export const useSelection = <T extends object>(list: T[], toId: ToId<T>, toHash: ToId<T> = toId) => {
   const [state, setState] = useState<Selected<T>>({
     selected: [],
     inactive: list
@@ -87,10 +87,9 @@ export const useSelection = <T extends object>(list: T[], toId: ToId<T>) => {
       return s;
     });
   };
-
-  useEffect(() => sync(list), [list.map(toId).join("-")]);
-
-
+  
+  useEffect(() => sync(list), [list.map(toHash).join("-")]);
+  
   return {
     add,
     edit,

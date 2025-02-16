@@ -17,6 +17,9 @@ type State = {
   fragmentId: string;
 };
 
+const toId = (t: State) => idString(t.id);
+const toHash = (t: State) => idString([...t.id, t.start, t.end, t.fragmentId]);
+
 export type TState = State & { origin?: State };
 const toState = (tracks: TrackState[]): State[] =>
   tracks.flatMap((t, ti) => t.midi.map((m, mi) => ({ ...m, id: [ti, mi] })));
@@ -24,7 +27,7 @@ const toState = (tracks: TrackState[]): State[] =>
 export const useTrackEditor = (tracks: TrackState[]) => {
   const [_, dispatch] = React.useContext(DawApiContext);
 
-  const s = useSelection<State>(toState(tracks), (t) => idString(t.id));
+  const s = useSelection<State>(toState(tracks), toId, toHash);
 
   const move = (time: number) =>
     s.edit(({ start, end }) => ({
