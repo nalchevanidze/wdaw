@@ -4,6 +4,7 @@ import { useSelection } from './use-selection';
 import { TrackState } from '@wdaw/engine';
 import { Area, IArea } from '@wdaw/svg';
 import { idString } from '../../common/utils';
+import { useTracks } from './use-tracks';
 
 export type MidiID = [number, number];
 
@@ -24,8 +25,8 @@ export type TState = State & { origin?: State };
 const toState = (tracks: TrackState[]): State[] =>
   tracks.flatMap((t, ti) => t.midi.map((m, mi) => ({ ...m, id: [ti, mi] })));
 
-export const useTrackEditor = (tracks: TrackState[]) => {
-  const [_, dispatch] = React.useContext(DawApiContext);
+export const useTrackEditor = () => {
+  const {tracks, dispatch} = useTracks();
 
   const s = useSelection<State>(toState(tracks), toId, toHash);
 

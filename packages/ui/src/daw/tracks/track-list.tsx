@@ -17,6 +17,7 @@ import {
 } from '../hooks/use-track-editor';
 import { Fragment } from './fragment';
 import { DragingBackground } from '../../components/background';
+import { useTracks } from '../hooks/use-tracks';
 
 const panelWidth = 160;
 const trackHeight = 48;
@@ -30,6 +31,7 @@ const styles = {
 } as const;
 
 const rulerSize = BLOCK;
+const accuracy = rulerSize / 8;
 
 const toArea = ({ start, end, id: [trackIndex, _] }: TState): IArea => ({
   x1: start,
@@ -39,11 +41,10 @@ const toArea = ({ start, end, id: [trackIndex, _] }: TState): IArea => ({
 });
 
 export const Tracks: React.FC = () => {
-  const [{ tracks, currentTrack }] = React.useContext(DawApiContext);
+  const { tracks, currentTrack } = useTracks();
 
-  const accuracy = rulerSize / 8;
   const { all, clear, move, scale, select, selectIn, isSelected, sync } =
-    useTrackEditor(tracks);
+    useTrackEditor();
 
   const dragging = useDragging<MidiID>({
     onMove: {
@@ -63,39 +64,48 @@ export const Tracks: React.FC = () => {
     }
   });
 
+  const ts = tracks.map(({ midi, name }, trackIndex) => ({
+    index: trackIndex,
+    active: trackIndex === currentTrack,
+    name,
+    midi: midi.map(({ fragmentId, start, end }, midiIndex) => {
+      const id: MidiID = [trackIndex, midiIndex];
+      const { origin, ...state } = all.find(eqID(id)) ?? {
+        start,
+        end,
+        fragmentId,
+        id
+      };
+      const selected = Boolean(origin);
+
+      return { selected, ...state };
+    })
+  }));
+
   return (
     <g>
       <DragingBackground onMouseDown={dragging.onBackground} />
-      {tracks.map(({ midi, name }, trackIndex) => {
-        const y = trackIndex * trackHeight;
-
+      {ts.map(({ midi, name, index, active }) => {
+        const y = index * trackHeight;
         return (
-          <g key={trackIndex}>
-            {midi.map(({ fragmentId, start, end }, midiIndex) => {
-              const id: MidiID = [trackIndex, midiIndex];
-              const state = all.find(eqID(id));
-              return (
-                <Fragment
-                  key={midiIndex}
-                  y={y}
-                  start={state?.start ?? start}
-                  end={state?.end ?? end}
-                  fragmentId={fragmentId}
-                  height={trackHeight}
-                  startMove={(e) => dragging.onElement('move')(e, id)}
-                  startScale={(e) => dragging.onElement('scale')(e, id)}
-                  color={
-                    state?.origin
-                      ? colors.notesSelected
-                      : colors.notesBackground
-                  }
-                />
-              );
-            })}
+          <g key={index}>
+            {midi.map(({ fragmentId, start, end, id, selected }, midiIndex) => (
+              <Fragment
+                key={midiIndex}
+                y={y}
+                start={start}
+                end={end}
+                fragmentId={fragmentId}
+                height={trackHeight}
+                startMove={(e) => dragging.onElement('move')(e, id)}
+                startScale={(e) => dragging.onElement('scale')(e, id)}
+                color={selected ? colors.notesSelected : colors.notesBackground}
+              />
+            ))}
             <Panel
-              active={trackIndex === currentTrack}
+              active={active}
               name={name}
-              id={trackIndex}
+              id={index}
               width={panelWidth}
               y={y}
               height={trackHeight}
