@@ -81,7 +81,7 @@ export const Tracks: React.FC = () => {
           color={selected ? colors.notesSelected : colors.notesBackground}
         />
       ))}
-      {panels.map(({ name, index, active }) => (
+      {panels.map(({ name, index, active, gain }) => (
         <Panel
           key={index}
           active={active}
@@ -90,6 +90,7 @@ export const Tracks: React.FC = () => {
           width={panelWidth}
           y={index * trackHeight}
           height={trackHeight}
+          gain={gain}
         />
       ))}
       {dragging.area ? <SelectionArea area={dragging.area} /> : null}

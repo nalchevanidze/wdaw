@@ -10,6 +10,7 @@ type Props = {
   active: boolean;
   width: number;
   height: number;
+  gain: number
 };
 
 const levelSize = 16;

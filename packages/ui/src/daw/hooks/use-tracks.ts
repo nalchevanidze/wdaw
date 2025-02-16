@@ -18,6 +18,7 @@ type Panel = {
   name: string;
   index: number;
   active: boolean;
+  gain: number
 };
 
 const unfold = (tracks: TrackState[]): UITrack[] =>
