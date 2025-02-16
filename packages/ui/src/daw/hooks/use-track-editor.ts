@@ -12,6 +12,16 @@ const toHash = (t: UITrack) =>
 
 export type TrackedTrack = UITrack & { origin?: UITrack };
 
+const resolveTrack =
+  (ls: TrackedTrack[]) =>
+  ({ id, fragmentId, start, end }: TrackedTrack): UITrack => {
+    const state = ls.find(eqID(id));
+
+    return state
+      ? { ...state, selected: Boolean(state.origin) }
+      : { id, fragmentId, start, end };
+  };
+
 export const useTrackEditor = () => {
   const { panels, tracks, setMidis, setCurrent } = useTracks();
   const s = useSelection<TrackedTrack>(tracks, toId, toHash);
@@ -50,17 +60,9 @@ export const useTrackEditor = () => {
 
   const isSelected = (id: MidiID) => Boolean(s.selected.find(eqID(id)));
 
-  const tracksResult = tracks.map(({ id, fragmentId, start, end }): UITrack => {
-    const state = s.all.find(eqID(id));
-
-    return state
-      ? { ...state, selected: Boolean(state.origin) }
-      : { id, fragmentId, start, end };
-  });
-
   return {
     panels,
-    tracks: tracksResult,
+    tracks: tracks.map(resolveTrack(s.all)),
     clear,
     move,
     scale,
