@@ -38,8 +38,8 @@ export const useTracks = () => {
       )
     });
 
-  const setCurrent = (id: string) =>
-    dispatch({ type: 'SET_CURRENT_FRAGMENT', payload: id });
+  const setCurrent = (id?: string) =>
+    id ? dispatch({ type: 'SET_CURRENT_FRAGMENT', payload: id }) : unfold;
 
   const panels = tracks.map(
     ({ name }, trackIndex): Panel => ({

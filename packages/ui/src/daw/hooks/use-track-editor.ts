@@ -50,12 +50,7 @@ export const useTrackEditor = () => {
 
   const select = (id: MidiID) => {
     s.selectWith(eqID(id));
-
-    const fid = s.all.find(eqID(id))?.fragmentId;
-
-    if (fid) {
-      setCurrent(fid);
-    }
+    setCurrent(s.all.find(eqID(id))?.fragmentId);
   };
 
   const isSelected = (id: MidiID) => Boolean(s.selected.find(eqID(id)));
