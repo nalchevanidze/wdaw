@@ -5,6 +5,7 @@ import { UINote } from '../utils/notes';
 import { fromNotes } from '../utils/midi';
 import { MEvent } from '../types';
 import { DawApiContext } from '../../context/state';
+import { useMidiFragment } from '../hooks/use-midi-fragment';
 
 type Props = {
   start: number;
@@ -27,14 +28,12 @@ export const Fragment: React.FC<Props> = ({
   color,
   height
 }) => {
-  const [{ midiFragments }] = React.useContext(DawApiContext);
-
-  const {
-    notes,
-    loop: [loopStart, loopEnd]
-  } = midiFragments[fragmentId];
-
-  const uiNotes = React.useMemo<UINote[]>(() => fromNotes(notes), [notes]);
+  const [
+    {
+      notes,
+      loop: [loopStart, loopEnd]
+    }
+  ] = useMidiFragment(fragmentId);
 
   const id = React.useId();
 
@@ -55,7 +54,7 @@ export const Fragment: React.FC<Props> = ({
           x={loopOffset}
         >
           <g fill={colors.notes}>
-            {uiNotes.map((note, noteIndex) => (
+            {notes.map((note, noteIndex) => (
               <rect
                 key={noteIndex}
                 width={note.length}
