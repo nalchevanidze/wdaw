@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { colors } from '../../styles';
-import { Midi } from '@wdaw/engine';
-import { UINote } from '../utils/notes';
-import { fromNotes } from '../utils/midi';
 import { MEvent } from '../types';
-import { DawApiContext } from '../../context/state';
 import { useMidiFragment } from '../hooks/use-midi-fragment';
 
 type Props = {
