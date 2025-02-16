@@ -14,7 +14,7 @@ export type TrackedTrack = UITrack & { origin?: UITrack };
 
 export const useTrackEditor = () => {
   const { panels, tracks, setMidis, setCurrent } = useTracks();
-  const s = useSelection<UITrack>(tracks, toId, toHash);
+  const s = useSelection<TrackedTrack>(tracks, toId, toHash);
 
   const move = (time: number) =>
     s.edit(({ start, end }) => ({
@@ -51,14 +51,11 @@ export const useTrackEditor = () => {
   const isSelected = (id: MidiID) => Boolean(s.selected.find(eqID(id)));
 
   const tracksResult = tracks.map(({ id, fragmentId, start, end }): UITrack => {
-    const state = (s.all as TrackedTrack[]).find(eqID(id)) ?? {
-      id,
-      fragmentId,
-      start,
-      end
-    };
+    const state = s.all.find(eqID(id));
 
-    return { selected: Boolean(state.origin), ...state };
+    return state
+      ? { selected: Boolean(state.origin), ...state }
+      : { id, fragmentId, start, end };
   });
 
   return {
