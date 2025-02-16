@@ -20,9 +20,9 @@ const toAll = <T extends object>(s: Selected<T>): Mixed<T>[] => [
   ...s.inactive
 ];
 
-type ToId = <T>(i: T) => string | number;
+type ToId<T> = (i: T) => string | number;
 
-export const useSelection = <T extends object>(initial: T[], toId: ToId) => {
+export const useSelection = <T extends object>(initial: T[], toId: ToId<T>) => {
   const [state, setState] = useState<Selected<T>>({
     selected: [],
     inactive: initial
