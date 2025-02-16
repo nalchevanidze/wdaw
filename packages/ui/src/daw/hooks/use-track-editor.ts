@@ -54,7 +54,7 @@ export const useTrackEditor = () => {
     const state = s.all.find(eqID(id));
 
     return state
-      ? { selected: Boolean(state.origin), ...state }
+      ? { ...state, selected: Boolean(state.origin) }
       : { id, fragmentId, start, end };
   });
 
