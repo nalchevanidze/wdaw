@@ -5,19 +5,13 @@ import { IArea, Svg } from '@wdaw/svg';
 import { colors } from '../../styles';
 import { Panel } from './panel';
 import { NoteGrid } from '../../components/note-grid';
-import { DawApiContext } from '../../context/state';
 import { SelectionArea } from '../../components/selection-area';
 import { useDragging } from '../hooks/use-dragging';
 import { withAccuracy } from '../utils/area';
-import {
-  eqID,
-  MidiID,
-  TState,
-  useTrackEditor
-} from '../hooks/use-track-editor';
+import { TrackedTrack, useTrackEditor } from '../hooks/use-track-editor';
 import { Fragment } from './fragment';
 import { DragingBackground } from '../../components/background';
-import { useTracks } from '../hooks/use-tracks';
+import { MidiID, useTracks } from '../hooks/use-tracks';
 
 const panelWidth = 160;
 const trackHeight = 48;
@@ -33,7 +27,7 @@ const styles = {
 const rulerSize = BLOCK;
 const accuracy = rulerSize / 8;
 
-const toArea = ({ start, end, id: [trackIndex, _] }: TState): IArea => ({
+const toArea = ({ start, end, id: [trackIndex, _] }: TrackedTrack): IArea => ({
   x1: start,
   x2: end,
   y1: trackIndex * trackHeight,
@@ -41,8 +35,17 @@ const toArea = ({ start, end, id: [trackIndex, _] }: TState): IArea => ({
 });
 
 export const Tracks: React.FC = () => {
-  const { tracks, clear, move, scale, select, selectIn, isSelected, sync } =
-    useTrackEditor();
+  const {
+    tracks,
+    panels,
+    clear,
+    move,
+    scale,
+    select,
+    selectIn,
+    isSelected,
+    sync
+  } = useTrackEditor();
 
   const dragging = useDragging<MidiID>({
     onMove: {
@@ -65,34 +68,30 @@ export const Tracks: React.FC = () => {
   return (
     <g>
       <DragingBackground onMouseDown={dragging.onBackground} />
-      {tracks.map(({ midi, name, index, active }) => {
-        const y = index * trackHeight;
-        return (
-          <g key={index}>
-            {midi.map(({ fragmentId, start, end, id, selected }, midiIndex) => (
-              <Fragment
-                key={midiIndex}
-                y={y}
-                start={start}
-                end={end}
-                fragmentId={fragmentId}
-                height={trackHeight}
-                startMove={(e) => dragging.onElement('move')(e, id)}
-                startScale={(e) => dragging.onElement('scale')(e, id)}
-                color={selected ? colors.notesSelected : colors.notesBackground}
-              />
-            ))}
-            <Panel
-              active={active}
-              name={name}
-              id={index}
-              width={panelWidth}
-              y={y}
-              height={trackHeight}
-            />
-          </g>
-        );
-      })}
+      {tracks.map(({ fragmentId, start, end, id, selected }, midiIndex) => (
+        <Fragment
+          key={midiIndex}
+          y={id[0] * trackHeight}
+          start={start}
+          end={end}
+          fragmentId={fragmentId}
+          height={trackHeight}
+          startMove={(e) => dragging.onElement('move')(e, id)}
+          startScale={(e) => dragging.onElement('scale')(e, id)}
+          color={selected ? colors.notesSelected : colors.notesBackground}
+        />
+      ))}
+      {panels.map(({ name, index, active }) => (
+        <Panel
+          key={index}
+          active={active}
+          name={name}
+          id={index}
+          width={panelWidth}
+          y={index * trackHeight}
+          height={trackHeight}
+        />
+      ))}
       {dragging.area ? <SelectionArea area={dragging.area} /> : null}
     </g>
   );

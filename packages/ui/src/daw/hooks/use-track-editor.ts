@@ -1,41 +1,29 @@
 import * as React from 'react';
-import { DawApiContext } from '../../context/state';
 import { useSelection } from './use-selection';
 import { TrackState } from '@wdaw/engine';
 import { Area, IArea } from '@wdaw/svg';
 import { idString } from '../../common/utils';
-import { useTracks } from './use-tracks';
+import { MidiID, UITrack, useTracks } from './use-tracks';
 
-export type MidiID = [number, number];
-
-export const eqID = (m1: MidiID) => (s: State) =>
+export const eqID = (m1: MidiID) => (s: UITrack) =>
   idString(m1) === idString(s.id);
 
-type State = {
-  id: MidiID;
-  start: number;
-  end: number;
-  fragmentId: string;
-};
+const toId = (t: UITrack) => idString(t.id);
+const toHash = (t: UITrack) =>
+  idString([...t.id, t.start, t.end, t.fragmentId]);
 
-const toId = (t: State) => idString(t.id);
-const toHash = (t: State) => idString([...t.id, t.start, t.end, t.fragmentId]);
-
-export type TState = State & { origin?: State };
-const toState = (tracks: TrackState[]): State[] =>
-  tracks.flatMap((t, ti) => t.midi.map((m, mi) => ({ ...m, id: [ti, mi] })));
+export type TrackedTrack = UITrack & { origin?: UITrack };
 
 type TrackResult = {
   name: string;
   index: number;
   active: boolean;
-  midi: (State & { selected: boolean })[];
+  midi: UITrack[];
 };
 
 export const useTrackEditor = () => {
-  const { tracks, currentTrack, dispatch } = useTracks();
-
-  const s = useSelection<State>(toState(tracks), toId, toHash);
+  const { panels, tracks, setMidis, setCurrent } = useTracks();
+  const s = useSelection<UITrack>(tracks, toId, toHash);
 
   const move = (time: number) =>
     s.edit(({ start, end }) => ({
@@ -54,16 +42,9 @@ export const useTrackEditor = () => {
     s.clear();
   };
 
-  const sync = s.dispatcher(({ selected }) =>
-    dispatch({
-      type: 'SET_TRACK_MIDI',
-      payload: new Map(
-        selected.map(({ id, start, end }) => [idString(id), { start, end }])
-      )
-    })
-  );
+  const sync = s.dispatcher(({ selected }) => setMidis(selected));
 
-  const selectIn = (f: (i: TState) => IArea) => (area?: Area) =>
+  const selectIn = (f: (i: TrackedTrack) => IArea) => (area?: Area) =>
     s.selectWith((track) => area?.isOverlaping(f(track)) ?? false);
 
   const select = (id: MidiID) => {
@@ -72,33 +53,25 @@ export const useTrackEditor = () => {
     const fid = s.all.find(eqID(id))?.fragmentId;
 
     if (fid) {
-      dispatch({ type: 'SET_CURRENT_FRAGMENT', payload: fid });
+      setCurrent(fid);
     }
   };
 
   const isSelected = (id: MidiID) => Boolean(s.selected.find(eqID(id)));
 
-  const result = tracks.map(
-    ({ midi, name }, trackIndex): TrackResult => ({
-      index: trackIndex,
-      active: trackIndex === currentTrack,
-      name,
-      midi: midi.map(({ fragmentId, start, end }, midiIndex) => {
-        const id: MidiID = [trackIndex, midiIndex];
-        const { origin, ...state } = (s.all as TState[]).find(eqID(id)) ?? {
-          start,
-          end,
-          fragmentId,
-          id
-        };
-        const selected = Boolean(origin);
+  const result = tracks.map(({ fragmentId, start, end, id }) => {
+    const state = (s.all as TrackedTrack[]).find(eqID(id)) ?? {
+      start,
+      end,
+      fragmentId,
+      id
+    };
 
-        return { selected, ...state };
-      })
-    })
-  );
+    return { selected: Boolean(state.origin), ...state };
+  });
 
   return {
+    panels,
     tracks: result,
     clear,
     move,
