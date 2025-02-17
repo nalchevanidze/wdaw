@@ -55,11 +55,7 @@ export const Tracks: React.FC = () => {
       scale: withAccuracy(scale, accuracy)
     },
     onEnd: (mode) => (mode !== 'select' ? sync() : undefined),
-    onStart: (t) => {
-      if (!isSelected(t)) {
-        select(t);
-      }
-    },
+    onStart: (t) => (!isSelected(t) ? select(t) : undefined),
     onBackground: () => {
       clear();
       return 'select';
