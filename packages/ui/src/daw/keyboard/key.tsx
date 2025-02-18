@@ -32,21 +32,20 @@ const styles = {
       paddingTop: height
     }
   } as const,
-  key: (pressed: boolean, semi: boolean, left?: string) => {
-    const { base, pressedColor } = semi ? styles.semi : styles.regular;
+  key: (pressed: boolean, fixed?: string) => {
+    const { base, pressedColor } = fixed ? styles.semi : styles.regular;
 
     return {
       ...base,
       paddingTop: pressed ? (base.paddingTop ?? 0) - 10 : base.paddingTop,
       background: pressed ? pressedColor : base.background,
-      left
+      left: fixed
     } as const;
   }
 };
 
 type Props = {
-  left?: string;
-  semi: boolean;
+  fixed?: string;
   pressed: boolean;
   onKeyDown(): void;
   onKeyUp(): void;
@@ -56,11 +55,10 @@ export const Key: React.FC<Props> = ({
   pressed,
   onKeyDown,
   onKeyUp,
-  left,
-  semi
+  fixed
 }) => (
   <div
-    style={styles.key(pressed, semi, left)}
+    style={styles.key(pressed, fixed)}
     onTouchStart={onKeyDown}
     onMouseDown={onKeyDown}
     onTouchEnd={onKeyUp}

@@ -23,11 +23,10 @@ const Keyboard: React.FC = () => {
 
   return (
     <ul style={styles.container}>
-      {keys.map(({ left, semi, key }) => (
+      {keys.map(({ fixed, key }) => (
         <Key
           key={key}
-          semi={semi}
-          left={left}
+          fixed={fixed}
           onKeyDown={() => onKeyDown(key)}
           onKeyUp={() => onKeyUp(key)}
           pressed={notes.includes(key)}
