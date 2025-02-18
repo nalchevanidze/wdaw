@@ -3,6 +3,8 @@ import { useContext } from 'react';
 import { HeaderButton } from '../../components/header-button';
 import { colors } from '../../styles';
 import { DawApiContext } from '../../context/state';
+import { usePlayer } from '../hooks/use-player';
+import { Tapeline } from '../../components/tapeline';
 
 const styles = {
   container: {
@@ -35,29 +37,21 @@ const maxBPM = 200;
 const minBPM = 0;
 
 const Header: React.FC = () => {
-  const [{ isPlaying, bpm }, dispatch] = useContext(DawApiContext);
-
-  const setBPM = (value: string) => {
-    dispatch({
-      type: 'SET_BPM',
-      payload: Math.min(Math.max(minBPM, Number(value)), maxBPM)
-    });
-  };
+  const { isPlaying, bpm, setBPM, toggle, stop } = usePlayer();
 
   return (
     <section style={styles.container}>
-      <HeaderButton
-        id={isPlaying ? 'pause' : 'play'}
-        onClick={() => dispatch({ type: isPlaying ? 'PAUSE' : 'PLAY' })}
-      />
-      <HeaderButton id={'stop'} onClick={() => dispatch({ type: 'STOP' })} />
+      <HeaderButton id={isPlaying ? 'pause' : 'play'} onClick={toggle} />
+      <HeaderButton id="stop" onClick={stop} />
       <div style={styles.bpm}>
         <label htmlFor="bpm-input">BPM</label>
         <input
           id="bpm-input"
           type="number"
           value={bpm}
-          onChange={(x) => setBPM(x.target.value)}
+          onChange={(x) =>
+            setBPM(Math.min(Math.max(minBPM, Number(x.target.value)), maxBPM))
+          }
           min={minBPM}
           max={maxBPM}
           style={styles.bpmInput}
