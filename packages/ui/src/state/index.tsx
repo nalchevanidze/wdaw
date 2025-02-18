@@ -80,7 +80,7 @@ const dispatcher = (
     case 'KEY_UP':
       return { notes: [action.payload].filter((n) => n !== action.payload) };
     case 'SAVE':
-      saveState(state);
+      saveState({...state, time: 0});
       return;
     case 'LOAD':
       return { ...action.payload };
