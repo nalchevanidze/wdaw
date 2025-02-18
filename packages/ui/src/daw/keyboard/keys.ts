@@ -1,4 +1,4 @@
-const keys = [
+const patern = [
   { id: 'C', index: 0 },
   { id: 'D', index: 2 },
   { id: 'E', index: 4 },
@@ -15,11 +15,11 @@ const keys = [
 
 type Key = { key: number; left?: string; semi: boolean };
 
-export const allKeys = [1, 2, 3].map((octave) =>
-  keys.map(
+export const keys = [1, 2, 3].flatMap((octave) =>
+  patern.map(
     ({ index, left, semi }): Key => ({
       key: octave * 12 + index,
-      left: left ? left + '%' : undefined,
+      left: left ? ((octave - 1) * 100) / 3 + left / 3 + '%' : undefined,
       semi: Boolean(semi)
     })
   )

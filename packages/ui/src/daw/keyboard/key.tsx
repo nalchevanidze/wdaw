@@ -12,7 +12,7 @@ const defaultStyle = {
   borderBottomRightRadius: roundness,
   flexGrow: 0,
   boxShadow: '1px 3px 1px rgba(0, 0, 0, 0.2)',
-  width: '14%',
+  width: '4.5%',
   paddingTop: height + heightDiff,
   background: '#EEE'
 } as const;
@@ -20,7 +20,7 @@ const defaultStyle = {
 const blackStyle = {
   ...defaultStyle,
   background: colors.black,
-  width: '10%',
+  width: '3.5%',
   position: 'absolute',
   paddingTop: height
 } as const;
