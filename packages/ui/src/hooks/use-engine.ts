@@ -19,19 +19,17 @@ export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
 
   useEffect(() => {
     const engine = new SynthEngine();
-    engine.setTracks(state);
-    engine.setBPM(state.bpm);
     engine.addEventListener('isPlayingChanged', isPlayingChanged);
     engine.addEventListener('timeChanged', timeChanged);
 
     setReducerState({ reducer: makeReducer(engine) });
+
+    dispatch({ type: 'LOAD', payload: loadState() ?? dawState() });
+
     return () => engine.destroy();
   }, [makeReducer]);
 
-  const [state, dispatch] = useReducer(
-    reducerState.reducer,
-    loadState() ?? dawState()
-  );
+  const [state, dispatch] = useReducer(reducerState.reducer, dawState());
 
   return [state, dispatch] as const;
 };

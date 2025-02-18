@@ -8,7 +8,7 @@ export const saveState = (state: DAWState) =>
 
 export const loadState = () => {
   const v = localStorage.getItem(STATE_KEY);
-  v ? (JSON.parse(v) as DAWState) : undefined;
+  return v ? (JSON.parse(v) as DAWState) : undefined;
 };
 
 

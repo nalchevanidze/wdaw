@@ -1,11 +1,13 @@
 import { SynthEngine } from '@wdaw/engine';
-import { mapPreset, mapTrack, mapTracks, saveState, setMidiFragment } from './utils';
+import {
+  mapPreset,
+  mapTrack,
+  mapTracks,
+  saveState,
+  setMidiFragment
+} from './utils';
 import { DAWState, EngineAction } from './types';
 import { idString } from '../common/utils';
-
-
-
-
 
 const dispatcher = (
   state: DAWState,
@@ -80,6 +82,8 @@ const dispatcher = (
     case 'SAVE':
       saveState(state);
       return;
+    case 'LOAD':
+      return { ...action.payload };
     default:
       return;
   }
@@ -124,6 +128,10 @@ const engineEffects = (
     case 'SET_FILTER':
     case 'SET_PRESET':
       return engine.setPreset(currentTrack, preset);
+    case 'LOAD':
+      engine.setTracks(action.payload);
+      engine.setBPM(action.payload.bpm);
+      return;
   }
 };
 
