@@ -3,18 +3,13 @@ import { usePoint, useSvgBoundaries } from '@wdaw/svg';
 import { DawApiContext } from '../../context/state';
 import { Tapeline } from '../../components/tapeline';
 import { colors } from '../../styles';
+import { usePlayer } from '../hooks/use-player';
 
 type Height = { height: number; size: number };
 
 export const Timeline: React.FC<Height> = ({ height, size }) => {
   const toPoint = usePoint();
-  const [{ time }, dispatch] = React.useContext(DawApiContext);
-
-  const setTime: React.MouseEventHandler<SVGRectElement> = (event) =>
-    dispatch({
-      type: 'SET_TIME',
-      payload: Math.floor(toPoint(event).x)
-    });
+  const { time, setTime } = usePlayer();
 
   return (
     <g>
@@ -31,7 +26,7 @@ export const Timeline: React.FC<Height> = ({ height, size }) => {
         y={-height}
         height={height}
         width="100%"
-        onMouseDown={setTime}
+        onMouseDown={(e) => setTime(Math.floor(toPoint(e).x))}
       />
     </g>
   );
