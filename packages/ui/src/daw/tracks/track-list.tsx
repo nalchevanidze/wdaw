@@ -13,6 +13,7 @@ import { Fragment } from './fragment';
 import { DragingBackground } from '../../components/background';
 import { MidiID, useTracks } from '../hooks/use-tracks';
 import { DawApiContext } from '../../context/state';
+import { usePanels } from '../hooks/use-panels';
 
 const panelWidth = 160;
 const trackHeight = 48;
@@ -36,17 +37,9 @@ const toArea = ({ start, end, id: [trackIndex, _] }: TrackedTrack): IArea => ({
 });
 
 export const Tracks: React.FC = () => {
-  const {
-    tracks,
-    panels,
-    clear,
-    move,
-    scale,
-    select,
-    selectIn,
-    isSelected,
-    sync
-  } = useTrackEditor();
+  const { tracks, clear, move, scale, select, selectIn, isSelected, sync } =
+    useTrackEditor();
+  const { panels } = usePanels();
 
   const dragging = useDragging<MidiID>({
     onMove: {
@@ -61,8 +54,6 @@ export const Tracks: React.FC = () => {
       return 'select';
     }
   });
-
-  const [_, dispatch] = React.useContext(DawApiContext);
 
   return (
     <g>
@@ -80,7 +71,7 @@ export const Tracks: React.FC = () => {
           color={selected ? colors.notesSelected : colors.notesBackground}
         />
       ))}
-      {panels.map(({ name, index, active, gain }) => (
+      {panels.map(({ name, index, active, gain, setGain, setTrack }) => (
         <Panel
           key={index}
           active={active}
@@ -89,12 +80,8 @@ export const Tracks: React.FC = () => {
           y={index * trackHeight}
           height={trackHeight}
           gain={gain}
-          setGain={(payload) =>
-            dispatch({ type: 'SET_GAIN', id: index, payload })
-          }
-          setTrack={() =>
-            dispatch({ type: 'SET_CURRENT_TRACK', payload: index })
-          }
+          setGain={setGain}
+          setTrack={setTrack}
         />
       ))}
       {dragging.area ? <SelectionArea area={dragging.area} /> : null}

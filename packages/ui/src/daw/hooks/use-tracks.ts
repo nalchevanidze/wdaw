@@ -14,13 +14,6 @@ export type UITrack = {
   selected?: boolean;
 };
 
-type Panel = {
-  name: string;
-  index: number;
-  active: boolean;
-  gain: number;
-};
-
 const unfold = (tracks: TrackState[]): UITrack[] =>
   tracks.flatMap((t, ti) => t.midi.map((m, mi) => ({ ...m, id: [ti, mi] })));
 
@@ -41,17 +34,7 @@ export const useTracks = () => {
   const setCurrent = (id?: string) =>
     id ? dispatch({ type: 'SET_CURRENT_FRAGMENT', payload: id }) : unfold;
 
-  const panels = tracks.map(
-    ({ name }, trackIndex): Panel => ({
-      index: trackIndex,
-      active: trackIndex === currentTrack,
-      name,
-      gain: tracks[trackIndex].gain
-    })
-  );
-
   return {
-    panels,
     tracks: unfold(tracks),
     currentTrack,
     setMidis,

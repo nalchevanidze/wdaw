@@ -23,7 +23,7 @@ const resolveTrack =
   };
 
 export const useTrackEditor = () => {
-  const { panels, tracks, setMidis, setCurrent } = useTracks();
+  const { tracks, setMidis, setCurrent } = useTracks();
   const s = useSelection<TrackedTrack>(tracks, toId, toHash);
 
   const move = (time: number) =>
@@ -47,7 +47,6 @@ export const useTrackEditor = () => {
   };
 
   return {
-    panels,
     tracks: tracks.map(resolveTrack(s.all)),
     clear: s.clear,
     sync: s.dispatcher(({ selected }) => setMidis(selected)),
