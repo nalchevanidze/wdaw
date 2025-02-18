@@ -2,6 +2,7 @@ import { useEffect, useReducer, useState } from 'react';
 import { SynthEngine } from '@wdaw/engine';
 import { DAWState, EngineAction } from '../state/types';
 import { dawState } from '../state/defs';
+import { loadState } from '../state/utils';
 
 type Reducer = (state: DAWState, action: EngineAction) => DAWState;
 
@@ -27,7 +28,10 @@ export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
     return () => engine.destroy();
   }, [makeReducer]);
 
-  const [state, dispatch] = useReducer(reducerState.reducer, dawState());
+  const [state, dispatch] = useReducer(
+    reducerState.reducer,
+    loadState() ?? dawState()
+  );
 
   return [state, dispatch] as const;
 };
