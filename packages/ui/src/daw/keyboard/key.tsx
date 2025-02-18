@@ -18,27 +18,20 @@ const regular = {
 } as const;
 
 const styles = {
-  regular: {
-    base: regular,
-    pressedColor: '#DDD'
-  } as const,
+  regular: regular,
   fixed: {
-    pressedColor: '#333',
-    base: {
-      ...regular,
-      background: colors.black,
-      width: '3.5%',
-      position: 'absolute',
-      paddingTop: height
-    }
+    ...regular,
+    background: colors.black,
+    width: '3.5%',
+    position: 'absolute',
+    paddingTop: height
   } as const,
   key: (pressed: boolean, fixed?: string) => {
-    const { base, pressedColor } = fixed ? styles.fixed : styles.regular;
+    const base = fixed ? styles.fixed : styles.regular;
 
     return {
       ...base,
       paddingTop: pressed ? (base.paddingTop ?? 0) - 10 : base.paddingTop,
-      background: pressed ? pressedColor : base.background,
       left: fixed
     } as const;
   }
