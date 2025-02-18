@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { colors } from '../../styles';
+import { KeyHandler } from '../hooks/use-keyboard';
 
 type Key = {
   index: number;
@@ -110,8 +111,6 @@ const Key = ({ index, active, keyPress, keyUp, left, semi }: keyProps) => {
     />
   );
 };
-
-export type KeyHandler = (e: KeyboardEvent | number) => void;
 
 type OctaveProps = {
   octave: number;

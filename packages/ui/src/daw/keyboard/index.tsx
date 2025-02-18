@@ -1,22 +1,9 @@
 import * as React from 'react';
-import { KEY_EVENT_TYPE, useKeyEvent } from '../../hooks/use-key-event';
-import { KeyHandler, Octave } from './octave';
-import { DawApiContext } from '../../context/state';
-import { noteFromKeyboard } from '../utils/keyboard';
+import { Octave } from './octave';
+import { useKeyboard } from '../hooks/use-keyboard';
 
 const Keyboard: React.FC = () => {
-  const [{ notes }, dispatch] = React.useContext(DawApiContext);
-
-  const handler =
-    (type: KEY_EVENT_TYPE): KeyHandler =>
-    (e) => {
-      const key = noteFromKeyboard(e);
-      if (key) {
-        dispatch({ type, payload: key });
-      }
-    };
-
-  useKeyEvent(handler);
+  const { notes, onKeyDown, onKeyUp } = useKeyboard();
 
   return (
     <ul
@@ -31,8 +18,8 @@ const Keyboard: React.FC = () => {
         <Octave
           key={i}
           octave={i}
-          keyPress={handler('KEY_DOWN')}
-          keyUp={handler('KEY_UP')}
+          keyPress={onKeyDown}
+          keyUp={onKeyUp}
           active={notes}
         />
       ))}
