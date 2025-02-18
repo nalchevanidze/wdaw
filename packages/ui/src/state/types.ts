@@ -124,6 +124,14 @@ type PAUSE = {
   type: 'PAUSE';
 };
 
+// GLOBAL
+
+type SAVE = {
+  type: 'SAVE';
+};
+
+type GlobalActions = SAVE;
+
 type MidiActions =
   | SET_TIME
   | SET_CURRENT_TRACK
@@ -138,6 +146,7 @@ type MidiActions =
 export type EngineAction =
   | SynthActions
   | MidiActions
+  | GlobalActions
   | REFRESH_TIME
   | REFRESH_IS_PLAYING
   | SET_BPM;

@@ -1,7 +1,11 @@
 import { SynthEngine } from '@wdaw/engine';
-import { mapPreset, mapTrack, mapTracks, setMidiFragment } from './utils';
+import { mapPreset, mapTrack, mapTracks, saveState, setMidiFragment } from './utils';
 import { DAWState, EngineAction } from './types';
 import { idString } from '../common/utils';
+
+
+
+
 
 const dispatcher = (
   state: DAWState,
@@ -73,6 +77,9 @@ const dispatcher = (
       return { notes: [...notes, action.payload] };
     case 'KEY_UP':
       return { notes: [action.payload].filter((n) => n !== action.payload) };
+    case 'SAVE':
+      saveState(state);
+      return;
     default:
       return;
   }
