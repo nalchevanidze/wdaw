@@ -8,7 +8,6 @@ import { Notes } from './notes';
 import { EditActionType, MHandler } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { useNoteEditor } from '../hooks/use-note-editor';
-import { useFragmentTime } from '../hooks/use-time';
 import { SelectionArea } from '../../components/selection-area';
 import { Keyboard } from './keyboard';
 import { Loop } from './loop';
@@ -37,7 +36,6 @@ const rulerSize = BLOCK;
 const normalize = normalizer({ noteHeight, canvasHeight });
 
 const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
-  const time = useFragmentTime();
   const notes = useNoteEditor();
   const loop = useLoop();
 
@@ -110,12 +108,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
           scale={dragging.onElement('scale')}
         />
       </g>
-      <Timeline
-        size={rulerSize}
-        time={time}
-        timeline={timelineHeight}
-        height={timelineHeight + canvasHeight}
-      />
+      <Timeline size={rulerSize} timeline={timelineHeight} />
       <Loop
         controlerWidth={4}
         timelineHeight={timelineHeight}

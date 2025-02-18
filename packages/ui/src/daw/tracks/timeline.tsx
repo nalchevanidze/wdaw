@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { usePoint, useSvgBoundaries } from '@wdaw/svg';
-import { DawApiContext } from '../../context/state';
 import { Tapeline } from '../../components/tapeline';
 import { colors } from '../../styles';
 import { usePlayer } from '../hooks/use-player';
@@ -8,8 +7,8 @@ import { usePlayer } from '../hooks/use-player';
 type Height = { height: number; size: number };
 
 export const Timeline: React.FC<Height> = ({ height, size }) => {
-  const toPoint = usePoint();
   const { time, setTime } = usePlayer();
+  const toPoint = usePoint();
 
   return (
     <g>
