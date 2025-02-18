@@ -30,19 +30,19 @@ export const engineState = (): EngineState => {
     {
       name: 'piano',
       presetId: 'pluck',
-      midi: [{ start: 256, end: 512, fragmentId: 'piano' }],
+      midi: [{ start: 512, end: 1024,  fragmentId: 'piano' }],
       gain: 0.4
     },
     {
       name: 'bass',
       presetId: 'bass',
       gain: 0.3,
-      midi: [{ start: 0, end: 512, fragmentId: 'bass' }]
+      midi: [{ start: 256, end: 1024, fragmentId: 'bass' }]
     },
     {
       name: 'kick',
       presetId: 'kick',
-      midi: [{ start: 0, end: 512, fragmentId: 'kick' }],
+      midi: [{ start: 0, end: 1024, fragmentId: 'kick' }],
       gain: 1
     },
     {
@@ -51,7 +51,10 @@ export const engineState = (): EngineState => {
       midi: [
         { start: 128, end: 192, fragmentId: 'clap1' },
         { start: 192, end: 256, fragmentId: 'clap-fast' },
-        { start: 384, end: 512, fragmentId: 'clap2' }
+        { start: 384, end: 448, fragmentId: 'clap2' },
+        { start: 448, end: 512, fragmentId: 'clap-fast' },
+        { start: 768, end: 960, fragmentId: 'clap2' },
+        { start: 960, end: 1024, fragmentId: 'clap-fast' },
       ],
       gain: 0.3
     }
