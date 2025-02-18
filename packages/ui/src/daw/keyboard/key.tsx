@@ -22,7 +22,7 @@ const styles = {
     base: regular,
     pressedColor: '#DDD'
   } as const,
-  semi: {
+  fixed: {
     pressedColor: '#333',
     base: {
       ...regular,
@@ -33,7 +33,7 @@ const styles = {
     }
   } as const,
   key: (pressed: boolean, fixed?: string) => {
-    const { base, pressedColor } = fixed ? styles.semi : styles.regular;
+    const { base, pressedColor } = fixed ? styles.fixed : styles.regular;
 
     return {
       ...base,
