@@ -21,7 +21,9 @@ const styles = {
   container: {
     width: '100%',
     height: 'auto',
-    position: 'relative'
+    position: 'relative',
+    maxWidth: '1024px',
+    overflowX: 'scroll'
   }
 } as const;
 
