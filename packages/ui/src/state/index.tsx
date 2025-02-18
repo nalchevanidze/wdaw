@@ -103,7 +103,7 @@ const engineEffects = (
     case 'PAUSE':
       return engine.pause();
     case 'STOP':
-      return engine.pause();
+      return engine.stop();
     case 'KEY_UP':
       return engine.endNote(currentTrack, action.payload);
     case 'KEY_DOWN':
