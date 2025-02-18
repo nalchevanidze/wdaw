@@ -112,8 +112,9 @@ const engineEffects = (
       return engine.setTime(action.payload);
     case 'SET_MIDI_FRAGMENT':
     case 'SET_TRACK_MIDI':
-      return tracks.forEach(({ midi }, i) =>
-        engine.setMidi(i, midi, midiFragments)
+      return engine.setMidis(
+        tracks.map(({ midi }, i) => [i, midi]),
+        midiFragments
       );
     case 'SET_CURRENT_TRACK':
       return;

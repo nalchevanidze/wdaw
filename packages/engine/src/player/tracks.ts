@@ -62,9 +62,12 @@ export class Tracks {
     this.tracks[i].setGain(gain);
   };
 
-  public setMidi = (i: number, midis: Midi[], fragments: MidiFragments) => {
-    const noteLoops = toActions(midis, fragments);
-    this.tracks[i].setNoteLoops(noteLoops);
+  public setMidis = (ls: [number, Midi[]][], fragments: MidiFragments) => {
+    ls.forEach(([i, midis]) => {
+      const noteLoops = toActions(midis, fragments);
+      this.tracks[i].setNoteLoops(noteLoops);
+    });
+
     this.refresh();
   };
 

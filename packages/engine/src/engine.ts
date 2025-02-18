@@ -25,7 +25,7 @@ export class SynthEngine {
   public setTime = this.player.setTime;
 
   public setGain = this.tracks.setGain;
-  public setMidi = this.tracks.setMidi;
+  public setMidis = this.tracks.setMidis;
   public setTracks = this.tracks.set;
   public setPreset = this.tracks.setPreset;
   public startNote = (i: number, n: number) => this.tracks.get(i).startNote(n);
