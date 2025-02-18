@@ -5,7 +5,7 @@ const roundness = '2px';
 const height = 100;
 const heightDiff = 25;
 
-const defaultStyle = {
+const regular = {
   display: 'block',
   border: 'none',
   borderBottomLeftRadius: roundness,
@@ -17,25 +17,23 @@ const defaultStyle = {
   background: '#EEE'
 } as const;
 
-const blackStyle = {
-  ...defaultStyle,
-  background: colors.black,
-  width: '3.5%',
-  position: 'absolute',
-  paddingTop: height
-} as const;
-
 const styles = {
-  black: {
-    pressedColor: '#333',
-    base: blackStyle
-  } as const,
-  white: {
-    base: defaultStyle,
+  regular: {
+    base: regular,
     pressedColor: '#DDD'
   } as const,
+  semi: {
+    pressedColor: '#333',
+    base: {
+      ...regular,
+      background: colors.black,
+      width: '3.5%',
+      position: 'absolute',
+      paddingTop: height
+    }
+  } as const,
   key: (pressed: boolean, semi: boolean, left?: string) => {
-    const { base, pressedColor } = semi ? styles.black : styles.white;
+    const { base, pressedColor } = semi ? styles.semi : styles.regular;
 
     return {
       ...base,
