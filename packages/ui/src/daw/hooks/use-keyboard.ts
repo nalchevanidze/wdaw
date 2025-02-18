@@ -3,7 +3,7 @@ import { DawApiContext } from '../../context/state';
 import { noteFromKeyboard } from '../utils/keyboard';
 import { KEY_EVENT_TYPE, useKeyEvent } from '../../hooks/use-key-event';
 
-export type KeyHandler = (e: KeyboardEvent | number) => void;
+type KeyHandler = (e: KeyboardEvent | number) => void;
 
 export const useKeyboard = () => {
   const [{ notes }, dispatch] = useContext(DawApiContext);
