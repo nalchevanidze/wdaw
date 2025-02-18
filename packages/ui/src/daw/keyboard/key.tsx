@@ -34,7 +34,7 @@ const styles = {
     base: defaultStyle,
     pressedColor: '#DDD'
   } as const,
-  key: (pressed: boolean, semi?: boolean, left?: string) => {
+  key: (pressed: boolean, semi: boolean, left?: string) => {
     const { base, pressedColor } = semi ? styles.black : styles.white;
 
     return {
@@ -48,7 +48,7 @@ const styles = {
 
 type Props = {
   left?: string;
-  semi?: boolean;
+  semi: boolean;
   pressed: boolean;
   onKeyDown(): void;
   onKeyUp(): void;

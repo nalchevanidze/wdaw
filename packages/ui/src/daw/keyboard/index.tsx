@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Key } from './key';
 import { useKeyboard } from '../hooks/use-keyboard';
-import { allkeys } from './keys';
+import { allKeys } from './keys';
 
 const styles = {
   container: {
@@ -27,21 +27,18 @@ const Keyboard: React.FC = () => {
 
   return (
     <ul style={styles.container}>
-      {[1, 2, 3].map((octave) => (
+      {allKeys.map((octave) => (
         <li style={styles.octave}>
-          {allkeys.map(({ index, left, semi }) => {
-            const key = octave * 12 + index;
-            return (
-              <Key
-                key={key}
-                semi={semi}
-                left={left}
-                onKeyDown={() => onKeyDown(key)}
-                onKeyUp={() => onKeyUp(key)}
-                pressed={notes.includes(key)}
-              />
-            );
-          })}
+          {octave.map(({ left, semi, key }) => (
+            <Key
+              key={key}
+              semi={semi}
+              left={left}
+              onKeyDown={() => onKeyDown(key)}
+              onKeyUp={() => onKeyUp(key)}
+              pressed={notes.includes(key)}
+            />
+          ))}
         </li>
       ))}
     </ul>
