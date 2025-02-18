@@ -12,7 +12,6 @@ import { TrackedTrack, useTrackEditor } from '../hooks/use-track-editor';
 import { Fragment } from './fragment';
 import { DragingBackground } from '../../components/background';
 import { MidiID, useTracks } from '../hooks/use-tracks';
-import { DawApiContext } from '../../context/state';
 import { usePanels } from '../hooks/use-panels';
 
 const panelWidth = 160;
