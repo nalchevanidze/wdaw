@@ -34,12 +34,15 @@ export const useTracks = () => {
   const setCurrent = (id?: string) =>
     id ? dispatch({ type: 'SET_CURRENT_FRAGMENT', payload: id }) : unfold;
 
+  const newTrack = () => dispatch({ type: 'NEW_TRACK' });
+
   return {
     tracks: unfold(tracks),
     currentTrack,
     setMidis,
     setCurrent,
     length,
-    count
+    count,
+    newTrack
   };
 };

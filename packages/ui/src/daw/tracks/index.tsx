@@ -102,16 +102,13 @@ export const TracksContent: React.FC = () => {
 };
 
 export const Tracks = () => {
-  const { count, length } = useTracks();
+  const { count, length, newTrack } = useTracks();
   const timelineHeight = 32;
-  const [_, dispatch] = React.useContext(DawApiContext);
 
   return (
     <div style={styles.container}>
       <section style={styles.header}>
-        <button onClick={() => dispatch({ type: 'NEW_TRACK' })}>
-          new track
-        </button>
+        <button onClick={newTrack}>new track</button>
         <IconButton id="draw" onClick={console.log} />
         <IconButton id="select" onClick={console.log} />
       </section>
