@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { HeaderButton } from '../../components/header-button';
+import { IconButton } from '../../components/icon-button';
 import { colors } from '../../styles';
 import { usePlayer } from '../hooks/use-player';
 
@@ -38,8 +38,8 @@ const Header: React.FC = () => {
 
   return (
     <section style={styles.container}>
-      <HeaderButton id={isPlaying ? 'pause' : 'play'} onClick={toggle} />
-      <HeaderButton id="stop" onClick={stop} />
+      <IconButton id={isPlaying ? 'pause' : 'play'} onClick={toggle} />
+      <IconButton id="stop" onClick={stop} />
       <div style={styles.bpm}>
         <label htmlFor="bpm-input">BPM</label>
         <input

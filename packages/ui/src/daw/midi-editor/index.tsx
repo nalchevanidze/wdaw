@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Point, Svg } from '@wdaw/svg';
 import { OCTAVE_SIZE } from '@wdaw/engine';
-import { NoteComposerHeader } from './header';
+import { Header } from './header';
 import { BLOCK } from '../../common/units';
 import { Timeline } from './timeline';
 import { Notes } from './notes';
@@ -128,11 +128,7 @@ export const MidiEditor: React.FC = () => {
 
   return (
     <>
-      <NoteComposerHeader
-        label={id}
-        actionType={actionType}
-        dispatch={setActionType}
-      />
+      <Header label={id} actionType={actionType} dispatch={setActionType} />
       <div style={{ width: '560px', overflow: 'scroll', height: '330px' }}>
         <Svg
           width={loop[1] + rulerSize}

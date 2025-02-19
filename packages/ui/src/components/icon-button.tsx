@@ -8,7 +8,7 @@ export type Props = {
   color?: string;
 };
 
-export const HeaderButton = ({ id, onClick, color = colors.prime }: Props) => (
+export const IconButton = ({ id, onClick, color = colors.prime }: Props) => (
   <svg
     viewBox={[0, 0, 100, 100].join(' ')}
     width="20px"
