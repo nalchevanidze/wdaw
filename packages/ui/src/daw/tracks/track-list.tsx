@@ -14,6 +14,7 @@ import { DragingBackground } from '../../components/background';
 import { MidiID, useTracks } from '../hooks/use-tracks';
 import { usePanels } from '../hooks/use-panels';
 import { IconButton } from '../../components/icon-button';
+import { DawApiContext } from '../../context/state';
 
 const panelWidth = 160;
 const trackHeight = 48;
@@ -104,11 +105,14 @@ export const Tracks: React.FC = () => {
 export const TrackList = () => {
   const { count, length } = useTracks();
   const timelineHeight = 32;
+  const [_, dispatch] = React.useContext(DawApiContext);
 
   return (
     <div style={styles.container}>
       <section style={styles.header}>
-        <button onClick={console.log}> new track </button>
+        <button onClick={() => dispatch({ type: 'NEW_TRACK' })}>
+          new track{' '}
+        </button>
         <IconButton id="draw" onClick={console.log} />
         <IconButton id="select" onClick={console.log} />
       </section>

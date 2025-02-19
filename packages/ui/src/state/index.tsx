@@ -1,4 +1,4 @@
-import { SynthEngine } from '@wdaw/engine';
+import { SynthEngine, TrackState } from '@wdaw/engine';
 import {
   deleteState,
   mapPreset,
@@ -84,6 +84,18 @@ const dispatcher = (
     case 'SAVE':
       saveState({ ...state, time: 0, isPlaying: false });
       return;
+    case 'NEW_TRACK':
+      return {
+        tracks: [
+          ...tracks,
+          {
+            name: `track ${tracks.length + 5}`,
+            gain: 1,
+            presetId: 'prelude',
+            midi: []
+          }
+        ]
+      };
     case 'RESET': {
       deleteState();
       return dawState();

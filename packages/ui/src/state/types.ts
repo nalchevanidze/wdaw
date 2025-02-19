@@ -96,6 +96,8 @@ type SET_CURRENT_TRACK = {
   payload: number;
 };
 
+type NEW_TRACK = { type: 'NEW_TRACK' };
+
 type SET_CURRENT_FRAGMENT = {
   type: 'SET_CURRENT_FRAGMENT';
   payload: string;
@@ -146,6 +148,7 @@ type MidiActions =
   | SET_CURRENT_TRACK
   | SET_MIDI_FRAGMENT
   | SET_TRACK_MIDI
+  | NEW_TRACK
   | PLAY
   | PAUSE
   | STOP
