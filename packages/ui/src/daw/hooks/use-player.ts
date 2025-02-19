@@ -10,8 +10,9 @@ export const usePlayer = () => {
   const toggle = () => dispatch({ type: isPlaying ? 'PAUSE' : 'PLAY' });
   const stop = () => dispatch({ type: 'STOP' });
   const save = () => dispatch({ type: 'SAVE' });
+  const reset = () => dispatch({ type: 'RESET' });
 
   const setTime = (t: number) => dispatch({ type: 'SET_TIME', payload: t });
 
-  return { isPlaying, bpm, time, setBPM, setTime, toggle, stop, save };
+  return { isPlaying, bpm, time, setBPM, setTime, toggle, stop, save, reset };
 };

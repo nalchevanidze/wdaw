@@ -1,5 +1,6 @@
 import { SynthEngine } from '@wdaw/engine';
 import {
+  deleteState,
   mapPreset,
   mapTrack,
   mapTracks,
@@ -8,6 +9,7 @@ import {
 } from './utils';
 import { DAWState, EngineAction } from './types';
 import { idString } from '../common/utils';
+import { dawState } from './defs';
 
 const dispatcher = (
   state: DAWState,
@@ -82,6 +84,10 @@ const dispatcher = (
     case 'SAVE':
       saveState({ ...state, time: 0, isPlaying: false });
       return;
+    case 'RESET': {
+      deleteState();
+      return dawState();
+    }
     case 'LOAD':
       return { ...action.payload };
     default:

@@ -34,7 +34,7 @@ const maxBPM = 200;
 const minBPM = 0;
 
 const Header: React.FC = () => {
-  const { isPlaying, bpm, setBPM, toggle, stop, save } = usePlayer();
+  const { isPlaying, bpm, setBPM, toggle, stop, save, reset } = usePlayer();
 
   return (
     <section style={styles.container}>
@@ -55,6 +55,7 @@ const Header: React.FC = () => {
         />
       </div>
       <button onClick={save}> save</button>
+      <button onClick={reset}> reset </button>
     </section>
   );
 };

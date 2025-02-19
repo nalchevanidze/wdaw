@@ -130,12 +130,16 @@ type SAVE = {
   type: 'SAVE';
 };
 
-type LOAD = {
-  type: 'LOAD';
-  payload: DAWState
+type RESET = {
+  type: 'RESET';
 };
 
-type GlobalActions = SAVE | LOAD;
+type LOAD = {
+  type: 'LOAD';
+  payload: DAWState;
+};
+
+type GlobalActions = SAVE | RESET | LOAD;
 
 type MidiActions =
   | SET_TIME

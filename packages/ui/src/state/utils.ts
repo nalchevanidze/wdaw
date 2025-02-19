@@ -3,6 +3,9 @@ import { DAWState } from './types';
 
 const STATE_KEY = 'daw-local-storage-state-v1';
 
+export const deleteState = () =>
+  localStorage.removeItem(STATE_KEY);
+
 export const saveState = (state: DAWState) =>
   localStorage.setItem(STATE_KEY, JSON.stringify(state));
 
