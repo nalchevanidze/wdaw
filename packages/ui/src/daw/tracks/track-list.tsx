@@ -13,15 +13,26 @@ import { Fragment } from './fragment';
 import { DragingBackground } from '../../components/background';
 import { MidiID, useTracks } from '../hooks/use-tracks';
 import { usePanels } from '../hooks/use-panels';
+import { IconButton } from '../../components/icon-button';
 
 const panelWidth = 160;
 const trackHeight = 48;
 
 const styles = {
+  header: {
+    display: 'flex',
+    background: colors.background,
+    padding: '5px',
+    border: '0.05em solid #BBB',
+    alignItems: 'center',
+    gap: '5px'
+  },
   container: {
     width: '100%',
     height: 'auto',
-    position: 'relative',
+    position: 'relative'
+  },
+  canvas: {
     maxWidth: '1024px',
     overflowX: 'scroll'
   }
@@ -96,16 +107,23 @@ export const TrackList = () => {
 
   return (
     <div style={styles.container}>
-      <Svg
-        width={length + rulerSize}
-        height={trackHeight * count}
-        paddingLeft={panelWidth}
-        paddingTop={timelineHeight}
-      >
-        <NoteGrid size={rulerSize} />
-        <Tracks />
-        <Timeline height={timelineHeight} size={rulerSize} />
-      </Svg>
+      <section style={styles.header}>
+        <button onClick={console.log}> new track </button>
+        <IconButton id="draw" onClick={console.log} />
+        <IconButton id="select" onClick={console.log} />
+      </section>
+      <section style={styles.canvas}>
+        <Svg
+          width={length + rulerSize}
+          height={trackHeight * count}
+          paddingLeft={panelWidth}
+          paddingTop={timelineHeight}
+        >
+          <NoteGrid size={rulerSize} />
+          <Tracks />
+          <Timeline height={timelineHeight} size={rulerSize} />
+        </Svg>
+      </section>
     </div>
   );
 };
