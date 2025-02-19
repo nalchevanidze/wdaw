@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import { SynthEngine } from '@wdaw/engine';
 import { DAWState, EngineAction } from '../state/types';
 import { dawState } from '../state/defs';
