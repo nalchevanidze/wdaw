@@ -147,6 +147,9 @@ const engineEffects = (
     case 'SET_FILTER':
     case 'SET_PRESET':
       return engine.setPreset(currentTrack, preset);
+    case 'NEW_TRACK':
+      engine.setTracks({ tracks, midiFragments, presets });
+      return;
     case 'LOAD':
       engine.setTracks(action.payload);
       engine.setBPM(action.payload.bpm);
