@@ -33,12 +33,12 @@ const NoteComposerHeader: React.FC<Props> = ({
   return (
     <section style={styles.container}>
       <HeaderButton
-        id={'draw'}
+        id="draw"
         color={colors.button(actionType === 'draw')}
         onClick={() => dispatch('draw')}
       />
       <HeaderButton
-        id={'select'}
+        id="select"
         color={colors.button(actionType === 'select')}
         onClick={() => dispatch('select')}
       />
