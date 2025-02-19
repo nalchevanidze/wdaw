@@ -34,7 +34,6 @@ const styles = {
     position: 'relative'
   },
   canvas: {
-    maxWidth: '1024px',
     overflowX: 'scroll'
   }
 } as const;
@@ -111,7 +110,7 @@ export const Tracks = () => {
     <div style={styles.container}>
       <section style={styles.header}>
         <button onClick={() => dispatch({ type: 'NEW_TRACK' })}>
-          new track{' '}
+          new track
         </button>
         <IconButton id="draw" onClick={console.log} />
         <IconButton id="select" onClick={console.log} />

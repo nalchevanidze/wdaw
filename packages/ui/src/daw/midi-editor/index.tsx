@@ -129,7 +129,7 @@ export const MidiEditor: React.FC = () => {
   return (
     <>
       <Header label={id} actionType={actionType} dispatch={setActionType} />
-      <div style={{ width: '560px', overflow: 'scroll', height: '330px' }}>
+      <div style={{ overflow: 'scroll', height: '330px' }}>
         <Svg
           width={loop[1] + rulerSize}
           height={canvasHeight}
