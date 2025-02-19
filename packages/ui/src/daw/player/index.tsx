@@ -33,7 +33,7 @@ const styles = {
 const maxBPM = 200;
 const minBPM = 0;
 
-const Header: React.FC = () => {
+export const Player: React.FC = () => {
   const { isPlaying, bpm, setBPM, toggle, stop, save, reset } = usePlayer();
 
   return (
@@ -59,5 +59,3 @@ const Header: React.FC = () => {
     </section>
   );
 };
-
-export { Header };
