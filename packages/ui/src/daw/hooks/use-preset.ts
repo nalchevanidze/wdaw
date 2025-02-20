@@ -14,6 +14,7 @@ export const usePreset = () => {
   const [{ presets, currentTrack, tracks }, dispatch] =
     React.useContext(DawApiContext);
   const { presetId } = tracks[currentTrack];
+  const current = presets[presetId];
 
   const setWave = (id: WAVE_ID, payload: number) =>
     dispatch({ type: 'SET_WAVE', id, payload });
@@ -30,11 +31,11 @@ export const usePreset = () => {
   const toggleARP = (l: Location) =>
     dispatch({
       type: 'SET_SEQUENCE',
-      payload: toggleARPNote(presets.sequence, l)
+      payload: toggleARPNote(current.sequence, l)
     });
 
   const isModuleDisabled = (id: PANEL_ID) => {
-    const target = id ? presets[presetId][id] : undefined;
+    const target = id ? current[id] : undefined;
 
     return !Boolean(target && 'enabled' in target && target.enabled);
   };
@@ -45,7 +46,7 @@ export const usePreset = () => {
     dispatch({ type: 'SET_ENVELOPE', id, payload });
 
   return {
-    ...presets[presetId],
+    ...current,
     options,
     setWave,
     setFilter,
