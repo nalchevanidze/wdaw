@@ -68,14 +68,14 @@ export const Panel: React.FC<Props> = ({
   optional,
   id
 }) => {
-  const { isModuleEnabled, togglePanel } = usePreset();
+  const { isModuleEnabled, toggleModule } = usePreset();
   const active = !optional || Boolean(id && isModuleEnabled(id));
 
   return (
     <div style={styles.container(active)}>
       <div
         style={styles.toggle(optional)}
-        onClick={optional && id ? () => togglePanel(id) : undefined}
+        onClick={optional && id ? () => toggleModule(id) : undefined}
       >
         {optional ? <div style={styles.button(active)} /> : null}
         <h3 style={styles.label(color)}>{label}</h3>
