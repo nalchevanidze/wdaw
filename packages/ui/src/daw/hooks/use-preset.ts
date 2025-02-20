@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { FILTER_ID, Sequence, WAVE_ID } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
+import { toggleARPNote, Location } from '../utils/arp';
 
 export const usePreset = () => {
   const [{ presets, currentTrack, tracks }, dispatch] =
@@ -19,10 +20,10 @@ export const usePreset = () => {
     onclick: () => dispatch({ type: 'SET_PRESET', payload: id })
   }));
 
-  const setSequence = (s: Sequence) =>
+  const toggleARP = (l: Location) =>
     dispatch({
       type: 'SET_SEQUENCE',
-      payload: s
+      payload: toggleARPNote(presets.sequence, l)
     });
 
   return {
@@ -30,7 +31,7 @@ export const usePreset = () => {
     options,
     setWave,
     setFilter,
-    setSequence,
+    toggleARP,
     dispatch
   };
 };

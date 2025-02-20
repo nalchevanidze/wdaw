@@ -1,6 +1,6 @@
 import { Sequence } from '@wdaw/engine';
 
-type Location = {
+export type Location = {
   row: number;
   column: number;
 };

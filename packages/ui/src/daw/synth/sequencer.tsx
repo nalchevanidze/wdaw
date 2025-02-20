@@ -46,7 +46,7 @@ const Chord: React.FC<Props> = ({ chord, onClick }) => (
 );
 
 export const Sequencer: React.FC = () => {
-  const { sequence, setSequence } = usePreset();
+  const { sequence, toggleARP } = usePreset();
 
   return (
     <Panel label="sequencer" size={1} optional id="sequence">
@@ -55,9 +55,7 @@ export const Sequencer: React.FC = () => {
           <Chord
             key={row}
             chord={sequence[row] ?? []}
-            onClick={ (column: number) =>
-              setSequence(toggleARPNote(sequence, { row, column }))
-            }
+            onClick={(column) => toggleARP({ row, column })}
           />
         ))}
       </ul>
