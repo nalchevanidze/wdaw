@@ -60,7 +60,7 @@ type Props = {
   optional?: boolean;
 };
 
-export const Panel: React.FC<Props> = ({
+export const Module: React.FC<Props> = ({
   children,
   label,
   size = 1,

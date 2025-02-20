@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Envelopes } from './envelopes';
 import { Sequencer } from './sequencer';
 import { Presets } from './presets';
-import { Panel } from './panel';
+import { Module } from './module';
 import { Controllers } from '../../components/controllers';
 import { usePreset } from '../hooks/use-preset';
 
@@ -21,7 +21,7 @@ export const Synth: React.FC = () => {
   return (
     <div style={styles.main}>
       <Presets />
-      <Panel id="wave" label="Oscillators" size={4}>
+      <Module id="wave" label="Oscillators" size={4}>
         <Controllers
           values={wave}
           items={[
@@ -39,14 +39,14 @@ export const Synth: React.FC = () => {
           ]}
           onChange={setWave}
         />
-      </Panel>
-      <Panel id="filter" label="Filter" optional>
+      </Module>
+      <Module id="filter" label="Filter" optional>
         <Controllers
           items={[{ id: 'cutoff' }, { id: 'resonance' }, { id: 'envelope' }]}
           values={filter}
           onChange={setFilter}
         />
-      </Panel>
+      </Module>
       <div>
         <Envelopes />
         <Sequencer />

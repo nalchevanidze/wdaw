@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Panel } from './panel';
+import { Module } from './module';
 import { TextButton } from '../../components/text-button';
 import { useEnvelope } from '../hooks/use-envelopes';
 import { WaveGrid } from '../../components/wave-grid';
@@ -49,7 +49,7 @@ export const Envelopes: React.FC<Props> = ({
   const sustainX = decay + 0.25;
 
   return (
-    <Panel label="envelopes" size={1}>
+    <Module label="envelopes" size={1}>
       <div style={styles.nav}>
         {options.map(({ name, active, onclick }) => (
           <TextButton
@@ -84,6 +84,6 @@ export const Envelopes: React.FC<Props> = ({
           <WaveGrid width={width} height={height} />
         </LineEditor>
       </Svg>
-    </Panel>
+    </Module>
   );
 };
