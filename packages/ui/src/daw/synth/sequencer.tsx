@@ -46,19 +46,19 @@ const Chord: React.FC<Props> = ({ chord, onClick }) => (
 );
 
 export const Sequencer: React.FC = () => {
-  const { sequence, dispatch } = usePreset();
-
-  const setNote = (row: number) => (column: number) =>
-    dispatch({
-      type: 'SET_SEQUENCE',
-      payload: toggleARPNote(sequence, { row, column })
-    });
+  const { sequence, setSequence } = usePreset();
 
   return (
     <Panel label="sequencer" size={1} optional id="sequence">
       <ul style={styles.container}>
-        {range.map((i) => (
-          <Chord key={i} chord={sequence[i] ?? []} onClick={setNote(i)} />
+        {range.map((row) => (
+          <Chord
+            key={row}
+            chord={sequence[row] ?? []}
+            onClick={ (column: number) =>
+              setSequence(toggleARPNote(sequence, { row, column }))
+            }
+          />
         ))}
       </ul>
     </Panel>

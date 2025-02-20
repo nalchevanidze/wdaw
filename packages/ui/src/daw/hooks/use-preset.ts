@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FILTER_ID, WAVE_ID } from '@wdaw/engine';
+import { FILTER_ID, Sequence, WAVE_ID } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
 
 export const usePreset = () => {
@@ -19,11 +19,18 @@ export const usePreset = () => {
     onclick: () => dispatch({ type: 'SET_PRESET', payload: id })
   }));
 
+  const setSequence = (s: Sequence) =>
+    dispatch({
+      type: 'SET_SEQUENCE',
+      payload: s
+    });
+
   return {
     ...presets[presetId],
     options,
     setWave,
     setFilter,
+    setSequence,
     dispatch
   };
 };
