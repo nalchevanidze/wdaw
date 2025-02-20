@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { usePreset } from '../hooks/use-preset';
 import { TextButton } from '../../components/text-button';
-import { Module } from './module';
 import { WaveForm } from '../../components/waveform';
+import { Module } from '../../components/module';
 
 const styles = {
   items: {

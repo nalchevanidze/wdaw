@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { colors } from '../../styles';
-import { Module } from './module';
+import { SynthModule } from './module';
 import { SEQUENCE_LENGTH } from '@wdaw/engine';
 import { usePreset } from '../hooks/use-preset';
 
@@ -48,7 +48,7 @@ export const Sequencer: React.FC = () => {
   const { sequence, toggleARP } = usePreset();
 
   return (
-    <Module label="sequencer" size={1} optional id="sequence">
+    <SynthModule label="sequencer" size={1} optional id="sequence">
       <ul style={styles.container}>
         {range.map((row) => (
           <Chord
@@ -58,6 +58,6 @@ export const Sequencer: React.FC = () => {
           />
         ))}
       </ul>
-    </Module>
+    </SynthModule>
   );
 };

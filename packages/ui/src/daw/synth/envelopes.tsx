@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Module } from './module';
+import { SynthModule } from './module';
 import { TextButton } from '../../components/text-button';
 import { useEnvelope } from '../hooks/use-envelopes';
 import { WaveGrid } from '../../components/wave-grid';
@@ -7,6 +7,7 @@ import { Svg, Point } from '@wdaw/svg';
 import { EnvelopeConfig } from '@wdaw/engine';
 import { positive } from '../utils/math';
 import { LineEditor } from '../../components/line-editor';
+import { Module } from '../../components/module';
 
 const styles = {
   nav: {
@@ -84,6 +85,6 @@ export const Envelopes: React.FC<Props> = ({
           <WaveGrid width={width} height={height} />
         </LineEditor>
       </Svg>
-    </Module>
+    </ Module>
   );
 };
