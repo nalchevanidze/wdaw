@@ -3,7 +3,7 @@ import { ENVELOPE_ID, EnvelopeConfig } from '@wdaw/engine';
 import { usePreset } from './use-preset';
 
 export const useEnvelope = () => {
-  const { envelopes, dispatch } = usePreset();
+  const { envelopes, setEnvelope } = usePreset();
 
   const [id, setId] = React.useState<ENVELOPE_ID>('gain');
 
@@ -13,8 +13,5 @@ export const useEnvelope = () => {
     onclick: () => setId(name)
   }));
 
-  const setFields = (payload: Partial<EnvelopeConfig>) =>
-    dispatch({ type: 'SET_ENVELOPE', id, payload });
-
-  return { current: envelopes[id], id, options, setFields };
+  return { current: envelopes[id], id, options, setFields: setEnvelope(id) };
 };
