@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { SynthModule } from './module';
 import { TextButton } from '../../components/text-button';
 import { useEnvelope } from '../hooks/use-envelopes';
 import { WaveGrid } from '../../components/wave-grid';

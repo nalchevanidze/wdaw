@@ -6,18 +6,16 @@ import { Module } from '../../components/module';
 type Props = {
   id: PANEL_ID;
   label: string;
-  children?: React.ReactNode;
+  children: React.ReactNode;
   size?: number;
-  color?: string;
   optional?: boolean;
 };
 
-export const SynthModule: React.FC<Props> = ({
+export const ControllerModule: React.FC<Props> = ({
   id,
   label,
   children,
   size = 1,
-  color = '#555',
   optional
 }) => {
   const { isModuleEnabled, toggleModule } = usePreset();
@@ -25,7 +23,6 @@ export const SynthModule: React.FC<Props> = ({
   return (
     <Module
       size={size}
-      color={color}
       optional={optional}
       disabled={!(!optional || Boolean(id && isModuleEnabled(id)))}
       label={label}
