@@ -33,10 +33,10 @@ export const usePreset = () => {
       payload: toggleARPNote(presets.sequence, l)
     });
 
-  const isModuleEnabled = (id: PANEL_ID) => {
+  const isModuleDisabled = (id: PANEL_ID) => {
     const target = id ? presets[presetId][id] : undefined;
 
-    return Boolean(target && 'enabled' in target && target.enabled);
+    return !Boolean(target && 'enabled' in target && target.enabled);
   };
 
   const toggleModule = (id: PANEL_ID) => dispatch({ type: 'TOGGLE_PANEL', id });
@@ -52,6 +52,6 @@ export const usePreset = () => {
     toggleARP,
     setEnvelope,
     toggleModule,
-    isModuleEnabled
+    isModuleDisabled
   };
 };

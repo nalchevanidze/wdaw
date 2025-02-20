@@ -18,13 +18,13 @@ export const ControllerModule: React.FC<Props> = ({
   size = 1,
   optional
 }) => {
-  const { isModuleEnabled, toggleModule } = usePreset();
+  const { toggleModule, isModuleDisabled } = usePreset();
 
   return (
     <Module
       size={size}
       optional={optional}
-      disabled={!(!optional || Boolean(id && isModuleEnabled(id)))}
+      disabled={optional && isModuleDisabled(id)}
       label={label}
       onClick={id ? () => toggleModule(id) : undefined}
     >
