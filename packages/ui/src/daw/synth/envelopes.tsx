@@ -15,7 +15,7 @@ const styles = {
   }
 } as const;
 
-const genEnvelope = (
+const envelope = (
   attack: number,
   sustain: number,
   target: string,
@@ -44,26 +44,19 @@ export const Envelopes: React.FC<Props> = ({
   width = 160,
   padding = 5
 }) => {
-  const [{ current, id, options, setEnvelope }, dispatch] = useEnvelope();
+  const { current, options, setFields } = useEnvelope();
   const decay = current.attack + current.decay;
   const sustainX = decay + 0.25;
-
-  const onMove = (target: string, point: Point) =>
-    dispatch({
-      type: 'SET_ENVELOPE',
-      id,
-      payload: genEnvelope(current.attack, sustainX, target, point)
-    });
 
   return (
     <Panel label="envelopes" size={1}>
       <div style={styles.nav}>
-        {options.map(({ name, active }) => (
+        {options.map(({ name, active, onclick }) => (
           <TextButton
             key={name}
             name={name}
             active={active}
-            onClick={() => setEnvelope(name)}
+            onClick={onclick}
           />
         ))}
       </div>
@@ -77,7 +70,9 @@ export const Envelopes: React.FC<Props> = ({
         <LineEditor
           height={height}
           width={width * 0.8}
-          onMove={onMove}
+          onMove={(target, point) =>
+            setFields(envelope(current.attack, sustainX, target, point))
+          }
           controlers={[
             { x: 0, y: 0 },
             { id: 'attack', x: current.attack, y: 1 },
