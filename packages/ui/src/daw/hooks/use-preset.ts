@@ -1,13 +1,23 @@
 import * as React from 'react';
-import { Preset } from '@wdaw/engine';
-import { DawDispatch } from '../types';
+import { FILTER_ID, Preset, WAVE_ID } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
 
-export const usePreset = (): [Preset & { names: string[] }, DawDispatch] => {
+export const usePreset = () => {
   const [{ presets, currentTrack, tracks }, dispatch] =
     React.useContext(DawApiContext);
 
   const { presetId } = tracks[currentTrack];
 
-  return [{ ...presets[presetId], names: Object.keys(presets) }, dispatch];
+  const setWave = (id: WAVE_ID, payload: number) =>
+    dispatch({ type: 'SET_WAVE', id, payload });
+
+  const setFilter = (id: FILTER_ID, payload: number) =>
+    dispatch({ type: 'SET_FILTER', id, payload });
+
+  return {
+    ...presets[presetId],
+    names: Object.keys(presets),
+    setWave,
+    setFilter
+  };
 };

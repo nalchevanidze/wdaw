@@ -1,4 +1,3 @@
-import { EngineState } from '@wdaw/engine';
 import { EngineAction } from '../state/types';
 
 export type EditActionType = 'select' | 'draw';

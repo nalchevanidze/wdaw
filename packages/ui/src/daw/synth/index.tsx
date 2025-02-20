@@ -16,7 +16,7 @@ const styles = {
 };
 
 export const Synth: React.FC = () => {
-  const [{ wave, filter }, dispatch] = usePreset();
+  const { wave, filter, setWave, setFilter } = usePreset();
 
   return (
     <div style={styles.main}>
@@ -37,18 +37,14 @@ export const Synth: React.FC = () => {
             { id: 'voices', range: [1, 12], steps: 11 },
             { id: 'octave', range: [-4, 4], steps: 8 }
           ]}
-          onChange={(id, payload) =>
-            dispatch({ type: 'SET_WAVE', id, payload })
-          }
+          onChange={setWave}
         />
       </Panel>
       <Panel id="filter" label="Filter" optional>
         <Controllers
           items={[{ id: 'cutoff' }, { id: 'resonance' }, { id: 'envelope' }]}
           values={filter}
-          onChange={(id, payload) =>
-            dispatch({ type: 'SET_FILTER', id, payload })
-          }
+          onChange={setFilter}
         />
       </Panel>
       <div>
