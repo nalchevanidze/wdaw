@@ -15,6 +15,7 @@ export const usePreset = () => {
 
   const options = Object.keys(presets).map((id) => ({
     id,
+    active: id === presetId,
     onclick: () => dispatch({ type: 'SET_PRESET', payload: id })
   }));
 
