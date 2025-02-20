@@ -3,7 +3,7 @@ import { ENVELOPE_ID, EnvelopeConfig } from '@wdaw/engine';
 import { usePreset } from './use-preset';
 
 export const useEnvelope = () => {
-  const [{ envelopes }, dispatch] = usePreset();
+  const { envelopes, dispatch } = usePreset();
 
   const [id, setId] = React.useState<ENVELOPE_ID>('gain');
 

@@ -13,13 +13,13 @@ const styles = {
 } as const;
 
 export const Presets: React.FC = () => {
-  const [{ name, names }, dispatch] = usePreset();
+  const { name, options, dispatch } = usePreset();
 
   return (
     <Panel label="presets" size={1}>
       <WaveForm quality={200} />
       <div style={styles.items}>
-        {names.map((id) => (
+        {options.map(({ id }) => (
           <TextButton
             name={id}
             key={id}

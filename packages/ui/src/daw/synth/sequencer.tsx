@@ -46,7 +46,7 @@ const Chord: React.FC<Props> = ({ chord, onClick }) => (
 );
 
 export const Sequencer: React.FC = () => {
-  const [{ sequence }, dispatch] = usePreset();
+  const { sequence, dispatch } = usePreset();
 
   const setNote = (row: number) => (column: number) =>
     dispatch({

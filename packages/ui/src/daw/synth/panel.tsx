@@ -68,11 +68,11 @@ export const Panel: React.FC<Props> = ({
   optional,
   id
 }) => {
-  const [config, dispatch] = usePreset();
+  const config = usePreset();
   const target = id ? config[id] : undefined;
 
   const toggle = () =>
-    id ? dispatch({ type: 'TOGGLE_PANEL', id }) : undefined;
+    id ? config.dispatch({ type: 'TOGGLE_PANEL', id }) : undefined;
   const active =
     (optional && target && 'enabled' in target && target.enabled) || !optional;
 

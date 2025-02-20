@@ -22,7 +22,7 @@ type Props = {
   quality: number;
 };
 export const WaveForm: React.FC<Props> = ({ quality }) => {
-  const [{ wave }] = usePreset();
+  const { wave } = usePreset();
 
   return (
     <svg
