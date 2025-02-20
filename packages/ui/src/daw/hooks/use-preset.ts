@@ -13,7 +13,10 @@ export const usePreset = () => {
   const setFilter = (id: FILTER_ID, payload: number) =>
     dispatch({ type: 'SET_FILTER', id, payload });
 
-  const options = Object.keys(presets).map((id) => ({ id }));
+  const options = Object.keys(presets).map((id) => ({
+    id,
+    onclick: () => dispatch({ type: 'SET_PRESET', payload: id })
+  }));
 
   return {
     ...presets[presetId],

@@ -13,18 +13,18 @@ const styles = {
 } as const;
 
 export const Presets: React.FC = () => {
-  const { name, options, dispatch } = usePreset();
+  const { name, options } = usePreset();
 
   return (
     <Panel label="presets" size={1}>
       <WaveForm quality={200} />
       <div style={styles.items}>
-        {options.map(({ id }) => (
+        {options.map(({ id, onclick }) => (
           <TextButton
             name={id}
             key={id}
             active={id === name}
-            onClick={() => dispatch({ type: 'SET_PRESET', payload: id })}
+            onClick={onclick}
           />
         ))}
       </div>
