@@ -9,14 +9,14 @@ export const toggleARPNote = (
   sequence: Sequence,
   { row, column }: Location
 ) => {
-  const chord = sequence[row] ?? [];
+  const chord = sequence[column] ?? [];
 
-  sequence[row] = chord;
+  sequence[column] = chord;
 
-  const index = chord.indexOf(column);
+  const index = chord.indexOf(row);
 
   if (index === -1) {
-    chord.push(column);
+    chord.push(row);
   } else {
     chord.splice(index, 1);
   }

@@ -1,17 +1,8 @@
 import * as React from 'react';
 import { colors } from '../../styles';
 import { ControllerModule } from './module';
-import { SEQUENCE_LENGTH } from '@wdaw/engine';
+import { Sequence, SEQUENCE_LENGTH } from '@wdaw/engine';
 import { usePreset } from '../hooks/use-preset';
-
-const STEP_SIZE = 8;
-const range = Array.from({ length: SEQUENCE_LENGTH }, (_, i) => i);
-const OCTAVES = [4, 3, 2, 1];
-
-type Props = {
-  chord: number[];
-  onClick: (i: number) => void;
-};
 
 const styles = {
   li: {
@@ -19,10 +10,10 @@ const styles = {
     border: 'none',
     outline: 'none'
   },
-  element: (active: boolean) => ({
-    width: STEP_SIZE + 'px',
+  element: (stepSize: number, active: boolean) => ({
+    width: stepSize + 'px',
     border: '0.1px solid #BBB',
-    height: STEP_SIZE + 'px',
+    height: stepSize + 'px',
     background: active ? colors.secondary : '#2220'
   }),
   container: {
@@ -32,32 +23,43 @@ const styles = {
   }
 } as const;
 
-const Chord: React.FC<Props> = ({ chord, onClick }) => (
-  <li style={styles.li}>
-    {OCTAVES.map((index) => (
-      <div
-        style={styles.element(chord.indexOf(index) !== -1)}
-        key={index}
-        onClick={() => onClick(index)}
-      />
+type Props = {
+  stepSize: number;
+  matrix: boolean[][];
+  onClick(column: number, row: number): void;
+};
+
+const Matrix: React.FC<Props> = ({ stepSize, matrix, onClick }) => (
+  <ul style={styles.container}>
+    {matrix.map((row, columnIndex) => (
+      <li style={styles.li} key={columnIndex}>
+        {row.map((active, rowIndex) => (
+          <div
+            style={styles.element(stepSize, active)}
+            key={rowIndex}
+            onClick={() => onClick(columnIndex, row.length - rowIndex)}
+          />
+        ))}
+      </li>
     ))}
-  </li>
+  </ul>
 );
+
+const toMatrix = (length: number, seq: Sequence) =>
+  Array.from({ length }, (_, i) => i).map((i) =>
+    [4, 3, 2, 1].map((index) => Boolean(seq[i] && seq[i].indexOf(index) !== -1))
+  );
 
 export const Sequencer: React.FC = () => {
   const { sequence, toggleARP } = usePreset();
 
   return (
-    <ControllerModule id="sequence" label="sequencer" size={1} optional >
-      <ul style={styles.container}>
-        {range.map((row) => (
-          <Chord
-            key={row}
-            chord={sequence[row] ?? []}
-            onClick={(column) => toggleARP({ row, column })}
-          />
-        ))}
-      </ul>
+    <ControllerModule id="sequence" label="sequencer" size={1} optional>
+      <Matrix
+        stepSize={8}
+        matrix={toMatrix(SEQUENCE_LENGTH, sequence)}
+        onClick={(column, row) => toggleARP({ column, row })}
+      />
     </ControllerModule>
   );
 };
