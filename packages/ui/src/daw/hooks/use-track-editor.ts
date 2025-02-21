@@ -3,13 +3,12 @@ import { Area, IArea, Point } from '@wdaw/svg';
 import { idString } from '../../common/utils';
 import { UITrack, useTracks } from './use-tracks';
 
-export const eqID = (m1: UITrack) => (s: UITrack) =>
-  idString(m1.id) === idString(s.id);
+export const eqID = (m1: UITrack) => (s: UITrack) => m1.id === s.id;
 
 const toId = (t: UITrack) => idString([t.trackIndex, t.start]);
 
 const toHash = (t: UITrack) =>
-  idString([...t.id, t.start, t.end, t.fragmentId]);
+  idString([t.id, t.start, t.end, t.fragmentId]);
 
 export type TrackedTrack = UITrack & { origin?: UITrack };
 
