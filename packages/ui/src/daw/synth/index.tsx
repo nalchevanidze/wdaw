@@ -9,6 +9,8 @@ import { Module } from '../../components/module';
 import { WaveForm } from '../../components/waveform';
 import { TextButton } from '../../components/text-button';
 
+const range = (length: number) => Array.from({ length }, (_, i) => i);
+
 const styles = {
   container: {
     display: 'flex',
@@ -23,9 +25,9 @@ const styles = {
   }
 } as const;
 
-const toMatrix = (length: number, seq: Sequence): boolean[][] =>
-  Array.from({ length }, (_, i) => i).map((i) =>
-    [4, 3, 2, 1].map((index) => Boolean(seq[i] && seq[i].indexOf(index) !== -1))
+const toMatrix = (size: number, seq: Sequence): boolean[][] =>
+  range(size).map((c) =>
+    range(4).map((r) => Boolean(seq[c] && seq[c].indexOf(4 - r) !== -1))
   );
 
 export const Synth: React.FC = () => {
