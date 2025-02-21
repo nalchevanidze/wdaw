@@ -46,10 +46,7 @@ export const useTrackEditor = () => {
     setCurrent(s.all.find(eqID(id))?.fragmentId);
   };
 
-  const remove = (id: MidiID) => {
-    console.log(id)
-    s.removeWith(eqID(id));
-  }
+  const remove = (id: MidiID) => s.removeWith(eqID(id));
 
   return {
     tracks: tracks.map(resolveTrack(s.all)),
