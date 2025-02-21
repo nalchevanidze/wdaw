@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Envelopes } from './envelopes';
-import { ControllerModule } from './module';
+import { ControllerModule } from './controller-module';
 import { Controllers } from '../../components/controllers';
 import { usePreset } from '../hooks/use-preset';
 import { Sequence, SEQUENCE_LENGTH } from '@wdaw/engine';

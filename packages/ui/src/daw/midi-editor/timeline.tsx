@@ -9,8 +9,4 @@ type TimelineProps = {
 export const Timeline: React.FC<TimelineProps> = ({
   timeline,
   size
-}) => (
-  <g>
-    <Tapeline height={timeline} size={size} />
-  </g>
-);
+}) => (<Tapeline height={timeline} size={size} />);
