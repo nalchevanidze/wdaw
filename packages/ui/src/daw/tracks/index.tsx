@@ -54,9 +54,11 @@ const normalize = ({ x, y }: Point): Point => ({
   y: Math.floor(y / trackHeight)
 });
 
-export const TracksContent: React.FC<{ actionType: EditActionType }> = ({
-  actionType
-}) => {
+type ContentProps = {
+  actionType: EditActionType;
+};
+
+export const TracksContent: React.FC<ContentProps> = ({ actionType }) => {
   const {
     tracks,
     clear,
