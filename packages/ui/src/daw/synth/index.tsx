@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Envelopes } from './envelopes';
-import { Sequencer } from './sequencer';
 import { Presets } from './presets';
 import { ControllerModule } from './module';
 import { Controllers } from '../../components/controllers';
 import { usePreset } from '../hooks/use-preset';
+import { Sequence, SEQUENCE_LENGTH } from '@wdaw/engine';
+import { Matrix } from '../../components/matrix';
 
 const styles = {
   main: {
@@ -15,8 +16,12 @@ const styles = {
   }
 };
 
+const toMatrix = (length: number, seq: Sequence): boolean[][] =>
+  Array.from({ length }, (_, i) => i).map((i) =>
+    [4, 3, 2, 1].map((index) => Boolean(seq[i] && seq[i].indexOf(index) !== -1))
+  );
 export const Synth: React.FC = () => {
-  const { wave, filter, setWave, setFilter } = usePreset();
+  const { wave, filter, setWave, setFilter, sequence, toggleARP } = usePreset();
 
   return (
     <div style={styles.main}>
@@ -49,7 +54,13 @@ export const Synth: React.FC = () => {
       </ControllerModule>
       <div>
         <Envelopes />
-        <Sequencer />
+        <ControllerModule id="sequence" label="sequencer" size={1} optional>
+          <Matrix
+            stepSize={7}
+            matrix={toMatrix(SEQUENCE_LENGTH, sequence)}
+            onClick={(column, row) => toggleARP({ column, row })}
+          />
+        </ControllerModule>
       </div>
     </div>
   );
