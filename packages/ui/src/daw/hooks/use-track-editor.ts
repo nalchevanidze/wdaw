@@ -1,13 +1,9 @@
 import { useSelection } from './use-selection';
 import { Area, IArea, Point } from '@wdaw/svg';
 import { idString } from '../../common/utils';
-import { toUITrack, UITrack, useTracks } from './use-tracks';
+import { toId, toUITrack, UITrack, useTracks } from './use-tracks';
 
 export const eqID = (m1: UITrack) => (s: UITrack) => m1.id === s.id;
-
-const toId = (t: UITrack) => idString([t.trackIndex, t.start]);
-
-const toHash = (t: UITrack) => idString([t.id, t.start, t.end, t.fragmentId]);
 
 export type TrackedTrack = UITrack & { origin?: UITrack };
 
@@ -21,7 +17,7 @@ const resolveTrack =
 
 export const useTrackEditor = () => {
   const { tracks, setMidis, setCurrent } = useTracks();
-  const s = useSelection<TrackedTrack>(tracks, toId, toHash);
+  const s = useSelection<TrackedTrack>(tracks, toId);
 
   const move = (time: number) =>
     s.edit(({ start, end }) => ({
