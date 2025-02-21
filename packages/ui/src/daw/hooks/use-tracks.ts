@@ -1,14 +1,9 @@
 import * as React from 'react';
 import { MidiRef } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
-import { idString } from '../../common/utils';
 
-export const toId = (t: MidiRef) => idString([t.trackIndex, t.start, t.end, t.fragmentId]);
-
-export const toUITrack = (m: MidiRef): UITrack => ({ ...m, id: toId(m) });
 
 export type UITrack = MidiRef & {
-  id: string;
   selected?: boolean;
 };
 
@@ -38,7 +33,7 @@ export const useTracks = () => {
   const newTrack = () => dispatch({ type: 'NEW_TRACK' });
 
   return {
-    tracks: midiRefs.map(toUITrack),
+    tracks: midiRefs,
     currentTrack,
     setMidis,
     setCurrent,
