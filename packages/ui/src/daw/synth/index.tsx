@@ -10,7 +10,7 @@ import { WaveForm } from '../../components/waveform';
 import { TextButton } from '../../components/text-button';
 
 const styles = {
-  main: {
+  container: {
     display: 'flex',
     fontSize: '10px',
     alignItems: 'flex-start',
@@ -32,7 +32,7 @@ export const Synth: React.FC = () => {
     usePreset();
 
   return (
-    <div style={styles.main}>
+    <div style={styles.container}>
       <Module label="presets" size={1}>
         <WaveForm quality={200} />
         <div style={styles.presets}>
