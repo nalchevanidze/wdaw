@@ -42,7 +42,7 @@ const styles = {
 const rulerSize = BLOCK;
 const accuracy = rulerSize / 8;
 
-const toArea = ({ start, end, id: [trackIndex, _] }: TrackedTrack): IArea => ({
+const toArea = ({ start, end, trackIndex }: TrackedTrack): IArea => ({
   x1: start,
   x2: end,
   y1: trackIndex * trackHeight,
@@ -103,19 +103,21 @@ export const TracksContent: React.FC<ContentProps> = ({ actionType }) => {
   return (
     <g>
       <DragingBackground onMouseDown={dragging.onBackground} />
-      {tracks.map(({ fragmentId, start, end, id, selected }, midiIndex) => (
-        <Fragment
-          key={midiIndex}
-          y={id[0] * trackHeight}
-          start={start}
-          end={end}
-          fragmentId={fragmentId}
-          height={trackHeight}
-          startMove={(e) => dragging.onElement('move')(e, id)}
-          startScale={(e) => dragging.onElement('scale')(e, id)}
-          color={selected ? colors.notesSelected : colors.notesBackground}
-        />
-      ))}
+      {tracks.map(
+        ({ fragmentId, start, end, trackIndex, selected, id }, midiIndex) => (
+          <Fragment
+            key={midiIndex}
+            y={trackIndex * trackHeight}
+            start={start}
+            end={end}
+            fragmentId={fragmentId}
+            height={trackHeight}
+            startMove={(e) => dragging.onElement('move')(e, id)}
+            startScale={(e) => dragging.onElement('scale')(e, id)}
+            color={selected ? colors.notesSelected : colors.notesBackground}
+          />
+        )
+      )}
       {panels.map(({ name, index, active, gain, setGain, setTrack }) => (
         <Panel
           key={index}
