@@ -27,6 +27,7 @@ const toMatrix = (length: number, seq: Sequence): boolean[][] =>
   Array.from({ length }, (_, i) => i).map((i) =>
     [4, 3, 2, 1].map((index) => Boolean(seq[i] && seq[i].indexOf(index) !== -1))
   );
+
 export const Synth: React.FC = () => {
   const { wave, options, filter, setWave, setFilter, sequence, toggleARP } =
     usePreset();
