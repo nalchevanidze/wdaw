@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Timeline } from './timeline';
 import { BLOCK } from '../../common/units';
-import { IArea, Svg } from '@wdaw/svg';
+import { IArea, Point, Svg } from '@wdaw/svg';
 import { colors } from '../../styles';
 import { Panel } from './panel';
 import { NoteGrid } from '../../components/note-grid';
 import { SelectionArea } from '../../components/selection-area';
-import { useDragging } from '../hooks/use-dragging';
+import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { withAccuracy } from '../utils/area';
 import { TrackedTrack, useTrackEditor } from '../hooks/use-track-editor';
 import { Fragment } from './fragment';
@@ -52,11 +52,36 @@ const toArea = ({ start, end, id: [trackIndex, _] }: TrackedTrack): IArea => ({
 export const TracksContent: React.FC<{ actionType: EditActionType }> = ({
   actionType
 }) => {
-  const { tracks, clear, move, scale, select, selectIn, isSelected, sync } =
-    useTrackEditor();
+  const {
+    tracks,
+    clear,
+    move,
+    scale,
+    select,
+    selectIn,
+    isSelected,
+    sync,
+    remove
+  } = useTrackEditor();
   const { panels } = usePanels();
 
-  console.log(actionType);
+  const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
+    draw: (point) => {
+      // tracks.addAt(normalize(point));
+
+      console.log('add track');
+      return 'scale';
+    },
+    select: () => {
+      clear();
+      return 'select';
+    }
+  };
+
+  const mouseDownInactive: HandlerMap<EditActionType, MidiID> = {
+    draw: remove,
+    select: (t) => (!isSelected(t) ? select(t) : undefined)
+  };
 
   const dragging = useDragging<MidiID>({
     onMove: {
@@ -65,11 +90,8 @@ export const TracksContent: React.FC<{ actionType: EditActionType }> = ({
       scale: withAccuracy(scale, accuracy)
     },
     onEnd: (mode) => (mode !== 'select' ? sync() : undefined),
-    onStart: (t) => (!isSelected(t) ? select(t) : undefined),
-    onBackground: () => {
-      clear();
-      return 'select';
-    }
+    onStart: mouseDownInactive[actionType],
+    onBackground: onBackgroundHandler[actionType]
   });
 
   return (
