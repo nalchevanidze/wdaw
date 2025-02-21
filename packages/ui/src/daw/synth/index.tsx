@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { Envelopes } from './envelopes';
-import { Presets } from './presets';
 import { ControllerModule } from './module';
 import { Controllers } from '../../components/controllers';
 import { usePreset } from '../hooks/use-preset';
 import { Sequence, SEQUENCE_LENGTH } from '@wdaw/engine';
 import { Matrix } from '../../components/matrix';
+import { Module } from '../../components/module';
+import { WaveForm } from '../../components/waveform';
+import { TextButton } from '../../components/text-button';
 
 const styles = {
   main: {
@@ -13,19 +15,32 @@ const styles = {
     fontSize: '10px',
     alignItems: 'flex-start',
     padding: '5px'
+  },
+  presets: {
+    maxHeight: '100px',
+    overflowY: 'scroll',
+    width: '100%'
   }
-};
+} as const;
 
 const toMatrix = (length: number, seq: Sequence): boolean[][] =>
   Array.from({ length }, (_, i) => i).map((i) =>
     [4, 3, 2, 1].map((index) => Boolean(seq[i] && seq[i].indexOf(index) !== -1))
   );
 export const Synth: React.FC = () => {
-  const { wave, filter, setWave, setFilter, sequence, toggleARP } = usePreset();
+  const { wave, options, filter, setWave, setFilter, sequence, toggleARP } =
+    usePreset();
 
   return (
     <div style={styles.main}>
-      <Presets />
+      <Module label="presets" size={1}>
+        <WaveForm quality={200} />
+        <div style={styles.presets}>
+          {options.map(({ id, onclick, active }) => (
+            <TextButton key={id} name={id} active={active} onClick={onclick} />
+          ))}
+        </div>
+      </Module>
       <ControllerModule id="wave" label="Oscillators" size={4}>
         <Controllers
           values={wave}
