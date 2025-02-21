@@ -6,7 +6,8 @@ import {
   ENVELOPE_ID,
   EnvelopeConfig,
   MidiFragment,
-  EngineState
+  EngineState,
+  MidiRef
 } from '@wdaw/engine';
 
 export type PANEL_ID = 'filter' | 'sequence' | 'wave';
@@ -103,9 +104,9 @@ type SET_CURRENT_FRAGMENT = {
   payload: string;
 };
 
-type SET_TRACK_MIDI = {
-  type: 'SET_TRACK_MIDI';
-  payload: Map<string, Partial<Midi>>;
+type SET_MIDI_REFS = {
+  type: 'SET_MIDI_REFS';
+  payload: MidiRef[]
 };
 
 type SET_MIDI_FRAGMENT = {
@@ -147,7 +148,7 @@ type MidiActions =
   | SET_TIME
   | SET_CURRENT_TRACK
   | SET_MIDI_FRAGMENT
-  | SET_TRACK_MIDI
+  | SET_MIDI_REFS
   | NEW_TRACK
   | PLAY
   | PAUSE

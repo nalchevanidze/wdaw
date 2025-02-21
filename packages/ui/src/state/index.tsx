@@ -39,15 +39,8 @@ const dispatcher = (
               }
             }
       );
-    case 'SET_TRACK_MIDI':
-      return mapTracks(state, ({ midi }, ti) => ({
-        midi: midi.map((n, ni) => {
-          const key = idString([ti, ni]);
-          const update = action.payload.get(key);
-
-          return update ? { ...n, ...update } : n;
-        })
-      }));
+    case 'SET_MIDI_REFS':
+      return { midiRefs: action.payload };
     case 'SET_MIDI_FRAGMENT':
       return setMidiFragment(action.id, state, action.payload);
     case 'SET_GAIN':
@@ -128,7 +121,7 @@ const engineEffects = (
     case 'SET_TIME':
       return engine.setTime(action.payload);
     case 'SET_MIDI_FRAGMENT':
-    case 'SET_TRACK_MIDI':
+    case 'SET_MIDI_REFS':
       return engine.setMidis(midiRefs, midiFragments);
     case 'SET_CURRENT_TRACK':
       return;

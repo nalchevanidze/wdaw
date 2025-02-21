@@ -34,6 +34,6 @@ export const useNoteEditor = () => {
     addAt,
     move,
     scale,
-    sync: dispatcher((s) => syncNotes([...s.selected, ...s.inactive]))
+    sync: dispatcher(syncNotes)
   };
 };

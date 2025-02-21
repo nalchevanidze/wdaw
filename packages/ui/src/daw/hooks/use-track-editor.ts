@@ -59,7 +59,7 @@ export const useTrackEditor = () => {
   return {
     tracks: tracks.map(resolveTrack(s.all)),
     clear: s.clear,
-    sync: s.dispatcher(({ selected }) => setMidis(selected)),
+    sync: s.dispatcher(setMidis),
     isSelected: (id: MidiID) => Boolean(s.selected.find(eqID(id))),
     move,
     scale,
