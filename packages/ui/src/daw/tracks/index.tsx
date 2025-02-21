@@ -14,7 +14,6 @@ import { DragingBackground } from '../../components/background';
 import { MidiID, useTracks } from '../hooks/use-tracks';
 import { usePanels } from '../hooks/use-panels';
 import { IconButton } from '../../components/icon-button';
-import { DawApiContext } from '../../context/state';
 
 const panelWidth = 160;
 const trackHeight = 48;

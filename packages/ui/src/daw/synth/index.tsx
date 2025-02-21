@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Envelopes } from './envelopes';
-import { ControllerModule } from './controller-module';
 import { Controllers } from '../../components/controllers';
 import { usePreset } from '../hooks/use-preset';
 import { Sequence, SEQUENCE_LENGTH } from '@wdaw/engine';
@@ -31,8 +30,16 @@ const toMatrix = (size: number, seq: Sequence): boolean[][] =>
   );
 
 export const Synth: React.FC = () => {
-  const { wave, options, filter, setWave, setFilter, sequence, toggleARP } =
-    usePreset();
+  const {
+    wave,
+    options,
+    filter,
+    getModule,
+    setWave,
+    setFilter,
+    sequence,
+    toggleARP
+  } = usePreset();
 
   return (
     <div style={styles.container}>
@@ -44,7 +51,7 @@ export const Synth: React.FC = () => {
           ))}
         </div>
       </Module>
-      <ControllerModule id="wave" label="Oscillators" size={4}>
+      <Module label="Oscillators" size={4}>
         <Controllers
           values={wave}
           items={[
@@ -62,23 +69,23 @@ export const Synth: React.FC = () => {
           ]}
           onChange={setWave}
         />
-      </ControllerModule>
-      <ControllerModule id="filter" label="Filter" optional>
+      </Module>
+      <Module label="Filter" optional={getModule('filter')}>
         <Controllers
           items={[{ id: 'cutoff' }, { id: 'resonance' }, { id: 'envelope' }]}
           values={filter}
           onChange={setFilter}
         />
-      </ControllerModule>
+      </Module>
       <div>
         <Envelopes />
-        <ControllerModule id="sequence" label="sequencer" size={1} optional>
+        <Module label="Sequencer" optional={getModule('sequence')}>
           <Matrix
             stepSize={7}
             matrix={toMatrix(SEQUENCE_LENGTH, sequence)}
             onClick={(column, row) => toggleARP({ column, row })}
           />
-        </ControllerModule>
+        </Module>
       </div>
     </div>
   );

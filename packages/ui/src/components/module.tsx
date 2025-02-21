@@ -53,9 +53,10 @@ type Props = {
   children?: React.ReactNode;
   size?: number;
   color?: string;
-  optional?: boolean;
-  disabled?: boolean;
-  onClick?(): void;
+  optional?: {
+    disabled: boolean;
+    toggle(): void;
+  };
 };
 
 export const Module: React.FC<Props> = ({
@@ -63,16 +64,14 @@ export const Module: React.FC<Props> = ({
   children,
   size = 1,
   color = '#555',
-  optional,
-  disabled = false,
-  onClick
+  optional: controller
 }) => {
+  const disabled = Boolean(controller?.disabled);
+  const optional = Boolean(controller);
+
   return (
     <div style={styles.container(disabled)}>
-      <div
-        style={styles.toggle(optional)}
-        onClick={optional ? onClick : undefined}
-      >
+      <div style={styles.toggle(optional)} onClick={controller?.toggle}>
         {optional ? <div style={styles.button(disabled)} /> : null}
         <h3 style={styles.label(color)}>{label}</h3>
       </div>
