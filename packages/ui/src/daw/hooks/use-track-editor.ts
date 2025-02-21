@@ -1,6 +1,5 @@
 import { useSelection } from './use-selection';
 import { Area, IArea, Point } from '@wdaw/svg';
-import { idString } from '../../common/utils';
 import { toId, toUITrack, UITrack, useTracks } from './use-tracks';
 
 export const eqID = (m1: UITrack) => (s: UITrack) => m1.id === s.id;
