@@ -48,16 +48,14 @@ export const useTrackEditor = () => {
 
   const remove = (id: MidiID) => s.removeWith(eqID(id));
 
-  const addAt = ({ x, y }: Point) => {
+  const addAt = ({ x, y }: Point) =>
     s.add({
-      id: [0, 0],
-      start: 0,
-      end: 256,
+      id: [y, 0],
+      start: x,
+      end: x + 64,
       fragmentId: 'bass'
     });
-  };
-  
-  
+
   return {
     tracks: tracks.map(resolveTrack(s.all)),
     clear: s.clear,

@@ -49,6 +49,11 @@ const toArea = ({ start, end, id: [trackIndex, _] }: TrackedTrack): IArea => ({
   y2: (trackIndex + 1) * trackHeight
 });
 
+const normalize = ({ x, y }: Point): Point => ({
+  x: Math.floor(x),
+  y: Math.floor(y / trackHeight)
+});
+
 export const TracksContent: React.FC<{ actionType: EditActionType }> = ({
   actionType
 }) => {
@@ -68,8 +73,7 @@ export const TracksContent: React.FC<{ actionType: EditActionType }> = ({
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
     draw: (point) => {
-      // tracks.addAt(normalize(point));
-      addAt(point)
+      addAt(normalize(point));
       return 'scale';
     },
     select: () => {
