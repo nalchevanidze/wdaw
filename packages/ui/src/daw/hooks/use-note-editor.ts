@@ -2,8 +2,9 @@ import { toArea, UINote } from '../utils/notes';
 import { Point, Area } from '@wdaw/svg';
 import { useSelection } from './use-selection';
 import { useMidiFragment } from './use-midi-fragment';
+import { idString } from '../../common/utils';
 
-const noteId = (note: UINote) => [note.x, note.y, note.length].join(':');
+const noteId = (note: UINote) => idString([note.x, note.y, note.length]);
 
 export const useNoteEditor = () => {
   const { notes, syncNotes } = useMidiFragment();
