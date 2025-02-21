@@ -6,14 +6,6 @@ export const eqID = (m1: UITrack) => (s: UITrack) => m1.id === s.id;
 
 export type TrackedTrack = UITrack & { origin?: UITrack };
 
-const resolveTrack =
-  (ls: TrackedTrack[]) =>
-  (track: TrackedTrack): UITrack => {
-    const state = ls.find(eqID(track));
-
-    return state ? { ...state, selected: Boolean(state.origin) } : { ...track };
-  };
-
 export const useTrackEditor = () => {
   const { tracks, setMidis, setCurrent } = useTracks();
   const s = useSelection<TrackedTrack>(tracks, toId);
@@ -46,7 +38,7 @@ export const useTrackEditor = () => {
     );
 
   return {
-    tracks: tracks.map(resolveTrack(s.all)),
+    tracks: s.all,
     clear: s.clear,
     sync: s.dispatcher(setMidis),
     isSelected: (id: UITrack) => Boolean(s.selected.find(eqID(id))),
