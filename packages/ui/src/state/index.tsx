@@ -91,8 +91,7 @@ const dispatcher = (
           {
             name: `track ${tracks.length + 5}`,
             gain: 1,
-            presetId: 'prelude',
-            midi: []
+            presetId: 'prelude'
           }
         ]
       };
@@ -108,7 +107,7 @@ const dispatcher = (
 };
 
 const engineEffects = (
-  { tracks, midiFragments, currentTrack, presets }: DAWState,
+  { tracks, midiFragments, currentTrack, presets, midiRefs }: DAWState,
   engine: SynthEngine,
   action: EngineAction
 ): void => {
@@ -130,10 +129,7 @@ const engineEffects = (
       return engine.setTime(action.payload);
     case 'SET_MIDI_FRAGMENT':
     case 'SET_TRACK_MIDI':
-      return engine.setMidis(
-        tracks.map(({ midi }, i) => [i, midi]),
-        midiFragments
-      );
+      return engine.setMidis(midiRefs, midiFragments);
     case 'SET_CURRENT_TRACK':
       return;
     case 'SET_GAIN':
@@ -148,7 +144,7 @@ const engineEffects = (
     case 'SET_PRESET':
       return engine.setPreset(currentTrack, preset);
     case 'NEW_TRACK':
-      engine.setTracks({ tracks, midiFragments, presets });
+      engine.setTracks({ tracks, midiFragments, presets, midiRefs });
       return;
     case 'LOAD':
       engine.setTracks(action.payload);

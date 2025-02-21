@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TrackState } from '@wdaw/engine';
+import { MidiRef, TrackState } from '@wdaw/engine';
 import { DawDispatch } from '../types';
 import { DawApiContext } from '../../context/state';
 import { idString } from '../../common/utils';
@@ -14,13 +14,11 @@ export type UITrack = {
   selected?: boolean;
 };
 
-const unfold = (tracks: TrackState[]): UITrack[] =>
-  tracks.flatMap((t, ti) => t.midi.map((m, mi) => ({ ...m, id: [ti, mi] })));
-
 export const useTracks = () => {
-  const [{ currentTrack, tracks }, dispatch] = React.useContext(DawApiContext);
+  const [{ currentTrack, tracks, midiRefs }, dispatch] =
+    React.useContext(DawApiContext);
 
-  const length = Math.max(...tracks.flatMap((t) => t.midi.map((x) => x.end)));
+  const length = Math.max(...midiRefs.map(({ end }) => end));
   const count = tracks.length;
 
   const setMidis = (ls: UITrack[]) =>
@@ -32,12 +30,12 @@ export const useTracks = () => {
     });
 
   const setCurrent = (id?: string) =>
-    id ? dispatch({ type: 'SET_CURRENT_FRAGMENT', payload: id }) : unfold;
+    id ? dispatch({ type: 'SET_CURRENT_FRAGMENT', payload: id }) : undefined;
 
   const newTrack = () => dispatch({ type: 'NEW_TRACK' });
 
   return {
-    tracks: unfold(tracks),
+    tracks: midiRefs.map((m, ti): UITrack => ({ ...m, id: [ti, m.start] })),
     currentTrack,
     setMidis,
     setCurrent,

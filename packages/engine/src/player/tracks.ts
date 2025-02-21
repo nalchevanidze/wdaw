@@ -1,5 +1,5 @@
 import { MidiFragments, Preset } from '../common/types';
-import { TracksState } from '../state/state';
+import { MidiRef, TracksState } from '../state/state';
 import { Synth } from '../synth';
 import { Midi } from '../common/types';
 import { Track } from './track';
@@ -19,11 +19,11 @@ export class Tracks {
 
   public get = (i: number) => this.tracks[i];
 
-  public set = ({ tracks, midiFragments, presets }: TracksState) => {
-    this.tracks = tracks.map(({ midi, presetId, gain }, id) => {
+  public set = ({ tracks, midiFragments, presets, midiRefs }: TracksState) => {
+    this.tracks = tracks.map(({ presetId, gain }, id) => {
       const track = new Track(new Synth(this.sampleRate), presets[presetId]);
-
-      track.setNoteLoops(toActions(midi, midiFragments));
+      const midis = midiRefs.filter((x) => x.trackIndex === id);
+      track.setNoteLoops(toActions(midis, midiFragments));
       track.setGain(gain);
 
       return track;
@@ -62,10 +62,10 @@ export class Tracks {
     this.tracks[i].setGain(gain);
   };
 
-  public setMidis = (ls: [number, Midi[]][], fragments: MidiFragments) => {
-    ls.forEach(([i, midis]) => {
-      const noteLoops = toActions(midis, fragments);
-      this.tracks[i].setNoteLoops(noteLoops);
+  public setMidis = (midiRefs: MidiRef[], midiFragments: MidiFragments) => {
+    this.tracks.forEach((track, id) => {
+      const midis = midiRefs.filter((x) => x.trackIndex === id);
+      track.setNoteLoops(toActions(midis, midiFragments));
     });
 
     this.refresh();
