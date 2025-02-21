@@ -5,6 +5,7 @@ import { idString } from '../../common/utils';
 
 const toId = (t: MidiRef) => idString([t.trackIndex, t.start]);
 
+export const toUITrack = (m: MidiRef): UITrack => ({ ...m, id: toId(m) });
 
 export type UITrack = MidiRef & {
   id: string;
@@ -37,7 +38,7 @@ export const useTracks = () => {
   const newTrack = () => dispatch({ type: 'NEW_TRACK' });
 
   return {
-    tracks: midiRefs.map((m): UITrack => ({ ...m, id: toId(m) })),
+    tracks: midiRefs.map(toUITrack),
     currentTrack,
     setMidis,
     setCurrent,
