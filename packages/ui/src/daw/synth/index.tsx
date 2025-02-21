@@ -43,7 +43,7 @@ export const Synth: React.FC = () => {
 
   return (
     <div style={styles.container}>
-      <Module label="presets" size={1}>
+      <Module label="Presets">
         <WaveForm quality={200} />
         <div style={styles.presets}>
           {options.map(({ id, onclick, active }) => (

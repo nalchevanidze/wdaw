@@ -49,7 +49,7 @@ export const Envelopes: React.FC<Props> = ({
   const sustainX = decay + 0.25;
 
   return (
-    <Module label="envelopes" size={1}>
+    <Module label="Envelopes">
       <div style={styles.nav}>
         {options.map(({ name, active, onclick }) => (
           <TextButton
@@ -84,6 +84,6 @@ export const Envelopes: React.FC<Props> = ({
           <WaveGrid width={width} height={height} />
         </LineEditor>
       </Svg>
-    </ Module>
+    </Module>
   );
 };
