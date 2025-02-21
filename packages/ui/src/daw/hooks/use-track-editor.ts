@@ -6,7 +6,8 @@ import { MidiID, UITrack, useTracks } from './use-tracks';
 export const eqID = (m1: MidiID) => (s: UITrack) =>
   idString(m1) === idString(s.id);
 
-const toId = (t: UITrack) => idString(t.id);
+const toId = (t: UITrack) => idString([t.trackIndex, t.start]);
+
 const toHash = (t: UITrack) =>
   idString([...t.id, t.start, t.end, t.fragmentId]);
 
