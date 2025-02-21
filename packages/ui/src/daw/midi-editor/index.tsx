@@ -3,7 +3,6 @@ import { Point, Svg } from '@wdaw/svg';
 import { OCTAVE_SIZE } from '@wdaw/engine';
 import { Header } from './header';
 import { BLOCK } from '../../common/units';
-import { Timeline } from './timeline';
 import { Notes } from './notes';
 import { EditActionType, MHandler } from '../types';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
@@ -108,7 +107,6 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
           scale={dragging.onElement('scale')}
         />
       </g>
-      <Timeline size={rulerSize} timeline={timelineHeight} />
       <Loop
         controlerWidth={4}
         timelineHeight={timelineHeight}
