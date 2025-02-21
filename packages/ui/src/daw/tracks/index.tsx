@@ -61,15 +61,15 @@ export const TracksContent: React.FC<{ actionType: EditActionType }> = ({
     selectIn,
     isSelected,
     sync,
-    remove
+    remove,
+    addAt
   } = useTrackEditor();
   const { panels } = usePanels();
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
     draw: (point) => {
       // tracks.addAt(normalize(point));
-
-      console.log('add track');
+      addAt(point)
       return 'scale';
     },
     select: () => {

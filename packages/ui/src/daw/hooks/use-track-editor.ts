@@ -1,5 +1,5 @@
 import { useSelection } from './use-selection';
-import { Area, IArea } from '@wdaw/svg';
+import { Area, IArea, Point } from '@wdaw/svg';
 import { idString } from '../../common/utils';
 import { MidiID, UITrack, useTracks } from './use-tracks';
 
@@ -48,6 +48,16 @@ export const useTrackEditor = () => {
 
   const remove = (id: MidiID) => s.removeWith(eqID(id));
 
+  const addAt = ({ x, y }: Point) => {
+    s.add({
+      id: [0, 0],
+      start: 0,
+      end: 256,
+      fragmentId: 'e32523'
+    });
+  };
+  
+  
   return {
     tracks: tracks.map(resolveTrack(s.all)),
     clear: s.clear,
@@ -57,6 +67,7 @@ export const useTrackEditor = () => {
     scale,
     select,
     selectIn,
-    remove
+    remove,
+    addAt
   };
 };
