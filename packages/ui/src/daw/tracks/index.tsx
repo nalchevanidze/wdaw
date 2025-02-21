@@ -15,6 +15,8 @@ import { MidiID, useTracks } from '../hooks/use-tracks';
 import { usePanels } from '../hooks/use-panels';
 import { IconButton } from '../../components/icon-button';
 
+export type EditActionType = 'select' | 'draw';
+
 const panelWidth = 160;
 const trackHeight = 48;
 
@@ -47,10 +49,14 @@ const toArea = ({ start, end, id: [trackIndex, _] }: TrackedTrack): IArea => ({
   y2: (trackIndex + 1) * trackHeight
 });
 
-export const TracksContent: React.FC = () => {
+export const TracksContent: React.FC<{ actionType: EditActionType }> = ({
+  actionType
+}) => {
   const { tracks, clear, move, scale, select, selectIn, isSelected, sync } =
     useTrackEditor();
   const { panels } = usePanels();
+
+  console.log(actionType);
 
   const dragging = useDragging<MidiID>({
     onMove: {
@@ -103,13 +109,22 @@ export const TracksContent: React.FC = () => {
 export const Tracks = () => {
   const { count, length, newTrack } = useTracks();
   const timelineHeight = 32;
+  const [actionType, setActionType] = React.useState<EditActionType>('select');
 
   return (
     <div style={styles.container}>
       <section style={styles.header}>
         <button onClick={newTrack}>new track</button>
-        <IconButton id="draw" onClick={console.log} />
-        <IconButton id="select" onClick={console.log} />
+        <IconButton
+          id="draw"
+          onClick={() => setActionType('draw')}
+          color={colors.button(actionType === 'draw')}
+        />
+        <IconButton
+          id="select"
+          color={colors.button(actionType === 'select')}
+          onClick={() => setActionType('select')}
+        />
       </section>
       <section style={styles.canvas}>
         <Svg
@@ -119,7 +134,7 @@ export const Tracks = () => {
           paddingTop={timelineHeight}
         >
           <NoteGrid size={rulerSize} />
-          <TracksContent />
+          <TracksContent actionType={actionType} />
           <Timeline height={timelineHeight} size={rulerSize} />
         </Svg>
       </section>
