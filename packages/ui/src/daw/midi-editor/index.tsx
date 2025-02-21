@@ -98,15 +98,13 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
         noteHeight={noteHeight}
       />
       <DragingBackground onMouseDown={dragging.onBackground} />
-      <g>
-        <Notes
-          noteHeight={noteHeight}
-          height={canvasHeight}
-          notes={notes.all as any}
-          mouseDown={dragging.onElement('move')}
-          scale={dragging.onElement('scale')}
-        />
-      </g>
+      <Notes
+        noteHeight={noteHeight}
+        height={canvasHeight}
+        notes={notes.all as any}
+        mouseDown={dragging.onElement('move')}
+        scale={dragging.onElement('scale')}
+      />
       <Loop
         controlerWidth={4}
         timelineHeight={timelineHeight}
