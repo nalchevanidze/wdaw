@@ -4,11 +4,8 @@ import { DawApiContext } from '../../context/state';
 
 export type MidiID = [number, number];
 
-export type UITrack = {
+export type UITrack = MidiRef & {
   id: MidiID;
-  start: number;
-  end: number;
-  fragmentId: string;
   selected?: boolean;
 };
 
@@ -23,10 +20,10 @@ export const useTracks = () => {
     dispatch({
       type: 'SET_MIDI_REFS',
       payload: ls.map(
-        ({ start, end, id, fragmentId }): MidiRef => ({
+        ({ start, end, fragmentId, trackIndex }): MidiRef => ({
           start,
           end,
-          trackIndex: id[0],
+          trackIndex,
           fragmentId
         })
       )
@@ -38,7 +35,7 @@ export const useTracks = () => {
   const newTrack = () => dispatch({ type: 'NEW_TRACK' });
 
   return {
-    tracks: midiRefs.map((m): UITrack => ({ ...m, id: [m.trackIndex, m.end] })),
+    tracks: midiRefs.map((m): UITrack => ({ ...m, id: [m.trackIndex, m.start] })),
     currentTrack,
     setMidis,
     setCurrent,

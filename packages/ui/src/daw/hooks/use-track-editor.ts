@@ -14,12 +14,10 @@ export type TrackedTrack = UITrack & { origin?: UITrack };
 
 const resolveTrack =
   (ls: TrackedTrack[]) =>
-  ({ id, fragmentId, start, end }: TrackedTrack): UITrack => {
-    const state = ls.find(eqID(id));
+  (track: TrackedTrack): UITrack => {
+    const state = ls.find(eqID(track.id));
 
-    return state
-      ? { ...state, selected: Boolean(state.origin) }
-      : { id, fragmentId, start, end };
+    return state ? { ...state, selected: Boolean(state.origin) } : { ...track };
   };
 
 export const useTrackEditor = () => {
@@ -50,6 +48,7 @@ export const useTrackEditor = () => {
 
   const addAt = ({ x, y }: Point) =>
     s.add({
+      trackIndex: y,
       id: [y, 0],
       start: x,
       end: x + 64,
