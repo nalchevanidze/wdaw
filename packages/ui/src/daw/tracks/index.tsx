@@ -11,7 +11,7 @@ import { withAccuracy } from '../utils/area';
 import { TrackedTrack, useTrackEditor } from '../hooks/use-track-editor';
 import { Fragment } from './fragment';
 import { DragingBackground } from '../../components/background';
-import { MidiID, useTracks } from '../hooks/use-tracks';
+import { MidiID, UITrack, useTracks } from '../hooks/use-tracks';
 import { usePanels } from '../hooks/use-panels';
 import { IconButton } from '../../components/icon-button';
 
@@ -84,12 +84,12 @@ export const TracksContent: React.FC<ContentProps> = ({ actionType }) => {
     }
   };
 
-  const mouseDownInactive: HandlerMap<EditActionType, MidiID> = {
+  const mouseDownInactive: HandlerMap<EditActionType, UITrack> = {
     draw: remove,
     select: (t) => (!isSelected(t) ? select(t) : undefined)
   };
 
-  const dragging = useDragging<MidiID>({
+  const dragging = useDragging<UITrack>({
     onMove: {
       select: selectIn(toArea),
       move: withAccuracy(move, accuracy),
@@ -103,21 +103,19 @@ export const TracksContent: React.FC<ContentProps> = ({ actionType }) => {
   return (
     <g>
       <DragingBackground onMouseDown={dragging.onBackground} />
-      {tracks.map(
-        ({ fragmentId, start, end, trackIndex, selected, id }, midiIndex) => (
-          <Fragment
-            key={midiIndex}
-            y={trackIndex * trackHeight}
-            start={start}
-            end={end}
-            fragmentId={fragmentId}
-            height={trackHeight}
-            startMove={(e) => dragging.onElement('move')(e, id)}
-            startScale={(e) => dragging.onElement('scale')(e, id)}
-            color={selected ? colors.notesSelected : colors.notesBackground}
-          />
-        )
-      )}
+      {tracks.map((t, midiIndex) => (
+        <Fragment
+          key={midiIndex}
+          y={t.trackIndex * trackHeight}
+          start={t.start}
+          end={t.end}
+          fragmentId={t.fragmentId}
+          height={trackHeight}
+          startMove={(e) => dragging.onElement('move')(e, t)}
+          startScale={(e) => dragging.onElement('scale')(e, t)}
+          color={t.selected ? colors.notesSelected : colors.notesBackground}
+        />
+      ))}
       {panels.map(({ name, index, active, gain, setGain, setTrack }) => (
         <Panel
           key={index}

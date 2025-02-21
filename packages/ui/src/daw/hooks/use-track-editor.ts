@@ -1,10 +1,10 @@
 import { useSelection } from './use-selection';
 import { Area, IArea, Point } from '@wdaw/svg';
 import { idString } from '../../common/utils';
-import { MidiID, UITrack, useTracks } from './use-tracks';
+import { UITrack, useTracks } from './use-tracks';
 
-export const eqID = (m1: MidiID) => (s: UITrack) =>
-  idString(m1) === idString(s.id);
+export const eqID = (m1: UITrack) => (s: UITrack) =>
+  idString(m1.id) === idString(s.id);
 
 const toId = (t: UITrack) => idString([t.trackIndex, t.start]);
 
@@ -16,7 +16,7 @@ export type TrackedTrack = UITrack & { origin?: UITrack };
 const resolveTrack =
   (ls: TrackedTrack[]) =>
   (track: TrackedTrack): UITrack => {
-    const state = ls.find(eqID(track.id));
+    const state = ls.find(eqID(track));
 
     return state ? { ...state, selected: Boolean(state.origin) } : { ...track };
   };
@@ -40,12 +40,12 @@ export const useTrackEditor = () => {
   const selectIn = (f: (i: TrackedTrack) => IArea) => (area?: Area) =>
     s.selectWith((t) => area?.isOverlaping(f(t)) ?? false);
 
-  const select = (id: MidiID) => {
+  const select = (id: UITrack) => {
     s.selectWith(eqID(id));
     setCurrent(s.all.find(eqID(id))?.fragmentId);
   };
 
-  const remove = (id: MidiID) => s.removeWith(eqID(id));
+  const remove = (id: UITrack) => s.removeWith(eqID(id));
 
   const addAt = ({ x, y }: Point) =>
     s.add({
@@ -60,7 +60,7 @@ export const useTrackEditor = () => {
     tracks: tracks.map(resolveTrack(s.all)),
     clear: s.clear,
     sync: s.dispatcher(setMidis),
-    isSelected: (id: MidiID) => Boolean(s.selected.find(eqID(id))),
+    isSelected: (id: UITrack) => Boolean(s.selected.find(eqID(id))),
     move,
     scale,
     select,
