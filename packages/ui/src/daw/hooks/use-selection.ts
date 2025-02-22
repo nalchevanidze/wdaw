@@ -92,9 +92,12 @@ export const useSelection = <T extends object>(
     });
   };
 
+  const select = (i: T) => selectWith((n) => n == i);
+
   useEffect(() => sync(list), [list.map(toHash).join('-')]);
 
   return {
+    select,
     add,
     edit,
     all: toAll(state),

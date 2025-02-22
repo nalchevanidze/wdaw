@@ -29,7 +29,7 @@ export const useTrackEditor = () => {
     s.selectWith((t) => area?.isOverlaping(f(t)) ?? false);
 
   const select = (t: UITrack) => {
-    s.selectWith(eq(t));
+    s.select(t);
     setCurrent(t.fragmentId);
   };
 
