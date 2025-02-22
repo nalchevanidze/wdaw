@@ -9,7 +9,7 @@ const noteId = (note: UINote) => idString([note.x, note.y, note.length]);
 export const useNoteEditor = () => {
   const { notes, syncNotes } = useMidiFragment();
   const { all, add, clear, edit, remove, dispatcher, select, selectIn } =
-    useSelection(notes, noteId);
+    useSelection(notes, noteId, syncNotes);
 
   const scale = (moveX: number) =>
     edit(({ length }) => ({ length: length + moveX }));
@@ -22,12 +22,12 @@ export const useNoteEditor = () => {
   return {
     all,
     clear,
+    sync: dispatcher,
     selectIn: selectIn(toArea),
     remove,
     select,
     addAt,
     move,
-    scale,
-    sync: dispatcher(syncNotes)
+    scale
   };
 };

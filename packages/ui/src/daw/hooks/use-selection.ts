@@ -26,7 +26,7 @@ type ToId<T> = (i: T) => string | number;
 export const useSelection = <T extends object>(
   list: T[],
   toId: ToId<T>,
-  toHash: ToId<T> = toId
+  dispatch: (s: T[]) => void
 ) => {
   const [state, setState] = useState<Selected<T>>({
     selected: [],
@@ -86,9 +86,9 @@ export const useSelection = <T extends object>(
 
   useOnDeleteKey(removeSelected, [state.selected, state.inactive]);
 
-  const dispatcher = (f: (s: T[]) => void) => () => {
+  const dispatcher = () => {
     setState((s) => {
-      requestAnimationFrame(() => f([...s.selected, ...s.inactive]));
+      requestAnimationFrame(() => dispatch([...s.selected, ...s.inactive]));
       return s;
     });
   };
@@ -98,7 +98,7 @@ export const useSelection = <T extends object>(
   const selectIn = (f: (i: T) => IArea) => (area?: Area) =>
     selectWith((t) => area?.isOverlaping(f(t)) ?? false);
 
-  useEffect(() => sync(list), [list.map(toHash).join('-')]);
+  useEffect(() => sync(list), [list.map(toId).join('-')]);
 
   return {
     selectIn,
