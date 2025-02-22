@@ -30,7 +30,7 @@ export const useTrackEditor = () => {
 
   const select = (t: UITrack) => {
     s.selectWith(eq(t));
-    setCurrent(s.all.find(eq(t))?.fragmentId);
+    setCurrent(t.fragmentId);
   };
 
   const remove = (t: UITrack) => s.removeWith(eq(t));
@@ -42,7 +42,6 @@ export const useTrackEditor = () => {
     tracks: s.all,
     clear: s.clear,
     sync: s.dispatcher(setMidis),
-    isSelected: (t: UITrack) => Boolean(s.selected.find(eq(t))),
     move,
     scale,
     select,

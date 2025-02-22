@@ -11,7 +11,7 @@ import { withAccuracy } from '../utils/area';
 import { UITrack, useTrackEditor } from '../hooks/use-track-editor';
 import { Fragment } from './fragment';
 import { DragingBackground } from '../../components/background';
-import {  useTracks } from '../hooks/use-tracks';
+import { useTracks } from '../hooks/use-tracks';
 import { usePanels } from '../hooks/use-panels';
 import { IconButton } from '../../components/icon-button';
 
@@ -66,7 +66,6 @@ export const TracksContent: React.FC<ContentProps> = ({ actionType }) => {
     scale,
     select,
     selectIn,
-    isSelected,
     sync,
     remove,
     addAt

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { MidiRef } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
 
-
 export const useTracks = () => {
   const [{ currentTrack, tracks, midiRefs }, dispatch] =
     React.useContext(DawApiContext);
@@ -23,8 +22,8 @@ export const useTracks = () => {
       )
     });
 
-  const setCurrent = (id?: string) =>
-    id ? dispatch({ type: 'SET_CURRENT_FRAGMENT', payload: id }) : undefined;
+  const setCurrent = (id: string) =>
+    dispatch({ type: 'SET_CURRENT_FRAGMENT', payload: id });
 
   const newTrack = () => dispatch({ type: 'NEW_TRACK' });
 
