@@ -14,6 +14,8 @@ import { DragingBackground } from '../../components/background';
 import { useTracks } from '../hooks/use-tracks';
 import { usePanels } from '../hooks/use-panels';
 import { IconButton } from '../../components/icon-button';
+import { MidiRef } from '@wdaw/engine';
+import { DawApiContext } from '../../context/state';
 
 export type EditActionType = 'select' | 'draw';
 
@@ -58,9 +60,13 @@ const normalize = ({ x, y }: Point): Point => ({
 
 type ContentProps = {
   actionType: EditActionType;
+  openDropDown(ref: MidiRef): void;
 };
 
-export const TracksContent: React.FC<ContentProps> = ({ actionType }) => {
+export const TracksContent: React.FC<ContentProps> = ({
+  actionType,
+  openDropDown
+}) => {
   const { tracks, clear, move, scale, select, selectIn, sync, remove, addAt } =
     useTrackEditor();
   const { panels } = usePanels();
@@ -103,6 +109,7 @@ export const TracksContent: React.FC<ContentProps> = ({ actionType }) => {
           end={t.end}
           fragmentId={t.fragmentId}
           height={trackHeight}
+          selectFragment={() => openDropDown(t)}
           startMove={(e) => dragging.onElement('move')(e, t)}
           startScale={(e) => dragging.onElement('scale')(e, t)}
           color={t.origin ? colors.notesSelected : colors.notesBackground}
@@ -128,11 +135,33 @@ export const TracksContent: React.FC<ContentProps> = ({ actionType }) => {
 
 export const Tracks = () => {
   const { count, length, newTrack } = useTracks();
+  const [{ midiFragments }, dispatch] = React.useContext(DawApiContext);
   const timelineHeight = 32;
   const [actionType, setActionType] = React.useState<EditActionType>('select');
+  const [opened, setOpen] = React.useState<MidiRef | undefined>(undefined);
 
   return (
     <div style={styles.container}>
+      {opened && (
+        <div>
+          <select
+            name="fragments"
+            value={opened.fragmentId}
+            onChange={(e) => {
+              dispatch({
+                type: 'SET_MIDI_REF',
+                id: opened,
+                payload: e.target.value
+              });
+              setOpen(undefined);
+            }}
+          >
+            {Object.keys(midiFragments).map((value) => (
+              <option value={value}>{value}</option>
+            ))}
+          </select>{' '}
+        </div>
+      )}
       <section style={styles.header}>
         <button onClick={newTrack}>new track</button>
         <IconButton
@@ -154,7 +183,7 @@ export const Tracks = () => {
           paddingTop={timelineHeight}
         >
           <NoteGrid size={rulerSize} />
-          <TracksContent actionType={actionType} />
+          <TracksContent actionType={actionType} openDropDown={setOpen} />
           <Timeline height={timelineHeight} size={rulerSize} />
         </Svg>
       </section>

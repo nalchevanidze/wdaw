@@ -137,6 +137,12 @@ type RESET = {
   type: 'RESET';
 };
 
+type SET_MIDI_REF = {
+  type: 'SET_MIDI_REF';
+  id: MidiRef,
+  payload: string;
+};
+
 type LOAD = {
   type: 'LOAD';
   payload: DAWState;
@@ -154,6 +160,7 @@ type MidiActions =
   | PAUSE
   | STOP
   | SET_GAIN
+  | SET_MIDI_REF
   | SET_CURRENT_FRAGMENT;
 
 export type EngineAction =
