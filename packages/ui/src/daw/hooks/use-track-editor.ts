@@ -11,7 +11,7 @@ export type UITrack = MidiRef & { origin?: MidiRef };
 
 export const useTrackEditor = () => {
   const { midiRefs, setMidis, setCurrent } = useTracks();
-  const { all, edit, add, clear, dispatcher, select, selectIn, remove } =
+  const { all, edit, add, clear, sync, select, selectIn, remove } =
     useSelection<UITrack>(midiRefs, toId, setMidis);
 
   const move = (time: number) =>
@@ -32,7 +32,7 @@ export const useTrackEditor = () => {
   return {
     tracks: all,
     clear,
-    sync: dispatcher,
+    sync,
     move,
     scale,
     select: (t: UITrack) => {

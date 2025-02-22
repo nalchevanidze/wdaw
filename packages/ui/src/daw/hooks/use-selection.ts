@@ -43,7 +43,7 @@ export const useSelection = <T extends object>(
     });
   };
 
-  const sync = (ts: T[]) =>
+  const syncLocalState = (ts: T[]) =>
     setState((s) => {
       const all = toAll(s);
       if (ts.length !== all.length) {
@@ -86,7 +86,7 @@ export const useSelection = <T extends object>(
 
   useOnDeleteKey(removeSelected, [state.selected, state.inactive]);
 
-  const dispatcher = () => {
+  const sync = () => {
     setState((s) => {
       requestAnimationFrame(() => dispatch([...s.selected, ...s.inactive]));
       return s;
@@ -98,7 +98,7 @@ export const useSelection = <T extends object>(
   const selectIn = (f: (i: T) => IArea) => (area?: Area) =>
     selectWith((t) => area?.isOverlaping(f(t)) ?? false);
 
-  useEffect(() => sync(list), [list.map(toId).join('-')]);
+  useEffect(() => syncLocalState(list), [list.map(toId).join('-')]);
 
   return {
     selectIn,
@@ -109,6 +109,6 @@ export const useSelection = <T extends object>(
     clear,
     remove,
     selected: state.selected,
-    dispatcher
+    sync
   };
 };
