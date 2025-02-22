@@ -54,7 +54,7 @@ const toArea = ({ start, end, trackIndex }: UITrack): IArea => ({
 const normalizeY = (y: number) => Math.floor(y / trackHeight);
 
 const normalize = ({ x, y }: Point): Point => ({
-  x: Math.floor(x),
+  x: toAccuracy(x, accuracy),
   y: normalizeY(y)
 });
 

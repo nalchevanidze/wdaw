@@ -15,7 +15,7 @@ const dispatcher = (
   state: DAWState,
   action: EngineAction
 ): Partial<DAWState> | undefined => {
-  const { currentTrack, tracks, notes } = state;
+  const { currentTrack, tracks, notes, midiRefs } = state;
   const track = tracks[currentTrack];
   const { presetId } = track;
 
@@ -88,6 +88,17 @@ const dispatcher = (
           }
         ]
       };
+    case 'SET_MIDI_REF':
+      return {
+        midiRefs: midiRefs.map((ref) =>
+          ref.trackIndex === action.id.trackIndex &&
+          ref.start === action.id.start &&
+          ref.end === action.id.end &&
+          ref.fragmentId === action.id.fragmentId
+            ? { ...ref, fragmentId: action.payload }
+            : ref
+        )
+      };
     case 'RESET': {
       deleteState();
       return dawState();
@@ -120,6 +131,7 @@ const engineEffects = (
       return engine.startNote(currentTrack, action.payload);
     case 'SET_TIME':
       return engine.setTime(action.payload);
+    case "SET_MIDI_REF":
     case 'SET_MIDI_FRAGMENT':
     case 'SET_MIDI_REFS':
       return engine.setMidis(midiRefs, midiFragments);
