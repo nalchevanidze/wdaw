@@ -33,7 +33,7 @@ export const useTracks = () => {
   const newTrack = () => dispatch({ type: 'NEW_TRACK' });
 
   return {
-    tracks: midiRefs,
+    midiRefs,
     currentTrack,
     setMidis,
     setCurrent,

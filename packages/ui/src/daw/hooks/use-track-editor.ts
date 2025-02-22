@@ -10,8 +10,8 @@ const toId = (t: MidiRef) =>
 export type TrackedTrack = UITrack & { origin?: UITrack };
 
 export const useTrackEditor = () => {
-  const { tracks, setMidis, setCurrent } = useTracks();
-  const s = useSelection<TrackedTrack>(tracks, toId);
+  const { midiRefs, setMidis, setCurrent } = useTracks();
+  const s = useSelection<TrackedTrack>(midiRefs, toId);
 
   const move = (time: number) =>
     s.edit(({ start, end }) => ({
