@@ -11,35 +11,36 @@ export type UITrack = MidiRef & { origin?: MidiRef };
 
 export const useTrackEditor = () => {
   const { midiRefs, setMidis, setCurrent } = useTracks();
-  const s = useSelection<UITrack>(midiRefs, toId);
+  const { all, edit, add, clear, dispatcher, select, selectIn, remove } =
+    useSelection<UITrack>(midiRefs, toId);
 
   const move = (time: number) =>
-    s.edit(({ start, end }) => ({
+    edit(({ start, end }) => ({
       start: start + time,
       end: end + time
     }));
 
   const scale = (time: number) =>
-    s.edit(({ start, end }) => ({
+    edit(({ start, end }) => ({
       start: start,
       end: end + time
     }));
 
   const addAt = ({ x, y }: Point) =>
-    s.add({ trackIndex: y, start: x, end: x + 64, fragmentId: 'bass' });
+    add({ trackIndex: y, start: x, end: x + 64, fragmentId: 'bass' });
 
   return {
-    tracks: s.all,
-    clear: s.clear,
-    sync: s.dispatcher(setMidis),
+    tracks: all,
+    clear,
+    sync: dispatcher(setMidis),
     move,
     scale,
     select: (t: UITrack) => {
-      s.select(t);
+      select(t);
       setCurrent(t.fragmentId);
     },
-    selectIn: s.selectIn,
-    remove: s.remove,
+    selectIn,
+    remove,
     addAt
   };
 };
