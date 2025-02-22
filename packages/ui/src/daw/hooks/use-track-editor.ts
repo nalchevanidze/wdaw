@@ -2,7 +2,7 @@ import { useSelection } from './use-selection';
 import { Area, IArea, Point } from '@wdaw/svg';
 import { useTracks } from './use-tracks';
 import { MidiRef } from '@wdaw/engine';
-import { eq, idString } from '../../common/utils';
+import { idString } from '../../common/utils';
 
 const toId = (t: MidiRef) =>
   idString([t.trackIndex, t.start, t.end, t.fragmentId]);
