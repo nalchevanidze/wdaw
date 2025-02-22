@@ -8,13 +8,12 @@ import { NoteGrid } from '../../components/note-grid';
 import { SelectionArea } from '../../components/selection-area';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { withAccuracy } from '../utils/area';
-import { TrackedTrack, useTrackEditor } from '../hooks/use-track-editor';
+import { UITrack, useTrackEditor } from '../hooks/use-track-editor';
 import { Fragment } from './fragment';
 import { DragingBackground } from '../../components/background';
-import { UITrack, useTracks } from '../hooks/use-tracks';
+import {  useTracks } from '../hooks/use-tracks';
 import { usePanels } from '../hooks/use-panels';
 import { IconButton } from '../../components/icon-button';
-import { Tracked } from '../utils/tracking';
 
 export type EditActionType = 'select' | 'draw';
 
@@ -43,7 +42,7 @@ const styles = {
 const rulerSize = BLOCK;
 const accuracy = rulerSize / 8;
 
-const toArea = ({ start, end, trackIndex }: TrackedTrack): IArea => ({
+const toArea = ({ start, end, trackIndex }: UITrack): IArea => ({
   x1: start,
   x2: end,
   y1: trackIndex * trackHeight,
@@ -85,12 +84,12 @@ export const TracksContent: React.FC<ContentProps> = ({ actionType }) => {
     }
   };
 
-  const mouseDownInactive: HandlerMap<EditActionType, Tracked<UITrack>> = {
+  const mouseDownInactive: HandlerMap<EditActionType, UITrack> = {
     draw: remove,
     select: (t) => (!t.origin ? select(t) : undefined)
   };
 
-  const dragging = useDragging<Tracked<UITrack>>({
+  const dragging = useDragging<UITrack>({
     onMove: {
       select: selectIn(toArea),
       move: withAccuracy(move, accuracy),

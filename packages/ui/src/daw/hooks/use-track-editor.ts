@@ -1,17 +1,17 @@
 import { useSelection } from './use-selection';
 import { Area, IArea, Point } from '@wdaw/svg';
-import { UITrack, useTracks } from './use-tracks';
+import { useTracks } from './use-tracks';
 import { MidiRef } from '@wdaw/engine';
 import { eq, idString } from '../../common/utils';
 
 const toId = (t: MidiRef) =>
   idString([t.trackIndex, t.start, t.end, t.fragmentId]);
 
-export type TrackedTrack = UITrack & { origin?: UITrack };
+export type UITrack = MidiRef & { origin?: MidiRef };
 
 export const useTrackEditor = () => {
   const { midiRefs, setMidis, setCurrent } = useTracks();
-  const s = useSelection<TrackedTrack>(midiRefs, toId);
+  const s = useSelection<UITrack>(midiRefs, toId);
 
   const move = (time: number) =>
     s.edit(({ start, end }) => ({
@@ -25,7 +25,7 @@ export const useTrackEditor = () => {
       end: end + time
     }));
 
-  const selectIn = (f: (i: TrackedTrack) => IArea) => (area?: Area) =>
+  const selectIn = (f: (i: UITrack) => IArea) => (area?: Area) =>
     s.selectWith((t) => area?.isOverlaping(f(t)) ?? false);
 
   const select = (t: UITrack) => {

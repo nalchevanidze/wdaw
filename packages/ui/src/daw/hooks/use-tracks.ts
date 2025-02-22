@@ -2,7 +2,6 @@ import * as React from 'react';
 import { MidiRef } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
 
-export type UITrack = MidiRef
 
 export const useTracks = () => {
   const [{ currentTrack, tracks, midiRefs }, dispatch] =
@@ -11,7 +10,7 @@ export const useTracks = () => {
   const length = Math.max(...midiRefs.map(({ end }) => end));
   const count = tracks.length;
 
-  const setMidis = (ls: UITrack[]) =>
+  const setMidis = (ls: MidiRef[]) =>
     dispatch({
       type: 'SET_MIDI_REFS',
       payload: ls.map(
