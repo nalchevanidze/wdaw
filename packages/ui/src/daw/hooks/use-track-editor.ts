@@ -40,7 +40,7 @@ export const useTrackEditor = () => {
     move,
     scale,
     select,
-    selectIn: s.selectInWith,
+    selectIn: s.selectIn,
     remove: s.remove,
     addAt
   };
