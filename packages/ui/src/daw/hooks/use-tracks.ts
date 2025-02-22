@@ -2,10 +2,7 @@ import * as React from 'react';
 import { MidiRef } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
 
-
-export type UITrack = MidiRef & {
-  selected?: boolean;
-};
+export type UITrack = MidiRef
 
 export const useTracks = () => {
   const [{ currentTrack, tracks, midiRefs }, dispatch] =

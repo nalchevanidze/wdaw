@@ -14,6 +14,7 @@ import { DragingBackground } from '../../components/background';
 import { UITrack, useTracks } from '../hooks/use-tracks';
 import { usePanels } from '../hooks/use-panels';
 import { IconButton } from '../../components/icon-button';
+import { Tracked } from '../utils/tracking';
 
 export type EditActionType = 'select' | 'draw';
 
@@ -84,12 +85,12 @@ export const TracksContent: React.FC<ContentProps> = ({ actionType }) => {
     }
   };
 
-  const mouseDownInactive: HandlerMap<EditActionType, UITrack> = {
+  const mouseDownInactive: HandlerMap<EditActionType, Tracked<UITrack>> = {
     draw: remove,
-    select: (t) => (!isSelected(t) ? select(t) : undefined)
+    select: (t) => (!t.origin ? select(t) : undefined)
   };
 
-  const dragging = useDragging<UITrack>({
+  const dragging = useDragging<Tracked<UITrack>>({
     onMove: {
       select: selectIn(toArea),
       move: withAccuracy(move, accuracy),
@@ -113,7 +114,7 @@ export const TracksContent: React.FC<ContentProps> = ({ actionType }) => {
           height={trackHeight}
           startMove={(e) => dragging.onElement('move')(e, t)}
           startScale={(e) => dragging.onElement('scale')(e, t)}
-          color={t.selected ? colors.notesSelected : colors.notesBackground}
+          color={t.origin ? colors.notesSelected : colors.notesBackground}
         />
       ))}
       {panels.map(({ name, index, active, gain, setGain, setTrack }) => (
