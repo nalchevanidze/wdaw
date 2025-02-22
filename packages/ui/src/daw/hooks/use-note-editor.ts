@@ -8,7 +8,7 @@ const noteId = (note: UINote) => idString([note.x, note.y, note.length]);
 
 export const useNoteEditor = () => {
   const { notes, syncNotes } = useMidiFragment();
-  const { all, add, clear, edit, selectWith, remove, dispatcher, select } =
+  const { all, add, clear, edit, remove, dispatcher, select, selectIn } =
     useSelection(notes, noteId);
 
   const scale = (moveX: number) =>
@@ -19,13 +19,10 @@ export const useNoteEditor = () => {
 
   const addAt = ({ x, y }: Point) => add({ length: 1, x, y });
 
-  const selectIn = (area?: Area) =>
-    selectWith((note) => area?.isOverlaping(toArea(note)) ?? false);
-
   return {
     all,
     clear,
-    selectIn,
+    selectIn: selectIn(toArea),
     remove,
     select,
     addAt,

@@ -9,6 +9,7 @@ import {
 } from '../utils/tracking';
 import { eq, partition, Predicate } from '../../common/utils';
 import { useOnDeleteKey } from './use-on-delete-key';
+import { Area, IArea } from '@wdaw/svg';
 
 type Selected<T extends object> = {
   selected: Tracked<T>[];
@@ -94,15 +95,18 @@ export const useSelection = <T extends object>(
 
   const select = (i: T) => selectWith((n) => n == i);
 
+  const selectIn = (f: (i: T) => IArea) => (area?: Area) =>
+    selectWith((t) => area?.isOverlaping(f(t)) ?? false);
+
   useEffect(() => sync(list), [list.map(toHash).join('-')]);
 
   return {
+    selectIn,
     select,
     add,
     edit,
     all: toAll(state),
     clear,
-    selectWith,
     remove,
     selected: state.selected,
     dispatcher

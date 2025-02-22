@@ -25,9 +25,6 @@ export const useTrackEditor = () => {
       end: end + time
     }));
 
-  const selectIn = (f: (i: UITrack) => IArea) => (area?: Area) =>
-    s.selectWith((t) => area?.isOverlaping(f(t)) ?? false);
-
   const select = (t: UITrack) => {
     s.select(t);
     setCurrent(t.fragmentId);
@@ -43,7 +40,7 @@ export const useTrackEditor = () => {
     move,
     scale,
     select,
-    selectIn,
+    selectIn: s.selectInWith,
     remove: s.remove,
     addAt
   };
