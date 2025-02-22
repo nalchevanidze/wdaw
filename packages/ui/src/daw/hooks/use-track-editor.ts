@@ -25,11 +25,6 @@ export const useTrackEditor = () => {
       end: end + time
     }));
 
-  const select = (t: UITrack) => {
-    s.select(t);
-    setCurrent(t.fragmentId);
-  };
-
   const addAt = ({ x, y }: Point) =>
     s.add({ trackIndex: y, start: x, end: x + 64, fragmentId: 'bass' });
 
@@ -39,7 +34,10 @@ export const useTrackEditor = () => {
     sync: s.dispatcher(setMidis),
     move,
     scale,
-    select,
+    select: (t: UITrack) => {
+      s.select(t);
+      setCurrent(t.fragmentId);
+    },
     selectIn: s.selectIn,
     remove: s.remove,
     addAt
