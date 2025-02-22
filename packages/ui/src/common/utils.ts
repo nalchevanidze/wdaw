@@ -10,3 +10,8 @@ export const partition = <T extends object>(ts: T[], f: Predicate<T>) => {
 };
 
 export const idString = (t: (number | string)[]) => t.join(':');
+
+export const eq =
+  <T>(a: T) =>
+  (b: T) =>
+    a === b;
