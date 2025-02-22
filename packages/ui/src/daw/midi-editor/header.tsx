@@ -29,6 +29,8 @@ type Props = {
 export const Header: React.FC<Props> = ({ label, actionType, manu }) => {
   const [{ midiFragments }, dispatch] = React.useContext(DawApiContext);
 
+  const options = Object.keys(midiFragments);
+
   return (
     <section style={styles.container}>
       <IconButton
@@ -56,7 +58,8 @@ export const Header: React.FC<Props> = ({ label, actionType, manu }) => {
             });
           }}
         >
-          {Object.keys(midiFragments).map((value) => (
+          <option value={`fragment-${options.length}`} >create new</option>
+          {options.map((value) => (
             <option value={value}>{value}</option>
           ))}
         </select>

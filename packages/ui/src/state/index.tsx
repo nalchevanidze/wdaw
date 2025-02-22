@@ -15,15 +15,29 @@ const dispatcher = (
   state: DAWState,
   action: EngineAction
 ): Partial<DAWState> | undefined => {
-  const { currentTrack, tracks, notes, midiRefs } = state;
+  const { currentTrack, tracks, notes, midiRefs, midiFragments } = state;
   const track = tracks[currentTrack];
   const { presetId } = track;
 
   switch (action.type) {
     case 'SET_CURRENT_TRACK':
       return { currentTrack: action.payload };
-    case 'SET_CURRENT_FRAGMENT':
-      return { currentFragment: action.payload };
+    case 'SET_CURRENT_FRAGMENT': {
+      const exists = Boolean(midiFragments[action.payload]);
+
+      return {
+        currentFragment: action.payload,
+        midiFragments: exists
+          ? midiFragments
+          : {
+              ...midiFragments,
+              [action.payload]: {
+                notes: [],
+                loop: [0, 128]
+              }
+            }
+      };
+    }
     case 'SET_BPM':
       return { bpm: action.payload };
     case 'SET_SEQUENCE':
@@ -131,7 +145,7 @@ const engineEffects = (
       return engine.startNote(currentTrack, action.payload);
     case 'SET_TIME':
       return engine.setTime(action.payload);
-    case "SET_MIDI_REF":
+    case 'SET_MIDI_REF':
     case 'SET_MIDI_FRAGMENT':
     case 'SET_MIDI_REFS':
       return engine.setMidis(midiRefs, midiFragments);
