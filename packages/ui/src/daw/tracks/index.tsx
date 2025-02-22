@@ -74,8 +74,18 @@ export const TracksContent: React.FC<ContentProps> = ({
   actionType,
   openDropDown
 }) => {
-  const { tracks, clear, move, scale, select, selectIn, sync, remove, addAt } =
-    useTrackEditor();
+  const {
+    tracks,
+    clear,
+    move,
+    scale,
+    setCurrent,
+    select,
+    selectIn,
+    sync,
+    remove,
+    addAt
+  } = useTrackEditor();
   const { panels } = usePanels();
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
@@ -84,7 +94,7 @@ export const TracksContent: React.FC<ContentProps> = ({
       return 'scale';
     },
     select: () => {
-      openDropDown(undefined)
+      openDropDown(undefined);
       clear();
       return 'select';
     }
@@ -95,6 +105,7 @@ export const TracksContent: React.FC<ContentProps> = ({
     select: (t) => {
       if (t.origin) return;
 
+      setCurrent(t.fragmentId);
       select(t);
       openDropDown(t);
     }

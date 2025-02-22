@@ -36,10 +36,8 @@ export const useTrackEditor = () => {
     sync,
     move,
     scale,
-    select: (t: UITrack) => {
-      select(t);
-      setCurrent(t.fragmentId);
-    },
+    select,
+    setCurrent,
     selectIn,
     remove,
     addAt
