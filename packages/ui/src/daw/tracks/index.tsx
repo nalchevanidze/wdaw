@@ -40,11 +40,11 @@ const styles = {
     overflowX: 'scroll'
   },
   selectFragment: {
-   borderRadius: "5px",
-   padding: "5px",
-   border:" 1px solid gray",
-   display: "flex",
-   gap: "10px"
+    borderRadius: '5px',
+    padding: '5px',
+    border: ' 1px solid gray',
+    display: 'flex',
+    gap: '10px'
   }
 } as const;
 
@@ -67,7 +67,7 @@ const normalize = ({ x, y }: Point): Point => ({
 
 type ContentProps = {
   actionType: EditActionType;
-  openDropDown(ref: MidiRef): void;
+  openDropDown(ref?: MidiRef): void;
 };
 
 export const TracksContent: React.FC<ContentProps> = ({
@@ -84,6 +84,7 @@ export const TracksContent: React.FC<ContentProps> = ({
       return 'scale';
     },
     select: () => {
+      openDropDown(undefined)
       clear();
       return 'select';
     }
@@ -91,7 +92,12 @@ export const TracksContent: React.FC<ContentProps> = ({
 
   const mouseDownInactive: HandlerMap<EditActionType, UITrack> = {
     draw: remove,
-    select: (t) => (!t.origin ? select(t) : undefined)
+    select: (t) => {
+      if (t.origin) return;
+
+      select(t);
+      openDropDown(t);
+    }
   };
 
   const dragging = useDragging<UITrack>({
@@ -116,7 +122,6 @@ export const TracksContent: React.FC<ContentProps> = ({
           end={t.end}
           fragmentId={t.fragmentId}
           height={trackHeight}
-          selectFragment={() => openDropDown(t)}
           startMove={(e) => dragging.onElement('move')(e, t)}
           startScale={(e) => dragging.onElement('scale')(e, t)}
           color={t.origin ? colors.notesSelected : colors.notesBackground}

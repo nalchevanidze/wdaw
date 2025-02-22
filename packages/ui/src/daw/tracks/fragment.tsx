@@ -11,7 +11,6 @@ type Props = {
   height: number;
   startMove?(event: MEvent): void;
   startScale?(event: MEvent): void;
-  selectFragment(): void;
   color: string;
 };
 
@@ -23,8 +22,7 @@ export const Fragment: React.FC<Props> = ({
   startScale,
   y,
   color,
-  height,
-  selectFragment
+  height
 }) => {
   const { notes, loopStart, loopWidth } = useMidiFragment(fragmentId);
 
@@ -58,7 +56,19 @@ export const Fragment: React.FC<Props> = ({
           <rect fill={color} opacity={0.4} width="100%" height="100%" />
         </pattern>
       </defs>
-
+      <text
+        color={colors.black}
+        x={start + 4}
+        y={y + height / 3}
+        fontSize="8px"
+        textAnchor="start"
+        fontFamily="sans-serif"
+        opacity={0.6}
+        width={midiWith}
+        cursor="pointer"
+      >
+        {fragmentId}
+      </text>
       <rect
         y={y}
         onMouseDown={(event) => startMove?.(event)}
@@ -79,20 +89,6 @@ export const Fragment: React.FC<Props> = ({
         onMouseDown={(event) => startScale?.(event)}
         style={{ cursor: 'e-resize' }}
       />
-      <text
-        color={colors.black}
-        x={start + 4}
-        y={y + height / 3}
-        fontSize="8px"
-        textAnchor="start"
-        fontFamily="sans-serif"
-        opacity={0.6}
-        width={midiWith}
-        onClick={selectFragment}
-        cursor="pointer"
-      >
-        {fragmentId}
-      </text>
     </g>
   );
 };
