@@ -7,7 +7,7 @@ import {
   Mixed,
   Tracked
 } from '../utils/tracking';
-import { partition, Predicate } from '../../common/utils';
+import { eq, partition, Predicate } from '../../common/utils';
 import { useOnDeleteKey } from './use-on-delete-key';
 
 type Selected<T extends object> = {
@@ -22,7 +22,11 @@ const toAll = <T extends object>(s: Selected<T>): Mixed<T>[] => [
 
 type ToId<T> = (i: T) => string | number;
 
-export const useSelection = <T extends object>(list: T[], toId: ToId<T>, toHash: ToId<T> = toId) => {
+export const useSelection = <T extends object>(
+  list: T[],
+  toId: ToId<T>,
+  toHash: ToId<T> = toId
+) => {
   const [state, setState] = useState<Selected<T>>({
     selected: [],
     inactive: list
@@ -62,8 +66,8 @@ export const useSelection = <T extends object>(list: T[], toId: ToId<T>, toHash:
 
   const clear = () => modify(toAll);
   const removeSelected = () => modify(({ inactive }) => inactive);
-  const removeWith = (f: Predicate<T>) =>
-    modify((s) => toAll(s).filter((t) => !f(t)));
+
+  const remove = (i: T) => modify((s) => toAll(s).filter((t) => t !== i));
 
   const selectWith = (f: Predicate<T>) => setPartition(toAll, f);
 
@@ -87,16 +91,16 @@ export const useSelection = <T extends object>(list: T[], toId: ToId<T>, toHash:
       return s;
     });
   };
-  
-  useEffect(() => sync(list), [list.map(toHash).join("-")]);
-  
+
+  useEffect(() => sync(list), [list.map(toHash).join('-')]);
+
   return {
     add,
     edit,
     all: toAll(state),
     clear,
     selectWith,
-    removeWith,
+    remove,
     selected: state.selected,
     dispatcher
   };

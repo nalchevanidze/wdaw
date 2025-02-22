@@ -33,8 +33,6 @@ export const useTrackEditor = () => {
     setCurrent(t.fragmentId);
   };
 
-  const remove = (t: UITrack) => s.removeWith(eq(t));
-
   const addAt = ({ x, y }: Point) =>
     s.add({ trackIndex: y, start: x, end: x + 64, fragmentId: 'bass' });
 
@@ -46,7 +44,7 @@ export const useTrackEditor = () => {
     scale,
     select,
     selectIn,
-    remove,
+    remove: s.remove,
     addAt
   };
 };
