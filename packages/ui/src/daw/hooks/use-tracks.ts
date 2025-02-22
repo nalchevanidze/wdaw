@@ -28,6 +28,7 @@ export const useTracks = () => {
   const newTrack = () => dispatch({ type: 'NEW_TRACK' });
 
   return {
+    tracks,
     midiRefs,
     currentTrack,
     setMidis,

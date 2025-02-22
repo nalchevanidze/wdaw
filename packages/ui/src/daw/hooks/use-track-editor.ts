@@ -10,15 +10,15 @@ const toId = (t: MidiRef) =>
 export type UITrack = MidiRef & { origin?: MidiRef };
 
 export const useTrackEditor = () => {
-  const { midiRefs, setMidis, setCurrent } = useTracks();
+  const { midiRefs, setMidis, setCurrent, tracks } = useTracks();
   const { all, edit, add, clear, sync, select, selectIn, remove } =
     useSelection<UITrack>(midiRefs, toId, setMidis);
 
   const move = (moveX: number, moveY: number) =>
-    edit(({ start, end ,trackIndex }) => ({
-      start: start + moveX,
+    edit(({ start, end, trackIndex }) => ({
+      start: Math.max(start + moveX, 0),
       end: end + moveX,
-      trackIndex: trackIndex + moveY
+      trackIndex: Math.min(tracks.length - 1, Math.max(trackIndex + moveY, 0))
     }));
 
   const scale = (time: number) =>
