@@ -38,6 +38,13 @@ const styles = {
   },
   canvas: {
     overflowX: 'scroll'
+  },
+  selectFragment: {
+   borderRadius: "5px",
+   padding: "5px",
+   border:" 1px solid gray",
+   display: "flex",
+   gap: "10px"
   }
 } as const;
 
@@ -142,26 +149,6 @@ export const Tracks = () => {
 
   return (
     <div style={styles.container}>
-      {opened && (
-        <div>
-          <select
-            name="fragments"
-            value={opened.fragmentId}
-            onChange={(e) => {
-              dispatch({
-                type: 'SET_MIDI_REF',
-                id: opened,
-                payload: e.target.value
-              });
-              setOpen(undefined);
-            }}
-          >
-            {Object.keys(midiFragments).map((value) => (
-              <option value={value}>{value}</option>
-            ))}
-          </select>{' '}
-        </div>
-      )}
       <section style={styles.header}>
         <button onClick={newTrack}>new track</button>
         <IconButton
@@ -174,6 +161,28 @@ export const Tracks = () => {
           color={colors.button(actionType === 'select')}
           onClick={() => setActionType('select')}
         />
+        {opened && (
+          <div style={styles.selectFragment}>
+            <label htmlFor="select-fragment"> Select Fragment</label>
+            <select
+              id="select-fragment"
+              name="fragments"
+              value={opened.fragmentId}
+              onChange={({ target }) => {
+                dispatch({
+                  type: 'SET_MIDI_REF',
+                  id: opened,
+                  payload: target.value
+                });
+                setOpen(undefined);
+              }}
+            >
+              {Object.keys(midiFragments).map((value) => (
+                <option value={value}>{value}</option>
+              ))}
+            </select>
+          </div>
+        )}
       </section>
       <section style={styles.canvas}>
         <Svg
