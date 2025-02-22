@@ -7,7 +7,7 @@ import { Panel } from './panel';
 import { NoteGrid } from '../../components/note-grid';
 import { SelectionArea } from '../../components/selection-area';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
-import { withAccuracy } from '../utils/area';
+import { toAccuracy, withAccuracy } from '../utils/area';
 import { UITrack, useTrackEditor } from '../hooks/use-track-editor';
 import { Fragment } from './fragment';
 import { DragingBackground } from '../../components/background';
@@ -49,9 +49,11 @@ const toArea = ({ start, end, trackIndex }: UITrack): IArea => ({
   y2: (trackIndex + 1) * trackHeight
 });
 
+const normalizeY = (y: number) => Math.floor(y / trackHeight);
+
 const normalize = ({ x, y }: Point): Point => ({
   x: Math.floor(x),
-  y: Math.floor(y / trackHeight)
+  y: normalizeY(y)
 });
 
 type ContentProps = {
@@ -59,17 +61,8 @@ type ContentProps = {
 };
 
 export const TracksContent: React.FC<ContentProps> = ({ actionType }) => {
-  const {
-    tracks,
-    clear,
-    move,
-    scale,
-    select,
-    selectIn,
-    sync,
-    remove,
-    addAt
-  } = useTrackEditor();
+  const { tracks, clear, move, scale, select, selectIn, sync, remove, addAt } =
+    useTrackEditor();
   const { panels } = usePanels();
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
@@ -91,7 +84,7 @@ export const TracksContent: React.FC<ContentProps> = ({ actionType }) => {
   const dragging = useDragging<UITrack>({
     onMove: {
       select: selectIn(toArea),
-      move: withAccuracy(move, accuracy),
+      move: (x, y) => move(toAccuracy(x, accuracy), normalizeY(y)),
       scale: withAccuracy(scale, accuracy)
     },
     onEnd: (mode) => (mode !== 'select' ? sync() : undefined),

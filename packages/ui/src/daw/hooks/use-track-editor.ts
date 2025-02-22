@@ -14,10 +14,11 @@ export const useTrackEditor = () => {
   const { all, edit, add, clear, sync, select, selectIn, remove } =
     useSelection<UITrack>(midiRefs, toId, setMidis);
 
-  const move = (time: number) =>
-    edit(({ start, end }) => ({
-      start: start + time,
-      end: end + time
+  const move = (moveX: number, moveY: number) =>
+    edit(({ start, end ,trackIndex }) => ({
+      start: start + moveX,
+      end: end + moveX,
+      trackIndex: trackIndex + moveY
     }));
 
   const scale = (time: number) =>
