@@ -178,7 +178,7 @@ export const Tracks = () => {
           onClick={() => setActionType('select')}
         />
         <div>
-          <label htmlFor="track-name">rename track</label>
+          <label htmlFor="track-name">Current Track: </label>
           <input
             id="track-name"
             type="text"
