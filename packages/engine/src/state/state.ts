@@ -102,10 +102,10 @@ export const engineState = (): EngineState => {
   ];
 
   const tracks: TrackState[] = [
-    { name: 'piano', presetId: 'pluck', gain: 0.4 },
-    { name: 'bass', presetId: 'bass', gain: 0.3 },
-    { name: 'kick', presetId: 'kick', gain: 1 },
-    { name: 'clap', presetId: 'clap', gain: 0.3 }
+    { name: 'Piano', presetId: 'pluck', gain: 0.4 },
+    { name: 'Bass', presetId: 'bass', gain: 0.3 },
+    { name: 'Kick', presetId: 'kick', gain: 1 },
+    { name: 'Clap', presetId: 'clap', gain: 0.3 }
   ];
 
   return {

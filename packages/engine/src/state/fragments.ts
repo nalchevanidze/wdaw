@@ -6,7 +6,7 @@ export const fid = {
   clap1: makeId(),
   clap2: makeId(),
   clapFast: makeId(),
-  bass: "bass",
+  bass: makeId(),
   kick: makeId(),
 }
 
@@ -33,7 +33,7 @@ export const genMidiFragments = (): MidiFragments => ({
       { length: 32, id: 'F#2', at: 224 }
     ]
   },
-  bass: {
+  [fid.bass]: {
     name: 'Bass',
     loop: [0, 128],
     notes: [
