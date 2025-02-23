@@ -100,8 +100,6 @@ export const engineState = (): EngineState => {
     }
   ];
 
-  console.log(midiRefs);
-
   const tracks: TrackState[] = [
     { name: 'Piano', presetId: pid.pluck, gain: 0.4 },
     { name: 'Bass', presetId: pid.bass, gain: 0.3 },
