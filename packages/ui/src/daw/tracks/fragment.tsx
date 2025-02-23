@@ -24,7 +24,7 @@ export const Fragment: React.FC<Props> = ({
   color,
   height
 }) => {
-  const { notes, loopStart, loopWidth } = useMidiFragment(fragmentId);
+  const { name, notes, loopStart, loopWidth } = useMidiFragment(fragmentId);
 
   const id = React.useId();
   const midiWith = end - start;
@@ -67,7 +67,7 @@ export const Fragment: React.FC<Props> = ({
         width={midiWith}
         cursor="pointer"
       >
-        {fragmentId}
+        {name}
       </text>
       <rect
         y={y}

@@ -28,12 +28,24 @@ type Props = {
 };
 
 export const Header: React.FC<Props> = ({ label, actionType, manu }) => {
-  const [{ midiFragments , currentFragment }, dispatch] = React.useContext(DawApiContext);
+  const [{ midiFragments, currentFragment }, dispatch] =
+    React.useContext(DawApiContext);
 
   const options = Object.keys(midiFragments);
 
   return (
     <section style={styles.container}>
+      <TextInput
+        label="Rename"
+        value={label}
+        onChange={(name) =>
+          dispatch({
+            type: 'SET_MIDI_FRAGMENT',
+            id: currentFragment,
+            payload: { name }
+          })
+        }
+      />
       <IconButton
         id="draw"
         color={colors.button(actionType === 'draw')}
@@ -45,7 +57,6 @@ export const Header: React.FC<Props> = ({ label, actionType, manu }) => {
         onClick={() => manu('select')}
       />
       <p style={styles.label}>{label}</p>
-
       <div>
         <label htmlFor="midi-fragment">Fragment</label>
         <select
@@ -65,13 +76,6 @@ export const Header: React.FC<Props> = ({ label, actionType, manu }) => {
           ))}
         </select>
       </div>
-      <TextInput
-        label="Rename"
-        value={label}
-        onChange={(name) =>
-          dispatch({ type: 'SET_MIDI_FRAGMENT', id: currentFragment, payload: { name } })
-        }
-      />
     </section>
   );
 };

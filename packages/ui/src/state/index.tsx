@@ -32,6 +32,7 @@ const dispatcher = (
           : {
               ...midiFragments,
               [action.payload]: {
+                name: action.payload,
                 notes: [],
                 loop: [0, 64]
               }

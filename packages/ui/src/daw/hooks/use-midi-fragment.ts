@@ -35,7 +35,7 @@ export const useMidiFragment = (targetId?: string) => {
   const syncLoop = (loop: [number, number]) =>
     dispatch({ id, type: 'SET_MIDI_FRAGMENT', payload: { loop } });
 
-  const { notes, loop } = midiFragments[id];
+  const { notes, loop, name } = midiFragments[id];
 
   const uiNotes = React.useMemo<UINote[]>(() => fromNotes(notes), [notes]);
 
@@ -44,6 +44,7 @@ export const useMidiFragment = (targetId?: string) => {
   const loopWidth = loopEnd - loopStart;
 
   return {
+    name,
     loopStart,
     loopEnd,
     loopWidth,
