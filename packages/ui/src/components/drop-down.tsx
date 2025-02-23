@@ -24,7 +24,7 @@ export const DropDown: React.FC<Props> = ({
         value={value}
         onChange={({ target }) => onChange(target.value)}
       >
-        {options.map(({ name, id }) => (
+        {options.map(({ id, name }) => (
           <option key={id} value={id}>
             {name}
           </option>

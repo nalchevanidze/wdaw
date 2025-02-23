@@ -1,14 +1,12 @@
-import { SynthEngine, TrackState } from '@wdaw/engine';
+import { SynthEngine } from '@wdaw/engine';
 import {
   deleteState,
   mapPreset,
   mapTrack,
-  mapTracks,
   saveState,
   setMidiFragment
 } from './utils';
 import { DAWState, EngineAction } from './types';
-import { idString } from '../common/utils';
 import { dawState } from './defs';
 
 const dispatcher = (

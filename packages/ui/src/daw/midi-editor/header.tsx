@@ -9,11 +9,12 @@ import { useMidiFragment } from '../hooks/use-midi-fragment';
 
 const styles = {
   container: {
+    padding: "5px",
     display: 'flex',
     background: colors.background,
-    padding: '2px',
     border: '0.05em solid #BBB',
-    alignItems: 'center'
+    alignItems: 'center',
+    gap: '5px'
   },
   label: {
     margin: '0px 16px',
@@ -33,10 +34,13 @@ export const Header: React.FC<Props> = ({ actionType, manu }) => {
 
   return (
     <section style={styles.container}>
-      <NameInput
-        value={name}
-        onChange={(name) => setFragment({ name })}
+      <DropDown
+        label="Fragment"
+        value={id}
+        options={options}
+        onChange={setCurrent}
       />
+      <NameInput value={name} onChange={(name) => setFragment({ name })} />
       <IconButton
         id="draw"
         color={colors.button(actionType === 'draw')}
@@ -46,12 +50,6 @@ export const Header: React.FC<Props> = ({ actionType, manu }) => {
         id="select"
         color={colors.button(actionType === 'select')}
         onClick={() => manu('select')}
-      />
-      <DropDown
-        label="Fragment"
-        value={id}
-        options={options}
-        onChange={setCurrent}
       />
     </section>
   );
