@@ -43,7 +43,13 @@ export const useMidiFragment = (targetId?: string) => {
 
   const loopWidth = loopEnd - loopStart;
 
+  const options = Object.entries(midiFragments).map(([id, { name }]) => ({
+    id,
+    name
+  }));
+
   return {
+    options,
     name,
     loopStart,
     loopEnd,
@@ -52,6 +58,7 @@ export const useMidiFragment = (targetId?: string) => {
     loop,
     id,
     syncNotes,
-    syncLoop
+    syncLoop,
+    dispatch
   };
 };

@@ -29,14 +29,7 @@ type Props = {
 };
 
 export const Header: React.FC<Props> = ({ actionType, manu }) => {
-  const [{ midiFragments, currentFragment }, dispatch] =
-    React.useContext(DawApiContext);
-  const { name, id } = useMidiFragment();
-
-  const options = Object.entries(midiFragments).map(([id, { name }]) => ({
-    id,
-    name
-  }));
+  const { name, id, options, dispatch } = useMidiFragment();
 
   return (
     <section style={styles.container}>
@@ -44,11 +37,7 @@ export const Header: React.FC<Props> = ({ actionType, manu }) => {
         label="Rename"
         value={name}
         onChange={(name) =>
-          dispatch({
-            type: 'SET_MIDI_FRAGMENT',
-            id: currentFragment,
-            payload: { name }
-          })
+          dispatch({ type: 'SET_MIDI_FRAGMENT', id, payload: { name } })
         }
       />
       <IconButton
