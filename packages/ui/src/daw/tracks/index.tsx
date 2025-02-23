@@ -3,7 +3,7 @@ import { Timeline } from './timeline';
 import { BLOCK } from '../../common/units';
 import { IArea, Point, Svg } from '@wdaw/svg';
 import { colors } from '../../styles';
-import { Panel } from './panel';
+import { Panel } from './channel';
 import { NoteGrid } from '../../components/note-grid';
 import { SelectionArea } from '../../components/selection-area';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
