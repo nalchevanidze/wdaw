@@ -43,13 +43,13 @@ export const newPreset = (name: string) => ({
 });
 
 export const pid = {
-  prelude: makeId(),
-  pluck: makeId(),
-  razor: makeId(),
-  wind: makeId(),
-  kick: makeId(),
-  bass: makeId(),
-  clap: makeId()
+  prelude: 'm7i2w4o43or7y9wl36f',
+  pluck: 'm7i2w4o4vcyn35ysj6k',
+  razor: 'm7i2w4o43kexh9lnmn',
+  wind: 'm7i2w4o4iqyqo1mtqng',
+  kick: 'm7i2w4o4yagm4uqupe',
+  bass: 'm7i2w4o4bhypc0dvihe',
+  clap: 'm7i2w4o4x7jrffwgwo'
 };
 
 export const genPresets = (): Preset[] => [

@@ -1,5 +1,4 @@
-import { Presets, Midi, MidiFragments } from '../common/types';
-import { makeId } from '../utils/id';
+import { Presets, MidiFragments } from '../common/types';
 import { fid, genMidiFragments } from './fragments';
 import { genPresets, pid } from './presets';
 
@@ -37,69 +36,71 @@ export const engineState = (): EngineState => {
 
   const midiRefs: MidiRef[] = [
     {
-      id: makeId(),
+      id: 'm7i2xl12uoox91ahk8f',
       trackIndex: 0,
       start: 512,
       end: 1024,
       fragmentId: fid.piano
     },
     {
-      id: makeId(),
+      id: 'm7i2xl124ucbq33ep0m',
       trackIndex: 1,
       start: 256,
       end: 1024,
       fragmentId: fid.bass
     },
     {
-      id: makeId(),
+      id: 'm7i2xl1277uszw9el7e',
       trackIndex: 2,
       start: 0,
       end: 1024,
       fragmentId: fid.kick
     },
     {
-      id: makeId(),
+      id: 'm7i2xl12sdwtq69wct8',
       trackIndex: 3,
       start: 128,
       end: 192,
       fragmentId: fid.clap1
     },
     {
-      id: makeId(),
+      id: 'm7i2xl123b4eichq2sh',
       trackIndex: 3,
       start: 192,
       end: 256,
       fragmentId: fid.clapFast
     },
     {
-      id: makeId(),
+      id: 'm7i2xl127dj7x642flh',
       trackIndex: 3,
       start: 384,
       end: 448,
       fragmentId: fid.clap2
     },
     {
-      id: makeId(),
+      id: 'm7i2xl1269jl3gq8jia',
       trackIndex: 3,
       start: 448,
       end: 512,
       fragmentId: fid.clapFast
     },
     {
-      id: makeId(),
+      id: 'm7i2xl121ysrazelthr',
       trackIndex: 3,
       start: 768,
       end: 960,
       fragmentId: fid.clap2
     },
     {
-      id: makeId(),
+      id: 'm7i2xl12utl2b2q91af',
       trackIndex: 3,
       start: 960,
       end: 1024,
       fragmentId: fid.clapFast
     }
   ];
+
+  console.log(midiRefs);
 
   const tracks: TrackState[] = [
     { name: 'Piano', presetId: pid.pluck, gain: 0.4 },
