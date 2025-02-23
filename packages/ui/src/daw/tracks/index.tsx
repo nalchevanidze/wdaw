@@ -178,7 +178,6 @@ export const Tracks = () => {
           color={colors.button(actionType === 'select')}
           onClick={() => setActionType('select')}
         />
-
         <TextInput
           label="Current Track"
           value={current.name}
