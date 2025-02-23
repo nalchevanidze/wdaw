@@ -17,7 +17,7 @@ export const DropDown: React.FC<Props> = ({
 
   return (
     <div>
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id}>{label}: </label>
       <select
         id={id}
         name={label}

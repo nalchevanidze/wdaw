@@ -15,7 +15,6 @@ import { useTracks } from '../hooks/use-tracks';
 import { usePanels } from '../hooks/use-panels';
 import { IconButton } from '../../components/icon-button';
 import { MidiRef } from '@wdaw/engine';
-import { DawApiContext } from '../../context/state';
 import { NameInput } from '../../components/name-input';
 import { DropDown } from '../../components/drop-down';
 import { useMidiFragment } from '../hooks/use-midi-fragment';
@@ -34,6 +33,15 @@ const styles = {
     alignItems: 'center',
     gap: '5px'
   },
+  bar: {
+    display: 'flex',
+    background: colors.background,
+    padding: '4px',
+    border: '1px solid gray',
+    alignItems: 'center',
+    gap: '10px',
+    borderRadius: '5px',
+  },
   container: {
     width: '100%',
     height: 'auto',
@@ -42,13 +50,6 @@ const styles = {
   canvas: {
     overflowX: 'scroll'
   },
-  selectFragment: {
-    borderRadius: '5px',
-    padding: '5px',
-    border: ' 1px solid gray',
-    display: 'flex',
-    gap: '10px'
-  }
 } as const;
 
 const rulerSize = BLOCK;
@@ -173,7 +174,22 @@ export const Tracks = () => {
   return (
     <div style={styles.container}>
       <section style={styles.header}>
-        <button onClick={newTrack}>new track</button>
+        <div style={styles.bar}>
+          <div>
+            {current.name}
+          </div>
+          <NameInput
+            value={current.name}
+            onChange={(name) =>
+              dispatch({
+                type: 'SET_TRACK',
+                id: currentTrack,
+                payload: { name }
+              })
+            }
+          />
+          <button onClick={newTrack}>New</button>
+        </div>
         <IconButton
           id="draw"
           onClick={() => setActionType('draw')}
@@ -184,16 +200,11 @@ export const Tracks = () => {
           color={colors.button(actionType === 'select')}
           onClick={() => setActionType('select')}
         />
-        <NameInput
-          value={current.name}
-          onChange={(name) =>
-            dispatch({ type: 'SET_TRACK', id: currentTrack, payload: { name } })
-          }
-        />
+
         {opened && (
-          <div style={styles.selectFragment}>
+          <div style={styles.bar}>
             <DropDown
-              label="Select Fragment"
+              label="Fragment"
               value={opened.fragmentId ?? ''}
               options={options}
               onChange={(fragmentId) => {
