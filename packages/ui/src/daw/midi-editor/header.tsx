@@ -34,7 +34,6 @@ export const Header: React.FC<Props> = ({ actionType, manu }) => {
   return (
     <section style={styles.container}>
       <NameInput
-        label="Rename"
         value={name}
         onChange={(name) => setFragment({ name })}
       />
