@@ -5,7 +5,7 @@ import { makeId, MidiRef } from '@wdaw/engine';
 import { idString } from '../../common/utils';
 
 const toId = (t: MidiRef) =>
-  idString([t.trackIndex, t.start, t.end, t.fragmentId]);
+  idString([t.trackIndex, t.start, t.end, t.fragmentId ?? 'undefined']);
 
 export type UITrack = MidiRef & { origin?: MidiRef };
 
@@ -33,7 +33,6 @@ export const useTrackEditor = () => {
       trackIndex: y,
       start: x,
       end: x + 64,
-      fragmentId: 'bass'
     });
 
   return {

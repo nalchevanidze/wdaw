@@ -6,7 +6,7 @@ import { useMidiFragment } from '../hooks/use-midi-fragment';
 type Props = {
   start: number;
   end: number;
-  fragmentId: string;
+  fragmentId?: string;
   y: number;
   height: number;
   startMove?(event: MEvent): void;
@@ -43,7 +43,7 @@ export const Fragment: React.FC<Props> = ({
           x={loopOffset}
         >
           <g fill={colors.notes}>
-            {notes.map((note, noteIndex) => (
+            {(fragmentId ? notes : []).map((note, noteIndex) => (
               <rect
                 key={noteIndex}
                 width={note.length}
@@ -67,7 +67,7 @@ export const Fragment: React.FC<Props> = ({
         width={midiWith}
         cursor="pointer"
       >
-        {name}
+        {fragmentId ? name : ""}
       </text>
       <rect
         y={y}

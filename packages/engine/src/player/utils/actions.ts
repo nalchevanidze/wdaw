@@ -1,4 +1,5 @@
 import { Midi, MidiFragments } from '../../common/types';
+import { MidiRef } from '../../state/state';
 import { keysToIndexes } from '../../utils/notes';
 import { RecordLoop } from '../record';
 
@@ -8,9 +9,13 @@ export type NoteLoops = {
 };
 
 export const toActions = (
-  midis: Midi[],
+  midiRefs: MidiRef[],
   fragments: MidiFragments
 ): NoteLoops => {
+  const midis = midiRefs.flatMap(({ fragmentId, start, end }) =>
+    fragmentId ? [{ start, end, fragmentId }] : []
+  );
+
   const loops = midis.map(({ end, start, fragmentId }): RecordLoop => {
     const { notes, loop } = fragments[fragmentId];
 

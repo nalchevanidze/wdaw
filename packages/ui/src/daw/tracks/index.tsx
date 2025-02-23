@@ -108,7 +108,10 @@ export const TracksContent: React.FC<ContentProps> = ({
     select: (t) => {
       if (t.origin) return;
 
-      setCurrent(t.fragmentId);
+      if(t.fragmentId){
+        setCurrent(t.fragmentId);
+      }
+
       select(t);
       openDropDown(t);
     }
@@ -192,7 +195,7 @@ export const Tracks = () => {
           <div style={styles.selectFragment}>
             <DropDown
               label="Select Fragment"
-              value={opened.fragmentId}
+              value={opened.fragmentId ?? ""}
               options={options}
               onChange={(fragmentId) => {
                 dispatch({

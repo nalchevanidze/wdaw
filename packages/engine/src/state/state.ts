@@ -13,8 +13,8 @@ export type MidiRef = {
   id: string;
   start: number;
   end: number;
-  fragmentId: string;
   trackIndex: number;
+  fragmentId?: string;
 };
 
 export type TracksState = {
