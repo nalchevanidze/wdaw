@@ -108,7 +108,7 @@ export const TracksContent: React.FC<ContentProps> = ({
     select: (t) => {
       if (t.origin) return;
 
-      if(t.fragmentId){
+      if (t.fragmentId) {
         setCurrent(t.fragmentId);
       }
 
@@ -185,7 +185,6 @@ export const Tracks = () => {
           onClick={() => setActionType('select')}
         />
         <NameInput
-          label="Track"
           value={current.name}
           onChange={(name) =>
             dispatch({ type: 'SET_TRACK', id: currentTrack, payload: { name } })
@@ -195,7 +194,7 @@ export const Tracks = () => {
           <div style={styles.selectFragment}>
             <DropDown
               label="Select Fragment"
-              value={opened.fragmentId ?? ""}
+              value={opened.fragmentId ?? ''}
               options={options}
               onChange={(fragmentId) => {
                 dispatch({
