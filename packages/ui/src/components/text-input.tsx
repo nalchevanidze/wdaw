@@ -6,14 +6,35 @@ type Props = {
   onChange(i: string): void;
 };
 
-export const TextInput: React.FC<Props> = ({ label, value, onChange }) => (
-  <div>
-    <label htmlFor="track-name">{label}: </label>
-    <input
-      id="track-name"
-      type="text"
-      value={value}
-      onChange={({ target }) => onChange(target.value)}
-    />
-  </div>
-);
+export const TextInput: React.FC<Props> = ({ label, value, onChange }) => {
+  const [open, setOpen] = React.useState(false);
+  const [text, setText] = React.useState(value);
+  const id = React.useId();
+
+  React.useEffect(() => {
+    setText(value);
+  }, [value]);
+
+  const ok = () => {
+    onChange(text);
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      {!open && <button onClick={() => setOpen(true)}> Rename </button>}
+      {open && (
+        <>
+          <label htmlFor={id}>{label}: </label>
+          <input
+            id={id}
+            type="text"
+            value={text}
+            onChange={({ target }) => setText(target.value)}
+          />
+          <button onClick={ok}> Ok </button>
+        </>
+      )}
+    </div>
+  );
+};
