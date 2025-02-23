@@ -29,16 +29,14 @@ type Props = {
 };
 
 export const Header: React.FC<Props> = ({ actionType, manu }) => {
-  const { name, id, options, dispatch } = useMidiFragment();
+  const { name, id, options, setFragment, setCurrent } = useMidiFragment();
 
   return (
     <section style={styles.container}>
       <TextInput
         label="Rename"
         value={name}
-        onChange={(name) =>
-          dispatch({ type: 'SET_MIDI_FRAGMENT', id, payload: { name } })
-        }
+        onChange={(name) => setFragment({ name })}
       />
       <IconButton
         id="draw"
@@ -54,9 +52,7 @@ export const Header: React.FC<Props> = ({ actionType, manu }) => {
         label="Fragment"
         value={id}
         options={options}
-        onChange={(payload) =>
-          dispatch({ type: 'SET_CURRENT_FRAGMENT', payload })
-        }
+        onChange={setCurrent}
       />
     </section>
   );

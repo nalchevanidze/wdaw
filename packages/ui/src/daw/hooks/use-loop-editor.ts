@@ -5,7 +5,7 @@ import { useMidiFragment } from './use-midi-fragment';
 export type LoopTarget = 'start' | 'end';
 
 export const useLoop = () => {
-  const { loop, syncLoop } = useMidiFragment();
+  const { loop, setFragment } = useMidiFragment();
 
   const [origin, setOrigin] = React.useState<Maybe<number>>(undefined);
   const [target, setTarget] = React.useState<Maybe<LoopTarget>>(undefined);
@@ -13,7 +13,7 @@ export const useLoop = () => {
 
   React.useEffect(() => setLoop(loop), [loop]);
 
-  const sync = () => syncLoop(state);
+  const sync = () => setFragment({ loop: state });
 
   const [start, end] = state;
 
