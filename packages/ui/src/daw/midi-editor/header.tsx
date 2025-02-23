@@ -3,6 +3,7 @@ import { EditActionType } from '../types';
 import { colors } from '../../styles';
 import { IconButton } from '../../components/icon-button';
 import { DawApiContext } from '../../context/state';
+import { TextInput } from '../../components/text-input';
 
 const styles = {
   container: {
@@ -27,7 +28,7 @@ type Props = {
 };
 
 export const Header: React.FC<Props> = ({ label, actionType, manu }) => {
-  const [{ midiFragments }, dispatch] = React.useContext(DawApiContext);
+  const [{ midiFragments , currentFragment }, dispatch] = React.useContext(DawApiContext);
 
   const options = Object.keys(midiFragments);
 
@@ -58,12 +59,19 @@ export const Header: React.FC<Props> = ({ label, actionType, manu }) => {
             });
           }}
         >
-          <option value={`fragment-${options.length}`} >create new</option>
+          <option value={`fragment-${options.length}`}>create new</option>
           {options.map((value) => (
             <option value={value}>{value}</option>
           ))}
         </select>
       </div>
+      <TextInput
+        label="Rename"
+        value={label}
+        onChange={(name) =>
+          dispatch({ type: 'SET_MIDI_FRAGMENT', id: currentFragment, payload: { name } })
+        }
+      />
     </section>
   );
 };

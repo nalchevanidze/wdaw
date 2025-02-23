@@ -59,6 +59,7 @@ export type Note = {
 };
 
 export type MidiFragment = {
+  name: string;
   notes: Note[];
   loop: [number, number];
 };
