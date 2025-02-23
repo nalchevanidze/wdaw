@@ -4,6 +4,8 @@ import { colors } from '../../styles';
 import { IconButton } from '../../components/icon-button';
 import { DawApiContext } from '../../context/state';
 import { TextInput } from '../../components/text-input';
+import { DropDown } from '../../components/drop-down';
+import { useMidiFragment } from '../hooks/use-midi-fragment';
 
 const styles = {
   container: {
@@ -22,22 +24,25 @@ const styles = {
 };
 
 type Props = {
-  label: string;
   actionType: EditActionType;
   manu(x: EditActionType): void;
 };
 
-export const Header: React.FC<Props> = ({ label, actionType, manu }) => {
+export const Header: React.FC<Props> = ({ actionType, manu }) => {
   const [{ midiFragments, currentFragment }, dispatch] =
     React.useContext(DawApiContext);
+  const { name, id } = useMidiFragment();
 
-  const options = Object.keys(midiFragments);
+  const options = Object.entries(midiFragments).map(([id, { name }]) => ({
+    id,
+    name
+  }));
 
   return (
     <section style={styles.container}>
       <TextInput
         label="Rename"
-        value={label}
+        value={name}
         onChange={(name) =>
           dispatch({
             type: 'SET_MIDI_FRAGMENT',
@@ -56,26 +61,14 @@ export const Header: React.FC<Props> = ({ label, actionType, manu }) => {
         color={colors.button(actionType === 'select')}
         onClick={() => manu('select')}
       />
-      <p style={styles.label}>{label}</p>
-      <div>
-        <label htmlFor="midi-fragment">Fragment</label>
-        <select
-          id="midi-fragment"
-          name="fragments"
-          value={label}
-          onChange={({ target }) => {
-            dispatch({
-              type: 'SET_CURRENT_FRAGMENT',
-              payload: target.value
-            });
-          }}
-        >
-          <option value={`fragment-${options.length}`}>create new</option>
-          {options.map((value) => (
-            <option value={value}>{value}</option>
-          ))}
-        </select>
-      </div>
+      <DropDown
+        label="Fragment"
+        value={id}
+        options={options}
+        onChange={(payload) =>
+          dispatch({ type: 'SET_CURRENT_FRAGMENT', payload })
+        }
+      />
     </section>
   );
 };
