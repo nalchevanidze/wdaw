@@ -16,6 +16,7 @@ import { usePanels } from '../hooks/use-panels';
 import { IconButton } from '../../components/icon-button';
 import { MidiRef } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
+import { TextInput } from '../../components/text-input';
 
 export type EditActionType = 'select' | 'draw';
 
@@ -177,21 +178,14 @@ export const Tracks = () => {
           color={colors.button(actionType === 'select')}
           onClick={() => setActionType('select')}
         />
-        <div>
-          <label htmlFor="track-name">Current Track: </label>
-          <input
-            id="track-name"
-            type="text"
-            value={current.name}
-            onChange={({ target }) =>
-              dispatch({
-                type: 'SET_TRACK',
-                id: currentTrack,
-                payload: { name: target.value }
-              })
-            }
-          />
-        </div>
+
+        <TextInput
+          label="Current Track"
+          value={current.name}
+          onChange={(name) =>
+            dispatch({ type: 'SET_TRACK', id: currentTrack, payload: { name } })
+          }
+        />
         {opened && (
           <div style={styles.selectFragment}>
             <label htmlFor="select-fragment"> Select Fragment</label>
