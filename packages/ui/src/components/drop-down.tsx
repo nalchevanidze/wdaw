@@ -22,12 +22,12 @@ export const DropDown: React.FC<Props> = ({
         id={id}
         name={label}
         value={value}
-        onChange={({ target }) => {
-          onChange(target.value);
-        }}
+        onChange={({ target }) => onChange(target.value)}
       >
         {options.map(({ name, id }) => (
-          <option key={id} value={id}>{name}</option>
+          <option key={id} value={id}>
+            {name}
+          </option>
         ))}
       </select>
     </div>
