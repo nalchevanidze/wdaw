@@ -12,20 +12,24 @@ export const DropDown: React.FC<Props> = ({
   value,
   options,
   onChange
-}) => (
-  <div>
-    <label htmlFor="midi-fragment">{label}</label>
-    <select
-      id="midi-fragment"
-      name="fragments"
-      value={value}
-      onChange={({ target }) => {
-        onChange(target.value);
-      }}
-    >
-      {options.map(({ name, id }) => (
-        <option value={id}>{name}</option>
-      ))}
-    </select>
-  </div>
-);
+}) => {
+  const id = React.useId();
+
+  return (
+    <div>
+      <label htmlFor={id}>{label}</label>
+      <select
+        id={id}
+        name={label}
+        value={value}
+        onChange={({ target }) => {
+          onChange(target.value);
+        }}
+      >
+        {options.map(({ name, id }) => (
+          <option value={id}>{name}</option>
+        ))}
+      </select>
+    </div>
+  );
+};

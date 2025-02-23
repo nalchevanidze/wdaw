@@ -36,6 +36,7 @@ export const useTracks = () => {
     setCurrent,
     length,
     count,
-    newTrack
+    newTrack,
+    dispatch
   };
 };

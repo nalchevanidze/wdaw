@@ -17,6 +17,8 @@ import { IconButton } from '../../components/icon-button';
 import { MidiRef } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
 import { TextInput } from '../../components/text-input';
+import { DropDown } from '../../components/drop-down';
+import { useMidiFragment } from '../hooks/use-midi-fragment';
 
 export type EditActionType = 'select' | 'draw';
 
@@ -158,8 +160,9 @@ export const TracksContent: React.FC<ContentProps> = ({
 };
 
 export const Tracks = () => {
-  const { count, length, newTrack, currentTrack, current } = useTracks();
-  const [{ midiFragments }, dispatch] = React.useContext(DawApiContext);
+  const { count, length, newTrack, currentTrack, current, dispatch } =
+    useTracks();
+  const { options } = useMidiFragment();
   const timelineHeight = 32;
   const [actionType, setActionType] = React.useState<EditActionType>('select');
   const [opened, setOpen] = React.useState<MidiRef | undefined>(undefined);
@@ -187,24 +190,15 @@ export const Tracks = () => {
         />
         {opened && (
           <div style={styles.selectFragment}>
-            <label htmlFor="select-fragment"> Select Fragment</label>
-            <select
-              id="select-fragment"
-              name="fragments"
+            <DropDown
+              label="Select Fragment"
               value={opened.fragmentId}
-              onChange={({ target }) => {
-                dispatch({
-                  type: 'SET_MIDI_REF',
-                  id: opened,
-                  payload: target.value
-                });
+              options={options}
+              onChange={(payload) => {
+                dispatch({ type: 'SET_MIDI_REF', id: opened, payload });
                 setOpen(undefined);
               }}
-            >
-              {Object.keys(midiFragments).map((value) => (
-                <option value={value}>{value}</option>
-              ))}
-            </select>
+            />{' '}
           </div>
         )}
       </section>
