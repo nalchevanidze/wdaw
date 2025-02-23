@@ -157,7 +157,7 @@ export const TracksContent: React.FC<ContentProps> = ({
 };
 
 export const Tracks = () => {
-  const { count, length, newTrack } = useTracks();
+  const { count, length, newTrack, currentTrack, current } = useTracks();
   const [{ midiFragments }, dispatch] = React.useContext(DawApiContext);
   const timelineHeight = 32;
   const [actionType, setActionType] = React.useState<EditActionType>('select');
@@ -177,6 +177,21 @@ export const Tracks = () => {
           color={colors.button(actionType === 'select')}
           onClick={() => setActionType('select')}
         />
+        <div>
+          <label htmlFor="track-name">rename track</label>
+          <input
+            id="track-name"
+            type="text"
+            value={current.name}
+            onChange={({ target }) =>
+              dispatch({
+                type: 'SET_TRACK',
+                id: currentTrack,
+                payload: { name: target.value }
+              })
+            }
+          />
+        </div>
         {opened && (
           <div style={styles.selectFragment}>
             <label htmlFor="select-fragment"> Select Fragment</label>

@@ -57,10 +57,8 @@ const dispatcher = (
       return { midiRefs: action.payload };
     case 'SET_MIDI_FRAGMENT':
       return setMidiFragment(action.id, state, action.payload);
-    case 'SET_GAIN':
-      return mapTrack(action.id, state, () => ({
-        gain: action.payload
-      }));
+    case 'SET_TRACK':
+      return mapTrack(action.id, state, (t) => ({ ...t, ...action.payload }));
     case 'SET_ENVELOPE':
       return mapPreset(presetId, state, ({ envelopes }) => ({
         envelopes: {
@@ -151,8 +149,10 @@ const engineEffects = (
       return engine.setMidis(midiRefs, midiFragments);
     case 'SET_CURRENT_TRACK':
       return;
-    case 'SET_GAIN':
-      return engine.setGain(action.id, action.payload);
+    case 'SET_TRACK':
+      return action.payload.gain
+        ? engine.setGain(action.id, action.payload.gain)
+        : undefined;
     case 'SET_BPM':
       return engine.setBPM(action.payload);
     case 'SET_SEQUENCE':

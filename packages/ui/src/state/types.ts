@@ -7,8 +7,10 @@ import {
   EnvelopeConfig,
   MidiFragment,
   EngineState,
-  MidiRef
+  MidiRef,
+  TrackState
 } from '@wdaw/engine';
+import { Track } from '@wdaw/engine/src/player';
 
 export type PANEL_ID = 'filter' | 'sequence' | 'wave';
 
@@ -49,10 +51,10 @@ type TOGGLE_PANEL = {
   id: PANEL_ID;
 };
 
-type SET_GAIN = {
-  type: 'SET_GAIN';
-  payload: number;
+type SET_TRACK = {
+  type: 'SET_TRACK';
   id: number;
+  payload: Partial<TrackState>;
 };
 
 type SET_ENVELOPE = {
@@ -106,7 +108,7 @@ type SET_CURRENT_FRAGMENT = {
 
 type SET_MIDI_REFS = {
   type: 'SET_MIDI_REFS';
-  payload: MidiRef[]
+  payload: MidiRef[];
 };
 
 type SET_MIDI_FRAGMENT = {
@@ -139,7 +141,7 @@ type RESET = {
 
 type SET_MIDI_REF = {
   type: 'SET_MIDI_REF';
-  id: MidiRef,
+  id: MidiRef;
   payload: string;
 };
 
@@ -159,7 +161,7 @@ type MidiActions =
   | PLAY
   | PAUSE
   | STOP
-  | SET_GAIN
+  | SET_TRACK
   | SET_MIDI_REF
   | SET_CURRENT_FRAGMENT;
 
