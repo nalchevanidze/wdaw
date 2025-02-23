@@ -15,3 +15,4 @@ export {
 } from './common/types';
 export { UIPosition, OCTAVE_SIZE } from './utils/notes';
 export { TrackState, MidiRef } from './state/state';
+export { makeId } from './utils/id';

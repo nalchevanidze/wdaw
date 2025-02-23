@@ -1,4 +1,5 @@
 import { Presets, Midi, MidiFragments } from '../common/types';
+import { makeId } from '../utils/id';
 import { genMidiFragments } from './fragments';
 import { genPresets } from './presets';
 
@@ -9,6 +10,7 @@ export type TrackState = {
 };
 
 export type MidiRef = {
+  id: string;
   start: number;
   end: number;
   fragmentId: string;
@@ -34,15 +36,33 @@ export const engineState = (): EngineState => {
   const presets = Object.fromEntries(genPresets().map((p) => [p.name, p]));
 
   const midiRefs: MidiRef[] = [
-    { trackIndex: 0, start: 512, end: 1024, fragmentId: 'piano' },
-    { trackIndex: 1, start: 256, end: 1024, fragmentId: 'bass' },
-    { trackIndex: 2, start: 0, end: 1024, fragmentId: 'kick' },
-    { trackIndex: 3, start: 128, end: 192, fragmentId: 'clap1' },
-    { trackIndex: 3, start: 192, end: 256, fragmentId: 'clap-fast' },
-    { trackIndex: 3, start: 384, end: 448, fragmentId: 'clap2' },
-    { trackIndex: 3, start: 448, end: 512, fragmentId: 'clap-fast' },
-    { trackIndex: 3, start: 768, end: 960, fragmentId: 'clap2' },
-    { trackIndex: 3, start: 960, end: 1024, fragmentId: 'clap-fast' }
+    { id: makeId(), trackIndex: 0, start: 512, end: 1024, fragmentId: 'piano' },
+    { id: makeId(), trackIndex: 1, start: 256, end: 1024, fragmentId: 'bass' },
+    { id: makeId(), trackIndex: 2, start: 0, end: 1024, fragmentId: 'kick' },
+    { id: makeId(), trackIndex: 3, start: 128, end: 192, fragmentId: 'clap1' },
+    {
+      id: makeId(),
+      trackIndex: 3,
+      start: 192,
+      end: 256,
+      fragmentId: 'clap-fast'
+    },
+    { id: makeId(), trackIndex: 3, start: 384, end: 448, fragmentId: 'clap2' },
+    {
+      id: makeId(),
+      trackIndex: 3,
+      start: 448,
+      end: 512,
+      fragmentId: 'clap-fast'
+    },
+    { id: makeId(), trackIndex: 3, start: 768, end: 960, fragmentId: 'clap2' },
+    {
+      id: makeId(),
+      trackIndex: 3,
+      start: 960,
+      end: 1024,
+      fragmentId: 'clap-fast'
+    }
   ];
 
   const tracks: TrackState[] = [

@@ -1,7 +1,7 @@
 import { useSelection } from './use-selection';
 import { Area, IArea, Point } from '@wdaw/svg';
 import { useTracks } from './use-tracks';
-import { MidiRef } from '@wdaw/engine';
+import { makeId, MidiRef } from '@wdaw/engine';
 import { idString } from '../../common/utils';
 
 const toId = (t: MidiRef) =>
@@ -28,7 +28,13 @@ export const useTrackEditor = () => {
     }));
 
   const addAt = ({ x, y }: Point) =>
-    add({ trackIndex: y, start: x, end: x + 64, fragmentId: 'bass' });
+    add({
+      id: makeId(),
+      trackIndex: y,
+      start: x,
+      end: x + 64,
+      fragmentId: 'bass'
+    });
 
   return {
     tracks: all,
