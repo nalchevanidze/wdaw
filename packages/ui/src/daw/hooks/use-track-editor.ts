@@ -1,7 +1,7 @@
 import { useSelection } from './use-selection';
 import { Area, IArea, Point } from '@wdaw/svg';
 import { useTracks } from './use-tracks';
-import { makeId, MidiRef } from '@wdaw/engine';
+import { makeMidiRef, MidiRef } from '@wdaw/engine';
 import { idString } from '../../common/utils';
 
 const toId = (t: MidiRef) =>
@@ -28,12 +28,7 @@ export const useTrackEditor = () => {
     }));
 
   const addAt = ({ x, y }: Point) =>
-    add({
-      id: makeId(),
-      trackIndex: y,
-      start: x,
-      end: x + 64,
-    });
+    add(makeMidiRef({ trackIndex: y, start: x, end: x + 64 }));
 
   return {
     tracks: all,

@@ -14,5 +14,4 @@ export {
   MidiFragment
 } from './common/types';
 export { UIPosition, OCTAVE_SIZE } from './utils/notes';
-export { TrackState, MidiRef } from './state/state';
-export { makeId } from './utils/id';
+export { TrackState, MidiRef, makeMidiRef } from './state/state';

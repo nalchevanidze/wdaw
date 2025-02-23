@@ -1,4 +1,5 @@
 import { Presets, MidiFragments } from '../common/types';
+import { makeId } from '../utils/id';
 import { fid, genMidiFragments } from './fragments';
 import { genPresets, pid } from './presets';
 
@@ -117,3 +118,14 @@ export const engineState = (): EngineState => {
     tracks
   };
 };
+
+export const makeMidiRef = ({
+  trackIndex,
+  start,
+  end
+}: Omit<MidiRef, 'id'>): MidiRef => ({
+  id: makeId(),
+  trackIndex,
+  start,
+  end
+});
