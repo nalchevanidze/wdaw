@@ -1,6 +1,8 @@
 import { Preset } from '../common/types';
+import { makeId } from '../utils/id';
 
 export const newPreset = (name: string) => ({
+  id: makeId(),
   name,
   wave: {
     sine: 0,
@@ -40,8 +42,19 @@ export const newPreset = (name: string) => ({
   }
 });
 
+export const pid = {
+  prelude: makeId(),
+  pluck: makeId(),
+  razor: makeId(),
+  wind: makeId(),
+  kick: makeId(),
+  bass: makeId(),
+  clap: makeId()
+};
+
 export const genPresets = (): Preset[] => [
   {
+    id: pid.prelude,
     name: 'prelude',
     wave: {
       sine: 0.2,
@@ -81,6 +94,7 @@ export const genPresets = (): Preset[] => [
     }
   },
   {
+    id: pid.pluck,
     name: 'pluck',
     wave: {
       sine: 1,
@@ -126,6 +140,7 @@ export const genPresets = (): Preset[] => [
     }
   },
   {
+    id: pid.razor,
     name: 'razor',
     wave: {
       sine: 1,
@@ -175,6 +190,7 @@ export const genPresets = (): Preset[] => [
     }
   },
   {
+    id: pid.wind,
     name: 'wind',
     wave: {
       sine: 1,
@@ -214,6 +230,7 @@ export const genPresets = (): Preset[] => [
     }
   },
   {
+    id: pid.kick,
     name: 'kick',
     wave: {
       sine: 1,
@@ -253,6 +270,7 @@ export const genPresets = (): Preset[] => [
     }
   },
   {
+    id: pid.bass,
     name: 'bass',
     wave: {
       sine: 1,
@@ -292,6 +310,7 @@ export const genPresets = (): Preset[] => [
     }
   },
   {
+    id: pid.clap,
     name: 'clap',
     wave: {
       sine: 0,

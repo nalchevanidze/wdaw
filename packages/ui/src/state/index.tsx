@@ -15,7 +15,7 @@ const dispatcher = (
   state: DAWState,
   action: EngineAction
 ): Partial<DAWState> | undefined => {
-  const { currentTrack, tracks, notes, midiRefs, midiFragments } = state;
+  const { currentTrack, tracks, notes, midiRefs, midiFragments, presets } = state;
   const track = tracks[currentTrack];
   const { presetId } = track;
 
@@ -97,7 +97,7 @@ const dispatcher = (
           {
             name: `track ${tracks.length + 5}`,
             gain: 1,
-            presetId: 'prelude'
+            presetId: Object.keys(presets)[0]
           }
         ]
       };

@@ -11,6 +11,7 @@ export type FilterConfig = {
 };
 
 export type Preset = {
+  id: string;
   name: string;
   wave: WaveConfig;
   envelopes: Record<'filter' | 'gain', EnvelopeConfig>;
