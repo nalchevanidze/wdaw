@@ -16,7 +16,7 @@ import { usePanels } from '../hooks/use-panels';
 import { IconButton } from '../../components/icon-button';
 import { MidiRef } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
-import { TextInput } from '../../components/text-input';
+import { NameInput } from '../../components/name-input';
 import { DropDown } from '../../components/drop-down';
 import { useMidiFragment } from '../hooks/use-midi-fragment';
 
@@ -184,8 +184,8 @@ export const Tracks = () => {
           color={colors.button(actionType === 'select')}
           onClick={() => setActionType('select')}
         />
-        <TextInput
-          label="Current Track"
+        <NameInput
+          label="Track"
           value={current.name}
           onChange={(name) =>
             dispatch({ type: 'SET_TRACK', id: currentTrack, payload: { name } })

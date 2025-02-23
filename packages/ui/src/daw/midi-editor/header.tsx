@@ -3,7 +3,7 @@ import { EditActionType } from '../types';
 import { colors } from '../../styles';
 import { IconButton } from '../../components/icon-button';
 import { DawApiContext } from '../../context/state';
-import { TextInput } from '../../components/text-input';
+import { NameInput } from '../../components/name-input';
 import { DropDown } from '../../components/drop-down';
 import { useMidiFragment } from '../hooks/use-midi-fragment';
 
@@ -33,7 +33,7 @@ export const Header: React.FC<Props> = ({ actionType, manu }) => {
 
   return (
     <section style={styles.container}>
-      <TextInput
+      <NameInput
         label="Rename"
         value={name}
         onChange={(name) => setFragment({ name })}
