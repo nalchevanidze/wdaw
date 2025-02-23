@@ -8,7 +8,6 @@ import {
 } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
 import { toggleARPNote, Location } from '../utils/arp';
-import { PANEL_ID } from '../../state/types';
 
 export const usePreset = () => {
   const [{ presets, currentTrack, tracks }, dispatch] =
@@ -22,8 +21,9 @@ export const usePreset = () => {
   const setFilter = (id: FILTER_ID, payload: number) =>
     dispatch({ type: 'SET_FILTER', id, payload });
 
-  const options = Object.keys(presets).map((id) => ({
+  const options = Object.values(presets).map(({ id, name }) => ({
     id,
+    name,
     active: id === presetId,
     onclick: () => dispatch({ type: 'SET_PRESET', payload: id })
   }));

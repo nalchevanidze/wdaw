@@ -1,7 +1,7 @@
 import { Presets, Midi, MidiFragments } from '../common/types';
 import { makeId } from '../utils/id';
 import { fid, genMidiFragments } from './fragments';
-import { genPresets } from './presets';
+import { genPresets, pid } from './presets';
 
 export type TrackState = {
   name: string;
@@ -33,7 +33,7 @@ type PlayerState = {
 export type EngineState = PlayerState & TracksState;
 
 export const engineState = (): EngineState => {
-  const presets = Object.fromEntries(genPresets().map((p) => [p.name, p]));
+  const presets = Object.fromEntries(genPresets().map((p) => [p.id, p]));
 
   const midiRefs: MidiRef[] = [
     {
@@ -102,10 +102,10 @@ export const engineState = (): EngineState => {
   ];
 
   const tracks: TrackState[] = [
-    { name: 'Piano', presetId: 'pluck', gain: 0.4 },
-    { name: 'Bass', presetId: 'bass', gain: 0.3 },
-    { name: 'Kick', presetId: 'kick', gain: 1 },
-    { name: 'Clap', presetId: 'clap', gain: 0.3 }
+    { name: 'Piano', presetId: pid.pluck, gain: 0.4 },
+    { name: 'Bass', presetId: pid.bass, gain: 0.3 },
+    { name: 'Kick', presetId: pid.kick, gain: 1 },
+    { name: 'Clap', presetId: pid.clap, gain: 0.3 }
   ];
 
   return {
