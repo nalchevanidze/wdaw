@@ -141,7 +141,7 @@ type RESET = {
 
 type SET_MIDI_REF = {
   type: 'SET_MIDI_REF';
-  id: MidiRef;
+  id: string;
   payload: string;
 };
 

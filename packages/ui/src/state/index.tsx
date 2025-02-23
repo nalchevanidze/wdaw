@@ -103,13 +103,8 @@ const dispatcher = (
       };
     case 'SET_MIDI_REF':
       return {
-        midiRefs: midiRefs.map((ref) =>
-          ref.trackIndex === action.id.trackIndex &&
-          ref.start === action.id.start &&
-          ref.end === action.id.end &&
-          ref.fragmentId === action.id.fragmentId
-            ? { ...ref, fragmentId: action.payload }
-            : ref
+        midiRefs: midiRefs.map((m) =>
+          m.id === action.id ? { ...m, fragmentId: action.payload } : m
         )
       };
     case 'RESET': {
