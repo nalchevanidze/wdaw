@@ -194,8 +194,12 @@ export const Tracks = () => {
               label="Select Fragment"
               value={opened.fragmentId}
               options={options}
-              onChange={(payload) => {
-                dispatch({ type: 'SET_MIDI_REF', id: opened.id, payload });
+              onChange={(fragmentId) => {
+                dispatch({
+                  type: 'SET_MIDI_REF',
+                  id: opened.id,
+                  payload: { fragmentId }
+                });
                 setOpen(undefined);
               }}
             />{' '}

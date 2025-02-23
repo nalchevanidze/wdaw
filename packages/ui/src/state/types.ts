@@ -142,7 +142,7 @@ type RESET = {
 type SET_MIDI_REF = {
   type: 'SET_MIDI_REF';
   id: string;
-  payload: string;
+  payload: Partial<MidiRef>;
 };
 
 type LOAD = {

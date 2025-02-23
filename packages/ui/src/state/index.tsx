@@ -104,7 +104,7 @@ const dispatcher = (
     case 'SET_MIDI_REF':
       return {
         midiRefs: midiRefs.map((m) =>
-          m.id === action.id ? { ...m, fragmentId: action.payload } : m
+          m.id === action.id ? { ...m, ...action.payload } : m
         )
       };
     case 'RESET': {
