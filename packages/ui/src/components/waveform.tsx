@@ -8,14 +8,18 @@ const genPath = (wave: WaveConfig, width: number) => {
   const wavePoint = (index: number) =>
     (1 - waveFunction((index + wave.offset) % 1, wave)) * (width / 2);
 
-  const middlePoint = (wavePoint(1) + wavePoint(0)) / 2;
+  const center = (wavePoint(1) + wavePoint(0)) / 2;
 
-  const waveList = Array.from(
-    { length: width },
-    (_, i) => i + ' ' + wavePoint(i / width)
-  );
+  const items = Array.from({ length: width }, (_, i) => [
+    i,
+    wavePoint(i / width)
+  ]).flat();
 
-  return 'M 0 ' + middlePoint + ' ' + waveList + ` ${width}` + middlePoint;
+  const path = [0, center, items, width, center]
+    .flat()
+    .map((p) => p.toFixed(1));
+
+  return `M ${path.join(' ')}`;
 };
 
 type Props = {
