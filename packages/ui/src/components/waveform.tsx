@@ -4,20 +4,20 @@ import { waveFunction } from '@wdaw/engine';
 import { WaveConfig } from '@wdaw/engine/src/common/types';
 import { usePreset } from '../daw/hooks/use-preset';
 
-const genPath = (wave: WaveConfig, width: number) => {
-  const wavePoint = (index: number) =>
-    (1 - waveFunction((index + wave.offset) % 1, wave)) * (width / 2);
+const range = <T extends unknown>(length: number, f: (i: number) => T): T[] =>
+  Array.from({ length }, (_, i) => f(i));
+
+const point = (w: WaveConfig, i: number) =>
+  1 - waveFunction((i + w.offset) % 1, w);
+
+const genPath = (wave: WaveConfig, size: number) => {
+  const scaleY = size / 2;
+
+  const wavePoint = (i: number) => point(wave, i) * scaleY;
 
   const center = (wavePoint(1) + wavePoint(0)) / 2;
-
-  const items = Array.from({ length: width }, (_, i) => [
-    i,
-    wavePoint(i / width)
-  ]).flat();
-
-  const path = [0, center, items, width, center]
-    .flat()
-    .map((p) => p.toFixed(1));
+  const items = range(size, (i) => [i, wavePoint(i / size)]).flat();
+  const path = [0, center, items, size, center].flat().map((p) => p.toFixed(1));
 
   return `M ${path.join(' ')}`;
 };
