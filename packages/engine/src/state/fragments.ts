@@ -1,7 +1,19 @@
 import { MidiFragments } from '../common/types';
+import { makeId } from '../utils/id';
+
+export const fid = {
+  piano: makeId(),
+  clap1: makeId(),
+  clap2: makeId(),
+  clapFast: makeId(),
+  bass: "bass",
+  kick: makeId(),
+}
+
+console.log(fid)
 
 export const genMidiFragments = (): MidiFragments => ({
-  piano: {
+  [fid.piano]: {
     name: 'Piano',
     loop: [0, 256],
     notes: [
@@ -43,7 +55,7 @@ export const genMidiFragments = (): MidiFragments => ({
       { length: 4, id: 'D#2', at: 124 }
     ]
   },
-  clap1: {
+  [fid.clap1]: {
     name: 'Clap 1',
     loop: [32, 64],
     notes: [
@@ -51,7 +63,7 @@ export const genMidiFragments = (): MidiFragments => ({
       { length: 4, id: 'C#1', at: 56 }
     ]
   },
-  ['clap-fast']: {
+  [fid.clapFast]: {
     name: 'Clap Fast',
     loop: [0, 64],
     notes: [
@@ -79,7 +91,7 @@ export const genMidiFragments = (): MidiFragments => ({
       { length: 2, id: 'C#1', at: 62 }
     ]
   },
-  clap2: {
+  [fid.clap2]: {
     name: 'Clap 2',
     loop: [0, 32],
     notes: [
@@ -89,7 +101,7 @@ export const genMidiFragments = (): MidiFragments => ({
       { length: 4, id: 'C#1', at: 24 }
     ]
   },
-  kick: {
+  [fid.kick]: {
     name: 'Kick',
     loop: [0, 32],
     notes: [
