@@ -10,8 +10,6 @@ export const fid = {
   kick: makeId(),
 }
 
-console.log(fid)
-
 export const genMidiFragments = (): MidiFragments => ({
   [fid.piano]: {
     name: 'Piano',
