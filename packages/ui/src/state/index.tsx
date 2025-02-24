@@ -59,10 +59,10 @@ const dispatcher = (
     case 'MIDI_SET_FRAGMENT':
       return setMidiFragment(action.id, state, action.payload);
     case 'MIDI_NEW_FRAGMENT': {
-      const { id, ...fragment } = makeFragment(`Fragment ${fragmentCount + 1}`);
+      const fragment = makeFragment(`Fragment ${fragmentCount + 1}`);
       return {
-        currentFragment: id,
-        midiFragments: { ...midiFragments, [id]: fragment }
+        currentFragment: fragment.id,
+        midiFragments: { ...midiFragments, [fragment.id]: fragment }
       };
     }
     // TRACK

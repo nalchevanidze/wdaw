@@ -1,4 +1,4 @@
-import { MidiFragments } from '../common/types';
+import { MidiFragment } from '../common/types';
 
 export const fid = {
   piano: '3d2ba839-ed91-4da5-a02a-01585af6ee4d',
@@ -9,8 +9,9 @@ export const fid = {
   kick: '469e3b68-d1dc-43d0-bd48-da16859ef3e9'
 };
 
-export const genMidiFragments = (): MidiFragments => ({
-  [fid.piano]: {
+export const genMidiFragments = (): MidiFragment[] => [
+  {
+    id: fid.piano,
     name: 'Piano',
     loop: [0, 256],
     notes: [
@@ -32,7 +33,8 @@ export const genMidiFragments = (): MidiFragments => ({
       { length: 32, id: 'F#2', at: 224 }
     ]
   },
-  [fid.bass]: {
+  {
+    id: fid.bass,
     name: 'Bass',
     loop: [0, 128],
     notes: [
@@ -52,7 +54,8 @@ export const genMidiFragments = (): MidiFragments => ({
       { length: 4, id: 'D#2', at: 124 }
     ]
   },
-  [fid.clap1]: {
+  {
+    id: fid.clap1,
     name: 'Clap 1',
     loop: [32, 64],
     notes: [
@@ -60,7 +63,8 @@ export const genMidiFragments = (): MidiFragments => ({
       { length: 4, id: 'C#1', at: 56 }
     ]
   },
-  [fid.clapFast]: {
+  {
+    id: fid.clapFast,
     name: 'Clap Fast',
     loop: [0, 64],
     notes: [
@@ -88,7 +92,8 @@ export const genMidiFragments = (): MidiFragments => ({
       { length: 2, id: 'C#1', at: 62 }
     ]
   },
-  [fid.clap2]: {
+  {
+    id: fid.clap2,
     name: 'Clap 2',
     loop: [0, 32],
     notes: [
@@ -98,7 +103,8 @@ export const genMidiFragments = (): MidiFragments => ({
       { length: 4, id: 'C#1', at: 24 }
     ]
   },
-  [fid.kick]: {
+  {
+    id: fid.kick,
     name: 'Kick',
     loop: [0, 32],
     notes: [
@@ -108,4 +114,4 @@ export const genMidiFragments = (): MidiFragments => ({
       { length: 4, id: 'C#1', at: 24 }
     ]
   }
-});
+];
