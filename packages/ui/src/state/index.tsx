@@ -20,7 +20,7 @@ const dispatcher = (
   const fragmentCount = Object.keys(midiFragments).length;
 
   switch (action.type) {
-    // PRESETS
+    // PRESET
     case 'PRESET_SET_SEQUENCE':
       return mapPreset(presetId, state, () => ({ sequence: action.payload }));
     case 'PRESET_TOGGLE_MODULE':
@@ -49,7 +49,7 @@ const dispatcher = (
       return mapPreset(presetId, state, ({ filter }) => ({
         filter: { ...filter, [action.id]: action.payload }
       }));
-    // MidiRef/Fragments
+    // MIDI
     case 'MIDI_SET_CURRENT_FRAGMENT':
       return { currentFragment: action.payload };
     case 'MIDI_SET_MIDI_REFS':
@@ -69,7 +69,7 @@ const dispatcher = (
         midiFragments: { ...midiFragments, [id]: fragment }
       };
     }
-    // Tracks
+    // TRACK
     case 'TRACK_SET_CURRENT':
       return { currentTrack: action.payload };
     case 'TRACK_SET_TRACK':
