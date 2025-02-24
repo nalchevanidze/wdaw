@@ -48,13 +48,8 @@ export const useMidiFragment = (targetId?: string) => {
 
   const loopWidth = loopEnd - loopStart;
 
-  const options = Object.entries(midiFragments).map(([id, { name }]) => ({
-    id,
-    name
-  }));
-
   return {
-    options,
+    options: Object.values(midiFragments),
     name,
     loopStart,
     loopEnd,
