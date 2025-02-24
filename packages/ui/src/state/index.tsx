@@ -92,6 +92,7 @@ const dispatcher = (
       return { time: action.payload };
     case 'REFRESH_IS_PLAYING':
       return { isPlaying: action.payload };
+    // Keyboard
     case 'KEYBOARD_KEY_DOWN':
       return { notes: [...notes, action.payload] };
     case 'KEYBOARD_KEY_UP':
