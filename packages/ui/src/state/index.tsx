@@ -99,8 +99,7 @@ const dispatcher = (
       return { notes: [action.payload].filter((n) => n !== action.payload) };
     // STORE
     case 'STORE_SAVE':
-      saveState({ ...state, time: 0, isPlaying: false });
-      return;
+      return saveState({ ...state, time: 0, isPlaying: false });
     case 'STORE_RESET': {
       deleteState();
       return dawState();

@@ -5,8 +5,9 @@ const STATE_KEY = 'daw-local-storage-state-v1';
 
 export const deleteState = () => localStorage.removeItem(STATE_KEY);
 
-export const saveState = (state: DAWState) =>
+export const saveState = (state: DAWState): undefined => {
   localStorage.setItem(STATE_KEY, JSON.stringify(state));
+};
 
 export const loadState = () => {
   const v = localStorage.getItem(STATE_KEY);
