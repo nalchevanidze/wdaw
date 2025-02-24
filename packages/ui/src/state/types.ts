@@ -41,20 +41,7 @@ type PRESET_SET_ENVELOPE = {
   payload: Partial<EnvelopeConfig>;
 };
 
-type REFRESH_TIME = {
-  type: 'REFRESH_TIME';
-  payload: number;
-};
-
-type REFRESH_IS_PLAYING = {
-  type: 'REFRESH_IS_PLAYING';
-  payload: boolean;
-};
-
-type SET_BPM = {
-  type: 'SET_BPM';
-  payload: number;
-};
+// Keyboard
 
 type KEY_UP = {
   type: 'KEY_UP';
@@ -128,6 +115,21 @@ type STOP = {
 
 type PAUSE = {
   type: 'PAUSE';
+};
+
+type REFRESH_TIME = {
+  type: 'REFRESH_TIME';
+  payload: number;
+};
+
+type REFRESH_IS_PLAYING = {
+  type: 'REFRESH_IS_PLAYING';
+  payload: boolean;
+};
+
+type SET_BPM = {
+  type: 'SET_BPM';
+  payload: number;
 };
 
 // GLOBAL
