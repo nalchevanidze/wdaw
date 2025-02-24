@@ -1,6 +1,17 @@
 import { MidiRef } from '../common/types';
 import { fid } from './fragments';
 
+export const makeMidiRef = ({
+    trackId,
+    start,
+    end
+  }: Omit<MidiRef, 'id'>): MidiRef => ({
+    id: crypto.randomUUID(),
+    trackId,
+    start,
+    end
+  });
+  
 export const genMidiRefs = (): MidiRef[] => [
     {
       id: '9b33ebf4-e5b1-4e7f-bd11-6f0c916af9cb',

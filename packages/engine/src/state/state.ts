@@ -1,9 +1,4 @@
-import {
-  MidiFragment,
-  MidiRef,
-  TrackInput,
-  TracksInput
-} from '../common/types';
+import { TrackInput, TracksInput } from '../common/types';
 import { genMidiFragments } from './fragments';
 import { genMidiRefs } from './midi-refs';
 import { genPresets, pid } from './presets';
@@ -30,22 +25,4 @@ export const engineState = (): EngineState => ({
   presets: makeLib(genPresets()),
   bpm: 120,
   time: 0
-});
-
-export const makeMidiRef = ({
-  trackId,
-  start,
-  end
-}: Omit<MidiRef, 'id'>): MidiRef => ({
-  id: crypto.randomUUID(),
-  trackId,
-  start,
-  end
-});
-
-export const makeFragment = (name: string): MidiFragment & { id: string } => ({
-  id: crypto.randomUUID(),
-  name,
-  notes: [],
-  loop: [0, 64]
 });

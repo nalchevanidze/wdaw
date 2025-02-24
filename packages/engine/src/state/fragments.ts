@@ -1,5 +1,12 @@
 import { MidiFragment } from '../common/types';
 
+export const makeFragment = (name: string): MidiFragment & { id: string } => ({
+  id: crypto.randomUUID(),
+  name,
+  notes: [],
+  loop: [0, 64]
+});
+
 export const fid = {
   piano: '3d2ba839-ed91-4da5-a02a-01585af6ee4d',
   clap1: '7dc84f88-9742-417c-bff3-ccd679f145f3',

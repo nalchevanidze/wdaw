@@ -1,4 +1,4 @@
-export { EngineState, engineState } from './state';
+export { EngineState, engineState, makeMidiRef, makeFragment  } from './state';
 export { waveFunction } from './synth';
 export { SynthEngine } from './engine';
 export { SEQUENCE_LENGTH } from './common/defs';
@@ -16,4 +16,3 @@ export {
   TrackInput
 } from './common/types';
 export { UIPosition, OCTAVE_SIZE } from './utils/notes';
-export { makeMidiRef, makeFragment } from './state/state';
