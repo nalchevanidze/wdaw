@@ -7,6 +7,7 @@ import {
 import { genMidiFragments } from './fragments';
 import { genMidiRefs } from './midi-refs';
 import { genPresets, pid } from './presets';
+import { makeLib } from './utils';
 
 type PlayerState = {
   time: number;
