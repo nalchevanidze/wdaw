@@ -46,7 +46,7 @@ export const Synth: React.FC = () => {
     <div style={styles.container}>
       <Module label="Presets">
         <WaveForm quality={200} />
-        <button onClick={newPreset}> new </button>
+        <button onClick={newPreset}> New </button>
         <div style={styles.presets}>
           {options.map(({ id, name, onclick, active }) => (
             <TextButton
