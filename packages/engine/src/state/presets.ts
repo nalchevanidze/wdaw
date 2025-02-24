@@ -1,8 +1,7 @@
 import { Preset } from '../common/types';
-import { makeId } from '../utils/id';
 
 export const newPreset = (name: string) => ({
-  id: makeId(),
+  id: crypto.randomUUID(),
   name,
   wave: {
     sine: 0,
