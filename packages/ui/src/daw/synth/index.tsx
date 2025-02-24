@@ -18,7 +18,7 @@ const styles = {
     padding: '5px'
   },
   presets: {
-    maxHeight: '100px',
+    maxHeight: '80px',
     overflowY: 'scroll',
     width: '100%'
   }
@@ -45,6 +45,7 @@ export const Synth: React.FC = () => {
     <div style={styles.container}>
       <Module label="Presets">
         <WaveForm quality={200} />
+        <button> new </button>
         <div style={styles.presets}>
           {options.map(({ id, name, onclick, active }) => (
             <TextButton key={id} name={name} active={active} onClick={onclick} />

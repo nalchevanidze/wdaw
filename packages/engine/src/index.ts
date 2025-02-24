@@ -3,7 +3,7 @@ export {
   engineState,
   makeMidiRef,
   makeFragment,
-  newPreset
+  makePreset
 } from './state';
 export { waveFunction } from './synth';
 export { SynthEngine } from './engine';
