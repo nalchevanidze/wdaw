@@ -124,28 +124,36 @@ const engineEffects = (
   const preset = presets[track.presetId];
 
   switch (action.type) {
+    // Player
     case 'PLAYER_PLAY':
       return engine.play();
     case 'PLAYER_PAUSE':
       return engine.pause();
     case 'PLAYER_STOP':
       return engine.stop();
+    case 'PLAYER_SET_TIME':
+      return engine.setTime(action.payload);
+    case 'PLAYER_SET_BPM':
+      return engine.setBPM(action.payload);
+    // Keyboard
     case 'KEYBOARD_KEY_UP':
       return engine.endNote(currentTrack, action.payload);
     case 'KEYBOARD_KEY_DOWN':
       return engine.startNote(currentTrack, action.payload);
-    case 'PLAYER_SET_TIME':
-      return engine.setTime(action.payload);
+    // Midi
     case 'MIDI_SET_MIDI_REF':
     case 'MIDI_SET_FRAGMENT':
     case 'MIDI_SET_MIDI_REFS':
       return engine.setMidis(midiRefs, midiFragments);
+    // Track 
     case 'TRACK_SET_TRACK':
       return action.payload.gain
         ? engine.setGain(action.id, action.payload.gain)
         : undefined;
-    case 'PLAYER_SET_BPM':
-      return engine.setBPM(action.payload);
+    case 'TRACK_NEW_TRACK':
+      engine.setTracks({ tracks, midiFragments, presets, midiRefs });
+      return;
+    // Preset
     case 'PRESET_SET_SEQUENCE':
     case 'PRESET_TOGGLE_MODULE':
     case 'PRESET_SET_ENVELOPE':
@@ -153,9 +161,7 @@ const engineEffects = (
     case 'PRESET_SET_FILTER':
     case 'TRACK_SET_PRESET':
       return engine.setPreset(currentTrack, preset);
-    case 'TRACK_NEW_TRACK':
-      engine.setTracks({ tracks, midiFragments, presets, midiRefs });
-      return;
+    // Store
     case 'STORE_LOAD':
       engine.setTracks(action.payload);
       engine.setBPM(action.payload.bpm);
