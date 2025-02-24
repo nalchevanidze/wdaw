@@ -20,21 +20,7 @@ const dispatcher = (
   const fragmentCount = Object.keys(midiFragments).length;
 
   switch (action.type) {
-    case 'SET_CURRENT_TRACK':
-      return { currentTrack: action.payload };
-    case 'NEW_FRAGMENT': {
-      const { id, ...fragment } = makeFragment(`Fragment ${fragmentCount + 1}`);
-      return {
-        currentFragment: id,
-        midiFragments: { ...midiFragments, [id]: fragment }
-      };
-    }
-    case 'SET_CURRENT_FRAGMENT':
-      return {
-        currentFragment: action.payload
-      };
-    case 'SET_BPM':
-      return { bpm: action.payload };
+    // PRESETS
     case 'SET_SEQUENCE':
       return mapPreset(presetId, state, () => ({ sequence: action.payload }));
     case 'TOGGLE_PANEL':
@@ -48,12 +34,6 @@ const dispatcher = (
               }
             }
       );
-    case 'SET_MIDI_REFS':
-      return { midiRefs: action.payload };
-    case 'SET_MIDI_FRAGMENT':
-      return setMidiFragment(action.id, state, action.payload);
-    case 'SET_TRACK':
-      return mapTrack(action.id, state, (t) => ({ ...t, ...action.payload }));
     case 'SET_ENVELOPE':
       return mapPreset(presetId, state, ({ envelopes }) => ({
         envelopes: {
@@ -69,21 +49,35 @@ const dispatcher = (
       return mapPreset(presetId, state, ({ filter }) => ({
         filter: { ...filter, [action.id]: action.payload }
       }));
+    // MidiRef/Fragments
+    case 'SET_CURRENT_FRAGMENT':
+      return { currentFragment: action.payload };
+    case 'SET_MIDI_REFS':
+      return { midiRefs: action.payload };
+    case 'SET_MIDI_REF':
+      return {
+        midiRefs: midiRefs.map((m) =>
+          m.id === action.id ? { ...m, ...action.payload } : m
+        )
+      };
+    case 'SET_MIDI_FRAGMENT':
+      return setMidiFragment(action.id, state, action.payload);
+    case 'NEW_FRAGMENT': {
+      const { id, ...fragment } = makeFragment(`Fragment ${fragmentCount + 1}`);
+      return {
+        currentFragment: id,
+        midiFragments: { ...midiFragments, [id]: fragment }
+      };
+    }
+    // Tracks
+    case 'SET_CURRENT_TRACK':
+      return { currentTrack: action.payload };
+    case 'SET_TRACK':
+      return mapTrack(action.id, state, (t) => ({ ...t, ...action.payload }));
     case 'SET_PRESET':
       return mapTrack(currentTrack, state, () => ({
         presetId: action.payload
       }));
-    case 'REFRESH_TIME':
-      return { time: action.payload };
-    case 'REFRESH_IS_PLAYING':
-      return { isPlaying: action.payload };
-    case 'KEY_DOWN':
-      return { notes: [...notes, action.payload] };
-    case 'KEY_UP':
-      return { notes: [action.payload].filter((n) => n !== action.payload) };
-    case 'SAVE':
-      saveState({ ...state, time: 0, isPlaying: false });
-      return;
     case 'NEW_TRACK':
       return {
         tracks: [
@@ -95,12 +89,20 @@ const dispatcher = (
           }
         ]
       };
-    case 'SET_MIDI_REF':
-      return {
-        midiRefs: midiRefs.map((m) =>
-          m.id === action.id ? { ...m, ...action.payload } : m
-        )
-      };
+    // Player
+    case 'SET_BPM':
+      return { bpm: action.payload };
+    case 'REFRESH_TIME':
+      return { time: action.payload };
+    case 'REFRESH_IS_PLAYING':
+      return { isPlaying: action.payload };
+    case 'KEY_DOWN':
+      return { notes: [...notes, action.payload] };
+    case 'KEY_UP':
+      return { notes: [action.payload].filter((n) => n !== action.payload) };
+    case 'SAVE':
+      saveState({ ...state, time: 0, isPlaying: false });
+      return;
     case 'RESET': {
       deleteState();
       return dawState();
