@@ -26,7 +26,7 @@ export const Fragment: React.FC<Props> = ({
 }) => {
   const { name, notes, loopStart, loopWidth } = useMidiFragment(fragmentId);
 
-  const id = React.useId();
+  const patternId = `fragment-pattern-${fragmentId}`;
   const midiWith = end - start;
   const containerEnd = start + midiWith;
   const scaleWidth = 5;
@@ -39,7 +39,7 @@ export const Fragment: React.FC<Props> = ({
           width={loopWidth}
           height={height}
           patternUnits="userSpaceOnUse"
-          id={id}
+          id={patternId}
           x={loopOffset}
         >
           <g fill={colors.notes}>
@@ -67,7 +67,7 @@ export const Fragment: React.FC<Props> = ({
         width={midiWith}
         cursor="pointer"
       >
-        {fragmentId ? name : ""}
+        {fragmentId ? name : ''}
       </text>
       <rect
         y={y}
@@ -75,7 +75,7 @@ export const Fragment: React.FC<Props> = ({
         x={start}
         width={midiWith}
         height={height}
-        fill={'url(#' + id + ')'}
+        fill={'url(#' + patternId + ')'}
         stroke={colors.notesBackground}
         strokeWidth={0.3}
       />
