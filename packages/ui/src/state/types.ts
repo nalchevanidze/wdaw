@@ -41,7 +41,6 @@ type PRESET_SET_ENVELOPE = {
   payload: Partial<EnvelopeConfig>;
 };
 
-
 type REFRESH_TIME = {
   type: 'REFRESH_TIME';
   payload: number;
@@ -57,18 +56,6 @@ type SET_BPM = {
   payload: number;
 };
 
-type TRACK_SET_TRACK = {
-  type: 'TRACK_SET_TRACK';
-  id: number;
-  payload: Partial<TrackState>;
-};
-
-
-type TRACK_SET_PRESET = {
-  type: 'TRACK_SET_PRESET';
-  payload: string;
-};
-
 type KEY_UP = {
   type: 'KEY_UP';
   payload: number;
@@ -79,20 +66,23 @@ type KEY_DOWN = {
   payload: number;
 };
 
-type SynthActions =
-  | KEY_UP
-  | KEY_DOWN
-  | PRESET_SET_SEQUENCE
-  | PRESET_TOGGLE_MODULE
-  | PRESET_SET_ENVELOPE
-  | PRESET_SET_WAVE
-  | PRESET_SET_FILTER
-  | TRACK_SET_PRESET;
-
 // Midi Actions
 type SET_TIME = {
   type: 'SET_TIME';
   payload: number;
+};
+
+// TRACK
+
+type TRACK_SET_TRACK = {
+  type: 'TRACK_SET_TRACK';
+  id: number;
+  payload: Partial<TrackState>;
+};
+
+type TRACK_SET_PRESET = {
+  type: 'TRACK_SET_PRESET';
+  payload: string;
 };
 
 type TRACK_SET_CURRENT = {
@@ -101,6 +91,8 @@ type TRACK_SET_CURRENT = {
 };
 
 type TRACK_NEW_TRACK = { type: 'TRACK_NEW_TRACK' };
+
+// MIDI
 
 type MIDI_NEW_FRAGMENT = { type: 'MIDI_NEW_FRAGMENT' };
 
@@ -120,6 +112,14 @@ type MIDI_SET_FRAGMENT = {
   id: string;
 };
 
+type MIDI_SET_MIDI_REF = {
+  type: 'MIDI_SET_MIDI_REF';
+  id: string;
+  payload: Partial<MidiRef>;
+};
+
+// PLAYER 
+
 type PLAY = {
   type: 'PLAY';
 };
@@ -133,7 +133,6 @@ type PAUSE = {
 };
 
 // GLOBAL
-
 type SAVE = {
   type: 'SAVE';
 };
@@ -142,18 +141,20 @@ type RESET = {
   type: 'RESET';
 };
 
-type MIDI_SET_MIDI_REF = {
-  type: 'MIDI_SET_MIDI_REF';
-  id: string;
-  payload: Partial<MidiRef>;
-};
-
 type LOAD = {
   type: 'LOAD';
   payload: DAWState;
 };
 
-type GlobalActions = SAVE | RESET | LOAD;
+type SynthActions =
+  | KEY_UP
+  | KEY_DOWN
+  | PRESET_SET_SEQUENCE
+  | PRESET_TOGGLE_MODULE
+  | PRESET_SET_ENVELOPE
+  | PRESET_SET_WAVE
+  | PRESET_SET_FILTER
+  | TRACK_SET_PRESET;
 
 type MidiActions =
   | SET_TIME
@@ -168,6 +169,8 @@ type MidiActions =
   | TRACK_SET_TRACK
   | MIDI_SET_MIDI_REF
   | MIDI_SET_CURRENT_FRAGMENT;
+
+type GlobalActions = SAVE | RESET | LOAD;
 
 export type EngineAction =
   | SynthActions
