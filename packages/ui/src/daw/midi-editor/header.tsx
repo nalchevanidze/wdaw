@@ -9,7 +9,7 @@ import { useMidiFragment } from '../hooks/use-midi-fragment';
 
 const styles = {
   container: {
-    padding: "5px",
+    padding: '5px',
     display: 'flex',
     background: colors.background,
     border: '0.05em solid #BBB',
@@ -30,7 +30,8 @@ type Props = {
 };
 
 export const Header: React.FC<Props> = ({ actionType, manu }) => {
-  const { name, id, options, setFragment, setCurrent } = useMidiFragment();
+  const { name, id, options, setFragment, setCurrent, newFragment } =
+    useMidiFragment();
 
   return (
     <section style={styles.container}>
@@ -40,7 +41,7 @@ export const Header: React.FC<Props> = ({ actionType, manu }) => {
         options={options}
         onChange={setCurrent}
       />
-      <button onClick={newTrack}>New</button>
+      <button onClick={newFragment}>New</button>
       <NameInput value={name} onChange={(name) => setFragment({ name })} />
       <IconButton
         id="draw"

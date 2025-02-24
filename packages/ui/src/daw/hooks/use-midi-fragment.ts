@@ -31,6 +31,8 @@ export const useMidiFragment = (targetId?: string) => {
   const setFragment = (payload: Partial<MidiFragment>) =>
     dispatch({ type: 'SET_MIDI_FRAGMENT', id, payload });
 
+  const newFragment = () => dispatch({ type: 'NEW_FRAGMENT' });
+
   const syncNotes = (notes: UINote[]) =>
     dispatch({
       id,
@@ -62,6 +64,7 @@ export const useMidiFragment = (targetId?: string) => {
     id,
     setFragment,
     syncNotes,
-    setCurrent
+    setCurrent,
+    newFragment
   };
 };
