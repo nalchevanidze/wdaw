@@ -1,4 +1,10 @@
-export { EngineState, engineState, makeMidiRef, makeFragment  } from './state';
+export {
+  EngineState,
+  engineState,
+  makeMidiRef,
+  makeFragment,
+  newPreset
+} from './state';
 export { waveFunction } from './synth';
 export { SynthEngine } from './engine';
 export { SEQUENCE_LENGTH } from './common/defs';
