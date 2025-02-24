@@ -38,17 +38,23 @@ export const Synth: React.FC = () => {
     setWave,
     setFilter,
     sequence,
-    toggleARP
+    toggleARP,
+    newPreset
   } = usePreset();
 
   return (
     <div style={styles.container}>
       <Module label="Presets">
         <WaveForm quality={200} />
-        <button> new </button>
+        <button onClick={newPreset}> new </button>
         <div style={styles.presets}>
           {options.map(({ id, name, onclick, active }) => (
-            <TextButton key={id} name={name} active={active} onClick={onclick} />
+            <TextButton
+              key={id}
+              name={name}
+              active={active}
+              onClick={onclick}
+            />
           ))}
         </div>
       </Module>

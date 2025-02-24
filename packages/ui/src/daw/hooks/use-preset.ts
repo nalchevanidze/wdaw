@@ -42,6 +42,8 @@ export const usePreset = () => {
     toggle: () => dispatch({ type: 'PRESET_TOGGLE_MODULE', id })
   });
 
+  const newPreset = () => dispatch({ type: 'PRESET_NEW_PRESET' });
+
   return {
     ...current,
     options,
@@ -49,6 +51,7 @@ export const usePreset = () => {
     setFilter,
     toggleARP,
     setEnvelope,
-    getModule
+    getModule,
+    newPreset
   };
 };

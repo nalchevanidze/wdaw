@@ -1,4 +1,4 @@
-import { makeFragment, SynthEngine } from '@wdaw/engine';
+import { makeFragment, makePreset, SynthEngine } from '@wdaw/engine';
 import {
   deleteState,
   mapPreset,
@@ -45,6 +45,13 @@ const dispatcher = (
       return setPreset(({ filter }) => ({
         filter: { ...filter, [action.id]: action.payload }
       }));
+    case 'PRESET_NEW_PRESET': {
+      const preset = makePreset('new preset');
+      const { tracks } = mapTrack(currentTrack, state, () => ({
+        presetId: preset.id
+      }));
+      return { tracks, presets: { ...presets, [preset.id]: preset } };
+    }
     // MIDI
     case 'MIDI_SET_CURRENT_FRAGMENT':
       return { currentFragment: action.payload };

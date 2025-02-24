@@ -39,6 +39,10 @@ type PRESET_SET_ENVELOPE = {
   payload: Partial<EnvelopeConfig>;
 };
 
+type PRESET_NEW_PRESET = {
+  type: 'PRESET_NEW_PRESET';
+};
+
 // Keyboard
 
 type KEYBOARD_KEY_UP = {
@@ -131,7 +135,7 @@ type REFRESH_IS_PLAYING = {
   payload: boolean;
 };
 
-// STORE 
+// STORE
 
 type STORE_SAVE = {
   type: 'STORE_SAVE';
@@ -156,6 +160,7 @@ type SynthActions =
   | PRESET_SET_ENVELOPE
   | PRESET_SET_WAVE
   | PRESET_SET_FILTER
+  | PRESET_NEW_PRESET
   | TRACK_SET_PRESET;
 
 type MidiActions =
