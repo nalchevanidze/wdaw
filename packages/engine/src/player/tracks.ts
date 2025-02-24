@@ -26,13 +26,11 @@ export class Tracks {
 
   private setupTracks(tracks: TrackInput[], presets: Presets) {
     this.tracks = tracks.map(({ presetId, gain }, i) => {
-      const preset = presets[presetId];
 
-      const track =
-        this.get(i) ?? new Track(new Synth(this.sampleRate), preset);
+      const track = this.get(i) ?? new Track(new Synth(this.sampleRate));
 
       track.setGain(gain);
-      track.setPreset(preset);
+      track.setPreset(presets[presetId]);
       return track;
     });
   }
