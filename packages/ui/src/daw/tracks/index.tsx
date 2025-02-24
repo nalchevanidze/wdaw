@@ -182,7 +182,7 @@ export const Tracks = () => {
             value={current.name}
             onChange={(name) =>
               dispatch({
-                type: 'SET_TRACK',
+                type: 'TRACK_SET_TRACK',
                 id: currentTrack,
                 payload: { name }
               })

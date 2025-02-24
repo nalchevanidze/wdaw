@@ -25,7 +25,7 @@ export const usePreset = () => {
     id,
     name,
     active: id === presetId,
-    onclick: () => dispatch({ type: 'SET_PRESET', payload: id })
+    onclick: () => dispatch({ type: 'TRACK_SET_PRESET', payload: id })
   }));
 
   const toggleARP = (l: Location) =>

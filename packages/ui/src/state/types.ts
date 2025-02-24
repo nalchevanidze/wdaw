@@ -51,8 +51,8 @@ type PRESET_TOGGLE_MODULE = {
   id: PANEL_ID;
 };
 
-type SET_TRACK = {
-  type: 'SET_TRACK';
+type TRACK_SET_TRACK = {
+  type: 'TRACK_SET_TRACK';
   id: number;
   payload: Partial<TrackState>;
 };
@@ -63,8 +63,8 @@ type PRESET_SET_ENVELOPE = {
   payload: Partial<EnvelopeConfig>;
 };
 
-type SET_PRESET = {
-  type: 'SET_PRESET';
+type TRACK_SET_PRESET = {
+  type: 'TRACK_SET_PRESET';
   payload: string;
 };
 
@@ -86,7 +86,7 @@ type SynthActions =
   | PRESET_SET_ENVELOPE
   | PRESET_SET_WAVE
   | PRESET_SET_FILTER
-  | SET_PRESET;
+  | TRACK_SET_PRESET;
 
 // Midi Actions
 type SET_TIME = {
@@ -99,7 +99,7 @@ type SET_CURRENT_TRACK = {
   payload: number;
 };
 
-type NEW_TRACK = { type: 'NEW_TRACK' };
+type TRACK_NEW_TRACK = { type: 'TRACK_NEW_TRACK' };
 
 type NEW_FRAGMENT = { type: 'NEW_FRAGMENT' };
 
@@ -159,12 +159,12 @@ type MidiActions =
   | SET_CURRENT_TRACK
   | SET_MIDI_FRAGMENT
   | SET_MIDI_REFS
-  | NEW_TRACK
+  | TRACK_NEW_TRACK
   | NEW_FRAGMENT
   | PLAY
   | PAUSE
   | STOP
-  | SET_TRACK
+  | TRACK_SET_TRACK
   | SET_MIDI_REF
   | SET_CURRENT_FRAGMENT;
 
