@@ -1,12 +1,12 @@
 import { MidiFragments } from '../common/types';
 
 export const fid = {
-  piano: 'm7i2su9u6dkz74w1ufw',
-  clap1: 'm7i2su9u5s1dan5ykob',
-  clap2: 'm7i2su9uzgowyynwhvs',
-  clapFast: 'm7i2su9ucbnfed1ceee',
-  bass: 'm7i2su9uzfkum2of9ig',
-  kick: 'm7i2su9uefou052rb2h'
+  piano: '3d2ba839-ed91-4da5-a02a-01585af6ee4d',
+  clap1: '7dc84f88-9742-417c-bff3-ccd679f145f3',
+  clap2: '7ec4f35f-e1f2-4659-9d6a-b548a0bdad35',
+  clapFast: '5b7aedf0-e12b-40cd-8a73-e296f9aa7181',
+  bass: 'ffb50873-e996-4a48-9753-ab5a3899975a',
+  kick: '469e3b68-d1dc-43d0-bd48-da16859ef3e9'
 };
 
 export const genMidiFragments = (): MidiFragments => ({
