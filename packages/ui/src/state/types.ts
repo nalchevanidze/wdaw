@@ -66,12 +66,6 @@ type KEY_DOWN = {
   payload: number;
 };
 
-// Midi Actions
-type SET_TIME = {
-  type: 'SET_TIME';
-  payload: number;
-};
-
 // TRACK
 
 type TRACK_SET_TRACK = {
@@ -118,7 +112,11 @@ type MIDI_SET_MIDI_REF = {
   payload: Partial<MidiRef>;
 };
 
-// PLAYER 
+// PLAYER
+type SET_TIME = {
+  type: 'SET_TIME';
+  payload: number;
+};
 
 type PLAY = {
   type: 'PLAY';
