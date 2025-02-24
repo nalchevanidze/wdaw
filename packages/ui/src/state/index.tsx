@@ -24,16 +24,12 @@ const dispatcher = (
     case 'PRESET_SET_SEQUENCE':
       return mapPreset(presetId, state, () => ({ sequence: action.payload }));
     case 'PRESET_TOGGLE_MODULE':
-      return mapPreset(presetId, state, (preset) =>
-        action.id === 'wave'
-          ? {}
-          : {
-              [action.id]: {
-                ...preset[action.id],
-                enabled: !preset[action.id].enabled
-              }
-            }
-      );
+      return mapPreset(presetId, state, (preset) => ({
+        [action.id]: {
+          ...preset[action.id],
+          enabled: !preset[action.id].enabled
+        }
+      }));
     case 'PRESET_SET_ENVELOPE':
       return mapPreset(presetId, state, ({ envelopes }) => ({
         envelopes: {
@@ -145,7 +141,7 @@ const engineEffects = (
     case 'MIDI_SET_FRAGMENT':
     case 'MIDI_SET_MIDI_REFS':
       return engine.setMidis(midiRefs, midiFragments);
-    // Track 
+    // Track
     case 'TRACK_SET_TRACK':
       return action.payload.gain
         ? engine.setGain(action.id, action.payload.gain)

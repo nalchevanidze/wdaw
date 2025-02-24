@@ -11,8 +11,6 @@ import {
   TrackState
 } from '@wdaw/engine';
 
-export type PANEL_ID = 'filter' | 'sequence' | 'wave';
-
 type PRESET_SET_WAVE = {
   type: 'PRESET_SET_WAVE';
   id: WAVE_ID;
@@ -32,7 +30,7 @@ type PRESET_SET_SEQUENCE = {
 
 type PRESET_TOGGLE_MODULE = {
   type: 'PRESET_TOGGLE_MODULE';
-  id: PANEL_ID;
+  id: 'filter' | 'sequence';
 };
 
 type PRESET_SET_ENVELOPE = {
