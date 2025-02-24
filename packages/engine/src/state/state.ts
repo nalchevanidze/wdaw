@@ -10,10 +10,10 @@ export type TrackState = {
 
 export type MidiRef = {
   id: string;
-  start: number;
-  end: number;
   trackId: number;
   fragmentId?: string;
+  start: number;
+  end: number;
 };
 
 export type TracksState = {
