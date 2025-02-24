@@ -3,9 +3,9 @@ import {
   Preset,
   Presets,
   MidiRef,
-  TrackInput
+  TrackInput,
+  TracksInput
 } from '../common/types';
-import { TracksState } from '../state/state';
 import { Synth } from '../synth';
 import { Track } from './track';
 import { toActions } from './utils/actions';
@@ -37,7 +37,7 @@ export class Tracks {
     });
   }
 
-  public set = ({ tracks, midiFragments, presets, midiRefs }: TracksState) => {
+  public set = ({ tracks, midiFragments, presets, midiRefs }: TracksInput) => {
     this.setupTracks(tracks, presets);
     this.setMidis(midiRefs, midiFragments);
   };

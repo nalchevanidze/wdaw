@@ -1,9 +1,7 @@
 import { audioProcessor } from './audio-processor';
 import { EngineEvents } from './common/events';
-import { Midi } from './common/types';
 import { MidiPlayer } from './player';
 import { Tracks } from './player/tracks';
-import { TracksState } from './state/state';
 
 export class SynthEngine {
   private sampleRate = 44100;

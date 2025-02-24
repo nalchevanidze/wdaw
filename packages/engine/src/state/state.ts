@@ -1,19 +1,11 @@
 import {
-  Presets,
-  MidiFragments,
   MidiFragment,
   MidiRef,
-  TrackInput
+  TrackInput,
+  TracksInput
 } from '../common/types';
 import { fid, genMidiFragments } from './fragments';
 import { genPresets, pid } from './presets';
-
-export type TracksState = {
-  tracks: TrackInput[];
-  midiFragments: MidiFragments;
-  presets: Presets;
-  midiRefs: MidiRef[];
-};
 
 type PlayerState = {
   isPlaying: boolean;
@@ -21,7 +13,7 @@ type PlayerState = {
   bpm: number;
 };
 
-export type EngineState = PlayerState & TracksState;
+export type EngineState = PlayerState & TracksInput;
 
 export const engineState = (): EngineState => {
   const presets = Object.fromEntries(genPresets().map((p) => [p.id, p]));

@@ -87,3 +87,10 @@ export type TrackInput = {
   gain: number;
   presetId: string;
 };
+
+export type TracksInput = {
+  tracks: TrackInput[];
+  midiFragments: MidiFragments;
+  presets: Presets;
+  midiRefs: MidiRef[];
+};
