@@ -36,6 +36,7 @@ export const Header: React.FC<Props> = ({ actionType, manu }) => {
   return (
     <section style={styles.container}>
       <DropDown
+        id="midi-editor-fragment-selector"
         label="Fragment"
         value={id}
         options={options}

@@ -204,6 +204,7 @@ export const Tracks = () => {
         {opened && (
           <div style={styles.bar}>
             <DropDown
+              id="tracks-midi-ref-fragment-selector"
               label="Fragment"
               value={opened.fragmentId ?? ''}
               options={options}

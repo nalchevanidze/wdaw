@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const Tapeline: React.FC<Props> = ({ height, size, strength = 0.4 }) => {
-  const id = React.useId();
+  const id = `tapeline-pattern-${height}-${size}-${strength}`;
 
   return (
     <g>
