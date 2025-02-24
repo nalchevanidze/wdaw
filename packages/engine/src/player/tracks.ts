@@ -10,33 +10,23 @@ import { Synth } from '../synth';
 import { Track } from './track';
 import { toActions } from './utils/actions';
 
-const getSize = (tracks: Track[]) => Math.max(...tracks.map((t) => t.size));
-
 export class Tracks {
-  private size: number = getSize(this.tracks);
+  private tracks: Track[] = [];
+  private size: number = 0;
 
-  constructor(
-    private tracks: Track[],
-    private sampleRate: number
-  ) {
-    this.refresh();
-  }
+  constructor(private sampleRate: number) {}
 
   public get = (i: number) => this.tracks[i];
 
-  private setupTracks(tracks: TrackInput[], presets: Presets) {
+  public set = ({ tracks, midiFragments, presets, midiRefs }: TracksInput) => {
     this.tracks = tracks.map(({ presetId, gain }, i) => {
-
       const track = this.get(i) ?? new Track(new Synth(this.sampleRate));
 
       track.setGain(gain);
       track.setPreset(presets[presetId]);
       return track;
     });
-  }
 
-  public set = ({ tracks, midiFragments, presets, midiRefs }: TracksInput) => {
-    this.setupTracks(tracks, presets);
     this.setMidis(midiRefs, midiFragments);
   };
 
@@ -45,10 +35,6 @@ export class Tracks {
       track.nextActions(isPlaying, index);
     }
   };
-
-  private refresh() {
-    this.size = Math.max(...this.tracks.map((t) => t.size));
-  }
 
   public next = () => {
     let result = 0;
@@ -80,7 +66,7 @@ export class Tracks {
       );
     });
 
-    this.refresh();
+    this.size = Math.max(...this.tracks.map((t) => t.size));
   };
 
   public setPreset = (i: number, preset: Preset) =>
