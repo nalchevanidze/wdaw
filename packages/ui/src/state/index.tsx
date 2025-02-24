@@ -139,8 +139,6 @@ const engineEffects = (
     case 'MIDI_SET_FRAGMENT':
     case 'MIDI_SET_MIDI_REFS':
       return engine.setMidis(midiRefs, midiFragments);
-    case 'TRACK_SET_CURRENT':
-      return;
     case 'TRACK_SET_TRACK':
       return action.payload.gain
         ? engine.setGain(action.id, action.payload.gain)
