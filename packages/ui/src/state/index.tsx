@@ -18,31 +18,32 @@ const dispatcher = (
   const track = tracks[currentTrack];
   const { presetId } = track;
   const fragmentCount = Object.keys(midiFragments).length;
+  const setPreset = mapPreset(presetId, state);
 
   switch (action.type) {
     // PRESET
     case 'PRESET_SET_SEQUENCE':
-      return mapPreset(presetId, state, () => ({ sequence: action.payload }));
+      return setPreset(() => ({ sequence: action.payload }));
     case 'PRESET_TOGGLE_MODULE':
-      return mapPreset(presetId, state, (preset) => ({
+      return setPreset((preset) => ({
         [action.id]: {
           ...preset[action.id],
           enabled: !preset[action.id].enabled
         }
       }));
     case 'PRESET_SET_ENVELOPE':
-      return mapPreset(presetId, state, ({ envelopes }) => ({
+      return setPreset(({ envelopes }) => ({
         envelopes: {
           ...envelopes,
           [action.id]: { ...envelopes[action.id], ...action.payload }
         }
       }));
     case 'PRESET_SET_WAVE':
-      return mapPreset(presetId, state, ({ wave }) => ({
+      return setPreset(({ wave }) => ({
         wave: { ...wave, [action.id]: action.payload }
       }));
     case 'PRESET_SET_FILTER':
-      return mapPreset(presetId, state, ({ filter }) => ({
+      return setPreset(({ filter }) => ({
         filter: { ...filter, [action.id]: action.payload }
       }));
     // MIDI
