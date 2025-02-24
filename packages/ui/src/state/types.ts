@@ -8,7 +8,7 @@ import {
   MidiFragment,
   EngineState,
   MidiRef,
-  TrackState
+  TrackInput
 } from '@wdaw/engine';
 
 type PRESET_SET_WAVE = {
@@ -56,7 +56,7 @@ type KEYBOARD_KEY_DOWN = {
 type TRACK_SET_TRACK = {
   type: 'TRACK_SET_TRACK';
   id: number;
-  payload: Partial<TrackState>;
+  payload: Partial<TrackInput>;
 };
 
 type TRACK_SET_PRESET = {

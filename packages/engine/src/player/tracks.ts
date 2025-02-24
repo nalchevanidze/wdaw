@@ -1,5 +1,11 @@
-import { MidiFragments, Preset, Presets, MidiRef } from '../common/types';
-import { TracksState, TrackState } from '../state/state';
+import {
+  MidiFragments,
+  Preset,
+  Presets,
+  MidiRef,
+  TrackInput
+} from '../common/types';
+import { TracksState } from '../state/state';
 import { Synth } from '../synth';
 import { Track } from './track';
 import { toActions } from './utils/actions';
@@ -18,7 +24,7 @@ export class Tracks {
 
   public get = (i: number) => this.tracks[i];
 
-  private setupTracks(tracks: TrackState[], presets: Presets) {
+  private setupTracks(tracks: TrackInput[], presets: Presets) {
     this.tracks = tracks.map(({ presetId, gain }, i) => {
       const preset = presets[presetId];
 

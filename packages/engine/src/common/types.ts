@@ -80,3 +80,10 @@ export type MidiRef = {
   start: number;
   end: number;
 };
+
+
+export type TrackInput = {
+  name: string;
+  gain: number;
+  presetId: string;
+};

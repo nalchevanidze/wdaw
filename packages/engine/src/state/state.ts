@@ -1,15 +1,15 @@
-import { Presets, MidiFragments, MidiFragment, MidiRef } from '../common/types';
+import {
+  Presets,
+  MidiFragments,
+  MidiFragment,
+  MidiRef,
+  TrackInput
+} from '../common/types';
 import { fid, genMidiFragments } from './fragments';
 import { genPresets, pid } from './presets';
 
-export type TrackState = {
-  name: string;
-  gain: number;
-  presetId: string;
-};
-
 export type TracksState = {
-  tracks: TrackState[];
+  tracks: TrackInput[];
   midiFragments: MidiFragments;
   presets: Presets;
   midiRefs: MidiRef[];
@@ -92,7 +92,7 @@ export const engineState = (): EngineState => {
     }
   ];
 
-  const tracks: TrackState[] = [
+  const tracks: TrackInput[] = [
     { name: 'Piano', presetId: pid.pluck, gain: 0.4 },
     { name: 'Bass', presetId: pid.bass, gain: 0.3 },
     { name: 'Kick', presetId: pid.kick, gain: 1 },

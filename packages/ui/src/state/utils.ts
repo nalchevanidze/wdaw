@@ -1,4 +1,4 @@
-import { TrackState, Preset, MidiFragment } from '@wdaw/engine';
+import { TrackInput, Preset, MidiFragment } from '@wdaw/engine';
 import { DAWState } from './types';
 
 const STATE_KEY = 'daw-local-storage-state-v1';
@@ -27,7 +27,7 @@ export const setMidiFragment = (
 
 export const mapTracks = (
   { tracks }: DAWState,
-  f: (a: TrackState, i: number) => Partial<TrackState>
+  f: (a: TrackInput, i: number) => Partial<TrackInput>
 ): Partial<DAWState> => ({
   tracks: tracks.map((t, i) => ({ ...t, ...f(t, i) }))
 });
@@ -35,7 +35,7 @@ export const mapTracks = (
 export const mapTrack = (
   id: number,
   { tracks }: DAWState,
-  f: (a: TrackState) => Partial<TrackState>
+  f: (a: TrackInput) => Partial<TrackInput>
 ): Partial<DAWState> => ({
   tracks: tracks.map((t, i) => (id === i ? { ...t, ...f(t) } : t))
 });

@@ -12,7 +12,8 @@ export {
   Note,
   Midi,
   MidiFragment,
-  MidiRef
+  MidiRef,
+  TrackInput
 } from './common/types';
 export { UIPosition, OCTAVE_SIZE } from './utils/notes';
-export { TrackState, makeMidiRef, makeFragment } from './state/state';
+export { makeMidiRef, makeFragment } from './state/state';
