@@ -1,5 +1,4 @@
 import { Presets, MidiFragments, MidiFragment } from '../common/types';
-import { makeId } from '../utils/id';
 import { fid, genMidiFragments } from './fragments';
 import { genPresets, pid } from './presets';
 
@@ -124,14 +123,14 @@ export const makeMidiRef = ({
   start,
   end
 }: Omit<MidiRef, 'id'>): MidiRef => ({
-  id: makeId(),
+  id: crypto.randomUUID(),
   trackIndex,
   start,
   end
 });
 
 export const makeFragment = (name: string): MidiFragment & {id: string} => ({
-  id: makeId(),
+  id: crypto.randomUUID(),
   name,
   notes: [],
   loop: [0, 64]
