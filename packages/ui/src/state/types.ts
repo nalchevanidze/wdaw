@@ -94,8 +94,8 @@ type SET_TIME = {
   payload: number;
 };
 
-type SET_CURRENT_TRACK = {
-  type: 'SET_CURRENT_TRACK';
+type TRACK_SET_CURRENT = {
+  type: 'TRACK_SET_CURRENT';
   payload: number;
 };
 
@@ -156,7 +156,7 @@ type GlobalActions = SAVE | RESET | LOAD;
 
 type MidiActions =
   | SET_TIME
-  | SET_CURRENT_TRACK
+  | TRACK_SET_CURRENT
   | SET_MIDI_FRAGMENT
   | SET_MIDI_REFS
   | TRACK_NEW_TRACK

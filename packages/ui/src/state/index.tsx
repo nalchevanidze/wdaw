@@ -70,7 +70,7 @@ const dispatcher = (
       };
     }
     // Tracks
-    case 'SET_CURRENT_TRACK':
+    case 'TRACK_SET_CURRENT':
       return { currentTrack: action.payload };
     case 'TRACK_SET_TRACK':
       return mapTrack(action.id, state, (t) => ({ ...t, ...action.payload }));
@@ -139,7 +139,7 @@ const engineEffects = (
     case 'SET_MIDI_FRAGMENT':
     case 'SET_MIDI_REFS':
       return engine.setMidis(midiRefs, midiFragments);
-    case 'SET_CURRENT_TRACK':
+    case 'TRACK_SET_CURRENT':
       return;
     case 'TRACK_SET_TRACK':
       return action.payload.gain
