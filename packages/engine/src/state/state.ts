@@ -5,7 +5,6 @@ import { genPresets, pid } from './presets';
 import { makeLib } from './utils';
 
 type PlayerState = {
-  time: number;
   bpm: number;
 };
 
@@ -24,5 +23,4 @@ export const engineState = (): EngineState => ({
   tracks: genTracks(),
   presets: makeLib(genPresets()),
   bpm: 120,
-  time: 0
 });

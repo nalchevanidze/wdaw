@@ -189,6 +189,7 @@ export type EngineAction =
   | EngineEvents;
 
 export type DAWState = EngineState & {
+  time: number;
   currentFragment: string;
   currentTrack: number;
   notes: number[];
