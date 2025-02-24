@@ -96,9 +96,9 @@ const dispatcher = (
       return { time: action.payload };
     case 'REFRESH_IS_PLAYING':
       return { isPlaying: action.payload };
-    case 'KEY_DOWN':
+    case 'KEYBOARD_KEY_DOWN':
       return { notes: [...notes, action.payload] };
-    case 'KEY_UP':
+    case 'KEYBOARD_KEY_UP':
       return { notes: [action.payload].filter((n) => n !== action.payload) };
     // STORE
     case 'STORE_SAVE':
@@ -130,9 +130,9 @@ const engineEffects = (
       return engine.pause();
     case 'PLAYER_STOP':
       return engine.stop();
-    case 'KEY_UP':
+    case 'KEYBOARD_KEY_UP':
       return engine.endNote(currentTrack, action.payload);
-    case 'KEY_DOWN':
+    case 'KEYBOARD_KEY_DOWN':
       return engine.startNote(currentTrack, action.payload);
     case 'PLAYER_SET_TIME':
       return engine.setTime(action.payload);

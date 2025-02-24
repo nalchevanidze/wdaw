@@ -43,13 +43,13 @@ type PRESET_SET_ENVELOPE = {
 
 // Keyboard
 
-type KEY_UP = {
-  type: 'KEY_UP';
+type KEYBOARD_KEY_UP = {
+  type: 'KEYBOARD_KEY_UP';
   payload: number;
 };
 
-type KEY_DOWN = {
-  type: 'KEY_DOWN';
+type KEYBOARD_KEY_DOWN = {
+  type: 'KEYBOARD_KEY_DOWN';
   payload: number;
 };
 
@@ -151,8 +151,8 @@ type STORE_LOAD = {
 // COMBINATIONS
 
 type SynthActions =
-  | KEY_UP
-  | KEY_DOWN
+  | KEYBOARD_KEY_UP
+  | KEYBOARD_KEY_DOWN
   | PRESET_SET_SEQUENCE
   | PRESET_TOGGLE_MODULE
   | PRESET_SET_ENVELOPE
