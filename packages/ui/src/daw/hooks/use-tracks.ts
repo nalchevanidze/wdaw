@@ -11,7 +11,7 @@ export const useTracks = () => {
 
   const setMidis = (ls: MidiRef[]) =>
     dispatch({
-      type: 'SET_MIDI_REFS',
+      type: 'MIDI_SET_MIDI_REFS',
       payload: ls.map(
         ({ start, end, fragmentId, trackIndex, id }): MidiRef => ({
           id,
@@ -24,7 +24,7 @@ export const useTracks = () => {
     });
 
   const setCurrent = (id: string) =>
-    dispatch({ type: 'SET_CURRENT_FRAGMENT', payload: id });
+    dispatch({ type: 'MIDI_SET_CURRENT_FRAGMENT', payload: id });
 
   const newTrack = () => dispatch({ type: 'TRACK_NEW_TRACK' });
 

@@ -101,20 +101,20 @@ type TRACK_SET_CURRENT = {
 
 type TRACK_NEW_TRACK = { type: 'TRACK_NEW_TRACK' };
 
-type NEW_FRAGMENT = { type: 'NEW_FRAGMENT' };
+type MIDI_NEW_FRAGMENT = { type: 'MIDI_NEW_FRAGMENT' };
 
-type SET_CURRENT_FRAGMENT = {
-  type: 'SET_CURRENT_FRAGMENT';
+type MIDI_SET_CURRENT_FRAGMENT = {
+  type: 'MIDI_SET_CURRENT_FRAGMENT';
   payload: string;
 };
 
-type SET_MIDI_REFS = {
-  type: 'SET_MIDI_REFS';
+type MIDI_SET_MIDI_REFS = {
+  type: 'MIDI_SET_MIDI_REFS';
   payload: MidiRef[];
 };
 
-type SET_MIDI_FRAGMENT = {
-  type: 'SET_MIDI_FRAGMENT';
+type MIDI_SET_FRAGMENT = {
+  type: 'MIDI_SET_FRAGMENT';
   payload: Partial<MidiFragment>;
   id: string;
 };
@@ -141,8 +141,8 @@ type RESET = {
   type: 'RESET';
 };
 
-type SET_MIDI_REF = {
-  type: 'SET_MIDI_REF';
+type MIDI_SET_MIDI_REF = {
+  type: 'MIDI_SET_MIDI_REF';
   id: string;
   payload: Partial<MidiRef>;
 };
@@ -157,16 +157,16 @@ type GlobalActions = SAVE | RESET | LOAD;
 type MidiActions =
   | SET_TIME
   | TRACK_SET_CURRENT
-  | SET_MIDI_FRAGMENT
-  | SET_MIDI_REFS
+  | MIDI_SET_FRAGMENT
+  | MIDI_SET_MIDI_REFS
   | TRACK_NEW_TRACK
-  | NEW_FRAGMENT
+  | MIDI_NEW_FRAGMENT
   | PLAY
   | PAUSE
   | STOP
   | TRACK_SET_TRACK
-  | SET_MIDI_REF
-  | SET_CURRENT_FRAGMENT;
+  | MIDI_SET_MIDI_REF
+  | MIDI_SET_CURRENT_FRAGMENT;
 
 export type EngineAction =
   | SynthActions

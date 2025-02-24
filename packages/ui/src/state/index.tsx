@@ -50,19 +50,19 @@ const dispatcher = (
         filter: { ...filter, [action.id]: action.payload }
       }));
     // MidiRef/Fragments
-    case 'SET_CURRENT_FRAGMENT':
+    case 'MIDI_SET_CURRENT_FRAGMENT':
       return { currentFragment: action.payload };
-    case 'SET_MIDI_REFS':
+    case 'MIDI_SET_MIDI_REFS':
       return { midiRefs: action.payload };
-    case 'SET_MIDI_REF':
+    case 'MIDI_SET_MIDI_REF':
       return {
         midiRefs: midiRefs.map((m) =>
           m.id === action.id ? { ...m, ...action.payload } : m
         )
       };
-    case 'SET_MIDI_FRAGMENT':
+    case 'MIDI_SET_FRAGMENT':
       return setMidiFragment(action.id, state, action.payload);
-    case 'NEW_FRAGMENT': {
+    case 'MIDI_NEW_FRAGMENT': {
       const { id, ...fragment } = makeFragment(`Fragment ${fragmentCount + 1}`);
       return {
         currentFragment: id,
@@ -135,9 +135,9 @@ const engineEffects = (
       return engine.startNote(currentTrack, action.payload);
     case 'SET_TIME':
       return engine.setTime(action.payload);
-    case 'SET_MIDI_REF':
-    case 'SET_MIDI_FRAGMENT':
-    case 'SET_MIDI_REFS':
+    case 'MIDI_SET_MIDI_REF':
+    case 'MIDI_SET_FRAGMENT':
+    case 'MIDI_SET_MIDI_REFS':
       return engine.setMidis(midiRefs, midiFragments);
     case 'TRACK_SET_CURRENT':
       return;
