@@ -8,7 +8,6 @@ import { fid, genMidiFragments } from './fragments';
 import { genPresets, pid } from './presets';
 
 type PlayerState = {
-  isPlaying: boolean;
   time: number;
   bpm: number;
 };
@@ -96,7 +95,6 @@ export const engineState = (): EngineState => {
     midiRefs,
     midiFragments: genMidiFragments(),
     presets,
-    isPlaying: false,
     time: 0,
     tracks
   };

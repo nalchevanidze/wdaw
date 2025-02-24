@@ -187,4 +187,5 @@ export type DAWState = EngineState & {
   currentFragment: string;
   currentTrack: number;
   notes: number[];
+  isPlaying: boolean;
 };
