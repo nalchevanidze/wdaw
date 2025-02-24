@@ -26,10 +26,7 @@ const dispatcher = (
       const { id, ...fragment } = makeFragment(`Fragment ${fragmentCount + 1}`);
       return {
         currentFragment: id,
-        midiFragments: {
-          ...midiFragments,
-          [id]: fragment
-        }
+        midiFragments: { ...midiFragments, [id]: fragment }
       };
     }
     case 'SET_CURRENT_FRAGMENT':
