@@ -16,10 +16,10 @@ export const usePreset = () => {
   const current = presets[presetId];
 
   const setWave = (id: WAVE_ID, payload: number) =>
-    dispatch({ type: 'SET_WAVE', id, payload });
+    dispatch({ type: 'PRESET_SET_WAVE', id, payload });
 
   const setFilter = (id: FILTER_ID, payload: number) =>
-    dispatch({ type: 'SET_FILTER', id, payload });
+    dispatch({ type: 'PRESET_SET_FILTER', id, payload });
 
   const options = Object.values(presets).map(({ id, name }) => ({
     id,
@@ -30,16 +30,16 @@ export const usePreset = () => {
 
   const toggleARP = (l: Location) =>
     dispatch({
-      type: 'SET_SEQUENCE',
+      type: 'PRESET_SET_SEQUENCE',
       payload: toggleARPNote(current.sequence, l)
     });
 
   const setEnvelope = (id: ENVELOPE_ID) => (payload: Partial<EnvelopeConfig>) =>
-    dispatch({ type: 'SET_ENVELOPE', id, payload });
+    dispatch({ type: 'PRESET_SET_ENVELOPE', id, payload });
 
   const getModule = (id: 'filter' | 'sequence') => ({
     disabled: !current[id].enabled,
-    toggle: () => dispatch({ type: 'TOGGLE_PANEL', id })
+    toggle: () => dispatch({ type: 'PRESET_TOGGLE_MODULE', id })
   });
 
   return {

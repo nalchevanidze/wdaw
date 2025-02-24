@@ -14,14 +14,14 @@ import { Track } from '@wdaw/engine/src/player';
 
 export type PANEL_ID = 'filter' | 'sequence' | 'wave';
 
-type SET_WAVE = {
-  type: 'SET_WAVE';
+type PRESET_SET_WAVE = {
+  type: 'PRESET_SET_WAVE';
   id: WAVE_ID;
   payload: number;
 };
 
-type SET_FILTER = {
-  type: 'SET_FILTER';
+type PRESET_SET_FILTER = {
+  type: 'PRESET_SET_FILTER';
   id: FILTER_ID;
   payload: number;
 };
@@ -41,13 +41,13 @@ type SET_BPM = {
   payload: number;
 };
 
-type SET_SEQUENCE = {
-  type: 'SET_SEQUENCE';
+type PRESET_SET_SEQUENCE = {
+  type: 'PRESET_SET_SEQUENCE';
   payload: Sequence;
 };
 
-type TOGGLE_PANEL = {
-  type: 'TOGGLE_PANEL';
+type PRESET_TOGGLE_MODULE = {
+  type: 'PRESET_TOGGLE_MODULE';
   id: PANEL_ID;
 };
 
@@ -57,8 +57,8 @@ type SET_TRACK = {
   payload: Partial<TrackState>;
 };
 
-type SET_ENVELOPE = {
-  type: 'SET_ENVELOPE';
+type PRESET_SET_ENVELOPE = {
+  type: 'PRESET_SET_ENVELOPE';
   id: ENVELOPE_ID;
   payload: Partial<EnvelopeConfig>;
 };
@@ -81,11 +81,11 @@ type KEY_DOWN = {
 type SynthActions =
   | KEY_UP
   | KEY_DOWN
-  | SET_SEQUENCE
-  | TOGGLE_PANEL
-  | SET_ENVELOPE
-  | SET_WAVE
-  | SET_FILTER
+  | PRESET_SET_SEQUENCE
+  | PRESET_TOGGLE_MODULE
+  | PRESET_SET_ENVELOPE
+  | PRESET_SET_WAVE
+  | PRESET_SET_FILTER
   | SET_PRESET;
 
 // Midi Actions

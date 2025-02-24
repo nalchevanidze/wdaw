@@ -21,9 +21,9 @@ const dispatcher = (
 
   switch (action.type) {
     // PRESETS
-    case 'SET_SEQUENCE':
+    case 'PRESET_SET_SEQUENCE':
       return mapPreset(presetId, state, () => ({ sequence: action.payload }));
-    case 'TOGGLE_PANEL':
+    case 'PRESET_TOGGLE_MODULE':
       return mapPreset(presetId, state, (preset) =>
         action.id === 'wave'
           ? {}
@@ -34,18 +34,18 @@ const dispatcher = (
               }
             }
       );
-    case 'SET_ENVELOPE':
+    case 'PRESET_SET_ENVELOPE':
       return mapPreset(presetId, state, ({ envelopes }) => ({
         envelopes: {
           ...envelopes,
           [action.id]: { ...envelopes[action.id], ...action.payload }
         }
       }));
-    case 'SET_WAVE':
+    case 'PRESET_SET_WAVE':
       return mapPreset(presetId, state, ({ wave }) => ({
         wave: { ...wave, [action.id]: action.payload }
       }));
-    case 'SET_FILTER':
+    case 'PRESET_SET_FILTER':
       return mapPreset(presetId, state, ({ filter }) => ({
         filter: { ...filter, [action.id]: action.payload }
       }));
@@ -147,11 +147,11 @@ const engineEffects = (
         : undefined;
     case 'SET_BPM':
       return engine.setBPM(action.payload);
-    case 'SET_SEQUENCE':
-    case 'TOGGLE_PANEL':
-    case 'SET_ENVELOPE':
-    case 'SET_WAVE':
-    case 'SET_FILTER':
+    case 'PRESET_SET_SEQUENCE':
+    case 'PRESET_TOGGLE_MODULE':
+    case 'PRESET_SET_ENVELOPE':
+    case 'PRESET_SET_WAVE':
+    case 'PRESET_SET_FILTER':
     case 'SET_PRESET':
       return engine.setPreset(currentTrack, preset);
     case 'NEW_TRACK':
