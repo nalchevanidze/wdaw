@@ -10,7 +10,6 @@ import {
   MidiRef,
   TrackState
 } from '@wdaw/engine';
-import { Track } from '@wdaw/engine/src/player';
 
 export type PANEL_ID = 'filter' | 'sequence' | 'wave';
 
@@ -25,6 +24,23 @@ type PRESET_SET_FILTER = {
   id: FILTER_ID;
   payload: number;
 };
+
+type PRESET_SET_SEQUENCE = {
+  type: 'PRESET_SET_SEQUENCE';
+  payload: Sequence;
+};
+
+type PRESET_TOGGLE_MODULE = {
+  type: 'PRESET_TOGGLE_MODULE';
+  id: PANEL_ID;
+};
+
+type PRESET_SET_ENVELOPE = {
+  type: 'PRESET_SET_ENVELOPE';
+  id: ENVELOPE_ID;
+  payload: Partial<EnvelopeConfig>;
+};
+
 
 type REFRESH_TIME = {
   type: 'REFRESH_TIME';
@@ -41,27 +57,12 @@ type SET_BPM = {
   payload: number;
 };
 
-type PRESET_SET_SEQUENCE = {
-  type: 'PRESET_SET_SEQUENCE';
-  payload: Sequence;
-};
-
-type PRESET_TOGGLE_MODULE = {
-  type: 'PRESET_TOGGLE_MODULE';
-  id: PANEL_ID;
-};
-
 type TRACK_SET_TRACK = {
   type: 'TRACK_SET_TRACK';
   id: number;
   payload: Partial<TrackState>;
 };
 
-type PRESET_SET_ENVELOPE = {
-  type: 'PRESET_SET_ENVELOPE';
-  id: ENVELOPE_ID;
-  payload: Partial<EnvelopeConfig>;
-};
 
 type TRACK_SET_PRESET = {
   type: 'TRACK_SET_PRESET';
