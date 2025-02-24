@@ -40,6 +40,7 @@ export const Header: React.FC<Props> = ({ actionType, manu }) => {
         options={options}
         onChange={setCurrent}
       />
+      <button onClick={newTrack}>New</button>
       <NameInput value={name} onChange={(name) => setFragment({ name })} />
       <IconButton
         id="draw"

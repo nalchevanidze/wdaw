@@ -1,4 +1,4 @@
-import { Presets, MidiFragments } from '../common/types';
+import { Presets, MidiFragments, MidiFragment } from '../common/types';
 import { makeId } from '../utils/id';
 import { fid, genMidiFragments } from './fragments';
 import { genPresets, pid } from './presets';
@@ -128,4 +128,11 @@ export const makeMidiRef = ({
   trackIndex,
   start,
   end
+});
+
+export const makeFragment = (name: string): MidiFragment & {id: string} => ({
+  id: makeId(),
+  name,
+  notes: [],
+  loop: [0, 64]
 });

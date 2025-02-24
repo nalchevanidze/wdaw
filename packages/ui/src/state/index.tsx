@@ -1,4 +1,4 @@
-import { SynthEngine } from '@wdaw/engine';
+import { makeFragment, SynthEngine } from '@wdaw/engine';
 import {
   deleteState,
   mapPreset,
@@ -13,30 +13,29 @@ const dispatcher = (
   state: DAWState,
   action: EngineAction
 ): Partial<DAWState> | undefined => {
-  const { currentTrack, tracks, notes, midiRefs, midiFragments, presets } = state;
+  const { currentTrack, tracks, notes, midiRefs, midiFragments, presets } =
+    state;
   const track = tracks[currentTrack];
   const { presetId } = track;
+  const fragmentCount = Object.keys(midiFragments).length;
 
   switch (action.type) {
     case 'SET_CURRENT_TRACK':
       return { currentTrack: action.payload };
-    case 'SET_CURRENT_FRAGMENT': {
-      const exists = Boolean(midiFragments[action.payload]);
-
+    case 'NEW_FRAGMENT': {
+      const { id, ...fragment } = makeFragment(`Fragment ${fragmentCount + 1}`);
       return {
-        currentFragment: action.payload,
-        midiFragments: exists
-          ? midiFragments
-          : {
-              ...midiFragments,
-              [action.payload]: {
-                name: action.payload,
-                notes: [],
-                loop: [0, 64]
-              }
-            }
+        currentFragment: id,
+        midiFragments: {
+          ...midiFragments,
+          [id]: fragment
+        }
       };
     }
+    case 'SET_CURRENT_FRAGMENT':
+      return {
+        currentFragment: action.payload
+      };
     case 'SET_BPM':
       return { bpm: action.payload };
     case 'SET_SEQUENCE':
