@@ -55,11 +55,11 @@ const styles = {
 const rulerSize = BLOCK;
 const accuracy = rulerSize / 8;
 
-const toArea = ({ start, end, trackIndex }: UITrack): IArea => ({
+const toArea = ({ start, end, trackId }: UITrack): IArea => ({
   x1: start,
   x2: end,
-  y1: trackIndex * trackHeight,
-  y2: (trackIndex + 1) * trackHeight
+  y1: trackId * trackHeight,
+  y2: (trackId + 1) * trackHeight
 });
 
 const normalizeY = (y: number) => Math.floor(y / trackHeight);
@@ -135,7 +135,7 @@ export const TracksContent: React.FC<ContentProps> = ({
       {tracks.map((t, midiIndex) => (
         <Fragment
           key={midiIndex}
-          y={t.trackIndex * trackHeight}
+          y={t.trackId * trackHeight}
           start={t.start}
           end={t.end}
           fragmentId={t.fragmentId}

@@ -13,11 +13,11 @@ export const useTracks = () => {
     dispatch({
       type: 'MIDI_SET_MIDI_REFS',
       payload: ls.map(
-        ({ start, end, fragmentId, trackIndex, id }): MidiRef => ({
+        ({ start, end, fragmentId, trackId, id }): MidiRef => ({
           id,
           start,
           end,
-          trackIndex,
+          trackId,
           fragmentId
         })
       )

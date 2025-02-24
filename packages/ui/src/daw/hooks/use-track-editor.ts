@@ -5,7 +5,7 @@ import { makeMidiRef, MidiRef } from '@wdaw/engine';
 import { idString } from '../../common/utils';
 
 const toId = (t: MidiRef) =>
-  idString([t.trackIndex, t.start, t.end, t.fragmentId ?? 'undefined']);
+  idString([t.trackId, t.start, t.end, t.fragmentId ?? 'undefined']);
 
 export type UITrack = MidiRef & { origin?: MidiRef };
 
@@ -15,10 +15,10 @@ export const useTrackEditor = () => {
     useSelection<UITrack>(midiRefs, toId, setMidis);
 
   const move = (moveX: number, moveY: number) =>
-    edit(({ start, end, trackIndex }) => ({
+    edit(({ start, end, trackId }) => ({
       start: Math.max(start + moveX, 0),
       end: end + moveX,
-      trackIndex: Math.min(tracks.length - 1, Math.max(trackIndex + moveY, 0))
+      trackId: Math.min(tracks.length - 1, Math.max(trackId + moveY, 0))
     }));
 
   const scale = (time: number) =>
@@ -28,7 +28,7 @@ export const useTrackEditor = () => {
     }));
 
   const addAt = ({ x, y }: Point) =>
-    add(makeMidiRef({ trackIndex: y, start: x, end: x + 64 }));
+    add(makeMidiRef({ trackId: y, start: x, end: x + 64 }));
 
   return {
     tracks: all,

@@ -70,7 +70,7 @@ export class Tracks {
     this.tracks.forEach((track, id) => {
       track.setNoteLoops(
         toActions(
-          midiRefs.filter(({ trackIndex }) => trackIndex === id),
+          midiRefs.filter(({ trackId }) => trackId === id),
           midiFragments
         )
       );
