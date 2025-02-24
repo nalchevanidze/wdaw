@@ -26,7 +26,7 @@ export const Fragment: React.FC<Props> = ({
 }) => {
   const { name, notes, loopStart, loopWidth } = useMidiFragment(fragmentId);
 
-const patternId = `fragment-pattern-${fragmentId}-${y}-${start}-${end}-${height}`;
+  const patternId = `fragment-pattern-${fragmentId}-${y}-${start}-${end}-${height}`;
   const midiWith = end - start;
   const containerEnd = start + midiWith;
   const scaleWidth = 5;
