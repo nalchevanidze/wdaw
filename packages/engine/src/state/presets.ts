@@ -42,13 +42,13 @@ export const newPreset = (name: string) => ({
 });
 
 export const pid = {
-  prelude: 'm7i2w4o43or7y9wl36f',
-  pluck: 'm7i2w4o4vcyn35ysj6k',
-  razor: 'm7i2w4o43kexh9lnmn',
-  wind: 'm7i2w4o4iqyqo1mtqng',
-  kick: 'm7i2w4o4yagm4uqupe',
-  bass: 'm7i2w4o4bhypc0dvihe',
-  clap: 'm7i2w4o4x7jrffwgwo'
+  prelude: '6931e27b-7266-4116-8480-72d47cb41df0',
+  pluck: 'a0fbbda3-1b94-4299-bcb4-89da15809e88',
+  razor: 'cc264e6f-76c0-436d-a360-3f9561e7f6d6',
+  wind: '9b1ac378-fe1e-4828-8bd9-a1ab35424ec6',
+  kick: 'fdfad340-fdce-46fe-9c9b-a619d4ce7676',
+  bass: '85333e85-2d1c-4b0b-92a2-9de913938b13',
+  clap: '5dc41231-d398-4b49-b785-331023a923aa'
 };
 
 export const genPresets = (): Preset[] => [
