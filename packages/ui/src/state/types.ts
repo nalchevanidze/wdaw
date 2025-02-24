@@ -133,19 +133,22 @@ type REFRESH_IS_PLAYING = {
   payload: boolean;
 };
 
-// STATE
-type SAVE = {
-  type: 'SAVE';
+// STORE 
+
+type STORE_SAVE = {
+  type: 'STORE_SAVE';
 };
 
-type RESET = {
-  type: 'RESET';
+type STORE_RESET = {
+  type: 'STORE_RESET';
 };
 
-type LOAD = {
-  type: 'LOAD';
+type STORE_LOAD = {
+  type: 'STORE_LOAD';
   payload: DAWState;
 };
+
+// COMBINATIONS
 
 type SynthActions =
   | KEY_UP
@@ -174,12 +177,12 @@ type MidiActions =
 
 type EngineEvents = REFRESH_TIME | REFRESH_IS_PLAYING;
 
-type StateActions = SAVE | RESET | LOAD;
+type StoreActions = STORE_SAVE | STORE_RESET | STORE_LOAD;
 
 export type EngineAction =
   | SynthActions
   | MidiActions
-  | StateActions
+  | StoreActions
   | EngineEvents;
 
 export type DAWState = EngineState & {

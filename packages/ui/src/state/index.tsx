@@ -100,14 +100,15 @@ const dispatcher = (
       return { notes: [...notes, action.payload] };
     case 'KEY_UP':
       return { notes: [action.payload].filter((n) => n !== action.payload) };
-    case 'SAVE':
+    // STORE
+    case 'STORE_SAVE':
       saveState({ ...state, time: 0, isPlaying: false });
       return;
-    case 'RESET': {
+    case 'STORE_RESET': {
       deleteState();
       return dawState();
     }
-    case 'LOAD':
+    case 'STORE_LOAD':
       return { ...action.payload };
     default:
       return;
@@ -155,7 +156,7 @@ const engineEffects = (
     case 'TRACK_NEW_TRACK':
       engine.setTracks({ tracks, midiFragments, presets, midiRefs });
       return;
-    case 'LOAD':
+    case 'STORE_LOAD':
       engine.setTracks(action.payload);
       engine.setBPM(action.payload.bpm);
       return;
