@@ -1,4 +1,4 @@
-import { Presets, MidiFragments, MidiFragment } from '../common/types';
+import { Presets, MidiFragments, MidiFragment, MidiRef } from '../common/types';
 import { fid, genMidiFragments } from './fragments';
 import { genPresets, pid } from './presets';
 
@@ -6,14 +6,6 @@ export type TrackState = {
   name: string;
   gain: number;
   presetId: string;
-};
-
-export type MidiRef = {
-  id: string;
-  trackId: number;
-  fragmentId?: string;
-  start: number;
-  end: number;
 };
 
 export type TracksState = {
@@ -129,7 +121,7 @@ export const makeMidiRef = ({
   end
 });
 
-export const makeFragment = (name: string): MidiFragment & {id: string} => ({
+export const makeFragment = (name: string): MidiFragment & { id: string } => ({
   id: crypto.randomUUID(),
   name,
   notes: [],

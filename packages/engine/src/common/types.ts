@@ -72,3 +72,11 @@ export type Midi = {
   end: number;
   fragmentId: string;
 };
+
+export type MidiRef = {
+  id: string;
+  trackId: number;
+  fragmentId?: string;
+  start: number;
+  end: number;
+};

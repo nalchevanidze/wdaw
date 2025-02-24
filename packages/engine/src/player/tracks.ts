@@ -1,5 +1,5 @@
-import { MidiFragments, Preset, Presets } from '../common/types';
-import { MidiRef, TracksState, TrackState } from '../state/state';
+import { MidiFragments, Preset, Presets, MidiRef } from '../common/types';
+import { TracksState, TrackState } from '../state/state';
 import { Synth } from '../synth';
 import { Track } from './track';
 import { toActions } from './utils/actions';
