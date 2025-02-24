@@ -133,7 +133,7 @@ type REFRESH_IS_PLAYING = {
   payload: boolean;
 };
 
-// GLOBAL
+// STATE
 type SAVE = {
   type: 'SAVE';
 };
@@ -174,12 +174,12 @@ type MidiActions =
 
 type EngineEvents = REFRESH_TIME | REFRESH_IS_PLAYING;
 
-type GlobalActions = SAVE | RESET | LOAD;
+type StateActions = SAVE | RESET | LOAD;
 
 export type EngineAction =
   | SynthActions
   | MidiActions
-  | GlobalActions
+  | StateActions
   | EngineEvents;
 
 export type DAWState = EngineState & {
