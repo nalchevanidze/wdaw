@@ -64,8 +64,12 @@ export class Tracks {
 
   public setMidis = (midiRefs: MidiRef[], midiFragments: MidiFragments) => {
     this.tracks.forEach((track, id) => {
-      const midis = midiRefs.filter((x) => x.trackIndex === id);
-      track.setNoteLoops(toActions(midis, midiFragments));
+      track.setNoteLoops(
+        toActions(
+          midiRefs.filter(({ trackIndex }) => trackIndex === id),
+          midiFragments
+        )
+      );
     });
 
     this.refresh();
