@@ -169,7 +169,10 @@ type MidiActions =
   | PLAYER_SET_TIME
   | PLAYER_PLAY
   | PLAYER_PAUSE
-  | PLAYER_STOP;
+  | PLAYER_STOP
+  | PLAYER_SET_BPM;
+
+type EngineEvents = REFRESH_TIME | REFRESH_IS_PLAYING;
 
 type GlobalActions = SAVE | RESET | LOAD;
 
@@ -177,9 +180,7 @@ export type EngineAction =
   | SynthActions
   | MidiActions
   | GlobalActions
-  | REFRESH_TIME
-  | REFRESH_IS_PLAYING
-  | PLAYER_SET_BPM;
+  | EngineEvents;
 
 export type DAWState = EngineState & {
   currentFragment: string;
