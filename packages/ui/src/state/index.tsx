@@ -90,7 +90,7 @@ const dispatcher = (
         ]
       };
     // Player
-    case 'SET_BPM':
+    case 'PLAYER_SET_BPM':
       return { bpm: action.payload };
     case 'REFRESH_TIME':
       return { time: action.payload };
@@ -123,17 +123,17 @@ const engineEffects = (
   const preset = presets[track.presetId];
 
   switch (action.type) {
-    case 'PLAY':
+    case 'PLAYER_PLAY':
       return engine.play();
-    case 'PAUSE':
+    case 'PLAYER_PAUSE':
       return engine.pause();
-    case 'STOP':
+    case 'PLAYER_STOP':
       return engine.stop();
     case 'KEY_UP':
       return engine.endNote(currentTrack, action.payload);
     case 'KEY_DOWN':
       return engine.startNote(currentTrack, action.payload);
-    case 'SET_TIME':
+    case 'PLAYER_SET_TIME':
       return engine.setTime(action.payload);
     case 'MIDI_SET_MIDI_REF':
     case 'MIDI_SET_FRAGMENT':
@@ -143,7 +143,7 @@ const engineEffects = (
       return action.payload.gain
         ? engine.setGain(action.id, action.payload.gain)
         : undefined;
-    case 'SET_BPM':
+    case 'PLAYER_SET_BPM':
       return engine.setBPM(action.payload);
     case 'PRESET_SET_SEQUENCE':
     case 'PRESET_TOGGLE_MODULE':

@@ -100,23 +100,29 @@ type MIDI_SET_MIDI_REF = {
 };
 
 // PLAYER
-type SET_TIME = {
-  type: 'SET_TIME';
+type PLAYER_SET_TIME = {
+  type: 'PLAYER_SET_TIME';
   payload: number;
 };
 
-type PLAY = {
-  type: 'PLAY';
+type PLAYER_PLAY = {
+  type: 'PLAYER_PLAY';
 };
 
-type STOP = {
-  type: 'STOP';
+type PLAYER_STOP = {
+  type: 'PLAYER_STOP';
 };
 
-type PAUSE = {
-  type: 'PAUSE';
+type PLAYER_PAUSE = {
+  type: 'PLAYER_PAUSE';
 };
 
+type PLAYER_SET_BPM = {
+  type: 'PLAYER_SET_BPM';
+  payload: number;
+};
+
+// REFRESH
 type REFRESH_TIME = {
   type: 'REFRESH_TIME';
   payload: number;
@@ -125,11 +131,6 @@ type REFRESH_TIME = {
 type REFRESH_IS_PLAYING = {
   type: 'REFRESH_IS_PLAYING';
   payload: boolean;
-};
-
-type SET_BPM = {
-  type: 'SET_BPM';
-  payload: number;
 };
 
 // GLOBAL
@@ -165,10 +166,10 @@ type MidiActions =
   | MIDI_SET_MIDI_REF
   | MIDI_NEW_FRAGMENT
   | MIDI_SET_CURRENT_FRAGMENT
-  | SET_TIME
-  | PLAY
-  | PAUSE
-  | STOP;
+  | PLAYER_SET_TIME
+  | PLAYER_PLAY
+  | PLAYER_PAUSE
+  | PLAYER_STOP;
 
 type GlobalActions = SAVE | RESET | LOAD;
 
@@ -178,7 +179,7 @@ export type EngineAction =
   | GlobalActions
   | REFRESH_TIME
   | REFRESH_IS_PLAYING
-  | SET_BPM;
+  | PLAYER_SET_BPM;
 
 export type DAWState = EngineState & {
   currentFragment: string;
