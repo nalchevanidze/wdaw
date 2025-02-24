@@ -6,7 +6,7 @@ import { Tracks } from './player/tracks';
 export class SynthEngine {
   private sampleRate = 44100;
   private events = new EngineEvents();
-  private tracks = new Tracks([], this.sampleRate);
+  private tracks = new Tracks(this.sampleRate);
   private player = new MidiPlayer(this.events, this.tracks, this.sampleRate);
   private closeContext: () => void;
 
