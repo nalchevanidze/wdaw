@@ -16,9 +16,8 @@ const dispatcher = (
   const { currentTrack, tracks, notes, midiRefs, midiFragments, presets } =
     state;
   const track = tracks[currentTrack];
-  const { presetId } = track;
   const fragmentCount = Object.keys(midiFragments).length;
-  const setPreset = mapPreset(presetId, state);
+  const setPreset = mapPreset(track.presetId, state);
 
   switch (action.type) {
     // PRESET
