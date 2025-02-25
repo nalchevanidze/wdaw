@@ -11,40 +11,39 @@ import {
   TrackInput
 } from '@wdaw/engine';
 
-type PRESET_SET_WAVE = {
-  type: 'PRESET/SET_WAVE';
-  id: WAVE_ID;
-  payload: number;
-};
-
-type PRESET_SET_FILTER = {
-  type: 'PRESET/SET_FILTER';
-  id: FILTER_ID;
-  payload: number;
-};
-
-type PRESET_SET_SEQUENCE = {
-  type: 'PRESET/SET_SEQUENCE';
-  payload: Sequence;
-};
-
-type PRESET_TOGGLE_MODULE = {
-  type: 'PRESET/TOGGLE_MODULE';
-  id: 'filter' | 'sequence';
-};
-
-type PRESET_SET_ENVELOPE = {
-  type: 'PRESET/SET_ENVELOPE';
-  id: ENVELOPE_ID;
-  payload: Partial<EnvelopeConfig>;
-};
-
-type PRESET_NEW_PRESET = {
-  type: 'PRESET/NEW_PRESET';
-};
+type PRESET =
+  | {
+      type: 'PRESET/SET_WAVE';
+      id: WAVE_ID;
+      payload: number;
+    }
+  | {
+      type: 'PRESET/SET_ENVELOPE';
+      id: ENVELOPE_ID;
+      payload: Partial<EnvelopeConfig>;
+    }
+  | {
+      type: 'PRESET/SET_FILTER';
+      id: FILTER_ID;
+      payload: number;
+    }
+  | {
+      type: 'PRESET/SET_SEQUENCE';
+      payload: Sequence;
+    }
+  | {
+      type: 'PRESET/TOGGLE_MODULE';
+      id: 'filter' | 'sequence';
+    }
+  | {
+      type: 'PRESET/NEW_PRESET';
+    }
+  | {
+      type: 'PRESET/ASSIGN_TO_TRACK';
+      id: string;
+    };
 
 // Keyboard
-
 type KEYBOARD_KEY_UP = {
   type: 'KEYBOARD_KEY_UP';
   payload: number;
@@ -61,11 +60,6 @@ type TRACK_SET_TRACK = {
   type: 'TRACK/SET_TRACK';
   id: number;
   payload: Partial<TrackInput>;
-};
-
-type PRESET_ASSIGN_TO_TRACK = {
-  type: 'PRESET/ASSIGN_TO_TRACK';
-  payload: string;
 };
 
 type TRACK_SET_CURRENT = {
@@ -152,16 +146,7 @@ type STORE_LOAD = {
 
 // COMBINATIONS
 
-type SynthActions =
-  | KEYBOARD_KEY_UP
-  | KEYBOARD_KEY_DOWN
-  | PRESET_SET_SEQUENCE
-  | PRESET_TOGGLE_MODULE
-  | PRESET_SET_ENVELOPE
-  | PRESET_SET_WAVE
-  | PRESET_SET_FILTER
-  | PRESET_NEW_PRESET
-  | PRESET_ASSIGN_TO_TRACK;
+type SynthActions = KEYBOARD_KEY_UP | KEYBOARD_KEY_DOWN | PRESET;
 
 type MidiActions =
   | TRACK_SET_CURRENT

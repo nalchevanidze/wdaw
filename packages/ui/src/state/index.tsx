@@ -55,7 +55,7 @@ const dispatcher = (
       };
     }
     case 'PRESET/ASSIGN_TO_TRACK':
-      return setPresetId(action.payload);
+      return setPresetId(action.id);
     // MIDI
     case 'MIDI/SET_CURRENT_FRAGMENT':
       return { currentFragment: action.payload };
