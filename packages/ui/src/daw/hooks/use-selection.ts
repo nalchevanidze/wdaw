@@ -7,7 +7,7 @@ import {
   Mixed,
   Tracked
 } from '../utils/tracking';
-import { eq, partition, Predicate } from '../../common/utils';
+import { partition, Predicate } from '../../common/utils';
 import { useOnDeleteKey } from './use-on-delete-key';
 import { Area, IArea } from '@wdaw/svg';
 
