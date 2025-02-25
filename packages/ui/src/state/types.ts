@@ -188,10 +188,12 @@ export type EngineAction =
   | StoreActions
   | EngineEvents;
 
-export type DAWState = EngineState & {
+type UIState = {
   time: number;
   currentFragment: string;
   currentTrack: number;
   notes: number[];
   isPlaying: boolean;
 };
+
+export type DAWState = EngineState & UIState;
