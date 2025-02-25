@@ -12,35 +12,35 @@ import {
 } from '@wdaw/engine';
 
 type PRESET_SET_WAVE = {
-  type: 'PRESET_SET_WAVE';
+  type: 'PRESET/SET_WAVE';
   id: WAVE_ID;
   payload: number;
 };
 
 type PRESET_SET_FILTER = {
-  type: 'PRESET_SET_FILTER';
+  type: 'PRESET/SET_FILTER';
   id: FILTER_ID;
   payload: number;
 };
 
 type PRESET_SET_SEQUENCE = {
-  type: 'PRESET_SET_SEQUENCE';
+  type: 'PRESET/SET_SEQUENCE';
   payload: Sequence;
 };
 
 type PRESET_TOGGLE_MODULE = {
-  type: 'PRESET_TOGGLE_MODULE';
+  type: 'PRESET/TOGGLE_MODULE';
   id: 'filter' | 'sequence';
 };
 
 type PRESET_SET_ENVELOPE = {
-  type: 'PRESET_SET_ENVELOPE';
+  type: 'PRESET/SET_ENVELOPE';
   id: ENVELOPE_ID;
   payload: Partial<EnvelopeConfig>;
 };
 
 type PRESET_NEW_PRESET = {
-  type: 'PRESET_NEW_PRESET';
+  type: 'PRESET/NEW_PRESET';
 };
 
 // Keyboard
@@ -64,7 +64,7 @@ type TRACK_SET_TRACK = {
 };
 
 type PRESET_ASSIGN_TO_TRACK = {
-  type: 'PRESET_ASSIGN_TO_TRACK';
+  type: 'PRESET/ASSIGN_TO_TRACK';
   payload: string;
 };
 

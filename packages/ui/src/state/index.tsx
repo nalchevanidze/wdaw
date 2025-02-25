@@ -23,38 +23,38 @@ const dispatcher = (
 
   switch (action.type) {
     // PRESET
-    case 'PRESET_SET_SEQUENCE':
+    case 'PRESET/SET_SEQUENCE':
       return setPreset(() => ({ sequence: action.payload }));
-    case 'PRESET_TOGGLE_MODULE':
+    case 'PRESET/TOGGLE_MODULE':
       return setPreset((preset) => ({
         [action.id]: {
           ...preset[action.id],
           enabled: !preset[action.id].enabled
         }
       }));
-    case 'PRESET_SET_ENVELOPE':
+    case 'PRESET/SET_ENVELOPE':
       return setPreset(({ envelopes }) => ({
         envelopes: {
           ...envelopes,
           [action.id]: { ...envelopes[action.id], ...action.payload }
         }
       }));
-    case 'PRESET_SET_WAVE':
+    case 'PRESET/SET_WAVE':
       return setPreset(({ wave }) => ({
         wave: { ...wave, [action.id]: action.payload }
       }));
-    case 'PRESET_SET_FILTER':
+    case 'PRESET/SET_FILTER':
       return setPreset(({ filter }) => ({
         filter: { ...filter, [action.id]: action.payload }
       }));
-    case 'PRESET_NEW_PRESET': {
+    case 'PRESET/NEW_PRESET': {
       const preset = makePreset('new preset');
       return {
         ...setPresetId(preset.id),
         presets: { ...presets, [preset.id]: preset }
       };
     }
-    case 'PRESET_ASSIGN_TO_TRACK':
+    case 'PRESET/ASSIGN_TO_TRACK':
       return setPresetId(action.payload);
     // MIDI
     case 'MIDI_SET_CURRENT_FRAGMENT':
@@ -157,12 +157,12 @@ const engineEffects = (
       engine.setTracks({ tracks, midiFragments, presets, midiRefs });
       return;
     // Preset
-    case 'PRESET_SET_SEQUENCE':
-    case 'PRESET_TOGGLE_MODULE':
-    case 'PRESET_SET_ENVELOPE':
-    case 'PRESET_SET_WAVE':
-    case 'PRESET_SET_FILTER':
-    case 'PRESET_ASSIGN_TO_TRACK':
+    case 'PRESET/SET_SEQUENCE':
+    case 'PRESET/TOGGLE_MODULE':
+    case 'PRESET/SET_ENVELOPE':
+    case 'PRESET/SET_WAVE':
+    case 'PRESET/SET_FILTER':
+    case 'PRESET/ASSIGN_TO_TRACK':
       return engine.setPreset(currentTrack, preset);
     // Store
     case 'STORE_LOAD':
