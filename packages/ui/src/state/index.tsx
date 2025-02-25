@@ -48,11 +48,8 @@ const dispatcher = (
         filter: { ...filter, [action.id]: action.payload }
       }));
     case 'PRESET/NEW_PRESET': {
-      const preset = makePreset('new preset');
-      return {
-        ...setPresetId(preset.id),
-        presets: { ...presets, [preset.id]: preset }
-      };
+      const p = makePreset('new preset');
+      return { ...setPresetId(p.id), presets: { ...presets, [p.id]: p } };
     }
     case 'PRESET/ASSIGN_TO_TRACK':
       return setPresetId(action.id);
