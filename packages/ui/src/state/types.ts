@@ -77,26 +77,26 @@ type TRACK_NEW_TRACK = { type: 'TRACK_NEW_TRACK' };
 
 // MIDI
 
-type MIDI_NEW_FRAGMENT = { type: 'MIDI_NEW_FRAGMENT' };
+type MIDI_NEW_FRAGMENT = { type: 'MIDI/NEW_FRAGMENT' };
 
 type MIDI_SET_CURRENT_FRAGMENT = {
-  type: 'MIDI_SET_CURRENT_FRAGMENT';
+  type: 'MIDI/SET_CURRENT_FRAGMENT';
   payload: string;
 };
 
 type MIDI_SET_MIDI_REFS = {
-  type: 'MIDI_SET_MIDI_REFS';
+  type: 'MIDI/SET_MIDI_REFS';
   payload: MidiRef[];
 };
 
 type MIDI_SET_FRAGMENT = {
-  type: 'MIDI_SET_FRAGMENT';
+  type: 'MIDI/SET_FRAGMENT';
   payload: Partial<MidiFragment>;
   id: string;
 };
 
 type MIDI_SET_MIDI_REF = {
-  type: 'MIDI_SET_MIDI_REF';
+  type: 'MIDI/SET_MIDI_REF';
   id: string;
   payload: Partial<MidiRef>;
 };
