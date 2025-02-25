@@ -54,6 +54,8 @@ const dispatcher = (
         presets: { ...presets, [preset.id]: preset }
       };
     }
+    case 'PRESET_ASSIGN_TO_TRACK':
+      return setPresetId(action.payload);
     // MIDI
     case 'MIDI_SET_CURRENT_FRAGMENT':
       return { currentFragment: action.payload };
@@ -79,8 +81,6 @@ const dispatcher = (
       return { currentTrack: action.payload };
     case 'TRACK_SET_TRACK':
       return mapTrack(action.id, state, (t) => ({ ...t, ...action.payload }));
-    case 'TRACK_SET_PRESET':
-      return setPresetId(action.payload);
     case 'TRACK_NEW_TRACK':
       return {
         tracks: [
@@ -162,7 +162,7 @@ const engineEffects = (
     case 'PRESET_SET_ENVELOPE':
     case 'PRESET_SET_WAVE':
     case 'PRESET_SET_FILTER':
-    case 'TRACK_SET_PRESET':
+    case 'PRESET_ASSIGN_TO_TRACK':
       return engine.setPreset(currentTrack, preset);
     // Store
     case 'STORE_LOAD':

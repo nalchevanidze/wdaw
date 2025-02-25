@@ -63,8 +63,8 @@ type TRACK_SET_TRACK = {
   payload: Partial<TrackInput>;
 };
 
-type TRACK_SET_PRESET = {
-  type: 'TRACK_SET_PRESET';
+type PRESET_ASSIGN_TO_TRACK = {
+  type: 'PRESET_ASSIGN_TO_TRACK';
   payload: string;
 };
 
@@ -161,7 +161,7 @@ type SynthActions =
   | PRESET_SET_WAVE
   | PRESET_SET_FILTER
   | PRESET_NEW_PRESET
-  | TRACK_SET_PRESET;
+  | PRESET_ASSIGN_TO_TRACK;
 
 type MidiActions =
   | TRACK_SET_CURRENT
