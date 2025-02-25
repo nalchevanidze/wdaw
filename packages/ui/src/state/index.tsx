@@ -18,6 +18,8 @@ const dispatcher = (
   const track = tracks[currentTrack];
   const fragmentCount = Object.keys(midiFragments).length;
   const setPreset = mapPreset(track.presetId, state);
+  const setPresetRef = (id: string) =>
+    mapTrack(currentTrack, state, () => ({ presetId: id }));
 
   switch (action.type) {
     // PRESET
@@ -47,10 +49,10 @@ const dispatcher = (
       }));
     case 'PRESET_NEW_PRESET': {
       const preset = makePreset('new preset');
-      const { tracks } = mapTrack(currentTrack, state, () => ({
-        presetId: preset.id
-      }));
-      return { tracks, presets: { ...presets, [preset.id]: preset } };
+      return {
+        ...setPresetRef(preset.id),
+        presets: { ...presets, [preset.id]: preset }
+      };
     }
     // MIDI
     case 'MIDI_SET_CURRENT_FRAGMENT':
@@ -78,9 +80,7 @@ const dispatcher = (
     case 'TRACK_SET_TRACK':
       return mapTrack(action.id, state, (t) => ({ ...t, ...action.payload }));
     case 'TRACK_SET_PRESET':
-      return mapTrack(currentTrack, state, () => ({
-        presetId: action.payload
-      }));
+      return setPresetRef(action.payload);
     case 'TRACK_NEW_TRACK':
       return {
         tracks: [
