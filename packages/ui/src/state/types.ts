@@ -71,29 +71,26 @@ type TRACK =
 
 // MIDI
 
-type MIDI_NEW_FRAGMENT = { type: 'MIDI/NEW_FRAGMENT' };
-
-type MIDI_SET_CURRENT_FRAGMENT = {
-  type: 'MIDI/SET_CURRENT_FRAGMENT';
-  payload: string;
-};
-
-type MIDI_SET_MIDI_REFS = {
-  type: 'MIDI/SET_MIDI_REFS';
-  payload: MidiRef[];
-};
-
-type MIDI_SET_FRAGMENT = {
-  type: 'MIDI/SET_FRAGMENT';
-  payload: Partial<MidiFragment>;
-  id: string;
-};
-
-type MIDI_SET_MIDI_REF = {
-  type: 'MIDI/SET_MIDI_REF';
-  id: string;
-  payload: Partial<MidiRef>;
-};
+type MIDI =
+  | { type: 'MIDI/NEW_FRAGMENT' }
+  | {
+      type: 'MIDI/SET_CURRENT_FRAGMENT';
+      payload: string;
+    }
+  | {
+      type: 'MIDI/SET_MIDI_REFS';
+      payload: MidiRef[];
+    }
+  | {
+      type: 'MIDI/SET_FRAGMENT';
+      payload: Partial<MidiFragment>;
+      id: string;
+    }
+  | {
+      type: 'MIDI/SET_MIDI_REF';
+      id: string;
+      payload: Partial<MidiRef>;
+    };
 
 // PLAYER
 type PLAYER_SET_TIME = {
@@ -149,9 +146,7 @@ type STORE_LOAD = {
 type SynthActions = KEYBOARD | PRESET;
 
 type MidiActions =
-  | TRACK_SET_CURRENT
-  | TRACK_SET_TRACK
-  | TRACK_NEW_TRACK
+  | TRACK
   | MIDI_SET_FRAGMENT
   | MIDI_SET_MIDI_REFS
   | MIDI_SET_MIDI_REF
