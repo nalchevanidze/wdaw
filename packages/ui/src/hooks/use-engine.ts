@@ -10,10 +10,10 @@ export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
   const ref = useRef<Reducer>((a) => a);
 
   const isPlayingChanged = (payload: boolean) =>
-    dispatch({ type: 'ENGINE_EVENT_IS_PLAYING_CHANGED', payload });
+    dispatch({ type: 'ENGINE_EVENT/IS_PLAYING_CHANGED', payload });
 
   const timeChanged = (payload: number) =>
-    dispatch({ type: 'ENGINE_EVENT_TIME_CHANGED', payload });
+    dispatch({ type: 'ENGINE_EVENT/TIME_CHANGED', payload });
 
   useEffect(() => {
     const engine = new SynthEngine();

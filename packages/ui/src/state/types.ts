@@ -126,12 +126,12 @@ type PLAYER_SET_BPM = {
 
 // REFRESH
 type ENGINE_EVENT_TIME_CHANGED = {
-  type: 'ENGINE_EVENT_TIME_CHANGED';
+  type: 'ENGINE_EVENT/TIME_CHANGED';
   payload: number;
 };
 
 type ENGINE_EVENT_IS_PLAYING_CHANGED = {
-  type: 'ENGINE_EVENT_IS_PLAYING_CHANGED';
+  type: 'ENGINE_EVENT/IS_PLAYING_CHANGED';
   payload: boolean;
 };
 
