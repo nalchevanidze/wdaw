@@ -55,18 +55,19 @@ type KEYBOARD =
 
 // TRACK
 
-type TRACK_SET_TRACK = {
-  type: 'TRACK/SET_TRACK';
-  id: number;
-  payload: Partial<TrackInput>;
-};
-
-type TRACK_SET_CURRENT = {
-  type: 'TRACK/SET_CURRENT';
-  payload: number;
-};
-
-type TRACK_NEW_TRACK = { type: 'TRACK/NEW_TRACK' };
+type TRACK =
+  | {
+      type: 'TRACK/SET_TRACK';
+      id: number;
+      payload: Partial<TrackInput>;
+    }
+  | {
+      type: 'TRACK/SET_CURRENT';
+      payload: number;
+    }
+  | {
+      type: 'TRACK/NEW_TRACK';
+    };
 
 // MIDI
 
