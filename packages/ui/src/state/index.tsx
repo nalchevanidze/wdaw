@@ -93,7 +93,7 @@ const dispatcher = (
         ]
       };
     // Player
-    case 'PLAYER_SET_BPM':
+    case 'PLAYER/SET_BPM':
       return { bpm: action.payload };
     case 'ENGINE_EVENT_TIME_CHANGED':
       return { time: action.payload };
@@ -128,15 +128,15 @@ const engineEffects = (
 
   switch (action.type) {
     // Player
-    case 'PLAYER_PLAY':
+    case 'PLAYER/PLAY':
       return engine.play();
-    case 'PLAYER_PAUSE':
+    case 'PLAYER/PAUSE':
       return engine.pause();
-    case 'PLAYER_STOP':
+    case 'PLAYER/STOP':
       return engine.stop();
-    case 'PLAYER_SET_TIME':
+    case 'PLAYER/SET_TIME':
       return engine.setTime(action.payload);
-    case 'PLAYER_SET_BPM':
+    case 'PLAYER/SET_BPM':
       return engine.setBPM(action.payload);
     // Keyboard
     case 'KEYBOARD_KEY_UP':

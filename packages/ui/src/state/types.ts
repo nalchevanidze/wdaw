@@ -103,24 +103,24 @@ type MIDI_SET_MIDI_REF = {
 
 // PLAYER
 type PLAYER_SET_TIME = {
-  type: 'PLAYER_SET_TIME';
+  type: 'PLAYER/SET_TIME';
   payload: number;
 };
 
 type PLAYER_PLAY = {
-  type: 'PLAYER_PLAY';
+  type: 'PLAYER/PLAY';
 };
 
 type PLAYER_STOP = {
-  type: 'PLAYER_STOP';
+  type: 'PLAYER/STOP';
 };
 
 type PLAYER_PAUSE = {
-  type: 'PLAYER_PAUSE';
+  type: 'PLAYER/PAUSE';
 };
 
 type PLAYER_SET_BPM = {
-  type: 'PLAYER_SET_BPM';
+  type: 'PLAYER/SET_BPM';
   payload: number;
 };
 
