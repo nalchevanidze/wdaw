@@ -43,16 +43,15 @@ type PRESET =
       id: string;
     };
 
-// Keyboard
-type KEYBOARD_KEY_UP = {
-  type: 'KEYBOARD_KEY_UP';
-  payload: number;
-};
-
-type KEYBOARD_KEY_DOWN = {
-  type: 'KEYBOARD_KEY_DOWN';
-  payload: number;
-};
+type KEYBOARD =
+  | {
+      type: 'KEYBOARD_KEY_UP';
+      payload: number;
+    }
+  | {
+      type: 'KEYBOARD_KEY_DOWN';
+      payload: number;
+    };
 
 // TRACK
 
@@ -146,7 +145,7 @@ type STORE_LOAD = {
 
 // COMBINATIONS
 
-type SynthActions = KEYBOARD_KEY_UP | KEYBOARD_KEY_DOWN | PRESET;
+type SynthActions = KEYBOARD | PRESET;
 
 type MidiActions =
   | TRACK_SET_CURRENT
