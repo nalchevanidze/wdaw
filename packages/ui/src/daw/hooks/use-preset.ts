@@ -25,7 +25,12 @@ export const usePreset = () => {
     id,
     name,
     active: id === presetId,
-    onclick: () => dispatch({ type: 'PRESET/ASSIGN_TO_TRACK', id })
+    onclick: () =>
+      dispatch({
+        type: 'PRESET/ASSIGN_TO_TRACK',
+        trackId: currentTrack,
+        presetId: id
+      })
   }));
 
   const toggleARP = (l: Location) =>
@@ -42,7 +47,8 @@ export const usePreset = () => {
     toggle: () => dispatch({ type: 'PRESET/TOGGLE_MODULE', id })
   });
 
-  const newPreset = () => dispatch({ type: 'PRESET/NEW_PRESET' });
+  const newPreset = () =>
+    dispatch({ type: 'PRESET/NEW_PRESET', trackId: currentTrack });
 
   return {
     ...current,
