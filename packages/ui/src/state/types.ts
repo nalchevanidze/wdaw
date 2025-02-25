@@ -95,29 +95,14 @@ type PLAYER =
   | { type: 'PLAYER/STOP' }
   | { type: 'PLAYER/PAUSE' };
 
-// REFRESH
 type ENGINE_EVENT =
   | { type: 'ENGINE_EVENT/TIME_CHANGED'; payload: number }
   | { type: 'ENGINE_EVENT/IS_PLAYING_CHANGED'; payload: boolean };
 
-// STORE
-
-type STORE_SAVE = {
-  type: 'STORE/SAVE';
-};
-
-type STORE_RESET = {
-  type: 'STORE/RESET';
-};
-
-type STORE_LOAD = {
-  type: 'STORE/LOAD';
-  payload: DAWState;
-};
-
-// COMBINATIONS
-
-type StoreActions = STORE_SAVE | STORE_RESET | STORE_LOAD;
+type STORE =
+  | { type: 'STORE/SAVE' }
+  | { type: 'STORE/RESET' }
+  | { type: 'STORE/LOAD'; payload: DAWState };
 
 export type EngineAction =
   | KEYBOARD
@@ -126,7 +111,7 @@ export type EngineAction =
   | MIDI
   | PLAYER
   | ENGINE_EVENT
-  | StoreActions;
+  | STORE;
 
 type UIState = {
   currentFragment: string;
