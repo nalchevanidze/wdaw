@@ -77,11 +77,11 @@ const dispatcher = (
       };
     }
     // TRACK
-    case 'TRACK_SET_CURRENT':
+    case 'TRACK/SET_CURRENT':
       return { currentTrack: action.payload };
-    case 'TRACK_SET_TRACK':
+    case 'TRACK/SET_TRACK':
       return mapTrack(action.id, state, (t) => ({ ...t, ...action.payload }));
-    case 'TRACK_NEW_TRACK':
+    case 'TRACK/NEW_TRACK':
       return {
         tracks: [
           ...tracks,
@@ -149,11 +149,11 @@ const engineEffects = (
     case 'MIDI/SET_MIDI_REFS':
       return engine.setMidis(midiRefs, midiFragments);
     // Track
-    case 'TRACK_SET_TRACK':
+    case 'TRACK/SET_TRACK':
       return action.payload.gain
         ? engine.setGain(action.id, action.payload.gain)
         : undefined;
-    case 'TRACK_NEW_TRACK':
+    case 'TRACK/NEW_TRACK':
       engine.setTracks({ tracks, midiFragments, presets, midiRefs });
       return;
     // Preset

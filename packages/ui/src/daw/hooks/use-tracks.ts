@@ -26,7 +26,7 @@ export const useTracks = () => {
   const setCurrent = (id: string) =>
     dispatch({ type: 'MIDI/SET_CURRENT_FRAGMENT', payload: id });
 
-  const newTrack = () => dispatch({ type: 'TRACK_NEW_TRACK' });
+  const newTrack = () => dispatch({ type: 'TRACK/NEW_TRACK' });
 
   return {
     current: tracks[currentTrack],

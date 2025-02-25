@@ -58,7 +58,7 @@ type KEYBOARD_KEY_DOWN = {
 // TRACK
 
 type TRACK_SET_TRACK = {
-  type: 'TRACK_SET_TRACK';
+  type: 'TRACK/SET_TRACK';
   id: number;
   payload: Partial<TrackInput>;
 };
@@ -69,11 +69,11 @@ type PRESET_ASSIGN_TO_TRACK = {
 };
 
 type TRACK_SET_CURRENT = {
-  type: 'TRACK_SET_CURRENT';
+  type: 'TRACK/SET_CURRENT';
   payload: number;
 };
 
-type TRACK_NEW_TRACK = { type: 'TRACK_NEW_TRACK' };
+type TRACK_NEW_TRACK = { type: 'TRACK/NEW_TRACK' };
 
 // MIDI
 
