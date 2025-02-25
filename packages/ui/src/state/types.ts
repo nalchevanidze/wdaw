@@ -189,10 +189,10 @@ export type EngineAction =
   | EngineEvents;
 
 type UIState = {
-  time: number;
   currentFragment: string;
   currentTrack: number;
   notes: number[];
+  time: number;
   isPlaying: boolean;
 };
 
