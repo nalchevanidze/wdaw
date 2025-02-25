@@ -125,13 +125,13 @@ type PLAYER_SET_BPM = {
 };
 
 // REFRESH
-type REFRESH_TIME = {
-  type: 'REFRESH_TIME';
+type ENGINE_EVENT_TIME_CHANGED = {
+  type: 'ENGINE_EVENT_TIME_CHANGED';
   payload: number;
 };
 
-type REFRESH_IS_PLAYING = {
-  type: 'REFRESH_IS_PLAYING';
+type ENGINE_EVENT_IS_PLAYING_CHANGED = {
+  type: 'ENGINE_EVENT_IS_PLAYING_CHANGED';
   payload: boolean;
 };
 
@@ -178,7 +178,7 @@ type MidiActions =
   | PLAYER_STOP
   | PLAYER_SET_BPM;
 
-type EngineEvents = REFRESH_TIME | REFRESH_IS_PLAYING;
+type EngineEvents = ENGINE_EVENT_TIME_CHANGED | ENGINE_EVENT_IS_PLAYING_CHANGED;
 
 type StoreActions = STORE_SAVE | STORE_RESET | STORE_LOAD;
 
