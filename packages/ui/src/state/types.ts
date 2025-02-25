@@ -138,15 +138,15 @@ type ENGINE_EVENT_IS_PLAYING_CHANGED = {
 // STORE
 
 type STORE_SAVE = {
-  type: 'STORE_SAVE';
+  type: 'STORE/SAVE';
 };
 
 type STORE_RESET = {
-  type: 'STORE_RESET';
+  type: 'STORE/RESET';
 };
 
 type STORE_LOAD = {
-  type: 'STORE_LOAD';
+  type: 'STORE/LOAD';
   payload: DAWState;
 };
 

@@ -105,13 +105,13 @@ const dispatcher = (
     case 'KEYBOARD_KEY_UP':
       return { notes: [action.payload].filter((n) => n !== action.payload) };
     // STORE
-    case 'STORE_SAVE':
+    case 'STORE/SAVE':
       return saveState({ ...state, time: 0, isPlaying: false });
-    case 'STORE_RESET': {
+    case 'STORE/RESET': {
       deleteState();
       return dawState();
     }
-    case 'STORE_LOAD':
+    case 'STORE/LOAD':
       return { ...action.payload };
     default:
       return;
@@ -165,7 +165,7 @@ const engineEffects = (
     case 'PRESET/ASSIGN_TO_TRACK':
       return engine.setPreset(currentTrack, preset);
     // Store
-    case 'STORE_LOAD':
+    case 'STORE/LOAD':
       engine.setTracks(action.payload);
       engine.setBPM(action.payload.bpm);
       return;
