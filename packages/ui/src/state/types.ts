@@ -53,8 +53,6 @@ type KEYBOARD =
       payload: number;
     };
 
-// TRACK
-
 type TRACK =
   | {
       type: 'TRACK/SET_TRACK';
@@ -68,8 +66,6 @@ type TRACK =
   | {
       type: 'TRACK/NEW_TRACK';
     };
-
-// MIDI
 
 type MIDI =
   | { type: 'MIDI/NEW_FRAGMENT' }
@@ -92,39 +88,17 @@ type MIDI =
       payload: Partial<MidiRef>;
     };
 
-// PLAYER
-type PLAYER_SET_TIME = {
-  type: 'PLAYER/SET_TIME';
-  payload: number;
-};
-
-type PLAYER_PLAY = {
-  type: 'PLAYER/PLAY';
-};
-
-type PLAYER_STOP = {
-  type: 'PLAYER/STOP';
-};
-
-type PLAYER_PAUSE = {
-  type: 'PLAYER/PAUSE';
-};
-
-type PLAYER_SET_BPM = {
-  type: 'PLAYER/SET_BPM';
-  payload: number;
-};
+type PLAYER =
+  | { type: 'PLAYER/SET_TIME'; payload: number }
+  | { type: 'PLAYER/SET_BPM'; payload: number }
+  | { type: 'PLAYER/PLAY' }
+  | { type: 'PLAYER/STOP' }
+  | { type: 'PLAYER/PAUSE' };
 
 // REFRESH
-type ENGINE_EVENT_TIME_CHANGED = {
-  type: 'ENGINE_EVENT/TIME_CHANGED';
-  payload: number;
-};
-
-type ENGINE_EVENT_IS_PLAYING_CHANGED = {
-  type: 'ENGINE_EVENT/IS_PLAYING_CHANGED';
-  payload: boolean;
-};
+type ENGINE_EVENT =
+  | { type: 'ENGINE_EVENT/TIME_CHANGED'; payload: number }
+  | { type: 'ENGINE_EVENT/IS_PLAYING_CHANGED'; payload: boolean };
 
 // STORE
 
@@ -143,30 +117,16 @@ type STORE_LOAD = {
 
 // COMBINATIONS
 
-type SynthActions = KEYBOARD | PRESET;
-
-type MidiActions =
-  | TRACK
-  | MIDI_SET_FRAGMENT
-  | MIDI_SET_MIDI_REFS
-  | MIDI_SET_MIDI_REF
-  | MIDI_NEW_FRAGMENT
-  | MIDI_SET_CURRENT_FRAGMENT
-  | PLAYER_SET_TIME
-  | PLAYER_PLAY
-  | PLAYER_PAUSE
-  | PLAYER_STOP
-  | PLAYER_SET_BPM;
-
-type EngineEvents = ENGINE_EVENT_TIME_CHANGED | ENGINE_EVENT_IS_PLAYING_CHANGED;
-
 type StoreActions = STORE_SAVE | STORE_RESET | STORE_LOAD;
 
 export type EngineAction =
-  | SynthActions
-  | MidiActions
-  | StoreActions
-  | EngineEvents;
+  | KEYBOARD
+  | PRESET
+  | TRACK
+  | MIDI
+  | PLAYER
+  | ENGINE_EVENT
+  | StoreActions;
 
 type UIState = {
   currentFragment: string;
