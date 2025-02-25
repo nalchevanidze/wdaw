@@ -37,10 +37,12 @@ type PRESET =
     }
   | {
       type: 'PRESET/NEW_PRESET';
+      trackId: number;
     }
   | {
       type: 'PRESET/ASSIGN_TO_TRACK';
-      id: string;
+      trackId: number;
+      presetId: string;
     };
 
 type KEYBOARD =

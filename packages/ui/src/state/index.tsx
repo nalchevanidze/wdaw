@@ -15,11 +15,10 @@ const dispatcher = (
 ): Partial<DAWState> | undefined => {
   const { currentTrack, tracks, notes, midiRefs, midiFragments, presets } =
     state;
-  const track = tracks[currentTrack];
   const fragmentCount = Object.keys(midiFragments).length;
-  const setPreset = mapPreset(track.presetId, state);
-  const setPresetId = (id: string) =>
-    mapTrack(currentTrack, state, () => ({ presetId: id }));
+  const setPreset = mapPreset(tracks[currentTrack].presetId, state);
+  const setPresetId = (trackId: number, presetId: string) =>
+    mapTrack(trackId, state, () => ({ presetId }));
 
   switch (action.type) {
     // PRESET
@@ -49,10 +48,13 @@ const dispatcher = (
       }));
     case 'PRESET/NEW_PRESET': {
       const p = makePreset('new preset');
-      return { ...setPresetId(p.id), presets: { ...presets, [p.id]: p } };
+      return {
+        ...setPresetId(action.trackId, p.id),
+        presets: { ...presets, [p.id]: p }
+      };
     }
     case 'PRESET/ASSIGN_TO_TRACK':
-      return setPresetId(action.id);
+      return setPresetId(action.trackId, action.presetId);
     // MIDI
     case 'MIDI/SET_CURRENT_FRAGMENT':
       return { currentFragment: action.payload };
