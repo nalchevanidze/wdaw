@@ -54,24 +54,16 @@ type PRESET =
       presetId: string;
     };
 
-type TRACK =
-  | {
-      type: 'TRACK/SET_TRACK';
-      id: number;
-      payload: Partial<TrackInput>;
-    }
-  | {
-      type: 'TRACK/SET_CURRENT';
-      payload: number;
-    }
-  | {
-      type: 'TRACK/NEW_TRACK';
-    };
-
+type Track<T extends string, P = {}> = ADT<'TRACK', T, P>;
 type Midi<T extends string, P = {}> = ADT<'MIDI', T, P>;
 type Player<T extends string, P = undefined> = ADTS<'PLAYER', T, P>;
 type Store<T extends string, P = undefined> = ADTS<'STORE', T, P>;
 type Keyboard<T extends string, P = undefined> = ADTS<'KEYBOARD', T, P>;
+
+type TRACK =
+  | Track<'SET_TRACK', { id: number; payload: Partial<TrackInput> }>
+  | Track<'SET_CURRENT', { payload: number }>
+  | Track<'NEW_TRACK'>;
 
 type MIDI =
   | Midi<'NEW_FRAGMENT'>
