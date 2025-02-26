@@ -6,9 +6,7 @@ export const dawState = (): DAWState => {
 
   return {
     ...state,
-    time: 0,
     currentTrack: 0,
-    isPlaying: false,
     currentFragment: Object.keys(state.midiFragments)[0],
     notes: []
   };

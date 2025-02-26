@@ -115,8 +115,6 @@ type UIState = {
   currentFragment: string;
   currentTrack: number;
   notes: number[];
-  time: number;
-  isPlaying: boolean;
 };
 
 export type DAWState = EngineState & UIState;
