@@ -9,6 +9,7 @@ type Reducer = (state: DAWState, action: EngineAction) => DAWState;
 export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
   const ref = useRef<Reducer>((a) => a);
 
+
   const isPlayingChanged = (payload: boolean) =>
     dispatch({ type: 'ENGINE_EVENT/IS_PLAYING_CHANGED', payload });
 
@@ -24,7 +25,7 @@ export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
 
     dispatch({ type: 'STORE/LOAD', payload: loadState() ?? dawState() });
 
-    return () => engine.destroy();
+    return engine.destroy;
   }, [makeReducer]);
 
   const [state, dispatch] = useReducer(ref.current, dawState());

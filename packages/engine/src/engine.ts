@@ -29,8 +29,8 @@ export class SynthEngine {
   public startNote = (i: number, n: number) => this.tracks.get(i).startNote(n);
   public endNote = (i: number, n: number) => this.tracks.get(i).endNote(n);
 
-  public destroy() {
+  public destroy = () => {
     this.tracks.clear();
     this.closeContext();
-  }
+  };
 }
