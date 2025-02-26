@@ -1,6 +1,5 @@
 import {
   FILTER_ID,
-  Midi,
   Sequence,
   WAVE_ID,
   ENVELOPE_ID,
