@@ -11,7 +11,7 @@ type Panel = {
 };
 
 export const usePanels = () => {
-  const [{ currentTrack, tracks }, dispatch] = React.useContext(DawApiContext);
+  const { currentTrack, tracks , dispatch} = React.useContext(DawApiContext);
 
   const panels = tracks.map(
     ({ name }, index): Panel => ({

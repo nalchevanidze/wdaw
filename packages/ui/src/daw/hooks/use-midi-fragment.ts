@@ -20,7 +20,7 @@ const toNotes = (notes: UINote[]): Note[] =>
   }));
 
 export const useMidiFragment = (targetId?: string) => {
-  const [{ currentFragment, midiFragments }, dispatch] =
+  const { currentFragment, midiFragments, dispatch } =
     React.useContext(DawApiContext);
 
   const id = targetId ?? currentFragment;

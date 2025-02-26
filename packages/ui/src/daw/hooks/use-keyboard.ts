@@ -6,7 +6,7 @@ import { KEY_EVENT_TYPE, useKeyEvent } from '../../hooks/use-key-event';
 type KeyHandler = (e: KeyboardEvent | number) => void;
 
 export const useKeyboard = () => {
-  const [{ notes }, dispatch] = useContext(DawApiContext);
+  const { notes, dispatch } = useContext(DawApiContext);
 
   const handler =
     (type: KEY_EVENT_TYPE): KeyHandler =>

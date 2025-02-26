@@ -10,7 +10,7 @@ import { DawApiContext } from '../../context/state';
 import { toggleARPNote, Location } from '../utils/arp';
 
 export const usePreset = () => {
-  const [{ presets, currentTrack, tracks }, dispatch] =
+  const { presets, currentTrack, tracks, dispatch } =
     React.useContext(DawApiContext);
   const { presetId } = tracks[currentTrack];
   const current = presets[presetId];

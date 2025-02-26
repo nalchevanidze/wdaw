@@ -6,9 +6,9 @@ import { DawApiContext } from './context/state';
 
 const Daw: React.FC = () => {
   const [state, dispatch] = useEngine(makeReducer);
-  
+
   return (
-    <DawApiContext.Provider value={[state, dispatch]}>
+    <DawApiContext.Provider value={{ ...state, dispatch }}>
       <Gui />
     </DawApiContext.Provider>
   );

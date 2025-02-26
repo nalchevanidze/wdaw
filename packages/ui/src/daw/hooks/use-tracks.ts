@@ -3,7 +3,7 @@ import { MidiRef } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
 
 export const useTracks = () => {
-  const [{ currentTrack, tracks, midiRefs }, dispatch] =
+  const { currentTrack, tracks, midiRefs, dispatch } =
     React.useContext(DawApiContext);
 
   const length = Math.max(...midiRefs.map(({ end }) => end));
