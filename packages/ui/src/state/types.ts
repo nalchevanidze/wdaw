@@ -10,6 +10,14 @@ import {
   TrackInput
 } from '@wdaw/engine';
 
+type ADT<
+  K extends string,
+  T extends string,
+  P = undefined
+> = P extends undefined
+  ? { type: `${K}/${T}` }
+  : { type: `${K}/${T}`; payload: P };
+
 type PRESET =
   | {
       type: 'PRESET/SET_WAVE';
@@ -42,16 +50,6 @@ type PRESET =
       type: 'PRESET/ASSIGN_TO_TRACK';
       trackId: number;
       presetId: string;
-    };
-
-type KEYBOARD =
-  | {
-      type: 'KEYBOARD_KEY_UP';
-      payload: number;
-    }
-  | {
-      type: 'KEYBOARD_KEY_DOWN';
-      payload: number;
     };
 
 type TRACK =
@@ -89,26 +87,22 @@ type MIDI =
       payload: Partial<MidiRef>;
     };
 
+type Player<T extends string, P = undefined> = ADT<'PLAYER', T, P>;
+type Store<T extends string, P = undefined> = ADT<'STORE', T, P>;
+type Keyboard<T extends string, P = undefined> = ADT<'KEYBOARD', T, P>;
+
+type KEYBOARD = Keyboard<'KEY_UP', number> | Keyboard<'KEY_DOWN', number>;
+
 type PLAYER =
-  | { type: 'PLAYER/SET_TIME'; payload: number }
-  | { type: 'PLAYER/SET_BPM'; payload: number }
-  | { type: 'PLAYER/PLAY' }
-  | { type: 'PLAYER/STOP' }
-  | { type: 'PLAYER/PAUSE' };
+  | Player<'SET_TIME', number>
+  | Player<'SET_BPM', number>
+  | Player<'PLAY'>
+  | Player<'STOP'>
+  | Player<'PAUSE'>;
 
+type STORE = Store<'SAVE'> | Store<'RESET'> | Store<'LOAD', DAWState>;
 
-type STORE =
-  | { type: 'STORE/SAVE' }
-  | { type: 'STORE/RESET' }
-  | { type: 'STORE/LOAD'; payload: DAWState };
-
-export type EngineAction =
-  | KEYBOARD
-  | PRESET
-  | TRACK
-  | MIDI
-  | PLAYER
-  | STORE;
+export type EngineAction = KEYBOARD | PRESET | TRACK | MIDI | PLAYER | STORE;
 
 type UIState = {
   currentFragment: string;

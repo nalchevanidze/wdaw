@@ -19,9 +19,9 @@ export const useKeyboard = () => {
 
   useKeyEvent(handler);
 
-  const onKeyDown = handler('KEYBOARD_KEY_DOWN');
+  const onKeyDown = handler('KEYBOARD/KEY_DOWN');
 
-  const onKeyUp = handler('KEYBOARD_KEY_UP');
+  const onKeyUp = handler('KEYBOARD/KEY_UP');
 
   return { notes, onKeyDown, onKeyUp };
 };
