@@ -10,13 +10,15 @@ import {
   TrackInput
 } from '@wdaw/engine';
 
-type ADT<
+type ADT<K extends string, T extends string, P = {}> = {
+  type: `${K}/${T}`;
+} & P;
+
+type ADTS<
   K extends string,
   T extends string,
   P = undefined
-> = P extends undefined
-  ? { type: `${K}/${T}` }
-  : { type: `${K}/${T}`; payload: P };
+> = P extends undefined ? ADT<K, T> : ADT<K, T, { payload: P }>;
 
 type PRESET =
   | {
@@ -66,32 +68,17 @@ type TRACK =
       type: 'TRACK/NEW_TRACK';
     };
 
+type Midi<T extends string, P = {}> = ADT<'MIDI', T, P>;
+type Player<T extends string, P = undefined> = ADTS<'PLAYER', T, P>;
+type Store<T extends string, P = undefined> = ADTS<'STORE', T, P>;
+type Keyboard<T extends string, P = undefined> = ADTS<'KEYBOARD', T, P>;
+
 type MIDI =
-  | { type: 'MIDI/NEW_FRAGMENT' }
-  | {
-      type: 'MIDI/SET_CURRENT_FRAGMENT';
-      payload: string;
-    }
-  | {
-      type: 'MIDI/SET_MIDI_REFS';
-      payload: MidiRef[];
-    }
-  | {
-      type: 'MIDI/SET_FRAGMENT';
-      payload: Partial<MidiFragment>;
-      id: string;
-    }
-  | {
-      type: 'MIDI/SET_MIDI_REF';
-      id: string;
-      payload: Partial<MidiRef>;
-    };
-
-type Player<T extends string, P = undefined> = ADT<'PLAYER', T, P>;
-type Store<T extends string, P = undefined> = ADT<'STORE', T, P>;
-type Keyboard<T extends string, P = undefined> = ADT<'KEYBOARD', T, P>;
-
-type KEYBOARD = Keyboard<'KEY_UP', number> | Keyboard<'KEY_DOWN', number>;
+  | Midi<'NEW_FRAGMENT'>
+  | Midi<'SET_CURRENT_FRAGMENT', { payload: string }>
+  | Midi<'SET_MIDI_REFS', { payload: MidiRef[] }>
+  | Midi<'SET_FRAGMENT', { payload: Partial<MidiFragment>; id: string }>
+  | Midi<'SET_MIDI_REF', { id: string; payload: Partial<MidiRef> }>;
 
 type PLAYER =
   | Player<'SET_TIME', number>
@@ -99,6 +86,8 @@ type PLAYER =
   | Player<'PLAY'>
   | Player<'STOP'>
   | Player<'PAUSE'>;
+
+type KEYBOARD = Keyboard<'KEY_UP', number> | Keyboard<'KEY_DOWN', number>;
 
 type STORE = Store<'SAVE'> | Store<'RESET'> | Store<'LOAD', DAWState>;
 
