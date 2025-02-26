@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import { SynthEngine } from '@wdaw/engine';
 import { DAWState, EngineAction } from '../state/types';
 import { dawState } from '../state/defs';
@@ -9,18 +9,14 @@ type Reducer = (state: DAWState, action: EngineAction) => DAWState;
 export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
   const ref = useRef<Reducer>((a) => a);
 
-
-  const isPlayingChanged = (payload: boolean) =>
-    dispatch({ type: 'ENGINE_EVENT/IS_PLAYING_CHANGED', payload });
-
-  const timeChanged = (payload: number) =>
-    dispatch({ type: 'ENGINE_EVENT/TIME_CHANGED', payload });
+  const [time, setTime] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const engine = new SynthEngine();
-    engine.addEventListener('isPlayingChanged', isPlayingChanged);
-    engine.addEventListener('timeChanged', timeChanged);
-    
+    engine.addEventListener('isPlayingChanged', setIsPlaying);
+    engine.addEventListener('timeChanged', setTime);
+
     ref.current = makeReducer(engine);
 
     dispatch({ type: 'STORE/LOAD', payload: loadState() ?? dawState() });
@@ -30,5 +26,5 @@ export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
 
   const [state, dispatch] = useReducer(ref.current, dawState());
 
-  return [state, dispatch] as const;
+  return [{ ...state, time, isPlaying }, dispatch] as const;
 };

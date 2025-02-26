@@ -97,9 +97,6 @@ type PLAYER =
   | { type: 'PLAYER/STOP' }
   | { type: 'PLAYER/PAUSE' };
 
-type ENGINE_EVENT =
-  | { type: 'ENGINE_EVENT/TIME_CHANGED'; payload: number }
-  | { type: 'ENGINE_EVENT/IS_PLAYING_CHANGED'; payload: boolean };
 
 type STORE =
   | { type: 'STORE/SAVE' }
@@ -112,7 +109,6 @@ export type EngineAction =
   | TRACK
   | MIDI
   | PLAYER
-  | ENGINE_EVENT
   | STORE;
 
 type UIState = {

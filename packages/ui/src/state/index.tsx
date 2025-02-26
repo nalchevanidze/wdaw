@@ -94,10 +94,6 @@ const dispatcher = (
     // Player
     case 'PLAYER/SET_BPM':
       return { bpm: action.payload };
-    case 'ENGINE_EVENT/TIME_CHANGED':
-      return { time: action.payload };
-    case 'ENGINE_EVENT/IS_PLAYING_CHANGED':
-      return { isPlaying: action.payload };
     // Keyboard
     case 'KEYBOARD_KEY_DOWN':
       return { notes: [...notes, action.payload] };
