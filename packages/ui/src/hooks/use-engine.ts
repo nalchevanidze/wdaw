@@ -19,7 +19,7 @@ export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
 
     ref.current = makeReducer(engine);
 
-    dispatch({ type: 'STORE/LOAD', payload: loadState() ?? dawState() });
+    dispatch({ type: 'STORE/LOAD', payload: loadState() ?? state });
 
     return engine.destroy;
   }, [makeReducer]);
