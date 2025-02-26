@@ -14,51 +14,24 @@ type ADT<K extends string, T extends string, P = {}> = {
   type: `${K}/${T}`;
 } & P;
 
-type ADTS<
-  K extends string,
-  T extends string,
-  P = undefined
-> = P extends undefined ? ADT<K, T> : ADT<K, T, { payload: P }>;
-
-type PRESET =
-  | {
-      type: 'PRESET/SET_WAVE';
-      id: WAVE_ID;
-      payload: number;
-    }
-  | {
-      type: 'PRESET/SET_ENVELOPE';
-      id: ENVELOPE_ID;
-      payload: Partial<EnvelopeConfig>;
-    }
-  | {
-      type: 'PRESET/SET_FILTER';
-      id: FILTER_ID;
-      payload: number;
-    }
-  | {
-      type: 'PRESET/SET_SEQUENCE';
-      payload: Sequence;
-    }
-  | {
-      type: 'PRESET/TOGGLE_MODULE';
-      id: 'filter' | 'sequence';
-    }
-  | {
-      type: 'PRESET/NEW_PRESET';
-      trackId: number;
-    }
-  | {
-      type: 'PRESET/ASSIGN_TO_TRACK';
-      trackId: number;
-      presetId: string;
-    };
-
+type Preset<T extends string, P = {}> = ADT<'PRESET', T, P>;
 type Track<T extends string, P = {}> = ADT<'TRACK', T, P>;
 type Midi<T extends string, P = {}> = ADT<'MIDI', T, P>;
-type Player<T extends string, P = undefined> = ADTS<'PLAYER', T, P>;
-type Store<T extends string, P = undefined> = ADTS<'STORE', T, P>;
-type Keyboard<T extends string, P = undefined> = ADTS<'KEYBOARD', T, P>;
+type Player<T extends string, P = {}> = ADT<'PLAYER', T, P>;
+type Store<T extends string, P = {}> = ADT<'STORE', T, P>;
+type Keyboard<T extends string, P = {}> = ADT<'KEYBOARD', T, P>;
+
+type PRESET =
+  | Preset<'SET_WAVE', { id: WAVE_ID; payload: number }>
+  | Preset<
+      'SET_ENVELOPE',
+      { id: ENVELOPE_ID; payload: Partial<EnvelopeConfig> }
+    >
+  | Preset<'SET_FILTER', { id: FILTER_ID; payload: number }>
+  | Preset<'SET_SEQUENCE', { payload: Sequence }>
+  | Preset<'TOGGLE_MODULE', { id: 'filter' | 'sequence' }>
+  | Preset<'NEW_PRESET', { trackId: number }>
+  | Preset<'ASSIGN_TO_TRACK', { trackId: number; presetId: string }>;
 
 type TRACK =
   | Track<'SET_TRACK', { id: number; payload: Partial<TrackInput> }>
@@ -73,15 +46,20 @@ type MIDI =
   | Midi<'SET_MIDI_REF', { id: string; payload: Partial<MidiRef> }>;
 
 type PLAYER =
-  | Player<'SET_TIME', number>
-  | Player<'SET_BPM', number>
+  | Player<'SET_TIME', { payload: number }>
+  | Player<'SET_BPM', { payload: number }>
   | Player<'PLAY'>
   | Player<'STOP'>
   | Player<'PAUSE'>;
 
-type KEYBOARD = Keyboard<'KEY_UP', number> | Keyboard<'KEY_DOWN', number>;
+type KEYBOARD =
+  | Keyboard<'KEY_UP', { payload: number }>
+  | Keyboard<'KEY_DOWN', { payload: number }>;
 
-type STORE = Store<'SAVE'> | Store<'RESET'> | Store<'LOAD', DAWState>;
+type STORE =
+  | Store<'SAVE'>
+  | Store<'RESET'>
+  | Store<'LOAD', { payload: DAWState }>;
 
 export type EngineAction = KEYBOARD | PRESET | TRACK | MIDI | PLAYER | STORE;
 
