@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { usePreset } from './use-preset';
-import { ENVELOPE_ID } from '../../state/types';
+import { ENVELOPE } from '../../state/types';
 
 export const useEnvelope = () => {
   const { envelopes, setEnvelope } = usePreset();
 
-  const [id, setId] = React.useState<ENVELOPE_ID>('gain');
+  const [id, setId] = React.useState<ENVELOPE>('gain');
 
-  const options = (Object.keys(envelopes) as ENVELOPE_ID[]).map((name) => ({
+  const options = (Object.keys(envelopes) as ENVELOPE[]).map((name) => ({
     name,
     active: name === id,
     onclick: () => setId(name)

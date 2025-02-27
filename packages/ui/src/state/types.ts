@@ -5,14 +5,15 @@ import {
   EngineState,
   MidiRef,
   TrackInput,
-  Wave
+  Wave,
+  Preset
 } from '@wdaw/engine';
 
-export type FILTER_ID = 'cutoff' | 'envelope' | 'resonance';
+export type FILTER = 'cutoff' | 'envelope' | 'resonance';
 
-export type ENVELOPE_ID = 'gain' | 'filter';
+export type ENVELOPE = keyof Preset["envelopes"];
 
-export type WAVE_ID = keyof Wave;
+export type WAVE = keyof Wave;
 
 type ADT<K extends string, T extends string, P = {}> = {
   type: `${K}/${T}`;
@@ -26,9 +27,9 @@ type STORE<T extends string, P = {}> = ADT<'STORE', T, P>;
 type KEYBOARD<T extends string, P = {}> = ADT<'KEYBOARD', T, P>;
 
 export type EngineAction =
-  | PRESET<'SET_WAVE', { id: WAVE_ID; payload: number }>
-  | PRESET<'SET_ENVELOPE', { id: ENVELOPE_ID; payload: Partial<Envelope> }>
-  | PRESET<'SET_FILTER', { id: FILTER_ID; payload: number }>
+  | PRESET<'SET_WAVE', { id: WAVE; payload: number }>
+  | PRESET<'SET_ENVELOPE', { id: ENVELOPE; payload: Partial<Envelope> }>
+  | PRESET<'SET_FILTER', { id: FILTER; payload: number }>
   | PRESET<'SET_SEQUENCE', { payload: Sequence }>
   | PRESET<'TOGGLE_MODULE', { id: 'filter' | 'sequence' }>
   | PRESET<'NEW_PRESET', { trackId: number }>

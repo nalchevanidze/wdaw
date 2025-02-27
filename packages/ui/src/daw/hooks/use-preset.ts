@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Envelope,  Sequence } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
 import { toggleARPNote, Location } from '../utils/arp';
-import { ENVELOPE_ID, FILTER_ID, WAVE_ID } from '../../state/types';
+import { ENVELOPE, FILTER, WAVE } from '../../state/types';
 
 export const usePreset = () => {
   const { presets, currentTrack, tracks, dispatch } =
@@ -10,10 +10,10 @@ export const usePreset = () => {
   const { presetId } = tracks[currentTrack];
   const current = presets[presetId];
 
-  const setWave = (id: WAVE_ID, payload: number) =>
+  const setWave = (id: WAVE, payload: number) =>
     dispatch({ type: 'PRESET/SET_WAVE', id, payload });
 
-  const setFilter = (id: FILTER_ID, payload: number) =>
+  const setFilter = (id: FILTER, payload: number) =>
     dispatch({ type: 'PRESET/SET_FILTER', id, payload });
 
   const options = Object.values(presets).map(({ id, name }) => ({
@@ -34,7 +34,7 @@ export const usePreset = () => {
       payload: toggleARPNote(current.sequence, l)
     });
 
-  const setEnvelope = (id: ENVELOPE_ID) => (payload: Partial<Envelope>) =>
+  const setEnvelope = (id: ENVELOPE) => (payload: Partial<Envelope>) =>
     dispatch({ type: 'PRESET/SET_ENVELOPE', id, payload });
 
   const getModule = (id: 'filter' | 'sequence') => ({
