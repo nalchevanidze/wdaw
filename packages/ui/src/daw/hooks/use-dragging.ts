@@ -32,7 +32,6 @@ export const useDragging = <T>(ops: Optins<T>) => {
 
   const setMode = useMouseEvent<MODE>({
     move: (p, mode) => {
-      const t: Maybe<Trajectory> = dragging ? [dragging, p] : undefined;
       const area = dragging ? new Area(dragging, p) : undefined;
 
       switch (mode) {
@@ -40,7 +39,7 @@ export const useDragging = <T>(ops: Optins<T>) => {
           setArea(area);
           return ops.onMove.select(area);
         case 'move':
-          if (!area || !t) return;
+          if (!area) return;
           return ops.onMove.move(area.distanceX, area.distanceY);
         case 'scale':
           if (!area) return;
