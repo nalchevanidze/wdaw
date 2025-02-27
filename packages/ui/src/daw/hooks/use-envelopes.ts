@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ENVELOPE_ID, EnvelopeConfig } from '@wdaw/engine';
+import { ENVELOPE_ID, EnvelopeI } from '@wdaw/engine';
 import { usePreset } from './use-preset';
 
 export const useEnvelope = () => {

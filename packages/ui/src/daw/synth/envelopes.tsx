@@ -3,7 +3,7 @@ import { TextButton } from '../../components/text-button';
 import { useEnvelope } from '../hooks/use-envelopes';
 import { WaveGrid } from '../../components/wave-grid';
 import { Svg, Point } from '@wdaw/svg';
-import { EnvelopeConfig } from '@wdaw/engine';
+import { EnvelopeI } from '@wdaw/engine';
 import { positive } from '../utils/math';
 import { LineEditor } from '../../components/line-editor';
 import { Module } from '../../components/module';
@@ -20,7 +20,7 @@ const envelope = (
   sustain: number,
   target: string,
   { x, y }: Point
-): Partial<EnvelopeConfig> => {
+): Partial<EnvelopeI> => {
   switch (target) {
     case 'attack':
       return { attack: x };

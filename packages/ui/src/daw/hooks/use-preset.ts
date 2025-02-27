@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
   ENVELOPE_ID,
-  EnvelopeConfig,
+  EnvelopeI,
   FILTER_ID,
   Sequence,
   WAVE_ID
@@ -39,7 +39,7 @@ export const usePreset = () => {
       payload: toggleARPNote(current.sequence, l)
     });
 
-  const setEnvelope = (id: ENVELOPE_ID) => (payload: Partial<EnvelopeConfig>) =>
+  const setEnvelope = (id: ENVELOPE_ID) => (payload: Partial<EnvelopeI>) =>
     dispatch({ type: 'PRESET/SET_ENVELOPE', id, payload });
 
   const getModule = (id: 'filter' | 'sequence') => ({
