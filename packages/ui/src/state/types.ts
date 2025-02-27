@@ -42,7 +42,7 @@ type MIDI =
   | Midi<'NEW_FRAGMENT'>
   | Midi<'SET_CURRENT_FRAGMENT', { payload: string }>
   | Midi<'SET_MIDI_REFS', { payload: MidiRef[] }>
-  | Midi<'SET_FRAGMENT', { payload: Partial<MidiFragment>; id: string }>
+  | Midi<'SET_FRAGMENT', { id: string; payload: Partial<MidiFragment> }>
   | Midi<'SET_MIDI_REF', { id: string; payload: Partial<MidiRef> }>;
 
 type PLAYER =
