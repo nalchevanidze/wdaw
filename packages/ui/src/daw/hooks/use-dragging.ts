@@ -1,7 +1,7 @@
 import { Point, Trajectory, usePoint, Area } from '@wdaw/svg';
 import * as React from 'react';
 import { Maybe, MEvent } from '../types';
-import { distanceX, distanceY } from '../utils/area';
+import { distanceY } from '../utils/area';
 import { useMouseEvent } from '../../hooks/use-mouse-event';
 
 export type MODE = 'scale' | 'move' | 'select';
@@ -33,18 +33,18 @@ export const useDragging = <T>(ops: Optins<T>) => {
   const setMode = useMouseEvent<MODE>({
     move: (p, mode) => {
       const t: Maybe<Trajectory> = dragging ? [dragging, p] : undefined;
+      const area = dragging ? new Area(dragging, p) : undefined;
 
       switch (mode) {
         case 'select':
-          const area = t ? new Area(...t) : undefined;
           setArea(area);
           return ops.onMove.select(area);
         case 'move':
-          if (!t) return;
-          return ops.onMove.move(distanceX(t), distanceY(t));
+          if (!area || !t) return;
+          return ops.onMove.move(area.distanceX, area.distanceY);
         case 'scale':
-          if (!t) return;
-          return ops.onMove.scale(distanceX(t));
+          if (!area) return;
+          return ops.onMove.scale(area?.distanceX);
       }
     },
     end: (mode) => {
