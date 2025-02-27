@@ -24,8 +24,8 @@ export class Area implements IArea {
   x2: number;
   y1: number;
   y2: number;
-  distanceX: number;
-  distanceY: number;
+  moveX: number;
+  moveY: number;
 
   constructor(start: Point, end: Point) {
     const xrange = makeRange(start.x, end.x);
@@ -36,8 +36,8 @@ export class Area implements IArea {
     this.y1 = yrange[0];
     this.y2 = yrange[1];
 
-    this.distanceX = Math.round(end.x - start?.x);
-    this.distanceY = Math.round(end.y - (start?.y ?? 0));
+    this.moveX = Math.round(end.x - start?.x);
+    this.moveY = Math.round(end.y - (start?.y ?? 0));
   }
 
   map = (f: (x: Point) => Point) =>

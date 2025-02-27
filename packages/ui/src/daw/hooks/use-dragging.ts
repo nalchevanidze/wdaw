@@ -1,4 +1,4 @@
-import { Point,  usePoint, Area } from '@wdaw/svg';
+import { Point, usePoint, Area } from '@wdaw/svg';
 import * as React from 'react';
 import { Maybe, MEvent } from '../types';
 import { useMouseEvent } from '../../hooks/use-mouse-event';
@@ -38,11 +38,9 @@ export const useDragging = <T>(ops: Optins<T>) => {
           setArea(area);
           return ops.onMove.select(area);
         case 'move':
-          if (!area) return;
-          return ops.onMove.move(area.distanceX, area.distanceY);
+          return area ? ops.onMove.move(area.moveX, area.moveY) : undefined;
         case 'scale':
-          if (!area) return;
-          return ops.onMove.scale(area?.distanceX);
+          return area ? ops.onMove.scale(area?.moveX) : undefined;
       }
     },
     end: (mode) => {
