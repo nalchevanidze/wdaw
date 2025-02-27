@@ -42,8 +42,6 @@ export type Envelope = {
   release: number;
 };
 
-export type FILTER_ID = 'cutoff' | 'envelope' | 'resonance';
-
 export type NoteAction = {
   start?: number[];
   end?: number[];

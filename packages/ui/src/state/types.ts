@@ -1,5 +1,4 @@
 import {
-  FILTER_ID,
   Sequence,
   Envelope,
   MidiFragment,
@@ -8,6 +7,8 @@ import {
   TrackInput,
   Wave
 } from '@wdaw/engine';
+
+export type FILTER_ID = 'cutoff' | 'envelope' | 'resonance';
 
 export type ENVELOPE_ID = 'gain' | 'filter';
 

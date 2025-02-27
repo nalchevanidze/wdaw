@@ -10,7 +10,6 @@ export { SynthEngine } from './engine';
 export { SEQUENCE_LENGTH } from './common/defs';
 export {
   Envelope,
-  FILTER_ID,
   Sequence,
   Preset,
   Note,
