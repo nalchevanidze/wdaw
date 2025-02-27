@@ -1,4 +1,3 @@
-import { Trajectory } from '@wdaw/svg';
 
 export const withAccuracy =
   (f: (time: number) => void, step: number) => (n: number) =>
