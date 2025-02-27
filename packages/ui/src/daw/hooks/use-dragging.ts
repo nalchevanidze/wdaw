@@ -1,7 +1,6 @@
-import { Point, Trajectory, usePoint, Area } from '@wdaw/svg';
+import { Point,  usePoint, Area } from '@wdaw/svg';
 import * as React from 'react';
 import { Maybe, MEvent } from '../types';
-import { distanceY } from '../utils/area';
 import { useMouseEvent } from '../../hooks/use-mouse-event';
 
 export type MODE = 'scale' | 'move' | 'select';
