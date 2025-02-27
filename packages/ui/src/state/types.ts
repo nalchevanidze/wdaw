@@ -1,15 +1,17 @@
 import {
   FILTER_ID,
   Sequence,
-  WAVE_ID,
   Envelope,
   MidiFragment,
   EngineState,
   MidiRef,
-  TrackInput
+  TrackInput,
+  Wave
 } from '@wdaw/engine';
 
 export type ENVELOPE_ID = 'gain' | 'filter';
+
+export type WAVE_ID = keyof Wave;
 
 type ADT<K extends string, T extends string, P = {}> = {
   type: `${K}/${T}`;

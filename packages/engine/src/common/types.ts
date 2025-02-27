@@ -13,7 +13,7 @@ export type FilterConfig = {
 export type Preset = {
   id: string;
   name: string;
-  wave: WaveConfig;
+  wave: Wave;
   envelopes: Record<'filter' | 'gain', Envelope>;
   filter: FilterConfig;
   sequence: Sequence;
@@ -21,7 +21,7 @@ export type Preset = {
 
 export type Presets = Record<string, Preset>;
 
-export type WaveConfig = {
+export type Wave = {
   sine: number;
   square: number;
   saw: number;
@@ -41,9 +41,6 @@ export type Envelope = {
   sustain: number;
   release: number;
 };
-
-export type WAVE_ID = keyof WaveConfig;
-
 
 export type FILTER_ID = 'cutoff' | 'envelope' | 'resonance';
 

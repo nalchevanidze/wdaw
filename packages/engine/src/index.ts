@@ -11,13 +11,13 @@ export { SEQUENCE_LENGTH } from './common/defs';
 export {
   Envelope,
   FILTER_ID,
-  WAVE_ID,
   Sequence,
   Preset,
   Note,
   Midi,
   MidiFragment,
   MidiRef,
-  TrackInput
+  TrackInput,
+  Wave
 } from './common/types';
 export { UIPosition, OCTAVE_SIZE } from './utils/notes';

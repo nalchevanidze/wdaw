@@ -1,14 +1,14 @@
 import { nList, noteToFrequency } from '../utils';
 import { waveFunction } from './wave';
 import { WaveNode } from '../types';
-import { WaveConfig } from '../../../common/types';
+import { Wave } from '../../../common/types';
 
 const rescale = (value: number, deep: number): number => {
   deep = 2 / deep ** 2;
   return (value + deep) / deep;
 };
 
-export class OSC implements WaveNode<WaveConfig> {
+export class OSC implements WaveNode<Wave> {
   private phase = 0;
   private length = 0.1;
   private fmPhase = 0;
@@ -23,7 +23,7 @@ export class OSC implements WaveNode<WaveConfig> {
     this.fmPhase = Math.random();
   }
 
-  next(wave: WaveConfig) {
+  next(wave: Wave) {
     const { length } = this;
     const fmAmp = wave.fm;
 
@@ -49,13 +49,13 @@ export class OSC implements WaveNode<WaveConfig> {
 const MAX_OSCILLATORS = 12;
 const MAX_OFFSET = 2;
 
-export class Oscillators implements WaveNode<WaveConfig> {
+export class Oscillators implements WaveNode<Wave> {
   constructor(private sampleRate: number) {}
 
   private all = nList(MAX_OSCILLATORS, () => new OSC(this.sampleRate));
   private poly: OSC[] = [];
 
-  open(wave: WaveConfig, note: number) {
+  open(wave: Wave, note: number) {
     const poly = Math.min(MAX_OSCILLATORS - 1, Math.max(1, wave.voices));
 
     const range = Math.max(note + Math.floor(wave.octave) * 12, 0);
@@ -67,7 +67,7 @@ export class Oscillators implements WaveNode<WaveConfig> {
     this.poly.forEach((o, i) => o.set(frequency + (i - middle) * offset));
   }
 
-  next(wave: WaveConfig) {
+  next(wave: Wave) {
     let value = 0;
 
     for (const osc of this.poly) {

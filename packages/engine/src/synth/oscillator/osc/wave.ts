@@ -1,8 +1,8 @@
-import { WaveConfig } from '../../../common/types';
+import { Wave } from '../../../common/types';
 
 export const waveFunction = (
   i: number,
-  { square, saw, saw2, tech, sine, noise }: WaveConfig
+  { square, saw, saw2, tech, sine, noise }: Wave
 ) => {
   let value = 0;
 

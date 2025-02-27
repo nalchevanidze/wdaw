@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { WaveGrid } from './wave-grid';
 import { waveFunction } from '@wdaw/engine';
-import { WaveConfig } from '@wdaw/engine/src/common/types';
+import { Wave } from '@wdaw/engine/src/common/types';
 import { usePreset } from '../daw/hooks/use-preset';
 
 const range = <T extends unknown>(length: number, f: (i: number) => T): T[] =>
   Array.from({ length }, (_, i) => f(i));
 
-const point = (w: WaveConfig, i: number) =>
+const point = (w: Wave, i: number) =>
   1 - waveFunction((i + w.offset) % 1, w);
 
-const genPath = (wave: WaveConfig, size: number) => {
+const genPath = (wave: Wave, size: number) => {
   const scaleY = size / 2;
 
   const wavePoint = (i: number) => point(wave, i) * scaleY;
