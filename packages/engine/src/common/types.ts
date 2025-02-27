@@ -14,7 +14,7 @@ export type Preset = {
   id: string;
   name: string;
   wave: WaveConfig;
-  envelopes: Record<'filter' | 'gain', EnvelopeI>;
+  envelopes: Record<'filter' | 'gain', Envelope>;
   filter: FilterConfig;
   sequence: Sequence;
 };
@@ -35,7 +35,7 @@ export type WaveConfig = {
   octave: number;
 };
 
-export type EnvelopeI = {
+export type Envelope = {
   attack: number;
   decay: number;
   sustain: number;

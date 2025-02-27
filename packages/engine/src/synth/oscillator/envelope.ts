@@ -1,4 +1,4 @@
-import { EnvelopeI } from '../../common/types';
+import { Envelope as EnvelopeInput } from '../../common/types';
 import { WaveNode } from './types';
 import { counter } from './utils';
 
@@ -11,14 +11,14 @@ enum STAGE {
 
 const toMilliseconds = (n: number) => Math.min((n * 3) ** 3, 200);
 
-export class Envelope implements WaveNode<EnvelopeI> {
+export class Envelope implements WaveNode<EnvelopeInput> {
   private iter?: IterableIterator<number>;
   private stage: STAGE = STAGE.ATTACK;
   private level = 0;
 
   live = false;
 
-  next = (env: EnvelopeI): number => {
+  next = (env: EnvelopeInput): number => {
     if (!this.live || !this.iter) return 0;
 
     switch (this.stage) {
@@ -49,13 +49,13 @@ export class Envelope implements WaveNode<EnvelopeI> {
     }
   };
 
-  open = (env: EnvelopeI): void => {
+  open = (env: EnvelopeInput): void => {
     this.live = true;
     this.stage = STAGE.ATTACK;
     this.iter = counter(toMilliseconds(env.attack), 0, 1);
   };
 
-  close = (env: EnvelopeI): void => {
+  close = (env: EnvelopeInput): void => {
     const time = toMilliseconds(env.release);
     this.iter = counter(time, this.level, 0);
     this.stage = STAGE.RELEASE;

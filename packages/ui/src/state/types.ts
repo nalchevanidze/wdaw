@@ -3,7 +3,7 @@ import {
   Sequence,
   WAVE_ID,
   ENVELOPE_ID,
-  EnvelopeI,
+  Envelope,
   MidiFragment,
   EngineState,
   MidiRef,
@@ -23,7 +23,7 @@ type Keyboard<T extends string, P = {}> = ADT<'KEYBOARD', T, P>;
 
 type PRESET =
   | Preset<'SET_WAVE', { id: WAVE_ID; payload: number }>
-  | Preset<'SET_ENVELOPE', { id: ENVELOPE_ID; payload: Partial<EnvelopeI> }>
+  | Preset<'SET_ENVELOPE', { id: ENVELOPE_ID; payload: Partial<Envelope> }>
   | Preset<'SET_FILTER', { id: FILTER_ID; payload: number }>
   | Preset<'SET_SEQUENCE', { payload: Sequence }>
   | Preset<'TOGGLE_MODULE', { id: 'filter' | 'sequence' }>
