@@ -25,18 +25,17 @@ export const LineEditor: React.FC<Props> = ({
   onMove
 }) => {
   const setCurrent = useMouseEvent<string>({
-    move: (p, t) => onMove(t, normalize(p))
+    move: ({ x, y }, t) =>
+      onMove(t, {
+        x: unitInterval(x / width),
+        y: unitInterval(1 - y / height)
+      })
   });
 
   const upscale = ({ x, y, ...props }: Controler): Controler => ({
     x: x * width,
     y: (1 - y) * height,
     ...props
-  });
-
-  const normalize = ({ x, y }: Point): Point => ({
-    x: unitInterval(x / width),
-    y: unitInterval(1 - y / height)
   });
 
   const upscaled = controlers.map(upscale);

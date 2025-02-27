@@ -14,9 +14,7 @@ export const useMouseEvent = <T>({ end, move }: Handlers<T>) => {
   useEffect(() => {
     if (!current) return;
 
-    const onMousemove = (event: MouseEvent) => {
-      move(toPoint(event), current);
-    };
+    const onMousemove = (event: MouseEvent) => move(toPoint(event), current);
 
     const onMouseup = () => {
       end?.(current);

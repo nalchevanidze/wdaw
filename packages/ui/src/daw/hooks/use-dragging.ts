@@ -31,7 +31,7 @@ export const useDragging = <T>(ops: Optins<T>) => {
   const [dragging, setDragging] = React.useState<Maybe<Point>>(undefined);
 
   const setMode = useMouseEvent<MODE>({
-    move: (p: Point, mode) => {
+    move: (p, mode) => {
       const t: Maybe<Trajectory> = dragging ? [dragging, p] : undefined;
 
       switch (mode) {
