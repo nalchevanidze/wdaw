@@ -5,13 +5,11 @@ import { useMouseEvent } from '../../hooks/use-mouse-event';
 
 export type MODE = 'scale' | 'move' | 'select';
 
-export type AreaHandler = (a: Maybe<Area>) => void;
-
 type Optins<T> = {
   onMove: {
-    select: AreaHandler;
-    move: (x: number, y: number) => void;
-    scale: (size: number) => void;
+    select(a: Maybe<Area>): void;
+    move(moveX: number, moveY: number): void;
+    scale(moveX: number): void;
   };
   onEnd?(mode?: MODE): void;
   onStart?: (p: T) => void;
