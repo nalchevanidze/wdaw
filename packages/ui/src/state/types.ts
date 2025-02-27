@@ -18,44 +18,44 @@ type ADT<K extends string, T extends string, P = {}> = {
   type: `${K}/${T}`;
 } & P;
 
-type Preset<T extends string, P = {}> = ADT<'PRESET', T, P>;
-type Track<T extends string, P = {}> = ADT<'TRACK', T, P>;
-type Midi<T extends string, P = {}> = ADT<'MIDI', T, P>;
-type Player<T extends string, P = {}> = ADT<'PLAYER', T, P>;
-type Store<T extends string, P = {}> = ADT<'STORE', T, P>;
-type Keyboard<T extends string, P = {}> = ADT<'KEYBOARD', T, P>;
+type PRESET<T extends string, P = {}> = ADT<'PRESET', T, P>;
+type TRACK<T extends string, P = {}> = ADT<'TRACK', T, P>;
+type MIDI<T extends string, P = {}> = ADT<'MIDI', T, P>;
+type PLAYER<T extends string, P = {}> = ADT<'PLAYER', T, P>;
+type STORE<T extends string, P = {}> = ADT<'STORE', T, P>;
+type KEYBOARD<T extends string, P = {}> = ADT<'KEYBOARD', T, P>;
 
 export type EngineAction =
-  | Preset<'SET_WAVE', { id: WAVE_ID; payload: number }>
-  | Preset<'SET_ENVELOPE', { id: ENVELOPE_ID; payload: Partial<Envelope> }>
-  | Preset<'SET_FILTER', { id: FILTER_ID; payload: number }>
-  | Preset<'SET_SEQUENCE', { payload: Sequence }>
-  | Preset<'TOGGLE_MODULE', { id: 'filter' | 'sequence' }>
-  | Preset<'NEW_PRESET', { trackId: number }>
-  | Preset<'ASSIGN_TO_TRACK', { trackId: number; presetId: string }>
+  | PRESET<'SET_WAVE', { id: WAVE_ID; payload: number }>
+  | PRESET<'SET_ENVELOPE', { id: ENVELOPE_ID; payload: Partial<Envelope> }>
+  | PRESET<'SET_FILTER', { id: FILTER_ID; payload: number }>
+  | PRESET<'SET_SEQUENCE', { payload: Sequence }>
+  | PRESET<'TOGGLE_MODULE', { id: 'filter' | 'sequence' }>
+  | PRESET<'NEW_PRESET', { trackId: number }>
+  | PRESET<'ASSIGN_TO_TRACK', { trackId: number; presetId: string }>
   // TRACK
-  | Track<'SET_TRACK', { id: number; payload: Partial<TrackInput> }>
-  | Track<'SET_CURRENT', { payload: number }>
-  | Track<'NEW_TRACK'>
+  | TRACK<'SET_TRACK', { id: number; payload: Partial<TrackInput> }>
+  | TRACK<'SET_CURRENT', { payload: number }>
+  | TRACK<'NEW_TRACK'>
   // MIDI
-  | Midi<'NEW_FRAGMENT'>
-  | Midi<'SET_CURRENT_FRAGMENT', { payload: string }>
-  | Midi<'SET_MIDI_REFS', { payload: MidiRef[] }>
-  | Midi<'SET_FRAGMENT', { id: string; payload: Partial<MidiFragment> }>
-  | Midi<'SET_MIDI_REF', { id: string; payload: Partial<MidiRef> }>
+  | MIDI<'NEW_FRAGMENT'>
+  | MIDI<'SET_CURRENT_FRAGMENT', { payload: string }>
+  | MIDI<'SET_MIDI_REFS', { payload: MidiRef[] }>
+  | MIDI<'SET_FRAGMENT', { id: string; payload: Partial<MidiFragment> }>
+  | MIDI<'SET_MIDI_REF', { id: string; payload: Partial<MidiRef> }>
   // PLAYER
-  | Player<'SET_TIME', { payload: number }>
-  | Player<'SET_BPM', { payload: number }>
-  | Player<'PLAY'>
-  | Player<'STOP'>
-  | Player<'PAUSE'>
+  | PLAYER<'SET_TIME', { payload: number }>
+  | PLAYER<'SET_BPM', { payload: number }>
+  | PLAYER<'PLAY'>
+  | PLAYER<'STOP'>
+  | PLAYER<'PAUSE'>
   // KEYBOARD
-  | Keyboard<'KEY_UP', { payload: number }>
-  | Keyboard<'KEY_DOWN', { payload: number }>
+  | KEYBOARD<'KEY_UP', { payload: number }>
+  | KEYBOARD<'KEY_DOWN', { payload: number }>
   // STORE
-  | Store<'SAVE'>
-  | Store<'RESET'>
-  | Store<'LOAD', { payload: DAWState }>;
+  | STORE<'SAVE'>
+  | STORE<'RESET'>
+  | STORE<'LOAD', { payload: DAWState }>;
 
 type UIState = {
   currentFragment: string;
