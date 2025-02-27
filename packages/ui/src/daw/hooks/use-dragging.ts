@@ -38,7 +38,7 @@ export const useDragging = <T>(ops: Optins<T>) => {
         case 'move':
           return area ? ops.onMove.move(area.moveX, area.moveY) : undefined;
         case 'scale':
-          return area ? ops.onMove.scale(area?.moveX) : undefined;
+          return area ? ops.onMove.scale(area.moveX) : undefined;
       }
     },
     end: (mode) => {
