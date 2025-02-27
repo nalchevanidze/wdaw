@@ -2,13 +2,14 @@ import {
   FILTER_ID,
   Sequence,
   WAVE_ID,
-  ENVELOPE_ID,
   Envelope,
   MidiFragment,
   EngineState,
   MidiRef,
   TrackInput
 } from '@wdaw/engine';
+
+export type ENVELOPE_ID = 'gain' | 'filter';
 
 type ADT<K extends string, T extends string, P = {}> = {
   type: `${K}/${T}`;

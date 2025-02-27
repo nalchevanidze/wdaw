@@ -44,7 +44,6 @@ export type Envelope = {
 
 export type WAVE_ID = keyof WaveConfig;
 
-export type ENVELOPE_ID = 'gain' | 'filter';
 
 export type FILTER_ID = 'cutoff' | 'envelope' | 'resonance';
 

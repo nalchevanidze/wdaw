@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { ENVELOPE_ID } from '@wdaw/engine';
 import { usePreset } from './use-preset';
+import { ENVELOPE_ID } from '../../state/types';
 
 export const useEnvelope = () => {
   const { envelopes, setEnvelope } = usePreset();

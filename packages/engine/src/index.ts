@@ -9,7 +9,6 @@ export { waveFunction } from './synth';
 export { SynthEngine } from './engine';
 export { SEQUENCE_LENGTH } from './common/defs';
 export {
-  ENVELOPE_ID,
   Envelope,
   FILTER_ID,
   WAVE_ID,
