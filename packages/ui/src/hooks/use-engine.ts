@@ -26,5 +26,5 @@ export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
 
   const [state, dispatch] = useReducer(ref.current, dawState());
 
-  return [{ ...state, time, isPlaying }, dispatch] as const;
+  return { ...state, time, isPlaying, dispatch };
 };
