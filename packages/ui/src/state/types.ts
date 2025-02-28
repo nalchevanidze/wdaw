@@ -11,7 +11,7 @@ import {
 
 export type FILTER = 'cutoff' | 'envelope' | 'resonance';
 
-export type ENVELOPE = keyof Preset["envelopes"];
+export type ENVELOPE = keyof Preset['envelopes'];
 
 export type WAVE = keyof Wave;
 
@@ -56,7 +56,7 @@ export type EngineAction =
   // STORE
   | STORE<'SAVE'>
   | STORE<'RESET'>
-  | STORE<'LOAD', { payload: DAWState }>;
+  | STORE<'LOAD', { payload: State }>;
 
 type UIState = {
   currentFragment: string;
@@ -64,4 +64,4 @@ type UIState = {
   notes: number[];
 };
 
-export type DAWState = EngineState & UIState;
+export type State = EngineState & UIState;

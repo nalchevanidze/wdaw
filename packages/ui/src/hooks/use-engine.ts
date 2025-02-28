@@ -1,10 +1,10 @@
 import { useEffect, useReducer, useRef, useState } from 'react';
 import { SynthEngine } from '@wdaw/engine';
-import { DAWState, EngineAction } from '../state/types';
+import { State, EngineAction } from '../state/types';
 import { dawState } from '../state/defs';
 import { loadState } from '../state/utils';
 
-type Reducer = (state: DAWState, action: EngineAction) => DAWState;
+type Reducer = (state: State, action: EngineAction) => State;
 
 export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
   const ref = useRef<Reducer>((a) => a);

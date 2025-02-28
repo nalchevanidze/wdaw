@@ -6,13 +6,13 @@ import {
   saveState,
   setMidiFragment
 } from './utils';
-import { DAWState, EngineAction } from './types';
+import { State, EngineAction } from './types';
 import { dawState } from './defs';
 
 const dispatcher = (
-  state: DAWState,
+  state: State,
   action: EngineAction
-): Partial<DAWState> | undefined => {
+): Partial<State> | undefined => {
   const { currentTrack, tracks, notes, midiRefs, midiFragments, presets } =
     state;
   const fragmentCount = Object.keys(midiFragments).length;
@@ -114,7 +114,7 @@ const dispatcher = (
 };
 
 const engineEffects = (
-  { tracks, midiFragments, currentTrack, presets, midiRefs }: DAWState,
+  { tracks, midiFragments, currentTrack, presets, midiRefs }: State,
   engine: SynthEngine,
   action: EngineAction
 ): void => {
@@ -168,7 +168,7 @@ const engineEffects = (
 };
 
 export const makeReducer =
-  (engine: SynthEngine) => (state: DAWState, action: EngineAction) => {
+  (engine: SynthEngine) => (state: State, action: EngineAction) => {
     const stateChanges = dispatcher(state, action);
     const newState = stateChanges ? { ...state, ...stateChanges } : state;
 

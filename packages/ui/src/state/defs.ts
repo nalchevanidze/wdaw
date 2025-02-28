@@ -1,7 +1,7 @@
 import { engineState } from '@wdaw/engine';
-import { DAWState } from './types';
+import { State } from './types';
 
-export const dawState = (): DAWState => {
+export const dawState = (): State => {
   const state = engineState();
 
   return {

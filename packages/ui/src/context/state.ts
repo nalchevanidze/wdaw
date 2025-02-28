@@ -1,9 +1,9 @@
 import { createContext } from 'react';
 import { DawDispatch } from '../daw/types';
-import { DAWState } from '../state/types';
+import { State } from '../state/types';
 import { dawState } from '../state/defs';
 
-type DawApi = DAWState & {
+type DawApi = State & {
   time: number;
   isPlaying: boolean;
   dispatch: DawDispatch;
