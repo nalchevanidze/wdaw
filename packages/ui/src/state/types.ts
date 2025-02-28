@@ -19,7 +19,12 @@ type ADT<K extends string, T extends string, P = {}> = {
   type: `${K}/${T}`;
 } & P;
 
-type PRESET<T extends string, P = {}> = ADT<'PRESET', T, P>;
+type PRESET_BASE<T extends string, P = {}> = ADT<'PRESET', T, P>;
+
+type PRESET<T extends string, P = {}> = ADT<'PRESET', T, P> & {
+  presetId: string;
+};
+
 type TRACK<T extends string, P = {}> = ADT<'TRACK', T, P>;
 type MIDI<T extends string, P = {}> = ADT<'MIDI', T, P>;
 type PLAYER<T extends string, P = {}> = ADT<'PLAYER', T, P>;
@@ -31,7 +36,7 @@ export type EngineAction =
   | PRESET<'SET_FILTER', { id: FILTER; payload: number }>
   | PRESET<'SET_SEQUENCE', { payload: Sequence }>
   | PRESET<'TOGGLE_MODULE', { id: 'filter' | 'sequence' }>
-  | PRESET<'NEW_PRESET', { trackId: number }>
+  | PRESET_BASE<'NEW_PRESET', { trackId: number }>
   | PRESET<'ASSIGN_TO_TRACK', { trackId: number; presetId: string }>
   // TRACK
   | TRACK<'SET_TRACK', { id: number; payload: Partial<TrackInput> }>
@@ -62,6 +67,6 @@ type UIState = {
 export type KeyboardAPI = {
   keyDown(i: number, n: number): void;
   keyUp(i: number, n: number): void;
-}
+};
 
 export type State = EngineState & UIState;
