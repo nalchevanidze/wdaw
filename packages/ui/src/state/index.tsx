@@ -14,7 +14,6 @@ const dispatcher = (
   action: EngineAction
 ): Partial<State> | undefined => {
   const { tracks, midiRefs, midiFragments, presets } = state;
-  const fragmentCount = Object.keys(midiFragments).length;
   const setPreset = mapPreset(state);
   const setPresetId = (trackId: number, presetId: string) =>
     mapTrack(trackId, state, () => ({ presetId }));
@@ -68,7 +67,9 @@ const dispatcher = (
     case 'MIDI/SET_FRAGMENT':
       return setMidiFragment(action.id, state, action.payload);
     case 'MIDI/NEW_FRAGMENT': {
-      const fragment = makeFragment(`Fragment ${fragmentCount + 1}`);
+      const fragment = makeFragment(
+        `Fragment ${Object.keys(midiFragments).length + 1}`
+      );
       return {
         currentFragment: fragment.id,
         midiFragments: { ...midiFragments, [fragment.id]: fragment }
