@@ -1,4 +1,9 @@
-import { EngineState, makeFragment, makePreset, SynthEngine } from '@wdaw/engine';
+import {
+  EngineState,
+  makeFragment,
+  makePreset,
+  SynthEngine
+} from '@wdaw/engine';
 import {
   deleteState,
   mapPreset,
@@ -15,34 +20,34 @@ const dispatcher = (
 ): Partial<State> | undefined => {
   const { tracks, midiRefs, midiFragments, presets } = state;
   const setPresetId = (trackId: number, presetId: string) =>
-    mapTrack(trackId, state, () => ({ presetId }));
+    mapTrack(tracks, trackId, () => ({ presetId }));
 
   switch (action.type) {
     // PRESET
     case 'PRESET/SET_SEQUENCE':
-      return mapPreset(state, action.presetId, () => ({
+      return mapPreset(presets, action.presetId, () => ({
         sequence: action.payload
       }));
     case 'PRESET/TOGGLE_MODULE':
-      return mapPreset(state, action.presetId, (preset) => ({
+      return mapPreset(presets, action.presetId, (preset) => ({
         [action.id]: {
           ...preset[action.id],
           enabled: !preset[action.id].enabled
         }
       }));
     case 'PRESET/SET_ENVELOPE':
-      return mapPreset(state, action.presetId, ({ envelopes }) => ({
+      return mapPreset(presets, action.presetId, ({ envelopes }) => ({
         envelopes: {
           ...envelopes,
           [action.id]: { ...envelopes[action.id], ...action.payload }
         }
       }));
     case 'PRESET/SET_WAVE':
-      return mapPreset(state, action.presetId, ({ wave }) => ({
+      return mapPreset(presets, action.presetId, ({ wave }) => ({
         wave: { ...wave, [action.id]: action.payload }
       }));
     case 'PRESET/SET_FILTER':
-      return mapPreset(state, action.presetId, ({ filter }) => ({
+      return mapPreset(presets, action.presetId, ({ filter }) => ({
         filter: { ...filter, [action.id]: action.payload }
       }));
     case 'PRESET/NEW_PRESET': {
@@ -66,7 +71,7 @@ const dispatcher = (
         )
       };
     case 'MIDI/SET_FRAGMENT':
-      return setMidiFragment(action.id, state, action.payload);
+      return setMidiFragment(midiFragments, action.id, action.payload);
     case 'MIDI/NEW_FRAGMENT': {
       const fragment = makeFragment(
         `Fragment ${Object.keys(midiFragments).length + 1}`
@@ -80,7 +85,7 @@ const dispatcher = (
     case 'TRACK/SET_CURRENT':
       return { currentTrack: action.payload };
     case 'TRACK/SET_TRACK':
-      return mapTrack(action.id, state, (t) => ({ ...t, ...action.payload }));
+      return mapTrack(tracks, action.id, (t) => ({ ...t, ...action.payload }));
     case 'TRACK/NEW_TRACK':
       return {
         tracks: [

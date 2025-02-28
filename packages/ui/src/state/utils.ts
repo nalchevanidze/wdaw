@@ -1,6 +1,7 @@
 import { TrackInput, Preset, MidiFragment, EngineState } from '@wdaw/engine';
 import { State } from './types';
-
+import { Presets } from '@wdaw/engine/src/common/types';
+import { Tracks } from '@wdaw/engine/src/player/tracks';
 
 const STATE_KEY = 'daw-local-storage-state-v1';
 
@@ -16,8 +17,8 @@ export const loadState = () => {
 };
 
 export const setMidiFragment = (
+  midiFragments: EngineState['midiFragments'],
   id: string,
-  { midiFragments }: EngineState,
   fields: Partial<MidiFragment>
 ) => ({
   midiFragments: {
@@ -26,23 +27,16 @@ export const setMidiFragment = (
   }
 });
 
-export const mapTracks = (
-  { tracks }: EngineState,
-  f: (a: TrackInput, i: number) => Partial<TrackInput>
-): Partial<EngineState> => ({
-  tracks: tracks.map((t, i) => ({ ...t, ...f(t, i) }))
-});
-
 export const mapTrack = (
+  tracks: EngineState['tracks'],
   id: number,
-  { tracks }: EngineState,
   f: (a: TrackInput) => Partial<TrackInput>
 ): Partial<EngineState> => ({
   tracks: tracks.map((t, i) => (id === i ? { ...t, ...f(t) } : t))
 });
 
 export const mapPreset = (
-  { presets }: EngineState,
+  presets: EngineState['presets'],
   id: string,
   f: (a: Preset) => Partial<Preset>
 ) => ({
