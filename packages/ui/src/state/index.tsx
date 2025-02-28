@@ -14,34 +14,35 @@ const dispatcher = (
   action: EngineAction
 ): Partial<State> | undefined => {
   const { tracks, midiRefs, midiFragments, presets } = state;
-  const setPreset = mapPreset(state);
   const setPresetId = (trackId: number, presetId: string) =>
     mapTrack(trackId, state, () => ({ presetId }));
 
   switch (action.type) {
     // PRESET
     case 'PRESET/SET_SEQUENCE':
-      return setPreset(action.presetId, () => ({ sequence: action.payload }));
+      return mapPreset(state, action.presetId, () => ({
+        sequence: action.payload
+      }));
     case 'PRESET/TOGGLE_MODULE':
-      return setPreset(action.presetId, (preset) => ({
+      return mapPreset(state, action.presetId, (preset) => ({
         [action.id]: {
           ...preset[action.id],
           enabled: !preset[action.id].enabled
         }
       }));
     case 'PRESET/SET_ENVELOPE':
-      return setPreset(action.presetId, ({ envelopes }) => ({
+      return mapPreset(state, action.presetId, ({ envelopes }) => ({
         envelopes: {
           ...envelopes,
           [action.id]: { ...envelopes[action.id], ...action.payload }
         }
       }));
     case 'PRESET/SET_WAVE':
-      return setPreset(action.presetId, ({ wave }) => ({
+      return mapPreset(state, action.presetId, ({ wave }) => ({
         wave: { ...wave, [action.id]: action.payload }
       }));
     case 'PRESET/SET_FILTER':
-      return setPreset(action.presetId, ({ filter }) => ({
+      return mapPreset(state, action.presetId, ({ filter }) => ({
         filter: { ...filter, [action.id]: action.payload }
       }));
     case 'PRESET/NEW_PRESET': {

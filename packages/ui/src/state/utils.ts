@@ -40,8 +40,10 @@ export const mapTrack = (
   tracks: tracks.map((t, i) => (id === i ? { ...t, ...f(t) } : t))
 });
 
-export const mapPreset =
-  ({ presets }: State) =>
-  (id: string, f: (a: Preset) => Partial<Preset>) => ({
-    presets: { ...presets, [id]: { ...presets[id], ...f(presets[id]) } }
-  });
+export const mapPreset = (
+  { presets }: State,
+  id: string,
+  f: (a: Preset) => Partial<Preset>
+) => ({
+  presets: { ...presets, [id]: { ...presets[id], ...f(presets[id]) } }
+});
