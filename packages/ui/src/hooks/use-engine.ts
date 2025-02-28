@@ -9,10 +9,7 @@ type Reducer = (state: State, action: EngineAction) => State;
 export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
   const ref = useRef<Reducer>((a) => a);
 
-  const keyboard = useRef<KeyboardAPI>({
-    keyDown() {},
-    keyUp() {}
-  });
+  const keyboard = useRef<KeyboardAPI>({ keyDown() {}, keyUp() {} });
 
   const [time, setTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
