@@ -15,13 +15,9 @@ import { State, EngineAction } from './types';
 import { dawState } from './defs';
 
 const dispatcher = (
-  state: EngineState,
+  { tracks, midiRefs, midiFragments, presets, bpm }: EngineState,
   action: EngineAction
 ): Partial<State> | undefined => {
-  const { tracks, midiRefs, midiFragments, presets } = state;
-  const setPresetId = (trackId: number, presetId: string) =>
-    mapTrack(tracks, trackId, () => ({ presetId }));
-
   switch (action.type) {
     // PRESET
     case 'PRESET/SET_SEQUENCE':
@@ -53,12 +49,14 @@ const dispatcher = (
     case 'PRESET/NEW_PRESET': {
       const p = makePreset('new preset');
       return {
-        ...setPresetId(action.trackId, p.id),
+        ...mapTrack(tracks, action.trackId, () => ({ presetId: p.id })),
         presets: { ...presets, [p.id]: p }
       };
     }
     case 'PRESET/ASSIGN_TO_TRACK':
-      return setPresetId(action.trackId, action.presetId);
+      return mapTrack(tracks, action.trackId, () => ({
+        presetId: action.presetId
+      }));
     // MIDI
     case 'MIDI/SET_CURRENT_FRAGMENT':
       return { currentFragment: action.payload };
@@ -102,7 +100,7 @@ const dispatcher = (
       return { bpm: action.payload };
     // STORE
     case 'STORE/SAVE':
-      return saveState(state);
+      return saveState({ tracks, midiRefs, midiFragments, presets, bpm });
     case 'STORE/RESET': {
       deleteState();
       return dawState();
