@@ -1,27 +1,31 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { DawApiContext } from '../../context/state';
 import { noteFromKeyboard } from '../utils/keyboard';
-import { KEY_EVENT_TYPE, useKeyEvent } from '../../hooks/use-key-event';
+import { useKeyEvent } from '../../hooks/use-key-event';
 
 type KeyHandler = (e: KeyboardEvent | number) => void;
 
 export const useKeyboard = () => {
-  const { notes, dispatch } = useContext(DawApiContext);
+  const { currentTrack, keyboard } = useContext(DawApiContext);
+  const [notes, setNotes] = useState<number[]>([]);
 
-  const handler =
-    (type: KEY_EVENT_TYPE): KeyHandler =>
-    (e) => {
-      const key = noteFromKeyboard(e);
-      if (key) {
-        dispatch({ type, payload: key });
-      }
-    };
+  const onKeyDown: KeyHandler = (e) => {
+    const key = noteFromKeyboard(e);
+    if (key) {
+      setNotes((ns) => [...ns, key]);
+      keyboard.keyDown(currentTrack, key);
+    }
+  };
 
-  useKeyEvent(handler);
+  const onKeyUp: KeyHandler = (e) => {
+    const key = noteFromKeyboard(e);
+    if (key) {
+      keyboard.keyUp(currentTrack, key);
+      setNotes((ns) => ns.filter((n) => n !== key));
+    }
+  };
 
-  const onKeyDown = handler('KEYBOARD/KEY_DOWN');
-
-  const onKeyUp = handler('KEYBOARD/KEY_UP');
+  useKeyEvent({ down: onKeyDown, up: onKeyUp });
 
   return { notes, onKeyDown, onKeyUp };
 };

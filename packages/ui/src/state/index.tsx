@@ -94,11 +94,6 @@ const dispatcher = (
     // Player
     case 'PLAYER/SET_BPM':
       return { bpm: action.payload };
-    // Keyboard
-    case 'KEYBOARD/KEY_DOWN':
-      return { notes: [...notes, action.payload] };
-    case 'KEYBOARD/KEY_UP':
-      return { notes: [action.payload].filter((n) => n !== action.payload) };
     // STORE
     case 'STORE/SAVE':
       return saveState(state);
@@ -133,11 +128,6 @@ const engineEffects = (
       return engine.setTime(action.payload);
     case 'PLAYER/SET_BPM':
       return engine.setBPM(action.payload);
-    // Keyboard
-    case 'KEYBOARD/KEY_UP':
-      return engine.endNote(currentTrack, action.payload);
-    case 'KEYBOARD/KEY_DOWN':
-      return engine.startNote(currentTrack, action.payload);
     // Midi
     case 'MIDI/SET_MIDI_REF':
     case 'MIDI/SET_FRAGMENT':

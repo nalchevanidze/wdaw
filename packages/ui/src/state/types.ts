@@ -50,9 +50,6 @@ export type EngineAction =
   | PLAYER<'PLAY'>
   | PLAYER<'STOP'>
   | PLAYER<'PAUSE'>
-  // KEYBOARD
-  | KEYBOARD<'KEY_UP', { payload: number }>
-  | KEYBOARD<'KEY_DOWN', { payload: number }>
   // STORE
   | STORE<'SAVE'>
   | STORE<'RESET'>
@@ -63,5 +60,10 @@ type UIState = {
   currentTrack: number;
   notes: number[];
 };
+
+export type KeyboardAPI = {
+  keyDown(i: number, n: number): void;
+  keyUp(i: number, n: number): void;
+}
 
 export type State = EngineState & UIState;
