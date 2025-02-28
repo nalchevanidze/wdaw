@@ -1,4 +1,4 @@
-import { makeFragment, makePreset, SynthEngine } from '@wdaw/engine';
+import { EngineState, makeFragment, makePreset, SynthEngine } from '@wdaw/engine';
 import {
   deleteState,
   mapPreset,
@@ -110,7 +110,7 @@ const dispatcher = (
 };
 
 const engineEffects = (
-  { tracks, midiFragments, presets, midiRefs }: State,
+  { tracks, midiFragments, presets, midiRefs }: EngineState,
   engine: SynthEngine,
   action: EngineAction
 ): void => {
