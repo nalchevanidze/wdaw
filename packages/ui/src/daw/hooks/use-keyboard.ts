@@ -13,19 +13,19 @@ export const useKeyboard = () => {
     const key = noteFromKeyboard(e);
     if (key) {
       setNotes((ns) => [...ns, key]);
-      keyboard.keyDown(currentTrack, key);
+      keyboard.startNote(currentTrack, key);
     }
   };
 
   const onKeyUp: KeyHandler = (e) => {
     const key = noteFromKeyboard(e);
     if (key) {
-      keyboard.keyUp(currentTrack, key);
+      keyboard.endNote(currentTrack, key);
       setNotes((ns) => ns.filter((n) => n !== key));
     }
   };
 
-  useKeyEvent({ down: onKeyDown, up: onKeyUp },[currentTrack]);
+  useKeyEvent({ down: onKeyDown, up: onKeyUp }, [currentTrack]);
 
   return { notes, onKeyDown, onKeyUp };
 };

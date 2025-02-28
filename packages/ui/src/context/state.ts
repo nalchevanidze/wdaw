@@ -3,16 +3,16 @@ import { DawDispatch } from '../daw/types';
 import { KeyboardAPI, State } from '../state/types';
 import { dawState } from '../state/defs';
 
-const keyboard : KeyboardAPI = {
-  keyDown() {},
-  keyUp() {}
-}
+export const keyboardMock: KeyboardAPI = {
+  startNote() {},
+  endNote() {}
+};
 
 type DawApi = State & {
   time: number;
   isPlaying: boolean;
   dispatch: DawDispatch;
-  keyboard: KeyboardAPI
+  keyboard: KeyboardAPI;
 };
 
 export const DawApiContext = createContext<DawApi>({
@@ -20,5 +20,5 @@ export const DawApiContext = createContext<DawApi>({
   time: 0,
   isPlaying: false,
   dispatch() {},
-  keyboard
+  keyboard: keyboardMock
 });

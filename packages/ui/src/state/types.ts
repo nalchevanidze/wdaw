@@ -67,8 +67,8 @@ type UIState = {
 };
 
 export type KeyboardAPI = {
-  keyDown(i: number, n: number): void;
-  keyUp(i: number, n: number): void;
+  startNote(i: number, n: number): void;
+  endNote(i: number, n: number): void;
 };
 
 export type State = EngineState & UIState;

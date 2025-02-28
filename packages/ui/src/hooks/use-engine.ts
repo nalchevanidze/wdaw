@@ -9,7 +9,7 @@ type Reducer = (state: State, action: EngineAction) => State;
 export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
   const ref = useRef<Reducer>((a) => a);
 
-  const keyboard = useRef<KeyboardAPI>({ keyDown() {}, keyUp() {} });
+  const keyboard = useRef<KeyboardAPI>({ startNote() {}, endNote() {} });
 
   const [time, setTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -19,8 +19,7 @@ export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
     engine.addEventListener('isPlayingChanged', setIsPlaying);
     engine.addEventListener('timeChanged', setTime);
 
-    keyboard.current.keyDown = engine.startNote;
-    keyboard.current.keyUp = engine.endNote;
+    keyboard.current = engine;
 
     ref.current = makeReducer(engine);
 
