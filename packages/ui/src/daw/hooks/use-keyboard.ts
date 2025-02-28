@@ -25,7 +25,7 @@ export const useKeyboard = () => {
     }
   };
 
-  useKeyEvent({ down: onKeyDown, up: onKeyUp }, [currentTrack]);
+  useKeyEvent({ down: onKeyDown, up: onKeyUp }, [currentTrack, keyboard]);
 
   return { notes, onKeyDown, onKeyUp };
 };
