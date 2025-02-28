@@ -13,8 +13,7 @@ const dispatcher = (
   state: State,
   action: EngineAction
 ): Partial<State> | undefined => {
-  const { currentTrack, tracks, notes, midiRefs, midiFragments, presets } =
-    state;
+  const { currentTrack, tracks, midiRefs, midiFragments, presets } = state;
   const fragmentCount = Object.keys(midiFragments).length;
   const setPreset = mapPreset(tracks[currentTrack].presetId, state);
   const setPresetId = (trackId: number, presetId: string) =>
