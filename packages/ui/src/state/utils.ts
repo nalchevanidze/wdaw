@@ -41,7 +41,7 @@ export const mapTrack = (
 });
 
 export const mapPreset =
-  (id: string, { presets }: State) =>
-  (f: (a: Preset) => Partial<Preset>) => ({
+  ({ presets }: State) =>
+  (id: string, f: (a: Preset) => Partial<Preset>) => ({
     presets: { ...presets, [id]: { ...presets[id], ...f(presets[id]) } }
   });

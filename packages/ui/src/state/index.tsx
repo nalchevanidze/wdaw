@@ -13,36 +13,36 @@ const dispatcher = (
   state: State,
   action: EngineAction
 ): Partial<State> | undefined => {
-  const { currentTrack, tracks, midiRefs, midiFragments, presets } = state;
+  const { tracks, midiRefs, midiFragments, presets } = state;
   const fragmentCount = Object.keys(midiFragments).length;
-  const setPreset = mapPreset(tracks[currentTrack].presetId, state);
+  const setPreset = mapPreset(state);
   const setPresetId = (trackId: number, presetId: string) =>
     mapTrack(trackId, state, () => ({ presetId }));
 
   switch (action.type) {
     // PRESET
     case 'PRESET/SET_SEQUENCE':
-      return setPreset(() => ({ sequence: action.payload }));
+      return setPreset(action.presetId, () => ({ sequence: action.payload }));
     case 'PRESET/TOGGLE_MODULE':
-      return setPreset((preset) => ({
+      return setPreset(action.presetId, (preset) => ({
         [action.id]: {
           ...preset[action.id],
           enabled: !preset[action.id].enabled
         }
       }));
     case 'PRESET/SET_ENVELOPE':
-      return setPreset(({ envelopes }) => ({
+      return setPreset(action.presetId, ({ envelopes }) => ({
         envelopes: {
           ...envelopes,
           [action.id]: { ...envelopes[action.id], ...action.payload }
         }
       }));
     case 'PRESET/SET_WAVE':
-      return setPreset(({ wave }) => ({
+      return setPreset(action.presetId, ({ wave }) => ({
         wave: { ...wave, [action.id]: action.payload }
       }));
     case 'PRESET/SET_FILTER':
-      return setPreset(({ filter }) => ({
+      return setPreset(action.presetId, ({ filter }) => ({
         filter: { ...filter, [action.id]: action.payload }
       }));
     case 'PRESET/NEW_PRESET': {
@@ -108,13 +108,10 @@ const dispatcher = (
 };
 
 const engineEffects = (
-  { tracks, midiFragments, currentTrack, presets, midiRefs }: State,
+  { tracks, midiFragments, presets, midiRefs }: State,
   engine: SynthEngine,
   action: EngineAction
 ): void => {
-  const track = tracks[currentTrack];
-  const preset = presets[track.presetId];
-
   switch (action.type) {
     // Player
     case 'PLAYER/PLAY':
@@ -147,7 +144,7 @@ const engineEffects = (
     case 'PRESET/SET_WAVE':
     case 'PRESET/SET_FILTER':
     case 'PRESET/ASSIGN_TO_TRACK':
-      return engine.setPreset(currentTrack, preset);
+      return engine.setPreset(action.trackId, presets[action.presetId]);
     // Store
     case 'STORE/LOAD':
       engine.setTracks(action.payload);

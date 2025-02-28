@@ -19,9 +19,11 @@ type ADT<K extends string, T extends string, P = {}> = {
   type: `${K}/${T}`;
 } & P;
 
-type PRESET_BASE<T extends string, P = {}> = ADT<'PRESET', T, P>;
+type PRESET_BASE<T extends string, P = {}> = ADT<'PRESET', T, P> & {
+  trackId: number;
+};
 
-type PRESET<T extends string, P = {}> = ADT<'PRESET', T, P> & {
+type PRESET<T extends string, P = {}> = PRESET_BASE<T, P> & {
   presetId: string;
 };
 
@@ -31,13 +33,13 @@ type PLAYER<T extends string, P = {}> = ADT<'PLAYER', T, P>;
 type STORE<T extends string, P = {}> = ADT<'STORE', T, P>;
 
 export type EngineAction =
+  | PRESET_BASE<'NEW_PRESET'>
   | PRESET<'SET_WAVE', { id: WAVE; payload: number }>
   | PRESET<'SET_ENVELOPE', { id: ENVELOPE; payload: Partial<Envelope> }>
   | PRESET<'SET_FILTER', { id: FILTER; payload: number }>
   | PRESET<'SET_SEQUENCE', { payload: Sequence }>
   | PRESET<'TOGGLE_MODULE', { id: 'filter' | 'sequence' }>
-  | PRESET_BASE<'NEW_PRESET', { trackId: number }>
-  | PRESET<'ASSIGN_TO_TRACK', { trackId: number; presetId: string }>
+  | PRESET<'ASSIGN_TO_TRACK'>
   // TRACK
   | TRACK<'SET_TRACK', { id: number; payload: Partial<TrackInput> }>
   | TRACK<'SET_CURRENT', { payload: number }>
