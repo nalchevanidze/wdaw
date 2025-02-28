@@ -58,7 +58,6 @@ export type EngineAction =
 type UIState = {
   currentFragment: string;
   currentTrack: number;
-  notes: number[];
 };
 
 export type KeyboardAPI = {
