@@ -24,7 +24,6 @@ type TRACK<T extends string, P = {}> = ADT<'TRACK', T, P>;
 type MIDI<T extends string, P = {}> = ADT<'MIDI', T, P>;
 type PLAYER<T extends string, P = {}> = ADT<'PLAYER', T, P>;
 type STORE<T extends string, P = {}> = ADT<'STORE', T, P>;
-type KEYBOARD<T extends string, P = {}> = ADT<'KEYBOARD', T, P>;
 
 export type EngineAction =
   | PRESET<'SET_WAVE', { id: WAVE; payload: number }>
