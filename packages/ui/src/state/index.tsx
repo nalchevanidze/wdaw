@@ -9,7 +9,8 @@ import {
   mapPreset,
   mapTrack,
   saveState,
-  setMidiFragment
+  mapMidiFragment,
+  mapMidiRefs
 } from './utils';
 import { State, EngineAction } from './types';
 import { dawState } from './defs';
@@ -63,13 +64,9 @@ const dispatcher = (
     case 'MIDI/SET_MIDI_REFS':
       return { midiRefs: action.payload };
     case 'MIDI/SET_MIDI_REF':
-      return {
-        midiRefs: midiRefs.map((m) =>
-          m.id === action.id ? { ...m, ...action.payload } : m
-        )
-      };
+      return mapMidiRefs(midiRefs, action.id, () => action.payload);
     case 'MIDI/SET_FRAGMENT':
-      return setMidiFragment(midiFragments, action.id, action.payload);
+      return mapMidiFragment(midiFragments, action.id, () => action.payload);
     case 'MIDI/NEW_FRAGMENT': {
       const fragment = makeFragment(
         `Fragment ${Object.keys(midiFragments).length + 1}`
