@@ -19,8 +19,8 @@ const genTracks = (): TrackInput[] => [
 
 export const engineState = (): EngineState => ({
   midiRefs: genMidiRefs(),
-  midiFragments: makeLib(genMidiFragments()),
   tracks: genTracks(),
+  midiFragments: makeLib(genMidiFragments()),
   presets: makeLib(genPresets()),
-  bpm: 120,
+  bpm: 120
 });
