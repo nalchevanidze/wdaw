@@ -80,7 +80,7 @@ const dispatcher = (
     case 'TRACK/SET_CURRENT':
       return { currentTrack: action.payload };
     case 'TRACK/SET_TRACK':
-      return mapTrack(tracks, action.id, (t) => action.payload);
+      return mapTrack(tracks, action.id, () => action.payload);
     case 'TRACK/NEW_TRACK':
       return {
         tracks: [
