@@ -20,6 +20,12 @@ export const loadState = () => {
   return v ? (JSON.parse(v) as State) : undefined;
 };
 
+export const mapLib = <T>(
+  lib: Record<string, T>,
+  id: number,
+  f: (a: T) => Partial<T>
+): Record<string, T> => ({ ...lib, [id]: { ...lib[id], ...f(lib[id]) } });
+
 export const mapMidiFragment = (
   midiFragments: EngineState['midiFragments'],
   id: string,
