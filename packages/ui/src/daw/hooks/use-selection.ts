@@ -23,7 +23,7 @@ const toAll = <T extends object>(s: Selected<T>): Mixed<T>[] => [
 
 type ToId<T> = (i: T) => string | number;
 
-export const useSelection = <T extends object>(
+export const useSelection = <T extends { id: string }>(
   list: T[],
   toId: ToId<T>,
   dispatch: (s: T[]) => void
@@ -50,11 +50,9 @@ export const useSelection = <T extends object>(
         return { selected: [], inactive: ts.map(dropTracking) };
       }
 
-      const selectedMap = Object.fromEntries(
-        s.selected.map((t) => [toId(t), t])
-      );
+      const selectedMap = Object.fromEntries(s.selected.map((t) => [t.id, t]));
 
-      const [sel, ina] = partition(ts, (t) => Boolean(selectedMap[toId(t)]));
+      const [sel, ina] = partition(ts, (t) => Boolean(selectedMap[t.id]));
 
       return {
         selected: sel.map(addTracking),
