@@ -3,12 +3,10 @@ import { Area, IArea, Point } from '@wdaw/svg';
 import { useTracks } from './use-tracks';
 import { makeMidiRef, MidiRef } from '@wdaw/engine';
 
-export type UITrack = MidiRef & { origin?: MidiRef };
-
 export const useTrackEditor = () => {
   const { midiRefs, setMidis, setCurrent, tracks } = useTracks();
   const { all, edit, add, clear, sync, select, selectIn, remove } =
-    useSelection<UITrack>(midiRefs, setMidis);
+    useSelection(midiRefs, setMidis);
 
   const move = (moveX: number, moveY: number) =>
     edit(({ start, end, trackId }) => ({

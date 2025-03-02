@@ -8,7 +8,7 @@ import { NoteGrid } from '../../components/note-grid';
 import { SelectionArea } from '../../components/selection-area';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
 import { toAccuracy, withAccuracy } from '../utils/area';
-import { UITrack, useTrackEditor } from '../hooks/use-track-editor';
+import { useTrackEditor } from '../hooks/use-track-editor';
 import { Fragment } from './fragment';
 import { DragingBackground } from '../../components/background';
 import { useTracks } from '../hooks/use-tracks';
@@ -18,6 +18,7 @@ import { MidiRef } from '@wdaw/engine';
 import { NameInput } from '../../components/name-input';
 import { DropDown } from '../../components/drop-down';
 import { useMidiFragment } from '../hooks/use-midi-fragment';
+import { Mixed } from '../utils/tracking';
 
 export type EditActionType = 'select' | 'draw';
 
@@ -40,7 +41,7 @@ const styles = {
     border: '1px solid gray',
     alignItems: 'center',
     gap: '10px',
-    borderRadius: '5px',
+    borderRadius: '5px'
   },
   container: {
     width: '100%',
@@ -49,13 +50,13 @@ const styles = {
   },
   canvas: {
     overflowX: 'scroll'
-  },
+  }
 } as const;
 
 const rulerSize = BLOCK;
 const accuracy = rulerSize / 8;
 
-const toArea = ({ start, end, trackId }: UITrack): IArea => ({
+const toArea = ({ start, end, trackId }: MidiRef): IArea => ({
   x1: start,
   x2: end,
   y1: trackId * trackHeight,
@@ -104,7 +105,7 @@ export const TracksContent: React.FC<ContentProps> = ({
     }
   };
 
-  const mouseDownInactive: HandlerMap<EditActionType, UITrack> = {
+  const mouseDownInactive: HandlerMap<EditActionType, Mixed<MidiRef>> = {
     draw: remove,
     select: (t) => {
       if (t.origin) return;
@@ -118,7 +119,7 @@ export const TracksContent: React.FC<ContentProps> = ({
     }
   };
 
-  const dragging = useDragging<UITrack>({
+  const dragging = useDragging<Mixed<MidiRef>>({
     onMove: {
       select: selectIn(toArea),
       move: (x, y) => move(toAccuracy(x, accuracy), normalizeY(y)),
@@ -175,9 +176,7 @@ export const Tracks = () => {
     <div style={styles.container}>
       <section style={styles.header}>
         <div style={styles.bar}>
-          <div>
-            {current.name}
-          </div>
+          <div>{current.name}</div>
           <NameInput
             value={current.name}
             onChange={(name) =>
