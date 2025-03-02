@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   addTracking,
   dropTracking,
@@ -25,10 +25,21 @@ export const useSelection = <T extends { id: string }>(
   list: T[],
   dispatch: (s: T[]) => void
 ) => {
-  const [state, setState] = useState<Selected<T>>({
+  const [state, _setState] = useState<Selected<T>>({
     selected: [],
     inactive: list
   });
+
+  const ref = useRef<Selected<T>>({
+    selected: [],
+    inactive: list
+  });
+
+  const setState = (f: (i: Selected<T>) => Selected<T>) => {
+    const s = f(ref.current);
+    ref.current = s
+    _setState(s);
+  };
 
   const setPartition = (f1: (s: Selected<T>) => T[], f2: Predicate<T>) => {
     setState((s) => {
@@ -82,10 +93,7 @@ export const useSelection = <T extends { id: string }>(
   useOnDeleteKey(removeSelected, [state.selected, state.inactive]);
 
   const sync = () => {
-    setState((s) => {
-      requestAnimationFrame(() => dispatch([...s.selected, ...s.inactive]));
-      return s;
-    });
+    dispatch([...ref.current.selected, ...ref.current.inactive]);
   };
 
   const select = (i: T) => selectWith((n) => n == i);
