@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useMemo } from 'react';
 import { DawApiContext } from '../../context/state';
 import { UINote } from '../utils/notes';
 import { MidiFragment, Note, UIPosition } from '@wdaw/engine';
@@ -44,7 +45,7 @@ export const useMidiFragment = (targetId?: string) => {
 
   const { notes, loop, name } = midiFragments[id];
 
-  const uiNotes = React.useMemo<UINote[]>(() => fromNotes(notes), [notes]);
+  const uiNotes = useMemo<UINote[]>(() => fromNotes(notes), [notes]);
 
   const [loopStart, loopEnd] = loop;
 
