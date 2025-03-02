@@ -1,7 +1,7 @@
 import { useSelection } from './use-selection';
 import { Area, IArea, Point } from '@wdaw/svg';
 import { useTracks } from './use-tracks';
-import { makeMidiRef, MidiRef } from '@wdaw/engine';
+import { makeMidiRef } from '@wdaw/engine';
 
 export const useTrackEditor = () => {
   const { midiRefs, setMidis, setCurrent, tracks } = useTracks();
