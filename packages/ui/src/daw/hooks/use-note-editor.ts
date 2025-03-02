@@ -1,15 +1,12 @@
-import { toArea, UINote } from '../utils/notes';
+import { toArea } from '../utils/notes';
 import { Point, Area } from '@wdaw/svg';
 import { useSelection } from './use-selection';
 import { useMidiFragment } from './use-midi-fragment';
-import { idString } from '../../common/utils';
-
-const noteId = (note: UINote) => idString([note.x, note.y, note.length]);
 
 export const useNoteEditor = () => {
   const { notes, syncNotes } = useMidiFragment();
   const { all, add, clear, edit, remove, sync, select, selectIn } =
-    useSelection(notes, noteId, syncNotes);
+    useSelection(notes, syncNotes);
 
   const scale = (moveX: number) =>
     edit(({ length }) => ({ length: length + moveX }));

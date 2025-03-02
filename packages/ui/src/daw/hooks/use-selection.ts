@@ -21,11 +21,15 @@ const toAll = <T extends object>(s: Selected<T>): Mixed<T>[] => [
   ...s.inactive
 ];
 
-type ToId<T> = (i: T) => string | number;
+const hashObject = ({ origin, ...rest }: Record<string, unknown>): string =>
+  Object.values(rest).map(toHash).join('-');
+
+const toHash = (v: any) => (typeof v === 'object' ? hashObject(v) : `${v}`);
+
+const hashList = (list: any[]) => list.map(toHash).join('-');
 
 export const useSelection = <T extends { id: string }>(
   list: T[],
-  toId: ToId<T>,
   dispatch: (s: T[]) => void
 ) => {
   const [state, setState] = useState<Selected<T>>({
@@ -96,7 +100,7 @@ export const useSelection = <T extends { id: string }>(
   const selectIn = (f: (i: T) => IArea) => (area?: Area) =>
     selectWith((t) => area?.isOverlaping(f(t)) ?? false);
 
-  useEffect(() => syncLocalState(list), [list.map(toId).join('-')]);
+  useEffect(() => syncLocalState(list), [hashList(list)]);
 
   return {
     selectIn,
