@@ -111,7 +111,6 @@ export const useSelection = <T extends { id: string }>(
     all: toAll(state),
     clear,
     remove,
-    selected: state.selected,
     sync
   };
 };
