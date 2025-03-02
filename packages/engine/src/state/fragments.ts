@@ -1,6 +1,6 @@
 import { MidiFragment } from '../common/types';
 
-export const makeFragment = (name: string): MidiFragment & { id: string } => ({
+export const makeFragment = (name: string): MidiFragment => ({
   id: crypto.randomUUID(),
   name,
   notes: [],
