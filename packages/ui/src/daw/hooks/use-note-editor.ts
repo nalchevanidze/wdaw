@@ -17,7 +17,8 @@ export const useNoteEditor = () => {
   const move = (moveX: number, moveY: number) =>
     edit(({ x, y }) => ({ x: x + moveX, y: y - moveY }));
 
-  const addAt = ({ x, y }: Point) => add({ length: 1, x, y });
+  const addAt = ({ x, y }: Point) =>
+    add({ id: crypto.randomUUID(), length: 1, x, y });
 
   return {
     selectIn: selectIn(toArea),

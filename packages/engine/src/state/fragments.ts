@@ -1,4 +1,4 @@
-import { MidiFragment } from '../common/types';
+import { MidiFragment, Note } from '../common/types';
 
 export const makeFragment = (name: string): MidiFragment => ({
   id: crypto.randomUUID(),
@@ -16,12 +16,15 @@ export const fid = {
   kick: '469e3b68-d1dc-43d0-bd48-da16859ef3e9'
 };
 
+const toNotes = (notes: ({ id: string, length: number, at: number })[]) =>
+  notes.map((n): Note => ({ ...n, id: crypto.randomUUID(), note: n.id }));
+
 export const genMidiFragments = (): MidiFragment[] => [
   {
     id: fid.piano,
     name: 'Piano',
     loop: [0, 256],
-    notes: [
+    notes: toNotes([
       { length: 32, id: 'F#2', at: 0 },
       { length: 32, id: 'A#1', at: 0 },
       { length: 32, id: 'F#2', at: 32 },
@@ -38,13 +41,13 @@ export const genMidiFragments = (): MidiFragment[] => [
       { length: 32, id: 'C#2', at: 192 },
       { length: 32, id: 'D#3', at: 224 },
       { length: 32, id: 'F#2', at: 224 }
-    ]
+    ])
   },
   {
     id: fid.bass,
     name: 'Bass',
     loop: [0, 128],
-    notes: [
+    notes: toNotes([
       { length: 4, id: 'A#1', at: 6 },
       { length: 4, id: 'A#1', at: 12 },
       { length: 4, id: 'A#1', at: 20 },
@@ -59,22 +62,22 @@ export const genMidiFragments = (): MidiFragment[] => [
       { length: 4, id: 'F#2', at: 108 },
       { length: 4, id: 'F#2', at: 116 },
       { length: 4, id: 'D#2', at: 124 }
-    ]
+    ])
   },
   {
     id: fid.clap1,
     name: 'Clap 1',
     loop: [32, 64],
-    notes: [
+    notes: toNotes([
       { length: 4, id: 'C#1', at: 44 },
       { length: 4, id: 'C#1', at: 56 }
-    ]
+    ])
   },
   {
     id: fid.clapFast,
     name: 'Clap Fast',
     loop: [0, 64],
-    notes: [
+    notes: toNotes([
       { length: 2, id: 'C#1', at: 0 },
       { length: 2, id: 'C#1', at: 4 },
       { length: 2, id: 'C#1', at: 8 },
@@ -97,28 +100,28 @@ export const genMidiFragments = (): MidiFragment[] => [
       { length: 2, id: 'C#1', at: 58 },
       { length: 2, id: 'C#1', at: 60 },
       { length: 2, id: 'C#1', at: 62 }
-    ]
+    ])
   },
   {
     id: fid.clap2,
     name: 'Clap 2',
     loop: [0, 32],
-    notes: [
+    notes: toNotes([
       { length: 4, id: 'C#1', at: 4 },
       { length: 4, id: 'C#1', at: 12 },
       { length: 4, id: 'C#1', at: 18 },
       { length: 4, id: 'C#1', at: 24 }
-    ]
+    ])
   },
   {
     id: fid.kick,
     name: 'Kick',
     loop: [0, 32],
-    notes: [
+    notes: toNotes([
       { length: 4, id: 'C#1', at: 0 },
       { length: 4, id: 'C#1', at: 8 },
       { length: 4, id: 'C#1', at: 16 },
       { length: 4, id: 'C#1', at: 24 }
-    ]
+    ])
   }
 ];

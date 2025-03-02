@@ -49,6 +49,7 @@ export type NoteAction = {
 
 export type Note = {
   id: string;
+  note: string;
   length: number;
   at: number;
 };

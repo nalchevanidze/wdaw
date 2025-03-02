@@ -5,17 +5,19 @@ import { MidiFragment, Note, UIPosition } from '@wdaw/engine';
 
 const fromNotes = (notes: Note[]): UINote[] =>
   notes.map(
-    ({ id, at, length }: Note): UINote => ({
+    ({ id, note, at, length }: Note): UINote => ({
+      id,
       x: at,
-      y: UIPosition.fromNote(id),
+      y: UIPosition.fromNote(note),
       length
     })
   );
 
 const toNotes = (notes: UINote[]): Note[] =>
-  notes.map(({ length, x, y }: UINote) => ({
+  notes.map(({ id, length, x, y }: UINote) => ({
+    id,
     at: x,
-    id: UIPosition.toNote(y),
+    note: UIPosition.toNote(y),
     length
   }));
 

@@ -27,7 +27,7 @@ export const toActions = (
 
       if (noteStart < 0) return;
 
-      const key = keysToIndexes(note.id);
+      const key = keysToIndexes(note.note);
 
       record.startKey(noteStart, key);
       record.endKey(noteStart + note.length - 1, key);

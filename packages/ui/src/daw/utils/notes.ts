@@ -1,6 +1,7 @@
 import { IArea } from '@wdaw/svg';
 
 export type UINote = {
+  id: string;
   x: number;
   y: number;
   length: number;
