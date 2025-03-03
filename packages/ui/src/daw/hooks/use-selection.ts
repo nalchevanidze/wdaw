@@ -55,7 +55,7 @@ export const useSelection = <T extends { id: string }>(
     _setState(s);
   };
 
-  const setPartition = (f: Predicate<T>) =>
+  const selectWith = (f: Predicate<T>) =>
     setState((s) => makePartition(toAll(s), f));
 
   const syncLocalState = (ts: T[]) =>
@@ -68,8 +68,6 @@ export const useSelection = <T extends { id: string }>(
   const removeSelected = () => modify(({ inactive }) => inactive);
 
   const remove = (i: T) => modify((s) => toAll(s).filter((t) => t !== i));
-
-  const selectWith = (f: Predicate<T>) => setPartition(f);
 
   const add = (...ts: T[]) =>
     setState((s) => ({
