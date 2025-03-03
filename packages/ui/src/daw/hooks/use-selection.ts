@@ -22,7 +22,7 @@ const toAll = <T extends object>(s: Selected<T>): Mixed<T>[] => [
 ];
 
 const makeSelector = <T extends { id: string }>(s: Selected<T>) => {
-  const selection = new Map(s.selected.map((t) => [t.id, t]));
+  const selection = new Set(s.selected.map((t) => t.id));
 
   return (t: T) => selection.has(t.id);
 };
@@ -59,7 +59,6 @@ export const useSelection = <T extends { id: string }>(
 
   const syncLocalState = (ts: T[]) =>
     setState((s) => {
-
       const isSelected = makeSelector(s);
       const [sel, ina] = partition(ts, isSelected);
       return {
