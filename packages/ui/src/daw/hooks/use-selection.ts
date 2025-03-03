@@ -21,10 +21,18 @@ const toAll = <T extends object>(s: Selected<T>): Mixed<T>[] => [
   ...s.inactive
 ];
 
-const makeSelector = <T extends { id: string }>(s: Selected<T>) => {
+const isSelected = <T extends { id: string }>(s: Selected<T>) => {
   const selection = new Set(s.selected.map((t) => t.id));
 
   return (t: T) => selection.has(t.id);
+};
+
+const makePartition = <T extends object>(ts: T[], f: Predicate<T>) => {
+  const [sel, ina] = partition(ts, f);
+  return {
+    selected: sel.map(addTracking),
+    inactive: ina.map(dropTracking)
+  };
 };
 
 export const useSelection = <T extends { id: string }>(
@@ -47,25 +55,11 @@ export const useSelection = <T extends { id: string }>(
     _setState(s);
   };
 
-  const setPartition = (f: Predicate<T>) => {
-    setState((state) => {
-      const [sel, ina] = partition(toAll(state), f);
-      return {
-        selected: sel.map(addTracking),
-        inactive: ina.map(dropTracking)
-      };
-    });
-  };
+  const setPartition = (f: Predicate<T>) =>
+    setState((s) => makePartition(toAll(s), f));
 
   const syncLocalState = (ts: T[]) =>
-    setState((s) => {
-      const isSelected = makeSelector(s);
-      const [sel, ina] = partition(ts, isSelected);
-      return {
-        selected: sel.map(addTracking),
-        inactive: ina.map(dropTracking)
-      };
-    });
+    setState((s) => makePartition(ts, isSelected(s)));
 
   const modify = (f: (s: Selected<T>) => Mixed<T>[]) =>
     setState((s) => ({ selected: [], inactive: f(s).map(dropTracking) }));
