@@ -21,6 +21,12 @@ const toAll = <T extends object>(s: Selected<T>): Mixed<T>[] => [
   ...s.inactive
 ];
 
+const makeSelector = <T extends { id: string }>(s: Selected<T>) => {
+  const selection = new Map(s.selected.map((t) => [t.id, t]));
+
+  return (t: T) => selection.has(t.id);
+};
+
 export const useSelection = <T extends { id: string }>(
   list: T[],
   dispatch: (s: T[]) => void
@@ -53,14 +59,9 @@ export const useSelection = <T extends { id: string }>(
 
   const syncLocalState = (ts: T[]) =>
     setState((s) => {
-      if (ts.length !== toAll(s).length) {
-        return { selected: [], inactive: ts.map(dropTracking) };
-      }
 
-      const selection = new Map(s.selected.map((t) => [t.id, t]));
-
-      const [sel, ina] = partition(ts, (t) => selection.has(t.id));
-
+      const isSelected = makeSelector(s);
+      const [sel, ina] = partition(ts, isSelected);
       return {
         selected: sel.map(addTracking),
         inactive: ina.map(dropTracking)
