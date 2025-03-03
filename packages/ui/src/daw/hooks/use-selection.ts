@@ -53,8 +53,7 @@ export const useSelection = <T extends { id: string }>(
 
   const syncLocalState = (ts: T[]) =>
     setState((s) => {
-      const all = toAll(s);
-      if (ts.length !== all.length) {
+      if (ts.length !== toAll(s).length) {
         return { selected: [], inactive: ts.map(dropTracking) };
       }
 
