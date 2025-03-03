@@ -35,19 +35,17 @@ const makeSelection = <T extends object>(sel: Mixed<T>[], ina: Mixed<T>[]) => ({
   inactive: ina.map(dropTracking)
 });
 
+const init = <T>(list: T[]) => ({
+  selected: [],
+  inactive: list
+});
+
 export const useSelection = <T extends { id: string }>(
   list: T[],
   dispatch: (s: T[]) => void
 ) => {
-  const [state, _setState] = useState<Selected<T>>({
-    selected: [],
-    inactive: list
-  });
-
-  const ref = useRef<Selected<T>>({
-    selected: [],
-    inactive: list
-  });
+  const [state, _setState] = useState<Selected<T>>(init(list));
+  const ref = useRef<Selected<T>>(init(list));
 
   const setState = (f: (i: Selected<T>) => Selected<T>) => {
     const s = f(ref.current);
