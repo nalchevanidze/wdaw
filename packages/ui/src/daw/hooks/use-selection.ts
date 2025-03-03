@@ -58,9 +58,9 @@ export const useSelection = <T extends { id: string }>(
         return { selected: [], inactive: ts.map(dropTracking) };
       }
 
-      const selectedMap = Object.fromEntries(s.selected.map((t) => [t.id, t]));
+      const selection = new Map(s.selected.map((t) => [t.id, t]));
 
-      const [sel, ina] = partition(ts, (t) => Boolean(selectedMap[t.id]));
+      const [sel, ina] = partition(ts, (t) => selection.has(t.id));
 
       return {
         selected: sel.map(addTracking),
