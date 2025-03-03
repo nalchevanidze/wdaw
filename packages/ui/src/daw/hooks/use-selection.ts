@@ -66,7 +66,7 @@ export const useSelection = <T extends { id: string }>(
 
   const clear = () => modify(toAll);
 
-  const removeSelected = () => modify(({ inactive }) => inactive);
+  const removeSelected = () => modify((s) => s.inactive);
 
   const remove = (i: T) => modify((s) => toAll(s).filter((t) => t !== i));
 
@@ -80,9 +80,8 @@ export const useSelection = <T extends { id: string }>(
 
   useOnDeleteKey(removeSelected, [state.selected, state.inactive]);
 
-  const sync = () => {
+  const sync = () =>
     dispatch([...ref.current.selected, ...ref.current.inactive]);
-  };
 
   const select = (i: T) => selectWith((n) => n == i);
 
