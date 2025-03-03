@@ -30,7 +30,7 @@ const isSelected = <T extends { id: string }>(s: Selected<T>) => {
 const makePartition = <T extends object>(ts: T[], f: Predicate<T>) =>
   makeSelection(...partition(ts, f));
 
-const makeSelection = <T extends object>(sel: Mixed<T>[], ina: Mixed<T>[]) => ({
+const makeSelection = <T extends object>(sel: Mixed<T>[], ina: Mixed<T>[]): Selected<T> => ({
   selected: sel.map(addTracking),
   inactive: ina.map(dropTracking)
 });
