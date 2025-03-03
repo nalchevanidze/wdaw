@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   addTracking,
   dropTracking,
@@ -37,13 +37,13 @@ export const useSelection = <T extends { id: string }>(
 
   const setState = (f: (i: Selected<T>) => Selected<T>) => {
     const s = f(ref.current);
-    ref.current = s
+    ref.current = s;
     _setState(s);
   };
 
-  const setPartition = (f1: (s: Selected<T>) => T[], f2: Predicate<T>) => {
-    setState((s) => {
-      const [sel, ina] = partition(f1(s), f2);
+  const setPartition = (f: Predicate<T>) => {
+    setState((state) => {
+      const [sel, ina] = partition(toAll(state), f);
       return {
         selected: sel.map(addTracking),
         inactive: ina.map(dropTracking)
@@ -76,7 +76,7 @@ export const useSelection = <T extends { id: string }>(
 
   const remove = (i: T) => modify((s) => toAll(s).filter((t) => t !== i));
 
-  const selectWith = (f: Predicate<T>) => setPartition(toAll, f);
+  const selectWith = (f: Predicate<T>) => setPartition(f);
 
   const add = (...ts: T[]) =>
     setState((s) => ({
