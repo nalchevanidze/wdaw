@@ -56,9 +56,6 @@ export const useSelection = <T extends { id: string }>(
   const selectWith = (f: Predicate<T>) =>
     setState((s) => makePartition(toAll(s), f));
 
-  const syncLocalState = (ts: T[]) =>
-    setState((s) => makePartition(ts, isSelected(s)));
-
   const modify = (f: (s: Selected<T>) => Mixed<T>[]) =>
     setState((s) => makeSelection([], f(s)));
 
@@ -86,7 +83,7 @@ export const useSelection = <T extends { id: string }>(
   const selectIn = (f: (i: T) => IArea) => (area?: Area) =>
     selectWith((t) => area?.isOverlaping(f(t)) ?? false);
 
-  useEffect(() => syncLocalState(list), [list]);
+  useEffect(() => setState((s) => makePartition(list, isSelected(s))), [list]);
 
   return {
     selectIn,
