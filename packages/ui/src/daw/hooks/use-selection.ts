@@ -27,13 +27,13 @@ const isSelected = <T extends { id: string }>(s: Selected<T>) => {
   return (t: T) => selection.has(t.id);
 };
 
-const makePartition = <T extends object>(ts: T[], f: Predicate<T>) => {
-  const [sel, ina] = partition(ts, f);
-  return {
-    selected: sel.map(addTracking),
-    inactive: ina.map(dropTracking)
-  };
-};
+const makePartition = <T extends object>(ts: T[], f: Predicate<T>) =>
+  makeSelection(...partition(ts, f));
+
+const makeSelection = <T extends object>(sel: Mixed<T>[], ina: Mixed<T>[]) => ({
+  selected: sel.map(addTracking),
+  inactive: ina.map(dropTracking)
+});
 
 export const useSelection = <T extends { id: string }>(
   list: T[],
@@ -62,18 +62,15 @@ export const useSelection = <T extends { id: string }>(
     setState((s) => makePartition(ts, isSelected(s)));
 
   const modify = (f: (s: Selected<T>) => Mixed<T>[]) =>
-    setState((s) => ({ selected: [], inactive: f(s).map(dropTracking) }));
+    setState((s) => makeSelection([], f(s)));
 
   const clear = () => modify(toAll);
+
   const removeSelected = () => modify(({ inactive }) => inactive);
 
   const remove = (i: T) => modify((s) => toAll(s).filter((t) => t !== i));
 
-  const add = (...ts: T[]) =>
-    setState((s) => ({
-      selected: ts.map(addTracking),
-      inactive: toAll(s).map(dropTracking)
-    }));
+  const add = (...ts: T[]) => setState((s) => makeSelection(ts, toAll(s)));
 
   const edit = (f: EditFunc<T>) =>
     setState(({ selected, inactive }) => ({
