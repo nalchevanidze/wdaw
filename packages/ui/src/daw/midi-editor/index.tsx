@@ -36,8 +36,9 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
   const notes = useNoteEditor({
     accuracyX: Math.floor,
     accuracyY: Math.round,
+    scaleX: (x) => x,
     scaleY: (y) => y / noteHeight,
-    to: ({ x, y }) => ({ x, y: (canvasHeight - y) / noteHeight })
+    size: OCTAVE_SIZE * octaveCount
   });
 
   const loop = useLoop();
