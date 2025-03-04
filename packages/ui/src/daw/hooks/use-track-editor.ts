@@ -59,7 +59,7 @@ export const useTrackEditor = (ops: Ops) => {
     scale,
     select,
     setCurrent,
-    selectIn: (area?: Area) => selectIn(toArea)(area?.map(to)),
+    selectIn: selectIn(toArea, to),
     remove,
     addAt
   };

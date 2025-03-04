@@ -43,7 +43,7 @@ export const useNoteEditor = (ops: Ops) => {
   };
 
   return {
-    selectIn: (area?: Area) => selectIn(toArea)(area?.map(to)),
+    selectIn: selectIn(toArea, to),
     all,
     clear,
     sync,

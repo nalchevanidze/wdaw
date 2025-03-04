@@ -9,7 +9,7 @@ import {
 } from '../utils/tracking';
 import { partition, Predicate } from '../../common/utils';
 import { useOnDeleteKey } from './use-on-delete-key';
-import { Area, IArea } from '@wdaw/svg';
+import { Area, IArea, Point } from '@wdaw/svg';
 
 type Selected<T extends object> = {
   selected: Tracked<T>[];
@@ -30,7 +30,10 @@ const isSelected = <T extends { id: string }>(s: Selected<T>) => {
 const makePartition = <T extends object>(ts: T[], f: Predicate<T>) =>
   makeSelection(...partition(ts, f));
 
-const makeSelection = <T extends object>(sel: Mixed<T>[], ina: Mixed<T>[]): Selected<T> => ({
+const makeSelection = <T extends object>(
+  sel: Mixed<T>[],
+  ina: Mixed<T>[]
+): Selected<T> => ({
   selected: sel.map(addTracking),
   inactive: ina.map(dropTracking)
 });
@@ -80,8 +83,9 @@ export const useSelection = <T extends { id: string }>(
 
   const select = (i: T) => selectWith((n) => n == i);
 
-  const selectIn = (f: (i: T) => IArea) => (area?: Area) =>
-    selectWith((t) => area?.isOverlaping(f(t)) ?? false);
+  const selectIn =
+    (f: (i: T) => IArea, to: (i: Point) => Point) => (area?: Area) =>
+      selectWith((t) => area?.map(to).isOverlaping(f(t)) ?? false);
 
   useEffect(() => setState((s) => makePartition(list, isSelected(s))), [list]);
 
