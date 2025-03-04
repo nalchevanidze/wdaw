@@ -6,6 +6,8 @@ import { useMidiFragment } from './use-midi-fragment';
 type Normalizer = (_: Point) => Point;
 
 type Ops = {
+  accuracyX(i: number): number;
+  accuracyY(i: number): number;
   to: Normalizer;
 };
 
@@ -22,7 +24,12 @@ export const useNoteEditor = (ops: Ops) => {
 
   const addAt = (p: Point) => {
     const { x, y } = ops.to(p);
-    add({ id: crypto.randomUUID(), length: 1, x, y });
+    add({
+      id: crypto.randomUUID(),
+      length: 1,
+      x: ops.accuracyX(x),
+      y: ops.accuracyY(y)
+    });
   };
 
   return {

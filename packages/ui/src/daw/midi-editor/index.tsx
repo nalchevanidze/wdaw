@@ -34,10 +34,9 @@ const rulerSize = BLOCK;
 
 const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
   const notes = useNoteEditor({
-    to: ({ x, y }) => ({
-      x: Math.floor(x),
-      y: Math.floor(1 + (canvasHeight - y) / noteHeight)
-    })
+    accuracyX: Math.floor,
+    accuracyY: Math.floor,
+    to: ({ x, y }) => ({ x, y: 1 + (canvasHeight - y) / noteHeight })
   });
 
   const loop = useLoop();
