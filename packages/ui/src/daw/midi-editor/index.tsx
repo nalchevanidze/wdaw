@@ -32,15 +32,14 @@ const keyboardWidth = 20;
 const ocatveHeight = noteHeight * OCTAVE_SIZE;
 const canvasHeight = ocatveHeight * octaveCount;
 const rulerSize = BLOCK;
-const normalize = normalizer({ noteHeight, canvasHeight });
 
 const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
-  const notes = useNoteEditor();
+  const notes = useNoteEditor(normalizer({ noteHeight, canvasHeight }));
   const loop = useLoop();
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
     draw: (point) => {
-      notes.addAt(normalize(point));
+      notes.addAt(point);
       return 'scale';
     },
     select: () => {
@@ -56,7 +55,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
 
   const dragging = useDragging<Tracked<UINote>>({
     onMove: {
-      select: (area) => notes.selectIn(area ? area.map(normalize) : undefined),
+      select: notes.selectIn,
       scale: notes.scale,
       move: (x, y) =>
         loop.target

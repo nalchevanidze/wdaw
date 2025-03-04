@@ -3,7 +3,9 @@ import { Point, Area } from '@wdaw/svg';
 import { useSelection } from './use-selection';
 import { useMidiFragment } from './use-midi-fragment';
 
-export const useNoteEditor = () => {
+type Normalizer = (_: Point) => Point;
+
+export const useNoteEditor = (normalize: Normalizer) => {
   const { notes, syncNotes } = useMidiFragment();
   const { all, add, clear, edit, remove, sync, select, selectIn } =
     useSelection(notes, syncNotes);
@@ -14,11 +16,13 @@ export const useNoteEditor = () => {
   const move = (moveX: number, moveY: number) =>
     edit(({ x, y }) => ({ x: x + moveX, y: y - moveY }));
 
-  const addAt = ({ x, y }: Point) =>
+  const addAt = (p: Point) => {
+    const { x, y } = normalize(p);
     add({ id: crypto.randomUUID(), length: 1, x, y });
-
+  };
+  
   return {
-    selectIn: selectIn(toArea),
+    selectIn: (area?: Area)=> selectIn(toArea) (area?.map(normalize)),
     all,
     clear,
     sync,
