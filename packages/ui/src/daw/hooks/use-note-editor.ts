@@ -5,7 +5,11 @@ import { useMidiFragment } from './use-midi-fragment';
 
 type Normalizer = (_: Point) => Point;
 
-export const useNoteEditor = (normalize: Normalizer) => {
+type Ops = {
+  to: Normalizer;
+};
+
+export const useNoteEditor = (ops: Ops) => {
   const { notes, syncNotes } = useMidiFragment();
   const { all, add, clear, edit, remove, sync, select, selectIn } =
     useSelection(notes, syncNotes);
@@ -17,12 +21,12 @@ export const useNoteEditor = (normalize: Normalizer) => {
     edit(({ x, y }) => ({ x: x + moveX, y: y - moveY }));
 
   const addAt = (p: Point) => {
-    const { x, y } = normalize(p);
+    const { x, y } = ops.to(p);
     add({ id: crypto.randomUUID(), length: 1, x, y });
   };
-  
+
   return {
-    selectIn: (area?: Area)=> selectIn(toArea) (area?.map(normalize)),
+    selectIn: (area?: Area) => selectIn(toArea)(area?.map(ops.to)),
     all,
     clear,
     sync,
