@@ -116,7 +116,7 @@ export const TracksContent: React.FC<ContentProps> = ({
       move,
       scale
     },
-    onEnd: (mode) => (mode !== 'select' ? sync() : undefined),
+    onEnd: () => sync(),
     onStart: mouseDownInactive[actionType],
     onBackground: onBackgroundHandler[actionType]
   });

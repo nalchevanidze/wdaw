@@ -68,13 +68,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
     },
     onBackground: onBackgroundHandler[actionType],
     onStart: mouseDownInactive[actionType],
-    onEnd: (mode) => {
-      if (loop.target) {
-        return loop.endMove();
-      }
-
-      return mode !== 'select' ? notes.sync() : undefined;
-    }
+    onEnd: () => (loop.target ? loop.endMove() : notes.sync())
   });
 
   const startLoopDragging =

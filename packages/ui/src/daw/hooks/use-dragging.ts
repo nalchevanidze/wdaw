@@ -11,7 +11,7 @@ type Optins<T> = {
     move(moveX: number, moveY: number): void;
     scale(moveX: number): void;
   };
-  onEnd?(mode?: MODE): void;
+  onEnd?(mode?: 'scale' | 'move'): void;
   onStart?: (p: T) => void;
   onBackground?: (p: Point) => void | Maybe<MODE>;
 };
@@ -44,7 +44,9 @@ export const useDragging = <T>(ops: Optins<T>) => {
     end: (mode) => {
       setArea(undefined);
       setDragging(undefined);
-      ops.onEnd?.(mode);
+      if (mode !== 'select') {
+        ops.onEnd?.(mode);
+      }
     }
   });
 
