@@ -6,12 +6,10 @@ import { useMouseEvent } from '../../hooks/use-mouse-event';
 export type MODE = 'scale' | 'move' | 'select';
 
 type Optins<T> = {
-  onMove: {
-    select(a: Maybe<Area>): void;
-    move(moveX: number, moveY: number): void;
-    scale(moveX: number): void;
-  };
-  onEnd?(mode?: 'scale' | 'move'): void;
+  onSelect(a: Maybe<Area>): void;
+  onMove(moveX: number, moveY: number): void;
+  onScale(moveX: number): void;
+  onEnd?(): void;
   onStart?: (p: T) => void;
   onBackground?: (p: Point) => void | Maybe<MODE>;
 };
@@ -34,18 +32,18 @@ export const useDragging = <T>(ops: Optins<T>) => {
       switch (mode) {
         case 'select':
           setArea(area);
-          return ops.onMove.select(area);
+          return ops.onSelect(area);
         case 'move':
-          return area ? ops.onMove.move(area.moveX, area.moveY) : undefined;
+          return area ? ops.onMove(area.moveX, area.moveY) : undefined;
         case 'scale':
-          return area ? ops.onMove.scale(area.moveX) : undefined;
+          return area ? ops.onScale(area.moveX) : undefined;
       }
     },
     end: (mode) => {
       setArea(undefined);
       setDragging(undefined);
       if (mode !== 'select') {
-        ops.onEnd?.(mode);
+        ops.onEnd?.();
       }
     }
   });

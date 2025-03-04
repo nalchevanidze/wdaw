@@ -60,15 +60,13 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
   };
 
   const dragging = useDragging<Mixed<UINote>>({
-    onMove: {
-      select: notes.selectIn,
-      scale: notes.scale,
-      move: (x, y) =>
-        loop.target ? loop.move(toAccuracy(loopAccuracy)(x)) : notes.move(x, y)
-    },
+    onSelect: notes.selectIn,
+    onScale: notes.scale,
+    onMove: (x, y) =>
+      loop.target ? loop.move(toAccuracy(loopAccuracy)(x)) : notes.move(x, y),
+    onEnd: loop.target ? loop.endMove : notes.sync,
     onBackground: onBackgroundHandler[actionType],
-    onStart: mouseDownInactive[actionType],
-    onEnd: () => (loop.target ? loop.endMove() : notes.sync())
+    onStart: mouseDownInactive[actionType]
   });
 
   const startLoopDragging =
