@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Timeline } from './timeline';
 import { BLOCK } from '../../common/units';
-import { IArea, Point, Svg } from '@wdaw/svg';
+import { Point, Svg } from '@wdaw/svg';
 import { colors } from '../../styles';
 import { Panel } from './channel';
 import { NoteGrid } from '../../components/note-grid';
@@ -77,9 +77,9 @@ export const TracksContent: React.FC<ContentProps> = ({
     remove,
     addAt
   } = useTrackEditor({
-    accuracyX: (x) => toAccuracy(x, accuracy),
+    accuracyX: toAccuracy(accuracy),
     accuracyY: Math.round,
-    scaleY: y => y / trackHeight,
+    scaleY: (y) => y / trackHeight
   });
 
   const { panels } = usePanels();

@@ -64,7 +64,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
       select: notes.selectIn,
       scale: notes.scale,
       move: (x, y) =>
-        loop.target ? loop.move(toAccuracy(x, loopAccuracy)) : notes.move(x, y)
+        loop.target ? loop.move(toAccuracy(loopAccuracy)(x)) : notes.move(x, y)
     },
     onBackground: onBackgroundHandler[actionType],
     onStart: (note) =>
