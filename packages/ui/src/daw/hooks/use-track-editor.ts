@@ -6,7 +6,7 @@ import { makeMidiRef, MidiRef } from '@wdaw/engine';
 type Ops = {
   accuracyX(i: number): number;
   accuracyY(i: number): number;
-  to(_: Point): Point;
+  scaleY(i: number): number;
 };
 
 const toArea = ({ start, end, trackId }: MidiRef): IArea => ({
@@ -23,7 +23,7 @@ export const useTrackEditor = (ops: Ops) => {
 
   const move = (moveX: number, moveY: number) => {
     const mx = ops.accuracyX(moveX);
-    const my = ops.accuracyY(moveY);
+    const my = ops.accuracyY(ops.scaleY(moveY));
 
     edit(({ start, end, trackId }) => ({
       start: Math.max(start + mx, 0),
@@ -32,6 +32,8 @@ export const useTrackEditor = (ops: Ops) => {
     }));
   };
 
+  const to = ({ x, y }: Point): Point => ({ x, y: ops.scaleY(y) });
+
   const scale = (moveX: number) =>
     edit(({ start, end }) => ({
       start: start,
@@ -39,7 +41,7 @@ export const useTrackEditor = (ops: Ops) => {
     }));
 
   const addAt = (p: Point) => {
-    const { x, y } = ops.to(p);
+    const { x, y } = to(p);
     add(
       makeMidiRef({
         trackId: ops.accuracyY(y),
@@ -57,7 +59,7 @@ export const useTrackEditor = (ops: Ops) => {
     scale,
     select,
     setCurrent,
-    selectIn: (area?: Area) => selectIn(toArea)(area?.map(ops.to)),
+    selectIn: (area?: Area) => selectIn(toArea)(area?.map(to)),
     remove,
     addAt
   };

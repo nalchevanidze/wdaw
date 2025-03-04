@@ -79,8 +79,9 @@ export const TracksContent: React.FC<ContentProps> = ({
   } = useTrackEditor({
     accuracyX: (x) => toAccuracy(x, accuracy),
     accuracyY: Math.round,
-    to: ({ x, y }) => ({ x, y: y / trackHeight })
+    scaleY: y => y / trackHeight,
   });
+
   const { panels } = usePanels();
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
@@ -112,7 +113,7 @@ export const TracksContent: React.FC<ContentProps> = ({
   const dragging = useDragging<Mixed<MidiRef>>({
     onMove: {
       select: selectIn,
-      move: (x, y) => move(x, y / trackHeight),
+      move,
       scale
     },
     onEnd: (mode) => (mode !== 'select' ? sync() : undefined),
