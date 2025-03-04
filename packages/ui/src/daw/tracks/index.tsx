@@ -66,7 +66,7 @@ export const TracksContent: React.FC<ContentProps> = ({
   openDropDown
 }) => {
   const {
-    tracks,
+    all,
     clear,
     move,
     scale,
@@ -124,7 +124,7 @@ export const TracksContent: React.FC<ContentProps> = ({
   return (
     <g>
       <DragingBackground onMouseDown={dragging.onBackground} />
-      {tracks.map((t, midiIndex) => (
+      {all.map((t, midiIndex) => (
         <Fragment
           key={midiIndex}
           y={t.trackId * trackHeight}

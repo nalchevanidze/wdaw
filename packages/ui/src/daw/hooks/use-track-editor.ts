@@ -52,7 +52,7 @@ export const useTrackEditor = (ops: Ops) => {
   };
 
   return {
-    tracks: all,
+    all,
     clear,
     sync,
     move,
