@@ -15,7 +15,7 @@ import { NoteGrid } from '../../components/note-grid';
 import { Keys } from '../../components/keys';
 import { toAccuracy } from '../utils/area';
 import { UINote } from '../utils/notes';
-import { Tracked } from '../utils/tracking';
+import { Mixed } from '../utils/tracking';
 import { DragingBackground } from '../../components/background';
 import { useMidiFragment } from '../hooks/use-midi-fragment';
 
@@ -54,12 +54,12 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
     }
   };
 
-  const mouseDownInactive: HandlerMap<EditActionType, UINote> = {
+  const mouseDownInactive: HandlerMap<EditActionType, Mixed<UINote>> = {
     draw: (note) => notes.remove(note),
-    select: (note) => notes.select(note)
+    select: (note) => (note.origin ? undefined : notes.select(note))
   };
 
-  const dragging = useDragging<Tracked<UINote>>({
+  const dragging = useDragging<Mixed<UINote>>({
     onMove: {
       select: notes.selectIn,
       scale: notes.scale,
@@ -67,8 +67,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
         loop.target ? loop.move(toAccuracy(loopAccuracy)(x)) : notes.move(x, y)
     },
     onBackground: onBackgroundHandler[actionType],
-    onStart: (note) =>
-      note.origin ? undefined : mouseDownInactive[actionType](note),
+    onStart: mouseDownInactive[actionType],
     onEnd: (mode) => {
       if (loop.target) {
         return loop.endMove();
