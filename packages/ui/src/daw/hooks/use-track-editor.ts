@@ -21,17 +21,21 @@ export const useTrackEditor = (ops: Ops) => {
   const { all, edit, add, clear, sync, select, selectIn, remove } =
     useSelection(midiRefs, setMidis);
 
-  const move = (moveX: number, moveY: number) =>
-    edit(({ start, end, trackId }) => ({
-      start: Math.max(start + moveX, 0),
-      end: end + moveX,
-      trackId: Math.min(tracks.length - 1, Math.max(trackId + moveY, 0))
-    }));
+  const move = (moveX: number, moveY: number) => {
+    const mx = ops.accuracyX(moveX);
+    const my = ops.accuracyY(moveY);
 
-  const scale = (time: number) =>
+    edit(({ start, end, trackId }) => ({
+      start: Math.max(start + mx, 0),
+      end: end + mx,
+      trackId: Math.min(tracks.length - 1, Math.max(trackId + my, 0))
+    }));
+  };
+
+  const scale = (moveX: number) =>
     edit(({ start, end }) => ({
       start: start,
-      end: end + time
+      end: end + ops.accuracyX(moveX)
     }));
 
   const addAt = (p: Point) => {

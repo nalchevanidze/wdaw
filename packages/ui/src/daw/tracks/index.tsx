@@ -7,7 +7,7 @@ import { Panel } from './channel';
 import { NoteGrid } from '../../components/note-grid';
 import { SelectionArea } from '../../components/selection-area';
 import { HandlerMap, useDragging } from '../hooks/use-dragging';
-import { toAccuracy, withAccuracy } from '../utils/area';
+import { toAccuracy } from '../utils/area';
 import { useTrackEditor } from '../hooks/use-track-editor';
 import { Fragment } from './fragment';
 import { DragingBackground } from '../../components/background';
@@ -56,8 +56,6 @@ const styles = {
 const rulerSize = BLOCK;
 const accuracy = rulerSize / 8;
 
-const normalizeY = (y: number) => Math.floor(y / trackHeight);
-
 type ContentProps = {
   actionType: EditActionType;
   openDropDown(ref?: MidiRef): void;
@@ -80,7 +78,7 @@ export const TracksContent: React.FC<ContentProps> = ({
     addAt
   } = useTrackEditor({
     accuracyX: (x) => toAccuracy(x, accuracy),
-    accuracyY: Math.floor,
+    accuracyY: Math.round,
     to: ({ x, y }) => ({ x, y: y / trackHeight })
   });
   const { panels } = usePanels();
@@ -114,8 +112,8 @@ export const TracksContent: React.FC<ContentProps> = ({
   const dragging = useDragging<Mixed<MidiRef>>({
     onMove: {
       select: selectIn,
-      move: (x, y) => move(toAccuracy(x, accuracy), normalizeY(y)),
-      scale: withAccuracy(scale, accuracy)
+      move: (x, y) => move(x, y / trackHeight),
+      scale
     },
     onEnd: (mode) => (mode !== 'select' ? sync() : undefined),
     onStart: mouseDownInactive[actionType],
