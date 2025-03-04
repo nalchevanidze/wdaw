@@ -3,7 +3,13 @@ import { Area, IArea, Point } from '@wdaw/svg';
 import { useTracks } from './use-tracks';
 import { makeMidiRef } from '@wdaw/engine';
 
-export const useTrackEditor = () => {
+type Ops = {
+  accuracyX(i: number): number;
+  accuracyY(i: number): number;
+  to(_: Point): Point;
+};
+
+export const useTrackEditor = (ops: Ops) => {
   const { midiRefs, setMidis, setCurrent, tracks } = useTracks();
   const { all, edit, add, clear, sync, select, selectIn, remove } =
     useSelection(midiRefs, setMidis);
@@ -21,8 +27,16 @@ export const useTrackEditor = () => {
       end: end + time
     }));
 
-  const addAt = ({ x, y }: Point) =>
-    add(makeMidiRef({ trackId: y, start: x, end: x + 64 }));
+  const addAt = (p: Point) => {
+    const { x, y } = ops.to(p);
+    add(
+      makeMidiRef({
+        trackId: ops.accuracyY(y),
+        start: ops.accuracyX(x),
+        end: ops.accuracyX(x) + 64
+      })
+    );
+  };
 
   return {
     tracks: all,

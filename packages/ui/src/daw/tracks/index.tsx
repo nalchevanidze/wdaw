@@ -90,12 +90,16 @@ export const TracksContent: React.FC<ContentProps> = ({
     sync,
     remove,
     addAt
-  } = useTrackEditor();
+  } = useTrackEditor({
+    accuracyX: (x) => toAccuracy(x, accuracy),
+    accuracyY: Math.floor,
+    to: ({ x, y }) => ({ x, y: y / trackHeight })
+  });
   const { panels } = usePanels();
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
     draw: (point) => {
-      addAt(normalize(point));
+      addAt(point);
       return 'scale';
     },
     select: () => {
