@@ -15,7 +15,6 @@ import { NoteGrid } from '../../components/note-grid';
 import { Keys } from '../../components/keys';
 import { toAccuracy } from '../utils/area';
 import { UINote } from '../utils/notes';
-import { normalizer } from './dimensions';
 import { Tracked } from '../utils/tracking';
 import { DragingBackground } from '../../components/background';
 import { useMidiFragment } from '../hooks/use-midi-fragment';
@@ -38,7 +37,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
     x: Math.floor(x),
     y: Math.floor(1 + (canvasHeight - y) / noteHeight)
   }));
-  
+
   const loop = useLoop();
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
