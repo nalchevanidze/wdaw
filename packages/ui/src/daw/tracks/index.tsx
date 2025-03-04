@@ -56,19 +56,7 @@ const styles = {
 const rulerSize = BLOCK;
 const accuracy = rulerSize / 8;
 
-const toArea = ({ start, end, trackId }: MidiRef): IArea => ({
-  x1: start,
-  x2: end,
-  y1: trackId * trackHeight,
-  y2: (trackId + 1) * trackHeight
-});
-
 const normalizeY = (y: number) => Math.floor(y / trackHeight);
-
-const normalize = ({ x, y }: Point): Point => ({
-  x: toAccuracy(x, accuracy),
-  y: normalizeY(y)
-});
 
 type ContentProps = {
   actionType: EditActionType;
@@ -125,7 +113,7 @@ export const TracksContent: React.FC<ContentProps> = ({
 
   const dragging = useDragging<Mixed<MidiRef>>({
     onMove: {
-      select: selectIn(toArea),
+      select: selectIn,
       move: (x, y) => move(toAccuracy(x, accuracy), normalizeY(y)),
       scale: withAccuracy(scale, accuracy)
     },
