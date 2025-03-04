@@ -35,8 +35,9 @@ const rulerSize = BLOCK;
 const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
   const notes = useNoteEditor({
     accuracyX: Math.floor,
-    accuracyY: Math.floor,
-    to: ({ x, y }) => ({ x, y: 1 + (canvasHeight - y) / noteHeight })
+    accuracyY: Math.round,
+    scaleY: (y) => y / noteHeight,
+    to: ({ x, y }) => ({ x, y: (noteHeight - y) / noteHeight })
   });
 
   const loop = useLoop();
@@ -62,9 +63,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
       select: notes.selectIn,
       scale: notes.scale,
       move: (x, y) =>
-        loop.target
-          ? loop.move(toAccuracy(x, loopAccuracy))
-          : notes.move(x, Math.round(y / noteHeight))
+        loop.target ? loop.move(toAccuracy(x, loopAccuracy)) : notes.move(x, y)
     },
     onBackground: onBackgroundHandler[actionType],
     onStart: (note) =>

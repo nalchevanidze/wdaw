@@ -6,6 +6,7 @@ import { useMidiFragment } from './use-midi-fragment';
 type Ops = {
   accuracyX(i: number): number;
   accuracyY(i: number): number;
+  scaleY(i: number): number;
   to(_: Point): Point;
 };
 
@@ -15,10 +16,13 @@ export const useNoteEditor = (ops: Ops) => {
     useSelection(notes, syncNotes);
 
   const scale = (moveX: number) =>
-    edit(({ length }) => ({ length: length + moveX }));
+    edit(({ length }) => ({ length: length + ops.accuracyX(moveX) }));
 
   const move = (moveX: number, moveY: number) =>
-    edit(({ x, y }) => ({ x: x + moveX, y: y - moveY }));
+    edit(({ x, y }) => ({
+      x: x + ops.accuracyX(moveX),
+      y: y - ops.accuracyY(ops.scaleY(moveY))
+    }));
 
   const addAt = (p: Point) => {
     const { x, y } = ops.to(p);
