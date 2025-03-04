@@ -28,7 +28,7 @@ export const useNoteEditor = (ops: Ops) => {
     }));
 
   const to = ({ x, y }: Point): Point => ({
-    x: ops.accuracyX(x),
+    x: ops.scaleX(x),
     y: ops.size - ops.scaleY(y)
   });
 
