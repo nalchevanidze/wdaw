@@ -34,7 +34,11 @@ const canvasHeight = ocatveHeight * octaveCount;
 const rulerSize = BLOCK;
 
 const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
-  const notes = useNoteEditor(normalizer({ noteHeight, canvasHeight }));
+  const notes = useNoteEditor(({ x, y }) => ({
+    x: Math.floor(x),
+    y: Math.floor(1 + (canvasHeight - y) / noteHeight)
+  }));
+  
   const loop = useLoop();
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
