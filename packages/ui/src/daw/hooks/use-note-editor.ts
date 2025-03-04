@@ -3,12 +3,10 @@ import { Point, Area } from '@wdaw/svg';
 import { useSelection } from './use-selection';
 import { useMidiFragment } from './use-midi-fragment';
 
-type Normalizer = (_: Point) => Point;
-
 type Ops = {
   accuracyX(i: number): number;
   accuracyY(i: number): number;
-  to: Normalizer;
+  to(_: Point): Point;
 };
 
 export const useNoteEditor = (ops: Ops) => {
