@@ -2,7 +2,7 @@ import { useSelection } from './use-selection';
 import { Area, IArea, Point } from '@wdaw/svg';
 import { useTracks } from './use-tracks';
 import { makeMidiRef, MidiRef } from '@wdaw/engine';
-import { mapAdd, mapScale, Matrix, toPoint } from '../utils/matrix';
+import { mapAdd, mapMove, mapScale, Matrix, toPoint } from '../utils/matrix';
 
 const toArea = ({ start, end, trackId }: MidiRef): IArea => ({
   x1: start,
@@ -16,16 +16,13 @@ export const useTrackEditor = (matrix: Matrix) => {
   const { all, edit, add, clear, sync, select, selectIn, remove } =
     useSelection(midiRefs, setMidis);
 
-  const move = (moveX: number, moveY: number) => {
-    const mx = matrix.accuracyX(moveX);
-    const my = matrix.accuracyY(matrix.scaleY(moveY));
-
+  const move = mapMove(matrix, (mx, my) =>
     edit(({ start, end, trackId }) => ({
       start: Math.max(start + mx, 0),
       end: end + mx,
       trackId: Math.min(tracks.length - 1, Math.max(trackId + my, 0))
-    }));
-  };
+    }))
+  );
 
   const scale = mapScale(matrix, (moveX) =>
     edit(({ start, end }) => ({ start, end: end + moveX }))
