@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Maybe } from '../types';
 import { useMidiFragment } from './use-midi-fragment';
+import { toAccuracy } from '../utils/area';
 
 export type LoopTarget = 'start' | 'end';
 
-export const useLoop = () => {
+export const useLoop = (loopAccuracy: number) => {
   const { loop, setFragment } = useMidiFragment();
 
   const [origin, setOrigin] = React.useState<Maybe<number>>(undefined);
@@ -28,7 +29,8 @@ export const useLoop = () => {
     sync();
   };
 
-  const move = (time: number) => {
+  const move = (moveX: number) => {
+    const time = toAccuracy(loopAccuracy)(moveX);
     if (origin === undefined) return;
 
     const [start, end] = state;

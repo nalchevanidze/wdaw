@@ -41,7 +41,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
     size: OCTAVE_SIZE * octaveCount
   });
 
-  const loop = useLoop();
+  const loop = useLoop(loopAccuracy);
 
   const onBackgroundHandler: HandlerMap<EditActionType, Point> = {
     draw: (point) => {
@@ -62,8 +62,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
   const dragging = useDragging<Mixed<UINote>>({
     onSelect: notes.selectIn,
     onScale: notes.scale,
-    onMove: (x, y) =>
-      loop.target ? loop.move(toAccuracy(loopAccuracy)(x)) : notes.move(x, y),
+    onMove: loop.target ? loop.move : notes.move,
     onEnd: loop.target ? loop.endMove : notes.sync,
     onBackground: onBackgroundHandler[actionType],
     onStart: mouseDownInactive[actionType]
