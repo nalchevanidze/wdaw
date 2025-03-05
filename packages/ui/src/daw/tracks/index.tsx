@@ -110,7 +110,7 @@ export const TracksContent: React.FC<ContentProps> = ({
     }
   };
 
-  const dragging = useDragging<Mixed<MidiRef>>({
+  const dragging = useDragging<MidiRef>({
     onSelect: selectIn,
     onMove: move,
     onScale: scale,

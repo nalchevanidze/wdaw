@@ -13,7 +13,6 @@ import { Loop } from './loop';
 import { LoopTarget, useLoop } from '../hooks/use-loop-editor';
 import { NoteGrid } from '../../components/note-grid';
 import { Keys } from '../../components/keys';
-import { toAccuracy } from '../utils/area';
 import { UINote } from '../utils/notes';
 import { Mixed } from '../utils/tracking';
 import { DragingBackground } from '../../components/background';
@@ -59,7 +58,7 @@ const MidiEditorCanvas: React.FC<Props> = ({ actionType, loopAccuracy }) => {
     select: (note) => (note.origin ? undefined : notes.select(note))
   };
 
-  const dragging = useDragging<Mixed<UINote>>({
+  const dragging = useDragging<UINote>({
     onSelect: notes.selectIn,
     onScale: notes.scale,
     onMove: loop.target ? loop.move : notes.move,
