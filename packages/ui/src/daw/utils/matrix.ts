@@ -8,7 +8,7 @@ export type Matrix = {
   flipWithHeight?: number;
 };
 
-export const pointAccuracy = (ops: Matrix, { x, y }: Point): Point => ({
+const setAccuracy = (ops: Matrix, { x, y }: Point): Point => ({
   x: ops.accuracyX(x),
   y: ops.accuracyY(y)
 });
@@ -22,14 +22,10 @@ export const mapScale =
   (ops: Matrix, f: (moveX: number) => void) => (moveX: number) =>
     f(ops.accuracyX(ops.scaleX(moveX)));
 
-export const mapAdd =
-  (ops: Matrix, f: (p: Point) => void) => (p: Point) =>
-    f(pointAccuracy(ops, toPointRaw(ops, p)));
+export const mapAdd = (ops: Matrix, f: (p: Point) => void) => (p: Point) =>
+  f(setAccuracy(ops, toPoint(ops, p)));
 
-export const toPointRaw = (ops: Matrix, { x, y }: Point): Point => ({
+export const toPoint = (ops: Matrix, { x, y }: Point): Point => ({
   x: ops.scaleX(x),
   y: ops.flipWithHeight ? ops.flipWithHeight - ops.scaleY(y) : ops.scaleY(y)
 });
-
-export const toPoint = (ops: Matrix, p: Point): Point =>
-  pointAccuracy(ops, toPointRaw(ops, p));
