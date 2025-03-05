@@ -2,12 +2,7 @@ import { useSelection } from './use-selection';
 import { Area, IArea, Point } from '@wdaw/svg';
 import { useTracks } from './use-tracks';
 import { makeMidiRef, MidiRef } from '@wdaw/engine';
-
-type Ops = {
-  accuracyX(i: number): number;
-  accuracyY(i: number): number;
-  scaleY(i: number): number;
-};
+import { mapAdd, mapScale, Matrix, toPoint } from '../utils/matrix';
 
 const toArea = ({ start, end, trackId }: MidiRef): IArea => ({
   x1: start,
@@ -16,14 +11,14 @@ const toArea = ({ start, end, trackId }: MidiRef): IArea => ({
   y2: trackId + 1
 });
 
-export const useTrackEditor = (ops: Ops) => {
+export const useTrackEditor = (matrix: Matrix) => {
   const { midiRefs, setMidis, setCurrent, tracks } = useTracks();
   const { all, edit, add, clear, sync, select, selectIn, remove } =
     useSelection(midiRefs, setMidis);
 
   const move = (moveX: number, moveY: number) => {
-    const mx = ops.accuracyX(moveX);
-    const my = ops.accuracyY(ops.scaleY(moveY));
+    const mx = matrix.accuracyX(moveX);
+    const my = matrix.accuracyY(matrix.scaleY(moveY));
 
     edit(({ start, end, trackId }) => ({
       start: Math.max(start + mx, 0),
@@ -32,24 +27,13 @@ export const useTrackEditor = (ops: Ops) => {
     }));
   };
 
-  const to = ({ x, y }: Point): Point => ({ x, y: ops.scaleY(y) });
+  const scale = mapScale(matrix, (moveX) =>
+    edit(({ start, end }) => ({ start, end: end + moveX }))
+  );
 
-  const scale = (moveX: number) =>
-    edit(({ start, end }) => ({
-      start: start,
-      end: end + ops.accuracyX(moveX)
-    }));
-
-  const addAt = (p: Point) => {
-    const { x, y } = to(p);
-    add(
-      makeMidiRef({
-        trackId: ops.accuracyY(y),
-        start: ops.accuracyX(x),
-        end: ops.accuracyX(x) + 64
-      })
-    );
-  };
+  const addAt = mapAdd(matrix, ({ x, y }) =>
+    add(makeMidiRef({ trackId: y, start: x, end: x + 64 }))
+  );
 
   return {
     all,
@@ -59,7 +43,7 @@ export const useTrackEditor = (ops: Ops) => {
     scale,
     select,
     setCurrent,
-    selectIn: selectIn(toArea, to),
+    selectIn: selectIn(toArea, (p) => toPoint(matrix, p)),
     remove,
     addAt
   };

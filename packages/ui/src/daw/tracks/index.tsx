@@ -77,6 +77,7 @@ export const TracksContent: React.FC<ContentProps> = ({
     remove,
     addAt
   } = useTrackEditor({
+    scaleX: x => x,
     accuracyX: toAccuracy(accuracy),
     accuracyY: Math.round,
     scaleY: (y) => y / trackHeight
