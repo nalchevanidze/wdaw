@@ -22,6 +22,10 @@ export const mapScale =
   (ops: Matrix, f: (moveX: number) => void) => (moveX: number) =>
     f(ops.accuracyX(ops.scaleX(moveX)));
 
+export const mapAdd =
+  (ops: Matrix, f: (p: Point) => void) => (p: Point) =>
+    f(pointAccuracy(ops, toPointRaw(ops, p)));
+
 export const toPointRaw = (ops: Matrix, { x, y }: Point): Point => ({
   x: ops.scaleX(x),
   y: ops.flipWithHeight ? ops.flipWithHeight - ops.scaleY(y) : ops.scaleY(y)
