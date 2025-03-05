@@ -2,14 +2,7 @@ import { toArea } from '../utils/notes';
 import { Point, Area } from '@wdaw/svg';
 import { useSelection } from './use-selection';
 import { useMidiFragment } from './use-midi-fragment';
-import {
-  mapAdd,
-  mapMove,
-  mapScale,
-  Matrix,
-  toPoint,
-  toPointRaw
-} from '../utils/matrix';
+import { mapAdd, mapMove, mapScale, Matrix, toPoint } from '../utils/matrix';
 
 export const useNoteEditor = (matrix: Matrix) => {
   const { notes, syncNotes } = useMidiFragment();
@@ -29,7 +22,7 @@ export const useNoteEditor = (matrix: Matrix) => {
   );
 
   return {
-    selectIn: selectIn(toArea, (p) => toPointRaw(matrix, p)),
+    selectIn: selectIn(toArea, (p) => toPoint(matrix, p)),
     all,
     clear,
     sync,
