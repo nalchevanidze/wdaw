@@ -1,7 +1,6 @@
 export {
   EngineState,
   engineState,
-  makeMidiRef,
   makeFragment,
   makePreset
 } from './state';

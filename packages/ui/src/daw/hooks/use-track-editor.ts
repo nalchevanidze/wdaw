@@ -1,7 +1,7 @@
 import { useSelection } from './use-selection';
 import { Area, IArea, Point } from '@wdaw/svg';
 import { useTracks } from './use-tracks';
-import { makeMidiRef, MidiRef } from '@wdaw/engine';
+import { MidiRef } from '@wdaw/engine';
 import { mapAdd, mapMove, mapScale, Matrix, toPoint } from '../utils/matrix';
 
 const toArea = ({ start, end, trackId }: MidiRef): IArea => ({
@@ -29,7 +29,7 @@ export const useTrackEditor = (matrix: Matrix) => {
   );
 
   const addAt = mapAdd(matrix, ({ x, y }) =>
-    add(makeMidiRef({ trackId: y, start: x, end: x + 64 }))
+    add({ id: crypto.randomUUID(), trackId: y, start: x, end: x + 64 })
   );
 
   return {
