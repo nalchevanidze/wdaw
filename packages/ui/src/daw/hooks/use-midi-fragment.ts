@@ -38,7 +38,7 @@ export const useMidiFragment = (targetId?: string) => {
     dispatch({
       type: 'MIDI/NEW_FRAGMENT',
       payload: {
-        id,
+        id: crypto.randomUUID(),
         name: `Fragment ${Object.keys(midiFragments).length + 1}`,
         notes: [],
         loop: [0, 64]
