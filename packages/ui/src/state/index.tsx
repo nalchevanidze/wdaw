@@ -63,18 +63,9 @@ const dispatcher = (
     case 'MIDI/SET_FRAGMENT':
       return mapMidiFragment(midiFragments, action.id, () => action.payload);
     case 'MIDI/NEW_FRAGMENT': {
-      const id = crypto.randomUUID();
       return {
-        currentFragment: id,
-        midiFragments: {
-          ...midiFragments,
-          [id]: {
-            id,
-            name: `Fragment ${Object.keys(midiFragments).length + 1}`,
-            notes: [],
-            loop: [0, 64]
-          }
-        }
+        currentFragment: action.payload.id,
+        midiFragments: { ...midiFragments, [action.payload.id]: action.payload }
       };
     }
     // TRACK

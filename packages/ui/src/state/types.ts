@@ -45,7 +45,7 @@ export type EngineAction =
   | TRACK<'SET_CURRENT', { payload: number }>
   | TRACK<'NEW_TRACK'>
   // MIDI
-  | MIDI<'NEW_FRAGMENT'>
+  | MIDI<'NEW_FRAGMENT', { payload: MidiFragment }>
   | MIDI<'SET_CURRENT_FRAGMENT', { payload: string }>
   | MIDI<'SET_MIDI_REFS', { payload: MidiRef[] }>
   | MIDI<'SET_FRAGMENT', { id: string; payload: Partial<MidiFragment> }>
