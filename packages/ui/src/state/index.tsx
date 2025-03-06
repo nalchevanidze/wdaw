@@ -159,14 +159,12 @@ const engineEffects = (
 
 export const makeReducer =
   (engine: SynthEngine) => (state: State, action: EngineAction) => {
-    const stateChanges = dispatcher(state, action);
-    const uiState = dispatchUIState(action);
-    const newState =
-      stateChanges || uiState
-        ? { ...state, ...stateChanges, ...uiState }
-        : state;
+    const engineChanges = dispatcher(state, action);
+    const newState = engineChanges ? { ...state, ...engineChanges } : state;
 
     engineEffects(newState, engine, action);
 
-    return newState;
+    const uiState = dispatchUIState(action);
+
+    return uiState ? { ...newState, ...uiState } : newState;
   };
