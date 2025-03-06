@@ -1,9 +1,4 @@
-import {
-  EngineState,
-  makeFragment,
-  makePreset,
-  SynthEngine
-} from '@wdaw/engine';
+import { EngineState, makePreset, SynthEngine } from '@wdaw/engine';
 import {
   deleteState,
   mapPreset,
@@ -68,12 +63,18 @@ const dispatcher = (
     case 'MIDI/SET_FRAGMENT':
       return mapMidiFragment(midiFragments, action.id, () => action.payload);
     case 'MIDI/NEW_FRAGMENT': {
-      const fragment = makeFragment(
-        `Fragment ${Object.keys(midiFragments).length + 1}`
-      );
+      const id = crypto.randomUUID();
       return {
-        currentFragment: fragment.id,
-        midiFragments: { ...midiFragments, [fragment.id]: fragment }
+        currentFragment: id,
+        midiFragments: {
+          ...midiFragments,
+          [id]: {
+            id,
+            name: `Fragment ${Object.keys(midiFragments).length + 1}`,
+            notes: [],
+            loop: [0, 64]
+          }
+        }
       };
     }
     // TRACK

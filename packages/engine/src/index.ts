@@ -1,7 +1,6 @@
 export {
   EngineState,
   engineState,
-  makeFragment,
   makePreset
 } from './state';
 export { waveFunction } from './synth';
