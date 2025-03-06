@@ -3,10 +3,11 @@ import { SynthEngine } from '@wdaw/engine';
 import { State, EngineAction, KeyboardAPI } from '../state/types';
 import { dawState } from '../state/defs';
 import { loadState } from '../state/utils';
+import { makeReducer } from '../state';
 
 type Reducer = (state: State, action: EngineAction) => State;
 
-export const useEngine = (makeReducer: (e: SynthEngine) => Reducer) => {
+export const useEngine = () => {
   const ref = useRef<Reducer>((a) => a);
 
   const keyboard = useRef<KeyboardAPI>({ startNote() {}, endNote() {} });
