@@ -61,7 +61,7 @@ export type EngineAction =
   | STORE<'RESET'>
   | STORE<'LOAD', { payload: State }>;
 
-type UIState = {
+export type UIState = {
   currentFragment: string;
   currentTrack: number;
 };

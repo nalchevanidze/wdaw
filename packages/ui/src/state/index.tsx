@@ -7,13 +7,13 @@ import {
   mapMidiFragment,
   mapMidiRefs
 } from './utils';
-import { State, EngineAction } from './types';
+import { State, EngineAction, UIState } from './types';
 import { dawState } from './defs';
 
 const dispatcher = (
   { tracks, midiRefs, midiFragments, presets, bpm }: EngineState,
   action: EngineAction
-): Partial<State> | undefined => {
+): Partial<EngineState> | undefined => {
   switch (action.type) {
     // PRESET
     case 'PRESET/SET_SEQUENCE':
@@ -54,8 +54,6 @@ const dispatcher = (
         presetId: action.presetId
       }));
     // MIDI
-    case 'MIDI/SET_CURRENT_FRAGMENT':
-      return { currentFragment: action.payload };
     case 'MIDI/SET_MIDI_REFS':
       return { midiRefs: action.payload };
     case 'MIDI/SET_MIDI_REF':
@@ -64,13 +62,10 @@ const dispatcher = (
       return mapMidiFragment(midiFragments, action.id, () => action.payload);
     case 'MIDI/NEW_FRAGMENT': {
       return {
-        currentFragment: action.payload.id,
         midiFragments: { ...midiFragments, [action.payload.id]: action.payload }
       };
     }
     // TRACK
-    case 'TRACK/SET_CURRENT':
-      return { currentTrack: action.payload };
     case 'TRACK/SET_TRACK':
       return mapTrack(tracks, action.id, () => action.payload);
     case 'TRACK/NEW_TRACK':
@@ -96,6 +91,22 @@ const dispatcher = (
     }
     case 'STORE/LOAD':
       return { ...action.payload };
+    default:
+      return;
+  }
+};
+
+const dispatchUIState = (
+  action: EngineAction
+): Partial<UIState> | undefined => {
+  switch (action.type) {
+    case 'MIDI/SET_CURRENT_FRAGMENT':
+      return { currentFragment: action.payload };
+    case 'MIDI/NEW_FRAGMENT': {
+      return { currentFragment: action.payload.id };
+    }
+    case 'TRACK/SET_CURRENT':
+      return { currentTrack: action.payload };
     default:
       return;
   }
@@ -150,7 +161,11 @@ const engineEffects = (
 export const makeReducer =
   (engine: SynthEngine) => (state: State, action: EngineAction) => {
     const stateChanges = dispatcher(state, action);
-    const newState = stateChanges ? { ...state, ...stateChanges } : state;
+    const uiState = dispatchUIState(action);
+    const newState =
+      stateChanges || uiState
+        ? { ...state, ...stateChanges, ...uiState }
+        : state;
 
     engineEffects(newState, engine, action);
 
