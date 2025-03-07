@@ -13,6 +13,7 @@ export const useEngine = () => {
 
   useEffect(() => {
     const engine = new SynthEngine();
+    ref.current.destroy();
     ref.current = engine;
 
     engine.addEventListener('isPlayingChanged', setIsPlaying);
