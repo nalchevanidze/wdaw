@@ -50,7 +50,7 @@ export class MidiPlayer {
     this.tracks.clear();
   };
 
-  public stop() {
+  public stop = () => {
     this.setTime(0);
     this.pause();
   }
