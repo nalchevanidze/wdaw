@@ -6,10 +6,8 @@ import { loadState } from '../state/utils';
 import { reducer } from '../state';
 import { engineEffects } from '../state/engine-effects';
 
-type Reducer = (state: State, action: EngineAction) => State;
-
 export const useEngine = () => {
-  const ref = useRef<Reducer>((a) => a);
+  const ref = useRef<(state: State, action: EngineAction) => State>((a) => a);
 
   const keyboard = useRef<KeyboardAPI>({ startNote() {}, endNote() {} });
 
@@ -23,7 +21,7 @@ export const useEngine = () => {
 
     keyboard.current = engine;
 
-    ref.current = (state: State, action: EngineAction) => {
+    ref.current = (state, action) => {
       const newState = reducer(state, action);
       engineEffects(newState, engine, action);
       return newState;
