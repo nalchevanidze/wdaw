@@ -7,7 +7,7 @@ import { reducer } from '../state';
 import { engineEffects } from '../state/engine-effects';
 
 export const useEngine = () => {
-  const ref = useRef<(state: State, action: EngineAction) => State>((a) => a);
+  const ref = useRef<(s: State, a: EngineAction) => State>((a) => a);
 
   const keyboard = useRef<KeyboardAPI>({ startNote() {}, endNote() {} });
 
