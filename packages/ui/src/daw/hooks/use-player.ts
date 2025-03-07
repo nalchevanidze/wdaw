@@ -7,12 +7,12 @@ export const usePlayer = () => {
   const setBPM = (value: number) =>
     dispatch({ type: 'PLAYER/SET_BPM', payload: value });
 
-  const toggle = () => (isPlaying ? engine.play() : engine.pause());
+  const toggle = () => (isPlaying ? engine.pause() : engine.play());
 
   const stop = () => engine.stop();
 
   const save = () => dispatch({ type: 'STORE/SAVE' });
-  
+
   const reset = () => dispatch({ type: 'STORE/RESET' });
 
   const setTime = (t: number) =>
