@@ -9,14 +9,12 @@ export const usePlayer = () => {
 
   const toggle = () => (isPlaying ? engine.pause() : engine.play());
 
-  const stop = () => engine.stop();
+  const stop = engine.stop;
+  const setTime = engine.setTime;
 
   const save = () => dispatch({ type: 'STORE/SAVE' });
 
   const reset = () => dispatch({ type: 'STORE/RESET' });
-
-  const setTime = (t: number) =>
-    dispatch({ type: 'PLAYER/SET_TIME', payload: t });
 
   return { isPlaying, bpm, time, setBPM, setTime, toggle, stop, save, reset };
 };

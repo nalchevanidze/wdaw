@@ -8,8 +8,6 @@ export const engineEffects = (
 ): void => {
   switch (action.type) {
     // Player
-    case 'PLAYER/SET_TIME':
-      return engine.setTime(action.payload);
     case 'PLAYER/SET_BPM':
       return engine.setBPM(action.payload);
     // Midi

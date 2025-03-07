@@ -8,7 +8,8 @@ const engine: EngineApi = {
   endNote() {},
   play() {},
   pause() {},
-  stop() {}
+  stop() {},
+  setTime(){},
 };
 
 type DawApi = State & {

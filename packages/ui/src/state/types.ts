@@ -51,7 +51,6 @@ export type EngineAction =
   | MIDI<'SET_FRAGMENT', { id: string; payload: Partial<MidiFragment> }>
   | MIDI<'SET_MIDI_REF', { id: string; payload: Partial<MidiRef> }>
   // PLAYER
-  | PLAYER<'SET_TIME', { payload: number }>
   | PLAYER<'SET_BPM', { payload: number }>
   // STORE
   | STORE<'SAVE'>
@@ -69,6 +68,7 @@ export type EngineApi = {
   play(): void;
   pause(): void;
   stop(): void;
+  setTime(i: number): void;
 };
 
 export type State = EngineState & UIState;
