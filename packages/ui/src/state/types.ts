@@ -66,7 +66,7 @@ export type UIState = {
   currentTrack: number;
 };
 
-export type KeyboardAPI = {
+export type EngineApi = {
   startNote(i: number, n: number): void;
   endNote(i: number, n: number): void;
 };

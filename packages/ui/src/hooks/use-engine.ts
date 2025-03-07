@@ -30,5 +30,5 @@ export const useEngine = () => {
     return newState;
   }, dawState());
 
-  return { ...state, time, isPlaying, dispatch, keyboard: ref.current };
+  return { ...state, time, isPlaying, dispatch, engine: ref.current };
 };

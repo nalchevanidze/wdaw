@@ -1,9 +1,9 @@
 import { createContext } from 'react';
 import { DawDispatch } from '../daw/types';
-import { KeyboardAPI, State } from '../state/types';
+import { EngineApi, State } from '../state/types';
 import { dawState } from '../state/defs';
 
-export const keyboardMock: KeyboardAPI = {
+export const engineMock: EngineApi = {
   startNote() {},
   endNote() {}
 };
@@ -12,7 +12,7 @@ type DawApi = State & {
   time: number;
   isPlaying: boolean;
   dispatch: DawDispatch;
-  keyboard: KeyboardAPI;
+  engine: EngineApi;
 };
 
 export const DawApiContext = createContext<DawApi>({
@@ -20,5 +20,5 @@ export const DawApiContext = createContext<DawApi>({
   time: 0,
   isPlaying: false,
   dispatch() {},
-  keyboard: keyboardMock
+  engine: engineMock
 });
