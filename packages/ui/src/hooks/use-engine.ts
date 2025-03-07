@@ -3,9 +3,8 @@ import { SynthEngine } from '@wdaw/engine';
 import { State, EngineAction, KeyboardAPI } from '../state/types';
 import { dawState } from '../state/defs';
 import { loadState } from '../state/utils';
-import { reducerFun } from '../state';
+import { reducer } from '../state';
 import { engineEffects } from '../state/engine-effects';
-
 
 type Reducer = (state: State, action: EngineAction) => State;
 
@@ -25,11 +24,10 @@ export const useEngine = () => {
     keyboard.current = engine;
 
     ref.current = (state: State, action: EngineAction) => {
-      const newState = reducerFun(state, action);
+      const newState = reducer(state, action);
       engineEffects(newState, engine, action);
       return newState;
     };
-  
 
     dispatch({ type: 'STORE/LOAD', payload: loadState() ?? state });
 

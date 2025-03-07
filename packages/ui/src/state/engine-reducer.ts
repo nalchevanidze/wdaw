@@ -10,7 +10,7 @@ import {
 import { EngineAction } from './types';
 import { dawState } from './defs';
 
-export const dispatcher = (
+export const engineReducer = (
   { tracks, midiRefs, midiFragments, presets, bpm }: EngineState,
   action: EngineAction
 ): Partial<EngineState> | undefined => {

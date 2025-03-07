@@ -1,6 +1,6 @@
 import { EngineAction, UIState } from "./types";
 
-export const dispatchUIState = (
+export const uiReducer = (
   action: EngineAction
 ): Partial<UIState> | undefined => {
   switch (action.type) {

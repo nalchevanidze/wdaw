@@ -1,13 +1,12 @@
 import { State, EngineAction } from './types';
-import { dispatcher } from './engine-state';
-import { dispatchUIState } from './ui-state';
+import { engineReducer } from './engine-reducer';
+import { uiReducer } from './ui-reducer';
 
-export const reducerFun = (state: State, action: EngineAction) => {
-  const engineChanges = dispatcher(state, action);
+export const reducer = (state: State, action: EngineAction) => {
+  const engineChanges = engineReducer(state, action);
   const newState = engineChanges ? { ...state, ...engineChanges } : state;
 
-  const uiState = dispatchUIState(action);
+  const uiState = uiReducer(action);
 
   return uiState ? { ...newState, ...uiState } : newState;
 };
-
