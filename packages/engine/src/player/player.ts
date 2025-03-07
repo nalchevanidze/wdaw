@@ -7,7 +7,11 @@ export class MidiPlayer {
   private time = 0;
   private tempo = new Tempo(this.sampleRate);
 
-  constructor(private events: EngineEvents, private tracks: Tracks, private sampleRate: number) {}
+  constructor(
+    private events: EngineEvents,
+    private tracks: Tracks,
+    private sampleRate: number
+  ) {}
 
   private setIsPlaying(isPlaying: boolean) {
     this.isPlaying = isPlaying;
@@ -49,5 +53,5 @@ export class MidiPlayer {
   public stop = () => {
     this.setTime(0);
     this.pause();
-  }
+  };
 }
