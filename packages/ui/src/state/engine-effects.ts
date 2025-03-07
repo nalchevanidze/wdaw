@@ -8,12 +8,6 @@ export const engineEffects = (
 ): void => {
   switch (action.type) {
     // Player
-    case 'PLAYER/PLAY':
-      return engine.play();
-    case 'PLAYER/PAUSE':
-      return engine.pause();
-    case 'PLAYER/STOP':
-      return engine.stop();
     case 'PLAYER/SET_TIME':
       return engine.setTime(action.payload);
     case 'PLAYER/SET_BPM':

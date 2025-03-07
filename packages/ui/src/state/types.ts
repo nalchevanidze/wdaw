@@ -53,9 +53,6 @@ export type EngineAction =
   // PLAYER
   | PLAYER<'SET_TIME', { payload: number }>
   | PLAYER<'SET_BPM', { payload: number }>
-  | PLAYER<'PLAY'>
-  | PLAYER<'STOP'>
-  | PLAYER<'PAUSE'>
   // STORE
   | STORE<'SAVE'>
   | STORE<'RESET'>
@@ -69,6 +66,9 @@ export type UIState = {
 export type EngineApi = {
   startNote(i: number, n: number): void;
   endNote(i: number, n: number): void;
+  play(): void;
+  pause(): void;
+  stop(): void;
 };
 
 export type State = EngineState & UIState;

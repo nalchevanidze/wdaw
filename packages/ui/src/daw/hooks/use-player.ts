@@ -2,15 +2,17 @@ import { useContext } from 'react';
 import { DawApiContext } from '../../context/state';
 
 export const usePlayer = () => {
-  const { isPlaying, bpm, time, dispatch } = useContext(DawApiContext);
+  const { isPlaying, bpm, time, engine, dispatch } = useContext(DawApiContext);
 
   const setBPM = (value: number) =>
     dispatch({ type: 'PLAYER/SET_BPM', payload: value });
 
-  const toggle = () =>
-    dispatch({ type: isPlaying ? 'PLAYER/PAUSE' : 'PLAYER/PLAY' });
-  const stop = () => dispatch({ type: 'PLAYER/STOP' });
+  const toggle = () => (isPlaying ? engine.play() : engine.pause());
+
+  const stop = () => engine.stop();
+
   const save = () => dispatch({ type: 'STORE/SAVE' });
+  
   const reset = () => dispatch({ type: 'STORE/RESET' });
 
   const setTime = (t: number) =>

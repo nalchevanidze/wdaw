@@ -5,7 +5,10 @@ import { dawState } from '../state/defs';
 
 const engine: EngineApi = {
   startNote() {},
-  endNote() {}
+  endNote() {},
+  play() {},
+  pause() {},
+  stop() {}
 };
 
 type DawApi = State & {
