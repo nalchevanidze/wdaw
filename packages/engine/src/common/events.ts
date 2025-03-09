@@ -3,6 +3,7 @@ import { Maybe } from './types';
 type Events = {
   isPlayingChanged: boolean;
   timeChanged: number;
+  bpmChanged: number;
 };
 
 type EName = keyof Events;
@@ -11,9 +12,15 @@ type EType<K extends EName> = Events[K];
 
 type Parsers = { [K in EName]: (i: any) => Maybe<EType<K>> };
 
+const parse = {
+  boolean: (v: any) => (typeof v === 'boolean' ? v : undefined),
+  number: (v: any) => (typeof v === 'number' ? v : undefined)
+};
+
 const parsers: Parsers = {
-  isPlayingChanged: (v) => (typeof v === 'boolean' ? v : undefined),
-  timeChanged: (v) => (typeof v === 'number' ? v : undefined)
+  isPlayingChanged: parse.boolean,
+  timeChanged: parse.number,
+  bpmChanged: parse.number
 };
 
 type Handler<N extends EName> = (e: EType<N>) => void;

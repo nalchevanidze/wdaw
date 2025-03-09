@@ -23,7 +23,10 @@ export class MidiPlayer {
     this.events.dispatch('timeChanged', time);
   };
 
-  public setBPM = this.tempo.setBPM;
+  public setBPM = (bpm:number) => {
+    this.events.dispatch('bpmChanged', bpm);
+    this.tempo.setBPM(bpm);
+  }
 
   public next = () => {
     if (this.tempo.next()) {
