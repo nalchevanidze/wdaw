@@ -20,30 +20,26 @@ type Props = {
   width: number;
 };
 
-const toPoints = (bpm: ValueController) =>
-  (bpm.type === 'dynamic' ? bpm.value : []).map((p, i) => ({
-    x: p.index / 1088,
-    y: p.value / 200,
+export const BpmEditor: React.FC<Props> = ({ height, width }) => {
+  const { bpm, setBPM } = usePlayer();
+
+  const h = height * 2;
+  const w = width;
+
+  const points = (bpm.type === 'dynamic' ? bpm.value : []).map((p, i) => ({
+    x: p.index / w,
+    y: p.value / h,
     id: i.toString()
   }));
 
-export const BpmEditor: React.FC<Props> = ({ height = 100, width = 160 }) => {
-  const { bpm, setBPM } = usePlayer();
-
-  const [points, setPoints] = React.useState(toPoints(bpm));
-
-  const setPoint = (id: string, c: Point) => {
-    setPoints(points.map((p) => (p.id === id ? { ...p, ...c } : p)));
-  };
-
-  React.useEffect(() => {
+  const setPoint = (id: string, c: Point) =>
     setBPM({
       type: 'dynamic',
-      value: points.map((p) => ({ index: p.x * 1088, value: p.y * 200 }))
+      value: points
+        .map((p) => (p.id === id ? { ...p, ...c } : p))
+        .sort((a, b) => a.x - b.x)
+        .map((p) => ({ index: p.x * w, value: p.y * h }))
     });
-  }, [points]);
-
-  console.log(bpm.value)
 
   return (
     <Svg width={width} height={height}>
