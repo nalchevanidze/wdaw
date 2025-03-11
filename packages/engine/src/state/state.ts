@@ -28,5 +28,12 @@ export const engineState = (): EngineState => ({
   tracks: genTracks(),
   midiFragments: makeLib(genMidiFragments()),
   presets: makeLib(genPresets()),
-  bpm: { type: 'fixed', value: 120 }
+  bpm: {
+    type: 'dynamic',
+    value: [
+      { index: 0, value: 80 },
+      { index: 512, value: 200  },
+      { index: 1024, value: 120 }
+    ]
+  }
 });

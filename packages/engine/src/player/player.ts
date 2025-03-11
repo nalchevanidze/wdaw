@@ -7,7 +7,7 @@ export class MidiPlayer {
   private isPlaying = false;
   private time = 0;
   private tempo = new Tempo(this.sampleRate);
-  private pbmPoints?: ControlPoint[];
+  private pbmPoints?: number[];
 
   constructor(
     private events: EngineEvents,
@@ -32,16 +32,35 @@ export class MidiPlayer {
       return;
     }
 
-    this.pbmPoints = bpm.value;
+    const pbmPoints = Array(this.tracks.size).fill(0);
+
+    bpm.value
+      .sort((a, b) => a.index - b.index)
+      .reduce(
+        (a, b) => {
+          const step = (b.value - a.value) / (b.index - a.index);
+          let value = a.value;
+
+          for (let i = a.index; i < b.index; i++) {
+            value += step;
+            pbmPoints[i] = value;
+          }
+
+          return b;
+        },
+        { index: 0, value: 100 }
+      );
+
+    this.pbmPoints = pbmPoints;
   };
 
   public nextPBM = () => {
-    if (!this.pbmPoints) return;
+    if (!this.pbmPoints || !this.isPlaying) return;
 
-    const p = this.pbmPoints[0];
+    const value = this.pbmPoints[Math.floor(this.time)];
 
-    this.tempo.setBPM(p.value);
-    this.events.dispatch('bpmChanged', p.value);
+    this.tempo.setBPM(value);
+    this.events.dispatch('bpmChanged', value);
   };
 
   public next = () => {

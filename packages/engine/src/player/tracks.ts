@@ -12,7 +12,7 @@ import { toActions } from './utils/actions';
 
 export class Tracks {
   private tracks: Track[] = [];
-  private size: number = 0;
+  public size: number = 0;
 
   constructor(private sampleRate: number) {}
 
