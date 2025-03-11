@@ -19,13 +19,13 @@ export const BpmEditor: React.FC<Props> = ({ height, width }) => {
     id: i.toString()
   }));
 
-  const setPoint = (id: string, c: Point) =>
+  const setPoint = (id: string, point: Point) =>
     setBPM({
       type: 'dynamic',
       value: points
-        .map((p) => (p.id === id ? { ...p, ...c } : p))
+        .map((p) => (p.id === id ? { ...p, ...point } : p))
         .sort((a, b) => a.x - b.x)
-        .map((p) => ({ index: p.x * width, value: p.y * scaleY }))
+        .map(({ x, y }) => ({ index: x * width, value: y * scaleY }))
     });
 
   return (
