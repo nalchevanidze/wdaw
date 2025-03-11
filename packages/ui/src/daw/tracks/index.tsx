@@ -50,6 +50,7 @@ const styles = {
     position: 'relative'
   },
   canvas: {
+    display: 'grid',
     overflowX: 'scroll'
   }
 } as const;
@@ -223,12 +224,13 @@ export const Tracks = () => {
         </Svg>
         <Svg
           width={length + rulerSize}
-          height={80}
+          height={60}
           paddingLeft={panelWidth}
+          style={{ borderTop: '1px solid #BBB' }}
         >
           <text
             x={-panelWidth * 0.9}
-            y={trackHeight / 2}
+            y={30}
             fill={'gray'}
             fontFamily="sanf-serif"
             textAnchor="center"
@@ -238,7 +240,15 @@ export const Tracks = () => {
           >
             BPM
           </text>
-          <BpmEditor width={length + rulerSize} height={80} />
+          <rect
+            opacity={0.1}
+            fill="black"
+            x={-panelWidth}
+            width={panelWidth}
+            height={60}
+            style={{ border: 'none', cursor: 'pointer' }}
+          />
+          <BpmEditor width={length + rulerSize} height={60} />
         </Svg>
       </section>
     </div>
