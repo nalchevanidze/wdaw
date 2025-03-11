@@ -1,13 +1,14 @@
 import { EngineEvents } from '../common/events';
-import { ControlPoint, ValueController } from '../state/state';
+import { ValueController } from '../state/state';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
+import { BPMRecord } from './utils/bpm';
 
 export class MidiPlayer {
   private isPlaying = false;
   private time = 0;
   private tempo = new Tempo(this.sampleRate);
-  private pbmPoints?: number[];
+  private pbmRecord?: BPMRecord;
 
   constructor(
     private events: EngineEvents,
@@ -31,52 +32,14 @@ export class MidiPlayer {
       this.events.dispatch('bpmChanged', bpm.value);
       return;
     }
-
-    const list = bpm.value.sort((a, b) => a.index - b.index);
-
-    const size = this.tracks.size;
-
-    const extended: ControlPoint[] = [
-      { index: 0, value: list[0].value },
-      ...list,
-      { index: size, value: list[list.length - 1].value }
-    ];
-
-    const pbmPoints = Array(this.tracks.size).fill(0);
-
-    extended
-      .reduce(
-        (a, b) => {
-          const diff = b.index - a.index;
-
-          if (diff === 0) {
-            pbmPoints[b.index] = b.value;
-            return b;
-          }
-
-          const step = (b.value - a.value) / diff;
-          let value = a.value;
-
-          console.log(value, a, b, step);
-
-          for (let i = a.index; i < b.index; i++) {
-            value += step;
-            pbmPoints[i] = value;
-          }
-
-          return b;
-        },
-        { index: 0, value: 100 }
-      );
-
-    this.pbmPoints = pbmPoints;
+    this.pbmRecord = new BPMRecord(this.tracks.size, bpm.value);
   };
 
   public nextPBM = () => {
-    if (!this.pbmPoints || !this.isPlaying) return;
+    if (!this.pbmRecord || !this.isPlaying) return;
 
-    const value = this.pbmPoints[Math.floor(this.time)];
-
+    const value = this.pbmRecord.get(this.time);
+    
     this.tempo.setBPM(value);
     this.events.dispatch('bpmChanged', value);
   };
