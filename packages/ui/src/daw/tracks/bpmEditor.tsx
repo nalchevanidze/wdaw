@@ -32,12 +32,18 @@ export const BpmEditor: React.FC<Props> = ({ height = 100, width = 160 }) => {
 
   const [points, setPoints] = React.useState(toPoints(bpm));
 
-  const setPoint = (id: string, c: Point) =>
+  const setPoint = (id: string, c: Point) => {
     setPoints(points.map((p) => (p.id === id ? { ...p, ...c } : p)));
+  };
 
-  React.useEffect(()=> {
-    setBPM({})
-  },[points])
+  React.useEffect(() => {
+    setBPM({
+      type: 'dynamic',
+      value: points.map((p) => ({ index: p.x * 1088, value: p.y * 200 }))
+    });
+  }, [points]);
+
+  console.log(bpm.value)
 
   return (
     <Svg width={width} height={height}>
