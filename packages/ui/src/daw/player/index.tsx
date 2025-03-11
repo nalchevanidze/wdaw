@@ -47,11 +47,11 @@ export const Player: React.FC = () => {
           id="bpm-input"
           type="number"
           value={currentBPM}
-          disabled={bpm.type !== "fixed"}
-          onChange={(x) =>
+          disabled={bpm.type !== 'fixed'}
+          onChange={({ target }) =>
             setBPM({
               type: 'fixed',
-              value: Math.min(Math.max(minBPM, Number(x.target.value)), maxBPM)
+              value: Math.min(Math.max(minBPM, Number(target.value)), maxBPM)
             })
           }
           min={minBPM}
