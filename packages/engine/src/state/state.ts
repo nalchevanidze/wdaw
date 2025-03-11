@@ -10,9 +10,7 @@ export type ValueController =
   | { type: 'fixed'; value: number }
   | { type: 'dynamic'; value: ControlPoint[] };
 
-type PlayerState = {
-  bpm: ValueController;
-};
+type PlayerState = { bpm: ValueController };
 
 export type EngineState = PlayerState & TracksInput;
 
@@ -32,7 +30,7 @@ export const engineState = (): EngineState => ({
     type: 'dynamic',
     value: [
       { index: 0, value: 80 },
-      { index: 512, value: 200  },
+      { index: 512, value: 200 },
       { index: 1024, value: 120 }
     ]
   }
