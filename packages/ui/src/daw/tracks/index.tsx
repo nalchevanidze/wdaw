@@ -25,6 +25,7 @@ export type EditActionType = 'select' | 'draw';
 
 const panelWidth = 160;
 const trackHeight = 48;
+const bpmHeight = 60;
 
 const styles = {
   header: {
@@ -224,7 +225,7 @@ export const Tracks = () => {
         </Svg>
         <Svg
           width={length + rulerSize}
-          height={60}
+          height={bpmHeight}
           paddingLeft={panelWidth}
           style={{ borderTop: '1px solid #BBB' }}
         >
@@ -245,10 +246,10 @@ export const Tracks = () => {
             fill="black"
             x={-panelWidth}
             width={panelWidth}
-            height={60}
+            height={bpmHeight}
             style={{ border: 'none', cursor: 'pointer' }}
           />
-          <BpmEditor width={length + rulerSize} height={60} />
+          <BpmEditor width={length + rulerSize} height={bpmHeight} />
         </Svg>
       </section>
     </div>

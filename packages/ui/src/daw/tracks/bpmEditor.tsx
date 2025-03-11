@@ -30,7 +30,7 @@ export const BpmEditor: React.FC<Props> = ({ height, width }) => {
         .sort((a, b) => a.x - b.x)
         .map(({ x, y }) => ({ index: x * width, value: min + y * scaleY }))
     });
-
+  
   return (
     <LineEditor
       height={height}

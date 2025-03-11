@@ -30,24 +30,24 @@ export const LineEditor: React.FC<Props> = ({
     move: ({ x, y }, t) =>
       onMove(t, {
         x: unitInterval(x / width),
-        y: unitInterval(1 - y / height)
+        y: unitInterval(1 - (y - top) / height)
       })
   });
 
   const upscale = ({ x, y, ...props }: Controler): Controler => ({
     x: x * width,
-    y: (1 - y) * height,
+    y: top + (1 - y) * height,
     ...props
   });
 
   const upscaled = controlers.map(upscale);
-
+  
   return (
     <g>
       {children}
       <g stroke={colors.prime} fill="none" strokeOpacity={0.7}>
         {upscaled.map((c, i) => (
-          <path key={i} d={'M' + [c.x, height, c.x, c.y]} />
+          <path key={i} d={'M' + [c.x, top + height, c.x, c.y]} />
         ))}
       </g>
       <path
