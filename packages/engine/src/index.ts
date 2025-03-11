@@ -1,7 +1,8 @@
 export {
   EngineState,
   engineState,
-  makePreset
+  makePreset,
+  ValueController
 } from './state';
 export { waveFunction } from './synth';
 export { SynthEngine } from './engine';

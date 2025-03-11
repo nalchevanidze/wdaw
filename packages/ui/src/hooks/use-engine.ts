@@ -10,7 +10,7 @@ export const useEngine = () => {
 
   const [time, setTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [bpm, setBPM] = useState(0);
+  const [currentBPM, setCurrentBPM] = useState(0);
 
   useEffect(() => {
     const engine = new SynthEngine();
@@ -19,7 +19,7 @@ export const useEngine = () => {
 
     engine.addEventListener('isPlayingChanged', setIsPlaying);
     engine.addEventListener('timeChanged', setTime);
-    engine.addEventListener('bpmChanged', setBPM);
+    engine.addEventListener('bpmChanged', setCurrentBPM);
 
     dispatch({ type: 'STORE/LOAD', payload: loadState() ?? state });
 
@@ -35,8 +35,8 @@ export const useEngine = () => {
   return {
     ...state,
     time,
+    currentBPM,
     isPlaying,
-    bpm,
     dispatch,
     engine: ref.current
   };

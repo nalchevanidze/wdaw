@@ -34,7 +34,8 @@ const maxBPM = 200;
 const minBPM = 0;
 
 export const Player: React.FC = () => {
-  const { isPlaying, bpm, setBPM, toggle, stop, save, reset } = usePlayer();
+  const { isPlaying, bpm, currentBPM, setBPM, toggle, stop, save, reset } =
+    usePlayer();
 
   return (
     <section style={styles.container}>
@@ -45,9 +46,12 @@ export const Player: React.FC = () => {
         <input
           id="bpm-input"
           type="number"
-          value={bpm}
+          value={currentBPM}
           onChange={(x) =>
-            setBPM(Math.min(Math.max(minBPM, Number(x.target.value)), maxBPM))
+            setBPM({
+              type: 'fixed',
+              value: Math.min(Math.max(minBPM, Number(x.target.value)), maxBPM)
+            })
           }
           min={minBPM}
           max={maxBPM}

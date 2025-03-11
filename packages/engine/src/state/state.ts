@@ -4,8 +4,14 @@ import { genMidiRefs } from './midi-refs';
 import { genPresets, pid } from './presets';
 import { makeLib } from './utils';
 
+export type ControlPoint = { index: number; value: number };
+
+export type ValueController =
+  | { type: 'fixed'; value: number }
+  | { type: 'dynamic'; value: ControlPoint[] };
+
 type PlayerState = {
-  bpm: number;
+  bpm: ValueController;
 };
 
 export type EngineState = PlayerState & TracksInput;
@@ -22,5 +28,5 @@ export const engineState = (): EngineState => ({
   tracks: genTracks(),
   midiFragments: makeLib(genMidiFragments()),
   presets: makeLib(genPresets()),
-  bpm: 120
+  bpm: { type: 'fixed', value: 120 }
 });

@@ -9,10 +9,11 @@ const engine: EngineApi = {
   play() {},
   pause() {},
   stop() {},
-  setTime(){},
+  setTime() {}
 };
 
 type DawApi = State & {
+  currentBPM: number;
   time: number;
   isPlaying: boolean;
   dispatch: DawDispatch;
@@ -20,6 +21,7 @@ type DawApi = State & {
 };
 
 export const DawApiContext = createContext<DawApi>({
+  currentBPM: 0,
   ...dawState(),
   time: 0,
   isPlaying: false,

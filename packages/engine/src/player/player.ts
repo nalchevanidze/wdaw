@@ -1,4 +1,5 @@
 import { EngineEvents } from '../common/events';
+import { ValueController } from '../state/state';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
 
@@ -23,10 +24,12 @@ export class MidiPlayer {
     this.events.dispatch('timeChanged', time);
   };
 
-  public setBPM = (bpm:number) => {
-    this.tempo.setBPM(bpm);
-    this.events.dispatch('bpmChanged', bpm);
-  }
+  public setBPM = (bpm: ValueController) => {
+    if (bpm.type === 'fixed') {
+      this.tempo.setBPM(bpm.value);
+      this.events.dispatch('bpmChanged', bpm.value);
+    }
+  };
 
   public next = () => {
     if (this.tempo.next()) {
