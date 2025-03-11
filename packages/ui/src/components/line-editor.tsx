@@ -17,6 +17,7 @@ type Props = {
   children?: React.ReactNode;
   onMove(target: string, point: Point): void;
   insert?(point: Point): void;
+  onEnd?(): void;
 };
 
 export const LineEditor: React.FC<Props> = ({
@@ -26,7 +27,8 @@ export const LineEditor: React.FC<Props> = ({
   controlers,
   children,
   onMove,
-  insert
+  insert,
+  onEnd
 }) => {
   const toPoint = usePoint();
 
@@ -35,14 +37,15 @@ export const LineEditor: React.FC<Props> = ({
     y: unitInterval(1 - (y - top) / height)
   });
 
-  const setCurrent = useMouseEvent<string>({
-    move: (p, t) => onMove(t, downscale(p))
-  });
-
   const upscale = ({ x, y, ...props }: Controler): Controler => ({
     x: x * width,
     y: top + (1 - y) * height,
     ...props
+  });
+
+  const setCurrent = useMouseEvent<string>({
+    move: (p, t) => onMove(t, downscale(p)),
+    end: onEnd
   });
 
   const upscaled = controlers.map(upscale);
