@@ -21,9 +21,8 @@ const genBPMMap = (size: number, ls: ControlPoint[]): number[] => {
       }
 
       const step = (b.value - a.value) / diff;
+      
       let value = a.value;
-
-      console.log(value, a, b, step);
 
       for (let i = a.index; i < b.index; i++) {
         value += step;
