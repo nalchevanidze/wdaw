@@ -32,14 +32,32 @@ export class MidiPlayer {
       return;
     }
 
+    const list = bpm.value.sort((a, b) => a.index - b.index);
+
+    const size = this.tracks.size;
+
+    const extended: ControlPoint[] = [
+      { index: 0, value: list[0].value },
+      ...list,
+      { index: size, value: list[list.length - 1].value }
+    ];
+
     const pbmPoints = Array(this.tracks.size).fill(0);
 
-    bpm.value
-      .sort((a, b) => a.index - b.index)
+    extended
       .reduce(
         (a, b) => {
-          const step = (b.value - a.value) / (b.index - a.index);
+          const diff = b.index - a.index;
+
+          if (diff === 0) {
+            pbmPoints[b.index] = b.value;
+            return b;
+          }
+
+          const step = (b.value - a.value) / diff;
           let value = a.value;
+
+          console.log(value, a, b, step);
 
           for (let i = a.index; i < b.index; i++) {
             value += step;
