@@ -30,7 +30,7 @@ export const engineState = (): EngineState => ({
     type: 'dynamic',
     value: [
       { index: 0, value: 80 },
-      { index: 256, value: 140 },
+      { index: 256, value: 180 },
       { index: 256, value: 120 },
       { index: 1024, value: 120 }
     ]
