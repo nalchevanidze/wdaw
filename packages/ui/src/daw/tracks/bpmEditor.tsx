@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { WaveGrid } from '../../components/wave-grid';
-import { Svg, Point } from '@wdaw/svg';
+import { Point } from '@wdaw/svg';
 import { LineEditor } from '../../components/line-editor';
 import { usePlayer } from '../hooks/use-player';
 
@@ -33,9 +32,7 @@ export const BpmEditor: React.FC<Props> = ({ height, width }) => {
   const setPoint = (id: string, point: Point) =>
     update(points.map((p) => (p.id === id ? { ...p, ...point } : p)));
 
-  const insert = (p: Point) => 
-    update([...points, p]);
-
+  const insert = (p: Point) => update([...points, p]);
 
   return (
     <LineEditor
