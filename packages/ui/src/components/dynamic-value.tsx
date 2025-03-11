@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Point } from '@wdaw/svg';
-import { LineEditor } from '../../components/line-editor';
+import { LineEditor } from './line-editor';
 
 type Value = {
   index: number;

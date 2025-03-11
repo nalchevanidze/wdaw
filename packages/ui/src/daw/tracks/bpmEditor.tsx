@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Point } from '@wdaw/svg';
 import { usePlayer } from '../hooks/use-player';
-import { DynamicValue } from './dynamic-value';
+import { DynamicValue } from '../../components/dynamic-value';
 
 type Props = {
   height: number;
