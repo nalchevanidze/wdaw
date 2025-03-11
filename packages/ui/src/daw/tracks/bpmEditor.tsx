@@ -4,13 +4,6 @@ import { Svg, Point } from '@wdaw/svg';
 import { LineEditor } from '../../components/line-editor';
 import { usePlayer } from '../hooks/use-player';
 
-const styles = {
-  nav: {
-    display: 'flex',
-    gap: '10px'
-  }
-} as const;
-
 type Props = {
   height: number;
   width: number;
