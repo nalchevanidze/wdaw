@@ -14,7 +14,7 @@ type Props = {
   height: number;
   width: number;
   controlers: Controler[];
-  children: React.ReactNode;
+  children?: React.ReactNode;
   onMove(target: string, point: Point): void;
 };
 

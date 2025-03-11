@@ -223,11 +223,22 @@ export const Tracks = () => {
         </Svg>
         <Svg
           width={length + rulerSize}
-          height={50}
+          height={80}
           paddingLeft={panelWidth}
-          paddingTop={timelineHeight}
         >
-          <BpmEditor width={length + rulerSize} height={60} />
+          <text
+            x={-panelWidth * 0.9}
+            y={trackHeight / 2}
+            fill={'gray'}
+            fontFamily="sanf-serif"
+            textAnchor="center"
+            dominantBaseline="middle"
+            pointerEvents="none"
+            style={{ userSelect: 'none' }}
+          >
+            BPM
+          </text>
+          <BpmEditor width={length + rulerSize} height={80} />
         </Svg>
       </section>
     </div>

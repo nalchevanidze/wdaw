@@ -9,10 +9,9 @@ type Props = {
   width: number;
 };
 
-const max = 240
-
+const max = 240;
+const scaleY = max;
 export const BpmEditor: React.FC<Props> = ({ height, width }) => {
-  const scaleY = max;
   const { bpm, setBPM } = usePlayer();
 
   const points = (bpm.type === 'dynamic' ? bpm.value : []).map((p, i) => ({
@@ -36,8 +35,6 @@ export const BpmEditor: React.FC<Props> = ({ height, width }) => {
       width={width}
       onMove={setPoint}
       controlers={points}
-    >
-      <WaveGrid width={width} height={height} />
-    </LineEditor>
+    />
   );
 };
