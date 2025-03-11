@@ -10,6 +10,7 @@ type Controler = Point & {
 };
 
 type Props = {
+  top?: number;
   height: number;
   width: number;
   controlers: Controler[];
@@ -18,6 +19,7 @@ type Props = {
 };
 
 export const LineEditor: React.FC<Props> = ({
+  top = 0,
   height,
   width,
   controlers,

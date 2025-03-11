@@ -78,7 +78,7 @@ export const TracksContent: React.FC<ContentProps> = ({
     remove,
     addAt
   } = useTrackEditor({
-    scaleX: x => x,
+    scaleX: (x) => x,
     accuracyX: toAccuracy(accuracy),
     accuracyY: Math.round,
     scaleY: (y) => y / trackHeight
@@ -221,8 +221,15 @@ export const Tracks = () => {
           <TracksContent actionType={actionType} openDropDown={setOpen} />
           <Timeline height={timelineHeight} size={rulerSize} />
         </Svg>
+        <Svg
+          width={length + rulerSize}
+          height={50}
+          paddingLeft={panelWidth}
+          paddingTop={timelineHeight}
+        >
+          <BpmEditor width={length + rulerSize} height={60} />
+        </Svg>
       </section>
-      <BpmEditor width={length + rulerSize} height={100}/>
     </div>
   );
 };
