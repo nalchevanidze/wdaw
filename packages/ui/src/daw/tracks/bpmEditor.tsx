@@ -35,7 +35,7 @@ export const BpmEditor: React.FC<Props> = ({ height, width }) => {
       <LineEditor
         height={height}
         width={width}
-        onMove={(target, point) => setPoint(target, point)}
+        onMove={setPoint}
         controlers={points}
       >
         <WaveGrid width={width} height={height} />
