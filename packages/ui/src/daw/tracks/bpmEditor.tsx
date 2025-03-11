@@ -34,7 +34,7 @@ export const BpmEditor: React.FC<Props> = ({ height, width }) => {
       height={height}
       width={width}
       onMove={setPoint}
-      controlers={points}
+      controlers={[{ x: 0, y: 0 }, ...points, { x: width, y: 0 }]}
     />
   );
 };
