@@ -32,5 +32,12 @@ export const useEngine = () => {
     return newState;
   }, dawState());
 
-  return { ...state, time, isPlaying, bpm, dispatch, engine: ref.current };
+  return {
+    ...state,
+    time,
+    isPlaying,
+    bpm,
+    dispatch,
+    engine: ref.current
+  };
 };
