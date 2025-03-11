@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ControlPoint } from './control-point';
 import { colors } from '../styles';
-import { Point } from '@wdaw/svg';
+import { Point, usePoint } from '@wdaw/svg';
 import { unitInterval } from '../daw/utils/math';
 import { useMouseEvent } from '../hooks/use-mouse-event';
 
@@ -16,6 +16,7 @@ type Props = {
   controlers: Controler[];
   children?: React.ReactNode;
   onMove(target: string, point: Point): void;
+  insert?(point: Point): void;
 };
 
 export const LineEditor: React.FC<Props> = ({
@@ -24,14 +25,18 @@ export const LineEditor: React.FC<Props> = ({
   width,
   controlers,
   children,
-  onMove
+  onMove,
+  insert
 }) => {
+  const toPoint = usePoint();
+
+  const downscale = ({ x, y }: Point) => ({
+    x: unitInterval(x / width),
+    y: unitInterval(1 - (y - top) / height)
+  });
+
   const setCurrent = useMouseEvent<string>({
-    move: ({ x, y }, t) =>
-      onMove(t, {
-        x: unitInterval(x / width),
-        y: unitInterval(1 - (y - top) / height)
-      })
+    move: (p, t) => onMove(t, downscale(p))
   });
 
   const upscale = ({ x, y, ...props }: Controler): Controler => ({
@@ -41,7 +46,7 @@ export const LineEditor: React.FC<Props> = ({
   });
 
   const upscaled = controlers.map(upscale);
-  
+
   return (
     <g>
       {children}
@@ -55,6 +60,8 @@ export const LineEditor: React.FC<Props> = ({
         fill={colors.prime}
         fillOpacity={0.1}
         d={'M' + upscaled.flatMap(({ x, y }) => [x, y])}
+        onClick={(e) => insert?.(downscale(toPoint(e)))}
+        style={insert ? { cursor: 'cell' } : undefined}
       />
       <g fillOpacity={0.8} fill="gray" stroke="#333">
         {upscaled.map((c, i) =>

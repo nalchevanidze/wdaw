@@ -22,17 +22,24 @@ export const BpmEditor: React.FC<Props> = ({ height, width }) => {
     id: i.toString()
   }));
 
-  const setPoint = (id: string, point: Point) =>
+  const update = (ps: Point[]) =>
     setBPM({
       type: 'dynamic',
-      value: points
-        .map((p) => (p.id === id ? { ...p, ...point } : p))
+      value: ps
         .sort((a, b) => a.x - b.x)
         .map(({ x, y }) => ({ index: x * width, value: min + y * scaleY }))
     });
-  
+
+  const setPoint = (id: string, point: Point) =>
+    update(points.map((p) => (p.id === id ? { ...p, ...point } : p)));
+
+  const insert = (p: Point) => 
+    update([...points, p]);
+
+
   return (
     <LineEditor
+      insert={insert}
       height={height}
       width={width}
       onMove={setPoint}
@@ -41,7 +48,7 @@ export const BpmEditor: React.FC<Props> = ({ height, width }) => {
         { x: 0, y: points[0].y },
         ...points,
         { x: 1, y: points[points.length - 1].y },
-        { x: 1, y: 0}
+        { x: 1, y: 0 }
       ]}
     />
   );
