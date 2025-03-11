@@ -26,22 +26,22 @@ export class MidiPlayer {
     this.events.dispatch('timeChanged', time);
   };
 
-  public setBPM = (bpm: ValueController) => {
-    if (bpm.type === 'fixed') {
-      this.tempo.setBPM(bpm.value);
-      this.events.dispatch('bpmChanged', bpm.value);
-      return;
+  private bpmChanged(value: number) {
+    this.tempo.setBPM(value);
+    this.events.dispatch('bpmChanged', value);
+  }
+
+  public setBPM = (input: ValueController) => {
+    if (input.type === 'fixed') {
+      return this.bpmChanged(input.value);
     }
-    this.pbmRecord = new BPMRecord(this.tracks.size, bpm.value);
+    this.pbmRecord = new BPMRecord(this.tracks.size, input.value);
   };
 
   public nextPBM = () => {
     if (!this.pbmRecord || !this.isPlaying) return;
-
-    const value = this.pbmRecord.get(this.time);
     
-    this.tempo.setBPM(value);
-    this.events.dispatch('bpmChanged', value);
+    this.bpmChanged(this.pbmRecord.get(this.time));
   };
 
   public next = () => {
