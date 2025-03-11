@@ -36,12 +36,12 @@ export class MidiPlayer {
   };
 
   public nextPBM = () => {
-    if (this.pbmPoints) {
-      const p = this.pbmPoints[0];
+    if (!this.pbmPoints) return;
 
-      this.tempo.setBPM(p.value);
-      this.events.dispatch('bpmChanged', p.value);
-    }
+    const p = this.pbmPoints[0];
+
+    this.tempo.setBPM(p.value);
+    this.events.dispatch('bpmChanged', p.value);
   };
 
   public next = () => {
