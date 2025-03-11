@@ -47,6 +47,7 @@ export const Player: React.FC = () => {
           id="bpm-input"
           type="number"
           value={currentBPM}
+          disabled={bpm.type !== "fixed"}
           onChange={(x) =>
             setBPM({
               type: 'fixed',
