@@ -10,14 +10,12 @@ type Props = {
 };
 
 export const BpmEditor: React.FC<Props> = ({ height, width }) => {
+  const scaleY = height * 2;
   const { bpm, setBPM } = usePlayer();
 
-  const h = height * 2;
-  const w = width;
-
   const points = (bpm.type === 'dynamic' ? bpm.value : []).map((p, i) => ({
-    x: p.index / w,
-    y: p.value / h,
+    x: p.index / width,
+    y: p.value / scaleY,
     id: i.toString()
   }));
 
@@ -27,7 +25,7 @@ export const BpmEditor: React.FC<Props> = ({ height, width }) => {
       value: points
         .map((p) => (p.id === id ? { ...p, ...c } : p))
         .sort((a, b) => a.x - b.x)
-        .map((p) => ({ index: p.x * w, value: p.y * h }))
+        .map((p) => ({ index: p.x * width, value: p.y * scaleY }))
     });
 
   return (
