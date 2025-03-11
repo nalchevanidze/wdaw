@@ -19,6 +19,7 @@ import { NameInput } from '../../components/name-input';
 import { DropDown } from '../../components/drop-down';
 import { useMidiFragment } from '../hooks/use-midi-fragment';
 import { Mixed } from '../utils/tracking';
+import { BpmEditor } from './bpmEditor';
 
 export type EditActionType = 'select' | 'draw';
 
@@ -221,6 +222,7 @@ export const Tracks = () => {
           <Timeline height={timelineHeight} size={rulerSize} />
         </Svg>
       </section>
+      <BpmEditor width={length + rulerSize} height={100}/>
     </div>
   );
 };

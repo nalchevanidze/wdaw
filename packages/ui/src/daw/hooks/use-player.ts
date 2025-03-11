@@ -17,6 +17,7 @@ export const usePlayer = () => {
   const setBPM = (value: ValueController) =>
     dispatch({ type: 'PLAYER/SET_BPM', payload: value });
 
+
   return {
     isPlaying,
     currentBPM,
