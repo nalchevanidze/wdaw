@@ -1,12 +1,8 @@
 import * as React from 'react';
-import { TextButton } from '../../components/text-button';
-import { useEnvelope } from '../hooks/use-envelopes';
 import { WaveGrid } from '../../components/wave-grid';
 import { Svg, Point } from '@wdaw/svg';
 import { LineEditor } from '../../components/line-editor';
-import { Module } from '../../components/module';
 import { usePlayer } from '../hooks/use-player';
-import { ValueController } from '@wdaw/engine';
 
 const styles = {
   nav: {
