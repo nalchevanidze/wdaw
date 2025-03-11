@@ -1,5 +1,5 @@
 import { EngineEvents } from '../common/events';
-import { ValueController } from '../state/state';
+import { ControlPoint, ValueController } from '../state/state';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
 
@@ -7,6 +7,7 @@ export class MidiPlayer {
   private isPlaying = false;
   private time = 0;
   private tempo = new Tempo(this.sampleRate);
+  private pbmPoints?: ControlPoint[];
 
   constructor(
     private events: EngineEvents,
@@ -28,11 +29,24 @@ export class MidiPlayer {
     if (bpm.type === 'fixed') {
       this.tempo.setBPM(bpm.value);
       this.events.dispatch('bpmChanged', bpm.value);
+      return;
+    }
+
+    this.pbmPoints = bpm.value;
+  };
+
+  public nextPBM = () => {
+    if (this.pbmPoints) {
+      const p = this.pbmPoints[0];
+
+      this.tempo.setBPM(p.value);
+      this.events.dispatch('bpmChanged', p.value);
     }
   };
 
   public next = () => {
     if (this.tempo.next()) {
+      this.nextPBM();
       this.tracks.nextActions(this.isPlaying, this.time);
 
       if (this.isPlaying) {
