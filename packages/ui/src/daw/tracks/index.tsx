@@ -229,27 +229,11 @@ export const Tracks = () => {
           paddingLeft={panelWidth}
           style={{ borderTop: '1px solid #BBB' }}
         >
-          <text
-            x={-panelWidth * 0.9}
-            y={30}
-            fill={'gray'}
-            fontFamily="sanf-serif"
-            textAnchor="center"
-            dominantBaseline="middle"
-            pointerEvents="none"
-            style={{ userSelect: 'none' }}
-          >
-            BPM
-          </text>
-          <rect
-            opacity={0.1}
-            fill="black"
-            x={-panelWidth}
-            width={panelWidth}
+          <BpmEditor
+            width={length + rulerSize}
             height={bpmHeight}
-            style={{ border: 'none', cursor: 'pointer' }}
+            panelWidth={panelWidth}
           />
-          <BpmEditor width={length + rulerSize} height={bpmHeight} />
         </Svg>
       </section>
     </div>
