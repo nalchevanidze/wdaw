@@ -12,6 +12,10 @@ type Props = {
 export const BpmEditor: React.FC<Props> = ({ panelWidth, height, width }) => {
   const { bpm, setBPM } = usePlayer();
 
+  if (bpm.type === 'fixed') {
+    return null;
+  }
+
   return (
     <Svg
       width={width}
@@ -45,7 +49,7 @@ export const BpmEditor: React.FC<Props> = ({ panelWidth, height, width }) => {
         height={height}
         width={width}
         setValues={(value) => setBPM({ type: 'dynamic', value })}
-        values={bpm.type === 'dynamic' ? bpm.value : []}
+        values={bpm.value}
       />
     </Svg>
   );
