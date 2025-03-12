@@ -41,16 +41,17 @@ export class DynamicValue {
   }
 
   get = (time: number) => {
+    const { start, end, list } = this;
     const i = Math.floor(time);
 
-    if (i <= this.start.index) {
-      return this.start.value;
+    if (i <= start.index) {
+      return start.value;
     }
 
-    if (i >= this.end.index) {
-      return this.end.value;
+    if (i >= end.index) {
+      return end.value;
     }
 
-    return this.list[i];
+    return list[i];
   };
 }
