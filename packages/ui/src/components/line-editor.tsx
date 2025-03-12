@@ -37,10 +37,10 @@ export const LineEditor: React.FC<Props> = ({
     y: unitInterval(1 - (y - top) / height)
   });
 
-  const upscale = ({ x, y, ...props }: Controler): Controler => ({
+  const upscale = ({ id, x, y }: Controler): Controler => ({
+    id,
     x: x * width,
-    y: top + (1 - y) * height,
-    ...props
+    y: top + (1 - y) * height
   });
 
   const setCurrent = useMouseEvent<string>({
