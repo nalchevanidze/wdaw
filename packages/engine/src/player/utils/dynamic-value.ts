@@ -36,7 +36,6 @@ export class DynamicValue {
 
     this.start = sorted[0];
     this.end = sorted[sorted.length - 1];
-
     this.list = fill(this.end.index, sorted);
   }
 
