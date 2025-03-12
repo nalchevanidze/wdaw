@@ -34,18 +34,28 @@ export class DynamicValue {
   start: ControlPoint;
   end: ControlPoint;
 
-  constructor(size: number, ls: ControlPoint[]) {
+  constructor(ls: ControlPoint[]) {
     const sorted = ls.sort((a, b) => a.index - b.index);
 
     this.start = sorted[0];
     this.end = sorted[sorted.length - 1];
+    
+    this.list = fill(this.end.index, sorted);
 
-    this.list = fill(size, [
-      { index: 0, value: this.start.value },
-      ...sorted,
-      { index: size, value: this.end.value }
-    ]);
+    console.log(this.list)
   }
 
-  get = (time: number) => this.list[Math.floor(time)];
+  get = (time: number) => {
+    const i = Math.floor(time);
+
+    if (i <= this.start.index) {
+      return this.start.value;
+    }
+
+    if (i >= this.end.index) {
+      return this.end.value;
+    }
+
+    return this.list[i];
+  };
 }

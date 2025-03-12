@@ -35,7 +35,7 @@ export class MidiPlayer {
     if (input.type === 'fixed') {
       return this.bpmChanged(input.value);
     }
-    this.bpm = new DynamicValue(this.tracks.size, input.value);
+    this.bpm = new DynamicValue(input.value);
   };
 
   public nextPBM = () => {
