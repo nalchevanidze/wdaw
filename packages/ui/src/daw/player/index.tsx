@@ -68,7 +68,7 @@ export const Player: React.FC = () => {
             onClick={() =>
               setBPM({
                 type: 'dynamic',
-                value: [{ index: 0, value: currentBPM }]
+                value: [{ index: 0, value: Math.max(currentBPM,60) }]
               })
             }
           >

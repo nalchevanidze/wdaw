@@ -208,7 +208,7 @@ export const Tracks = () => {
                 });
                 setOpen(undefined);
               }}
-            />{' '}
+            />
           </div>
         )}
       </section>
