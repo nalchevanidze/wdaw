@@ -6,7 +6,7 @@ export const usePlayer = () => {
   const { isPlaying, bpm, currentBPM, time, engine, dispatch } =
     useContext(DawApiContext);
 
-  const toggle = () => (isPlaying ? engine.pause() : engine.play());
+  const toggle = isPlaying ? engine.pause : engine.play;
   const stop = engine.stop;
   const setTime = engine.setTime;
 
