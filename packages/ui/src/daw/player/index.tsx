@@ -58,6 +58,23 @@ export const Player: React.FC = () => {
           max={maxBPM}
           style={styles.bpmInput}
         />
+        {bpm.type === 'dynamic' && (
+          <button onClick={() => setBPM({ type: 'fixed', value: currentBPM })}>
+            fixed
+          </button>
+        )}
+        {bpm.type === 'fixed' && (
+          <button
+            onClick={() =>
+              setBPM({
+                type: 'dynamic',
+                value: [{ index: 0, value: currentBPM }]
+              })
+            }
+          >
+            dynamic
+          </button>
+        )}
       </div>
       <button onClick={save}> save</button>
       <button onClick={reset}> reset </button>
