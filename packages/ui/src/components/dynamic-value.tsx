@@ -12,8 +12,8 @@ type Props = {
   width: number;
   setValues(vs: Value[]): void;
   values: Value[];
-  min: number,
-  max: number
+  min: number;
+  max: number;
 };
 
 export const DynamicValue: React.FC<Props> = ({
@@ -38,17 +38,14 @@ export const DynamicValue: React.FC<Props> = ({
         .map(({ x, y }) => ({ index: x * width, value: min + y * scaleY }))
     );
 
-  const setPoint = (id: string, point: Point) =>
-    update(points.map((p) => (p.id === id ? { ...p, ...point } : p)));
-
-  const insert = (p: Point) => update([...points, p]);
-
   return (
     <LineEditor
-      insert={insert}
+      insert={(p) => update([...points, p])}
       height={height}
       width={width}
-      onMove={setPoint}
+      onMove={(id, point) =>
+        update(points.map((p) => (p.id === id ? { ...p, ...point } : p)))
+      }
       controlers={[
         { x: 0, y: 0 },
         { x: 0, y: points[0].y },
