@@ -2,13 +2,13 @@ import { EngineEvents } from '../common/events';
 import { ValueController } from '../state/state';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
-import { BPMRecord } from './utils/bpm';
+import { DynamicValue } from './utils/dynamic-value';
 
 export class MidiPlayer {
   private isPlaying = false;
   private time = 0;
   private tempo = new Tempo(this.sampleRate);
-  private pbmRecord?: BPMRecord;
+  private bpm?: DynamicValue;
 
   constructor(
     private events: EngineEvents,
@@ -35,13 +35,13 @@ export class MidiPlayer {
     if (input.type === 'fixed') {
       return this.bpmChanged(input.value);
     }
-    this.pbmRecord = new BPMRecord(this.tracks.size, input.value);
+    this.bpm = new DynamicValue(this.tracks.size, input.value);
   };
 
   public nextPBM = () => {
-    if (!this.pbmRecord || !this.isPlaying) return;
-    
-    this.bpmChanged(this.pbmRecord.get(this.time));
+    if (!this.bpm || !this.isPlaying) return;
+
+    this.bpmChanged(this.bpm.get(this.time));
   };
 
   public next = () => {

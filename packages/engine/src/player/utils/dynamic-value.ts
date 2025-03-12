@@ -1,17 +1,9 @@
 import { ControlPoint } from '../../state/state';
 
-const genBPMMap = (size: number, ls: ControlPoint[]): number[] => {
-  const list = ls.sort((a, b) => a.index - b.index);
-
-  const extended: ControlPoint[] = [
-    { index: 0, value: list[0].value },
-    ...list,
-    { index: size, value: list[list.length - 1].value }
-  ];
-
+const fill = (size: number, list: ControlPoint[]): number[] => {
   const points = Array(size).fill(0);
 
-  extended.reduce(
+  list.reduce(
     (a, b) => {
       const diff = b.index - a.index;
 
@@ -21,7 +13,7 @@ const genBPMMap = (size: number, ls: ControlPoint[]): number[] => {
       }
 
       const step = (b.value - a.value) / diff;
-      
+
       let value = a.value;
 
       for (let i = a.index; i < b.index; i++) {
@@ -37,11 +29,22 @@ const genBPMMap = (size: number, ls: ControlPoint[]): number[] => {
   return points;
 };
 
-export class BPMRecord {
+export class DynamicValue {
   list: number[];
+  start: ControlPoint;
+  end: ControlPoint;
 
   constructor(size: number, ls: ControlPoint[]) {
-    this.list = genBPMMap(size, ls);
+    const sorted = ls.sort((a, b) => a.index - b.index);
+
+    this.start = sorted[0];
+    this.end = sorted[sorted.length - 1];
+
+    this.list = fill(size, [
+      { index: 0, value: this.start.value },
+      ...sorted,
+      { index: size, value: this.end.value }
+    ]);
   }
 
   get = (time: number) => this.list[Math.floor(time)];
