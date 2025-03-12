@@ -223,18 +223,12 @@ export const Tracks = () => {
           <TracksContent actionType={actionType} openDropDown={setOpen} />
           <Timeline height={timelineHeight} size={rulerSize} />
         </Svg>
-        <Svg
+
+        <BpmEditor
           width={length + rulerSize}
           height={bpmHeight}
-          paddingLeft={panelWidth}
-          style={{ borderTop: '1px solid #BBB' }}
-        >
-          <BpmEditor
-            width={length + rulerSize}
-            height={bpmHeight}
-            panelWidth={panelWidth}
-          />
-        </Svg>
+          panelWidth={panelWidth}
+        />
       </section>
     </div>
   );

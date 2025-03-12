@@ -1,18 +1,24 @@
 import * as React from 'react';
 import { usePlayer } from '../hooks/use-player';
 import { DynamicValue } from '../../components/dynamic-value';
+import { Svg } from '@wdaw/svg';
 
 type Props = {
   height: number;
   width: number;
-  panelWidth: number
+  panelWidth: number;
 };
 
-export const BpmEditor: React.FC<Props> = ({panelWidth, height, width }) => {
+export const BpmEditor: React.FC<Props> = ({ panelWidth, height, width }) => {
   const { bpm, setBPM } = usePlayer();
 
   return (
-    <>
+    <Svg
+      width={width}
+      height={height}
+      paddingLeft={panelWidth}
+      style={{ borderTop: '1px solid #BBB' }}
+    >
       <text
         x={-panelWidth * 0.9}
         y={30}
@@ -32,7 +38,7 @@ export const BpmEditor: React.FC<Props> = ({panelWidth, height, width }) => {
         width={panelWidth}
         height={height}
         style={{ border: 'none', cursor: 'pointer' }}
-      />{' '}
+      />
       <DynamicValue
         max={200}
         min={40}
@@ -41,6 +47,6 @@ export const BpmEditor: React.FC<Props> = ({panelWidth, height, width }) => {
         setValues={(value) => setBPM({ type: 'dynamic', value })}
         values={bpm.type === 'dynamic' ? bpm.value : []}
       />
-    </>
+    </Svg>
   );
 };
