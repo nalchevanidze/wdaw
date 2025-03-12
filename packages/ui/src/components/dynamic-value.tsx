@@ -16,8 +16,6 @@ type Props = {
   max: number
 };
 
-
-
 export const DynamicValue: React.FC<Props> = ({
   height,
   width,
