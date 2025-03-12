@@ -38,8 +38,6 @@ export class DynamicValue {
     this.end = sorted[sorted.length - 1];
 
     this.list = fill(this.end.index, sorted);
-
-    console.log(this.list);
   }
 
   get = (time: number) => {
