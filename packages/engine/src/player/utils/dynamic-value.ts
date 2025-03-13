@@ -26,7 +26,7 @@ const fill = (size: number, [head, ...list]: ControlPoint[]): number[] => {
   return points;
 };
 
-class ValueRecord {
+class Record {
   list: number[];
   start: ControlPoint;
   end: ControlPoint;
@@ -60,7 +60,7 @@ export type ValueController =
   | { type: 'dynamic'; value: ControlPoint[] };
 
 export class DynamicValue {
-  private record?: ValueRecord;
+  private record?: Record;
 
   private current: number = 0;
 
@@ -82,7 +82,7 @@ export class DynamicValue {
       return;
     }
 
-    this.record = new ValueRecord(input.value);
+    this.record = new Record(input.value);
     this.update(this.record.get(time));
   };
 
