@@ -23,8 +23,8 @@ export const useTracks = () => {
       )
     });
 
-  const setCurrent = (id: string) =>
-    dispatch({ type: 'MIDI/SET_CURRENT_FRAGMENT', payload: id });
+  const setCurrent = (fragmentId: string) =>
+    dispatch({ type: 'MIDI/SET_CURRENT_FRAGMENT', fragmentId });
 
   const newTrack = () => dispatch({ type: 'TRACK/NEW_TRACK' });
 

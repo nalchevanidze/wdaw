@@ -1,11 +1,11 @@
-import { EngineAction, UIState } from "./types";
+import { EngineAction, UIState } from './types';
 
 export const uiReducer = (
   action: EngineAction
 ): Partial<UIState> | undefined => {
   switch (action.type) {
     case 'MIDI/SET_CURRENT_FRAGMENT':
-      return { currentFragment: action.payload };
+      return { currentFragment: action.fragmentId };
     case 'MIDI/NEW_FRAGMENT':
       return { currentFragment: action.payload.id };
     case 'TRACK/SET_CURRENT':

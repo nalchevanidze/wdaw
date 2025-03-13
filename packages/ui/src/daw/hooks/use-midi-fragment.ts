@@ -28,8 +28,8 @@ export const useMidiFragment = (targetId?: string) => {
 
   const id = targetId ?? currentFragment;
 
-  const setCurrent = (payload: string) =>
-    dispatch({ type: 'MIDI/SET_CURRENT_FRAGMENT', payload });
+  const setCurrent = (fragmentId: string) =>
+    dispatch({ type: 'MIDI/SET_CURRENT_FRAGMENT', fragmentId });
 
   const setFragment = (payload: Partial<MidiFragment>) =>
     dispatch({ type: 'MIDI/SET_FRAGMENT', id, payload });
