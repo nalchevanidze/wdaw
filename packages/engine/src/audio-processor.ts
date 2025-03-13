@@ -1,8 +1,8 @@
-import { debug, Resource } from './utils/debug';
+import { Resource, Resources } from './utils/debug';
 
 const BUFFER_SIZE = 2048;
 
-const resource = new Resource('Processor', 1);
+const processors = new Resources('Processor', 1);
 
 export type SoundIterator = {
   next(): number;
@@ -10,15 +10,14 @@ export type SoundIterator = {
 
 class Processor {
   private context?: AudioContext;
-  id: string;
+  resource: Resource;
 
   constructor() {
-    this.id = resource.new();
-    debug('new', this.id);
+    this.resource = processors.new();
   }
 
   open = (process: SoundIterator) => {
-    debug('open', this.id);
+    this.resource.debug('open');
     const AC = new AudioContext();
     const node = AC.createScriptProcessor(BUFFER_SIZE, 1, 1);
     node.connect(AC.destination);
@@ -35,7 +34,7 @@ class Processor {
   };
 
   close = () => {
-    debug('close', this.id);
+    this.resource.debug('close');
     this.context?.close();
   };
 }

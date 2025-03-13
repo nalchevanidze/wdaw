@@ -2,9 +2,9 @@ import { audioProcessor } from './audio-processor';
 import { EngineEvents } from './common/events';
 import { MidiPlayer } from './player';
 import { Tracks } from './player/tracks';
-import { debug, Resource } from './utils/debug';
+import { Resource, Resources } from './utils/debug';
 
-const resource = new Resource('Engine', 3);
+const engines = new Resources('Engine', 3);
 
 export class SynthEngine {
   private sampleRate = 44100;
@@ -12,10 +12,10 @@ export class SynthEngine {
   private tracks = new Tracks(this.sampleRate);
   private player = new MidiPlayer(this.events, this.tracks, this.sampleRate);
   private closeContext: () => void;
-  public id: string;
+  public resource: Resource;
 
   constructor() {
-    this.id = resource.new();
+    this.resource = engines.new();
     this.closeContext = audioProcessor(this.player);
   }
 
@@ -35,7 +35,7 @@ export class SynthEngine {
   public endNote = (i: number, n: number) => this.tracks.get(i).endNote(n);
 
   public destroy = () => {
-    debug('destroy', this.id);
+    this.resource.debug('destroy');
     this.tracks.clear();
     this.closeContext();
   };

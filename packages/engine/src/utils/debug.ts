@@ -1,10 +1,14 @@
-export const debug = (name: string, param: any) => {
+const debug = (name: string, param: any) => {
   if ('DEBUG' in globalThis) {
     console.log(name, param);
   }
 };
 
-export class Resource {
+export type Resource = {
+  debug(name: string): void;
+};
+
+export class Resources {
   private count = 0;
 
   constructor(
@@ -12,7 +16,7 @@ export class Resource {
     private max: number
   ) {}
 
-  public new = () => {
+  public new = (): Resource => {
     this.count++;
 
     if (this.count >= this.max) {
@@ -22,6 +26,7 @@ export class Resource {
     const id = `${this.name.toUpperCase()}-${this.count}`;
 
     debug('new', id);
-    return id;
+
+    return {  debug: (method: string) => debug(method, id) };
   };
 }
