@@ -7,7 +7,7 @@ import {
   TrackInput,
   Wave,
   Preset,
-  ValueController
+  DynamicValueInput
 } from '@wdaw/engine';
 
 export type FILTER = 'cutoff' | 'envelope' | 'resonance';
@@ -58,7 +58,7 @@ export type EngineAction =
   | MIDI<'NEW_FRAGMENT', { fragment: MidiFragment }>
   | MIDI<'SET_FRAGMENT', { fragment: PartialWithKey<'id', MidiFragment> }>
   // PLAYER
-  | PLAYER<'SET_BPM', { payload: ValueController }>
+  | PLAYER<'SET_BPM', { payload: DynamicValueInput }>
   // STORE
   | STORE<'SAVE'>
   | STORE<'RESET'>

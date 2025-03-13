@@ -1,7 +1,7 @@
 import { EngineEvents } from '../common/events';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
-import { DynamicValue, ValueController } from './utils/dynamic-value';
+import { DynamicValue, DynamicValueInput } from './utils/dynamic-value';
 
 export class MidiPlayer {
   private isPlaying = false;
@@ -28,7 +28,7 @@ export class MidiPlayer {
     this.events.dispatch('timeChanged', time);
   };
 
-  public setBPM = (value: ValueController) =>
+  public setBPM = (value: DynamicValueInput) =>
     this.bpm.set(value).next(this.time);
 
   private nextActions() {

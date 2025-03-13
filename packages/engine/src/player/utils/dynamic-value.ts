@@ -55,7 +55,7 @@ class Record {
   };
 }
 
-export type ValueController =
+export type DynamicValueInput =
   | { type: 'fixed'; value: number }
   | { type: 'dynamic'; value: ControlPoint[] };
 
@@ -75,7 +75,7 @@ export class DynamicValue {
     this.changed(value);
   };
 
-  public set = (input: ValueController): DynamicValue => {
+  public set = (input: DynamicValueInput): DynamicValue => {
     if (input.type === 'fixed') {
       this.update(input.value);
     }

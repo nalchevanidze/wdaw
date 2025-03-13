@@ -1,11 +1,11 @@
 import { TrackInput, TracksInput } from '../common/types';
-import { ValueController } from '../player';
+import { DynamicValueInput } from '../player';
 import { genMidiFragments } from './fragments';
 import { genMidiRefs } from './midi-refs';
 import { genPresets, pid } from './presets';
 import { makeLib } from './utils';
 
-type PlayerState = { bpm: ValueController };
+type PlayerState = { bpm: DynamicValueInput };
 
 export type EngineState = PlayerState & TracksInput;
 
