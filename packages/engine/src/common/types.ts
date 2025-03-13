@@ -3,11 +3,12 @@ export type Maybe<T> = T | undefined;
 
 export type Sequence = Record<number, Maybe<number[]>> & { enabled?: boolean };
 
+export type Module<T> = { enabled?: boolean } & T;
+
 export type Filter = {
   cutoff: number;
   resonance: number;
   envelope: number;
-  enabled: boolean;
 };
 
 export type Preset = {
@@ -15,7 +16,7 @@ export type Preset = {
   name: string;
   wave: Wave;
   envelopes: Record<'filter' | 'gain', Envelope>;
-  filter: Filter;
+  filter: Module<Filter>;
   sequence: Sequence;
 };
 
@@ -76,7 +77,6 @@ export type MidiRef = {
   start: number;
   end: number;
 };
-
 
 export type TrackInput = {
   name: string;

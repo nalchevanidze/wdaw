@@ -1,4 +1,4 @@
-import { Filter } from '../../common/types';
+import { Filter, Module } from '../../common/types';
 
 /* 
 according:
@@ -33,7 +33,7 @@ class MoogFilter {
   };
 
   next(
-    { enabled, cutoff, envelope, resonance }: Filter,
+    { enabled, cutoff, envelope, resonance }: Module<Filter>,
     input: number,
     envCutoff: number
   ) {

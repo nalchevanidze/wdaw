@@ -40,7 +40,7 @@ export const engineReducer = (
       }));
     case 'PRESET/SET_FILTER':
       return mapPreset(presets, action.presetId, ({ filter }) => ({
-        filter: { ...filter, [action.id]: action.payload }
+        filter: { ...filter, ...action.filter }
       }));
     case 'PRESET/NEW_PRESET': {
       const p = makePreset('new preset');

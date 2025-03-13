@@ -6,11 +6,10 @@ import {
   MidiRef,
   TrackInput,
   Wave,
+  Filter,
   Preset,
   DynamicValueInput
 } from '@wdaw/engine';
-
-export type FILTER = 'cutoff' | 'envelope' | 'resonance';
 
 export type ENVELOPE = keyof Preset['envelopes'];
 
@@ -40,8 +39,8 @@ type PartialWithKey<I extends keyof T, T extends object> = Partial<
 export type EngineAction =
   | PRESET_BASE<'NEW_PRESET'>
   | PRESET<'SET_WAVE', { wave: Partial<Wave> }>
+  | PRESET<'SET_FILTER', { filter: Partial<Filter> }>
   | PRESET<'SET_ENVELOPE', { id: ENVELOPE; payload: Partial<Envelope> }>
-  | PRESET<'SET_FILTER', { id: FILTER; payload: number }>
   | PRESET<'SET_SEQUENCE', { payload: Sequence }>
   | PRESET<'TOGGLE_MODULE', { id: 'filter' | 'sequence' }>
   | PRESET<'ASSIGN_TO_TRACK'>
