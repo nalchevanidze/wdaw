@@ -17,7 +17,9 @@ export const engineReducer = (
   switch (action.type) {
     // PRESET
     case 'PRESET/SET_SEQUENCE':
-      return mapPreset(presets, action.presetId, () => ({sequence: action.sequence}));
+      return mapPreset(presets, action.presetId, () => ({
+        sequence: action.sequence
+      }));
     case 'PRESET/TOGGLE_MODULE':
       return mapPreset(presets, action.presetId, (preset) => ({
         [action.id]: {
