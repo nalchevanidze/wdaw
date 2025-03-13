@@ -14,6 +14,7 @@ class Processor {
 
   constructor() {
     this.id = gen.nextId();
+    debug('new', this.id);
   }
 
   open = (process: SoundIterator) => {
