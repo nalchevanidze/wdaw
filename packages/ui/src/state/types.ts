@@ -43,7 +43,7 @@ export type EngineAction =
   | PRESET<'ASSIGN_TO_TRACK'>
   // TRACK
   | TRACK<'SET_TRACK', { trackId: number; payload: Partial<TrackInput> }>
-  | TRACK<'SET_CURRENT', { payload: number }>
+  | TRACK<'SET_CURRENT', { trackId: number }>
   | TRACK<'NEW_TRACK'>
   // MIDI
   | MIDI<'NEW_FRAGMENT', { payload: MidiFragment }>
