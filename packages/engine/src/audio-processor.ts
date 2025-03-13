@@ -2,7 +2,7 @@ import { debug, Resource } from './utils/debug';
 
 const BUFFER_SIZE = 2048;
 
-const resource = new Resource('processor', 1);
+const resource = new Resource('Processor', 1);
 
 export type SoundIterator = {
   next(): number;

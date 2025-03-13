@@ -4,7 +4,7 @@ import { MidiPlayer } from './player';
 import { Tracks } from './player/tracks';
 import { debug, Resource } from './utils/debug';
 
-const resource = new Resource('engine', 3);
+const resource = new Resource('Engine', 3);
 
 export class SynthEngine {
   private sampleRate = 44100;
