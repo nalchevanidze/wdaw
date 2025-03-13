@@ -56,8 +56,8 @@ class Track {
 
   public endNote = (n: number) => this.synth.endNote(this.preset, n);
 
-  public nextActions = (isPlaying: boolean, current: number) => {
-    if (isPlaying && current > this.size) {
+  public nextMidiActions = (current: number) => {
+    if (current > this.size) {
       this.clear();
       return;
     }
@@ -65,14 +65,13 @@ class Track {
     for (const loop of this.loops) {
       const inRange = loop.start <= current && current <= loop.end;
 
-      if (inRange || !isPlaying) {
-        this.synth.nextActions(
-          this.preset,
-          isPlaying ? loop.get(current) : undefined
-        );
+      if (inRange) {
+        this.synth.nextActions(this.preset, loop.get(current));
       }
     }
   };
+
+  public nextKeyboardActions = () => this.synth.nextActions(this.preset);
 
   public setGain(n: number) {
     this.gain = n;

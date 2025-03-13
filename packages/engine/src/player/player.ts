@@ -42,21 +42,27 @@ export class MidiPlayer {
     this.bpmChanged(this.bpm.get(this.time));
   };
 
-  public next = () => {
-    const { time } = this;
-    if (this.tempo.next()) {
-      if (this.isPlaying) {
-        if (this.bpm) {
-          this.bpmChanged(this.bpm.get(time));
-        }
-        this.tracks.nextActions(true, time);
-        const nextTime = time + this.tempo.size;
-        this.setTime(this.tracks.isDone(nextTime) ? 0 : nextTime);
-      } else {
-        this.tracks.nextActions(false, time);
-      }
+  private nextActions() {
+    const { time, isPlaying } = this;
+
+    if (!isPlaying) {
+      return this.tracks.nextKeyboardActions();
     }
 
+    if (this.bpm) {
+      this.bpmChanged(this.bpm.get(time));
+    }
+
+    this.tracks.nextMidiActions(time);
+
+    const nextTime = time + this.tempo.size;
+    this.setTime(this.tracks.isDone(nextTime) ? 0 : nextTime);
+  }
+
+  public next = () => {
+    if (this.tempo.next()) {
+      this.nextActions();
+    }
     return this.tracks.next();
   };
 

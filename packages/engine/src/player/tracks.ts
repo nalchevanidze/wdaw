@@ -30,9 +30,15 @@ export class Tracks {
     this.setMidis(midiRefs, midiFragments);
   };
 
-  public nextActions = (isPlaying: boolean, index: number) => {
+  public nextMidiActions = (index: number) => {
     for (const track of this.tracks) {
-      track.nextActions(isPlaying, index);
+      track.nextMidiActions(index);
+    }
+  };
+
+  public nextKeyboardActions = () => {
+    for (const track of this.tracks) {
+      track.nextKeyboardActions();
     }
   };
 
