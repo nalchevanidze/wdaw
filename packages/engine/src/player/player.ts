@@ -45,15 +45,15 @@ export class MidiPlayer {
   public next = () => {
     const { time } = this;
     if (this.tempo.next()) {
-      if (this.bpm && this.isPlaying) {
-        this.bpmChanged(this.bpm.get(time));
-      }
-
-      this.tracks.nextActions(this.isPlaying, time);
-
       if (this.isPlaying) {
+        if (this.bpm) {
+          this.bpmChanged(this.bpm.get(time));
+        }
+        this.tracks.nextActions(true, time);
         const nextTime = time + this.tempo.size;
         this.setTime(this.tracks.isDone(nextTime) ? 0 : nextTime);
+      } else {
+        this.tracks.nextActions(false, time);
       }
     }
 
