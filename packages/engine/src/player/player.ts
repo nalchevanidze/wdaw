@@ -33,9 +33,11 @@ export class MidiPlayer {
 
   public setBPM = (input: ValueController) => {
     if (input.type === 'fixed') {
-      return this.bpmChanged(input.value);
+      this.bpm = undefined;
+      this.bpmChanged(input.value);
+      return;
     }
-    
+
     this.bpm = new DynamicValue(input.value);
     this.bpmChanged(this.bpm.get(this.time));
   };
