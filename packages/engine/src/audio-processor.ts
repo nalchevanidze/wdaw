@@ -51,7 +51,6 @@ const audioProcessor = (process: SoundIterator): Callback => {
     const processor = new Processor();
 
     const init = () => {
-      debug('init', processor.id);
       processor.open(process);
       removeEventListeners();
     };
