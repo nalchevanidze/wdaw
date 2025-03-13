@@ -3,7 +3,7 @@ export type Maybe<T> = T | undefined;
 
 export type Sequence = Record<number, Maybe<number[]>> & { enabled?: boolean };
 
-export type FilterConfig = {
+export type Filter = {
   cutoff: number;
   resonance: number;
   envelope: number;
@@ -15,7 +15,7 @@ export type Preset = {
   name: string;
   wave: Wave;
   envelopes: Record<'filter' | 'gain', Envelope>;
-  filter: FilterConfig;
+  filter: Filter;
   sequence: Sequence;
 };
 
