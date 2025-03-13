@@ -66,13 +66,13 @@ export class DynamicValue {
 
   constructor(private changed: (i: number) => void) {}
 
-  private update = (value: number) => {
-    const v = Math.round(value);
+  private update = (input: number) => {
+    const value = Math.round(input);
 
-    if (this.current === v) return;
+    if (this.current === value) return;
 
-    this.current = v;
-    this.changed(v);
+    this.current = value;
+    this.changed(value);
   };
 
   public set = (input: ValueController, time: number) => {
