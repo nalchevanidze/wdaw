@@ -1,13 +1,13 @@
-export type ControlPoint = { index: number; value: number };
+type RecordValue = { time: number; value: number };
 
-const fill = (size: number, [head, ...list]: ControlPoint[]): number[] => {
+const fill = (size: number, [head, ...list]: RecordValue[]): number[] => {
   const points = Array(size).fill(0);
 
   list.reduce((a, b) => {
-    const diff = b.index - a.index;
+    const diff = b.time - a.time;
 
     if (diff === 0) {
-      points[b.index] = b.value;
+      points[b.time] = b.value;
       return b;
     }
 
@@ -15,7 +15,7 @@ const fill = (size: number, [head, ...list]: ControlPoint[]): number[] => {
 
     let value = a.value;
 
-    for (let i = a.index; i < b.index; i++) {
+    for (let i = a.time; i < b.time; i++) {
       value += step;
       points[i] = value;
     }
@@ -28,26 +28,26 @@ const fill = (size: number, [head, ...list]: ControlPoint[]): number[] => {
 
 class Record {
   list: number[];
-  start: ControlPoint;
-  end: ControlPoint;
+  start: RecordValue;
+  end: RecordValue;
 
-  constructor(ls: ControlPoint[]) {
-    const sorted = ls.sort((a, b) => a.index - b.index);
+  constructor(ls: RecordValue[]) {
+    const sorted = ls.sort((a, b) => a.time - b.time);
 
     this.start = sorted[0];
     this.end = sorted[sorted.length - 1];
-    this.list = fill(this.end.index, sorted);
+    this.list = fill(this.end.time, sorted);
   }
 
   get = (time: number) => {
     const { start, end, list } = this;
     const i = Math.floor(time);
 
-    if (i <= start.index) {
+    if (i <= start.time) {
       return start.value;
     }
 
-    if (i >= end.index) {
+    if (i >= end.time) {
       return end.value;
     }
 
@@ -57,7 +57,7 @@ class Record {
 
 export type DynamicValueInput =
   | { type: 'fixed'; value: number }
-  | { type: 'dynamic'; value: ControlPoint[] };
+  | { type: 'dynamic'; value: RecordValue[] };
 
 export class DynamicValue {
   private record?: Record;

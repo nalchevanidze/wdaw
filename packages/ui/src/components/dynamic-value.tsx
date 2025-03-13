@@ -3,7 +3,7 @@ import { Point } from '@wdaw/svg';
 import { LineEditor } from './line-editor';
 
 type Value = {
-  index: number;
+  time: number;
   value: number;
 };
 
@@ -26,7 +26,7 @@ export const DynamicValue: React.FC<Props> = ({
 }) => {
   const scaleY = max - min;
   const points = values.map((p, i) => ({
-    x: p.index / width,
+    x: p.time / width,
     y: (p.value - min) / scaleY,
     id: i.toString()
   }));
@@ -35,7 +35,7 @@ export const DynamicValue: React.FC<Props> = ({
     setValues(
       ps
         .sort((a, b) => a.x - b.x)
-        .map(({ x, y }) => ({ index: x * width, value: min + y * scaleY }))
+        .map(({ x, y }) => ({ time: x * width, value: min + y * scaleY }))
     );
 
   return (

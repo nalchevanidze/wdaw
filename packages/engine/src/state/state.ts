@@ -24,11 +24,11 @@ export const engineState = (): EngineState => ({
   bpm: {
     type: 'dynamic',
     value: [
-      { index: 32, value: 60 },
-      { index: 128, value: 160 },
-      { index: 256, value: 180 },
-      { index: 256, value: 120 },
-      { index: 512, value: 120 }
+      { time: 32, value: 60 },
+      { time: 128, value: 160 },
+      { time: 256, value: 180 },
+      { time: 256, value: 120 },
+      { time: 512, value: 120 }
     ]
   }
 });
