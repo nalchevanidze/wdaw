@@ -1,14 +1,9 @@
 import { TrackInput, TracksInput } from '../common/types';
+import { ValueController } from '../player/utils/dynamic-value';
 import { genMidiFragments } from './fragments';
 import { genMidiRefs } from './midi-refs';
 import { genPresets, pid } from './presets';
 import { makeLib } from './utils';
-
-export type ControlPoint = { index: number; value: number };
-
-export type ValueController =
-  | { type: 'fixed'; value: number }
-  | { type: 'dynamic'; value: ControlPoint[] };
 
 type PlayerState = { bpm: ValueController };
 

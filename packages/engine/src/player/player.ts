@@ -1,8 +1,7 @@
 import { EngineEvents } from '../common/events';
-import { ValueController } from '../state/state';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
-import { DynamicValue } from './utils/dynamic-value';
+import { DynamicValue, ValueController } from './utils/dynamic-value';
 
 export class MidiPlayer {
   private isPlaying = false;

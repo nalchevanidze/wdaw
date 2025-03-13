@@ -1,4 +1,4 @@
-import { ControlPoint, ValueController } from '../../state/state';
+export type ControlPoint = { index: number; value: number };
 
 const fill = (size: number, [head, ...list]: ControlPoint[]): number[] => {
   const points = Array(size).fill(0);
@@ -54,6 +54,10 @@ class ValueRecord {
     return list[i];
   };
 }
+
+export type ValueController =
+  | { type: 'fixed'; value: number }
+  | { type: 'dynamic'; value: ControlPoint[] };
 
 export class DynamicValue {
   private record?: ValueRecord;
