@@ -33,6 +33,12 @@ type MIDI<T extends string, P = {}> = ADT<'MIDI', T, P>;
 type PLAYER<T extends string, P = {}> = ADT<'PLAYER', T, P>;
 type STORE<T extends string, P = {}> = ADT<'STORE', T, P>;
 
+type PartialWithKey<I extends keyof T, T extends object> = Partial<
+  Omit<T, I>
+> & {
+  [K in I]: T[K];
+};
+
 export type EngineAction =
   | PRESET_BASE<'NEW_PRESET'>
   | PRESET<'SET_WAVE', { id: WAVE; payload: number }>
@@ -46,11 +52,11 @@ export type EngineAction =
   | TRACK<'SET_CURRENT', { trackId: number }>
   | TRACK<'NEW_TRACK'>
   // MIDI
-  | MIDI<'NEW_FRAGMENT', { payload: MidiFragment }>
   | MIDI<'SET_CURRENT_FRAGMENT', { fragmentId: string }>
   | MIDI<'SET_MIDI_REFS', { payload: MidiRef[] }>
-  | MIDI<'SET_FRAGMENT', { id: string; payload: Partial<MidiFragment> }>
-  | MIDI<'SET_MIDI_REF', { id: string; payload: Partial<MidiRef> }>
+  | MIDI<'SET_MIDI_REF', { payload: PartialWithKey<'id', MidiRef> }>
+  | MIDI<'NEW_FRAGMENT', { payload: MidiFragment }>
+  | MIDI<'SET_FRAGMENT', { payload: PartialWithKey<'id', MidiFragment> }>
   // PLAYER
   | PLAYER<'SET_BPM', { payload: ValueController }>
   // STORE

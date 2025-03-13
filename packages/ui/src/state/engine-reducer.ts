@@ -57,9 +57,9 @@ export const engineReducer = (
     case 'MIDI/SET_MIDI_REFS':
       return { midiRefs: action.payload };
     case 'MIDI/SET_MIDI_REF':
-      return mapMidiRefs(midiRefs, action.id, () => action.payload);
+      return mapMidiRefs(midiRefs, action.payload.id, () => action.payload);
     case 'MIDI/SET_FRAGMENT':
-      return mapMidiFragment(midiFragments, action.id, () => action.payload);
+      return mapMidiFragment(midiFragments, action.payload.id, () => action.payload);
     case 'MIDI/NEW_FRAGMENT': {
       return {
         midiFragments: { ...midiFragments, [action.payload.id]: action.payload }
