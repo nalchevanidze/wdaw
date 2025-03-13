@@ -7,7 +7,10 @@ export const debug = (name: string, param: any) => {
 export class Resource {
   private count = 0;
 
-  constructor(private name: string, private max: number) {}
+  constructor(
+    private name: string,
+    private max: number
+  ) {}
 
   public new = () => {
     this.count++;
@@ -16,7 +19,7 @@ export class Resource {
       console.warn(`Resource(${this.name}) reached number ${this.count}!`);
     }
 
-    const id = `${this.name}-${this.count}`;
+    const id = `${this.name.toUpperCase()}-${this.count}`;
 
     debug('new', id);
     return id;
