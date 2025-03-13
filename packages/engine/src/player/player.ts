@@ -28,7 +28,8 @@ export class MidiPlayer {
     this.events.dispatch('timeChanged', time);
   };
 
-  public setBPM = (input: ValueController) => this.bpm.set(input, this.time);
+  public setBPM = (value: ValueController) =>
+    this.bpm.set(value).next(this.time);
 
   private nextActions() {
     const { time, isPlaying } = this;

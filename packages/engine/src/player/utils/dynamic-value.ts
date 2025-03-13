@@ -75,14 +75,13 @@ export class DynamicValue {
     this.changed(value);
   };
 
-  public set = (input: ValueController, time: number) => {
+  public set = (input: ValueController): DynamicValue => {
     if (input.type === 'fixed') {
-      this.record = undefined;
-      return this.update(input.value);
+      this.update(input.value);
     }
 
-    this.record = new Record(input.value);
-    this.update(this.record.get(time));
+    this.record = input.type === 'fixed' ? undefined : new Record(input.value);
+    return this;
   };
 
   next(time: number) {
