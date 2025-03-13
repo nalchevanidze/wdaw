@@ -58,22 +58,33 @@ class ValueRecord {
 export class DynamicValue {
   private record?: ValueRecord;
 
+  private current: number = 0;
+
   constructor(private changed: (i: number) => void) {}
+
+  private update = (value: number) => {
+    const v = Math.round(value);
+
+    if (this.current === v) return;
+
+    this.current = v;
+    this.changed(v);
+  };
 
   public set = (input: ValueController, time: number) => {
     if (input.type === 'fixed') {
       this.record = undefined;
-      this.changed(input.value);
+      this.update(input.value);
       return;
     }
 
     this.record = new ValueRecord(input.value);
-    this.changed(this.record.get(time));
+    this.update(this.record.get(time));
   };
 
   next(time: number) {
     if (this.record) {
-      this.changed(this.record.get(time));
+      this.update(this.record.get(time));
     }
   }
 }
