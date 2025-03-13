@@ -4,17 +4,21 @@ export const debug = (name: string, param: any) => {
   }
 };
 
-export const resourceIdGen = (name: string) => {
-  let count = 0;
-  const max = 5;
+export class Resource {
+  private count = 0;
 
-  const nextId = () => {
-    count++;
-    if (count >= max) {
-      console.warn(`resource ${name} reached number ${count}!`);
+  constructor(private name: string, private max: number) {}
+
+  public new = () => {
+    this.count++;
+
+    if (this.count >= this.max) {
+      console.warn(`Resource(${this.name}) reached number ${this.count}!`);
     }
-    return `${name}-${count}`;
-  };
 
-  return { nextId };
-};
+    const id = `${this.name}-${this.count}`;
+
+    debug('new', id);
+    return id;
+  };
+}

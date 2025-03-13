@@ -2,9 +2,9 @@ import { audioProcessor } from './audio-processor';
 import { EngineEvents } from './common/events';
 import { MidiPlayer } from './player';
 import { Tracks } from './player/tracks';
-import { debug, resourceIdGen } from './utils/debug';
+import { debug, Resource } from './utils/debug';
 
-const gen = resourceIdGen('engine');
+const resource = new Resource('engine', 3);
 
 export class SynthEngine {
   private sampleRate = 44100;
@@ -15,10 +15,7 @@ export class SynthEngine {
   public id: string;
 
   constructor() {
-    this.id = gen.nextId();
-
-    debug('new', this.id);
-
+    this.id = resource.new();
     this.closeContext = audioProcessor(this.player);
   }
 

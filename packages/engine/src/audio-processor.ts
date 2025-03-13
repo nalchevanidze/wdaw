@@ -1,8 +1,8 @@
-import { debug, resourceIdGen } from './utils/debug';
+import { debug, Resource } from './utils/debug';
 
 const BUFFER_SIZE = 2048;
 
-const gen = resourceIdGen('processor');
+const resource = new Resource('processor', 1);
 
 export type SoundIterator = {
   next(): number;
@@ -13,7 +13,7 @@ class Processor {
   id: string;
 
   constructor() {
-    this.id = gen.nextId();
+    this.id = resource.new();
     debug('new', this.id);
   }
 
