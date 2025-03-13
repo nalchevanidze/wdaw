@@ -4,8 +4,17 @@ export const debug = (name: string, param: any) => {
   }
 };
 
-export const debugIdGen = (name: string) => {
-  let index = 0;
+export const resourceIdGen = (name: string) => {
+  let count = 0;
+  const max = 5;
 
-  return { nextId: () => `${name}-${index++}` };
+  const nextId = () => {
+    count++;
+    if (count >= max) {
+      console.warn(`resource ${name} reached number ${count}!`);
+    }
+    return `${name}-${count}`;
+  };
+
+  return { nextId };
 };

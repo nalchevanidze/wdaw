@@ -2,9 +2,9 @@ import { audioProcessor } from './audio-processor';
 import { EngineEvents } from './common/events';
 import { MidiPlayer } from './player';
 import { Tracks } from './player/tracks';
-import { debug, debugIdGen } from './utils/debug';
+import { debug, resourceIdGen } from './utils/debug';
 
-const gen = debugIdGen('engine');
+const gen = resourceIdGen('engine');
 
 export class SynthEngine {
   private sampleRate = 44100;
