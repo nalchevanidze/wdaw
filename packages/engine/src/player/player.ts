@@ -2,13 +2,16 @@ import { EngineEvents } from '../common/events';
 import { ValueController } from '../state/state';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
-import { DynamicValue } from './utils/dynamic-value';
+import { ControlValue } from './utils/dynamic-value';
 
 export class MidiPlayer {
   private isPlaying = false;
   private time = 0;
   private tempo = new Tempo(this.sampleRate);
-  private bpm?: DynamicValue;
+  private bpm = new ControlValue((v) => {
+    this.tempo.setBPM(v);
+    this.events.dispatch('bpmChanged', v);
+  });
 
   constructor(
     private events: EngineEvents,
@@ -26,21 +29,7 @@ export class MidiPlayer {
     this.events.dispatch('timeChanged', time);
   };
 
-  private bpmChanged(value: number) {
-    this.tempo.setBPM(value);
-    this.events.dispatch('bpmChanged', value);
-  }
-
-  public setBPM = (input: ValueController) => {
-    if (input.type === 'fixed') {
-      this.bpm = undefined;
-      this.bpmChanged(input.value);
-      return;
-    }
-
-    this.bpm = new DynamicValue(input.value);
-    this.bpmChanged(this.bpm.get(this.time));
-  };
+  public setBPM = (input: ValueController) => this.bpm.set(input, this.time);
 
   private nextActions() {
     const { time, isPlaying } = this;
@@ -49,12 +38,8 @@ export class MidiPlayer {
       return this.tracks.nextKeyboardActions();
     }
 
-    if (this.bpm) {
-      this.bpmChanged(this.bpm.get(time));
-    }
-
+    this.bpm.next(time);
     this.tracks.nextMidiActions(time);
-
     const nextTime = time + this.tempo.size;
     this.setTime(this.tracks.isDone(nextTime) ? 0 : nextTime);
   }

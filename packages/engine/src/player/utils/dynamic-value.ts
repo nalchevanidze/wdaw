@@ -1,4 +1,4 @@
-import { ControlPoint } from '../../state/state';
+import { ControlPoint, ValueController } from '../../state/state';
 
 const fill = (size: number, [head, ...list]: ControlPoint[]): number[] => {
   const points = Array(size).fill(0);
@@ -26,7 +26,7 @@ const fill = (size: number, [head, ...list]: ControlPoint[]): number[] => {
   return points;
 };
 
-export class DynamicValue {
+class DynamicValue {
   list: number[];
   start: ControlPoint;
   end: ControlPoint;
@@ -53,4 +53,27 @@ export class DynamicValue {
 
     return list[i];
   };
+}
+
+export class ControlValue {
+  private dynamic?: DynamicValue;
+
+  constructor(private changed: (i: number) => void) {}
+
+  public set = (input: ValueController, time: number) => {
+    if (input.type === 'fixed') {
+      this.dynamic = undefined;
+      this.changed(input.value);
+      return;
+    }
+
+    this.dynamic = new DynamicValue(input.value);
+    this.changed(this.dynamic.get(time));
+  };
+
+  next(time: number) {
+    if (this.dynamic) {
+      this.changed(this.dynamic.get(time));
+    }
+  }
 }
