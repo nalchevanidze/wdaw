@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Envelope, Filter, Sequence, Wave } from '@wdaw/engine';
+import { Envelope, Filter, Wave } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
 import { toggleARPNote, Location } from '../utils/arp';
 import { ENVELOPE } from '../../state/types';
@@ -40,7 +40,7 @@ export const usePreset = () => {
       trackId,
       presetId,
       type: 'PRESET/SET_SEQUENCE',
-      payload: toggleARPNote(current.sequence, l)
+      sequence: toggleARPNote(current.sequence, l)
     });
 
   const setEnvelope = (id: ENVELOPE) => (payload: Partial<Envelope>) =>

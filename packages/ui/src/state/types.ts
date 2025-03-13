@@ -41,7 +41,7 @@ export type EngineAction =
   | PRESET<'SET_WAVE', { wave: Partial<Wave> }>
   | PRESET<'SET_FILTER', { filter: Partial<Filter> }>
   | PRESET<'SET_ENVELOPE', { id: ENVELOPE; payload: Partial<Envelope> }>
-  | PRESET<'SET_SEQUENCE', { payload: Sequence }>
+  | PRESET<'SET_SEQUENCE', { sequence: Sequence }>
   | PRESET<'TOGGLE_MODULE', { id: 'filter' | 'sequence' }>
   | PRESET<'ASSIGN_TO_TRACK'>
   // TRACK
