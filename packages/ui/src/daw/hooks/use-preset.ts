@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Envelope, Sequence } from '@wdaw/engine';
+import { Envelope, Sequence, Wave } from '@wdaw/engine';
 import { DawApiContext } from '../../context/state';
 import { toggleARPNote, Location } from '../utils/arp';
-import { ENVELOPE, FILTER, WAVE } from '../../state/types';
+import { ENVELOPE, FILTER } from '../../state/types';
 
 export const usePreset = () => {
   const { presets, currentTrack, tracks, dispatch } =
@@ -11,7 +11,7 @@ export const usePreset = () => {
   const current = presets[presetId];
   const trackId = currentTrack;
 
-  const setWave = (id: WAVE, value: number) =>
+  const setWave = (id: keyof Wave, value: number) =>
     dispatch({
       trackId,
       presetId,

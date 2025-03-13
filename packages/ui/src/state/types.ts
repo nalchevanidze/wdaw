@@ -14,8 +14,6 @@ export type FILTER = 'cutoff' | 'envelope' | 'resonance';
 
 export type ENVELOPE = keyof Preset['envelopes'];
 
-export type WAVE = keyof Wave;
-
 type ADT<K extends string, T extends string, P = {}> = {
   type: `${K}/${T}`;
 } & P;
