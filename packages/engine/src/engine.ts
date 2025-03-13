@@ -36,6 +36,7 @@ export class SynthEngine {
 
   public destroy = () => {
     this.resource.debug('destroy');
+    this.events.clear()
     this.tracks.clear();
     this.closeContext();
   };
