@@ -11,8 +11,13 @@ export const usePreset = () => {
   const current = presets[presetId];
   const trackId = currentTrack;
 
-  const setWave = (id: WAVE, payload: number) =>
-    dispatch({ trackId, presetId, type: 'PRESET/SET_WAVE', id, payload });
+  const setWave = (id: WAVE, value: number) =>
+    dispatch({
+      trackId,
+      presetId,
+      type: 'PRESET/SET_WAVE',
+      wave: { [id]: value }
+    });
 
   const setFilter = (id: FILTER, payload: number) =>
     dispatch({ trackId, presetId, type: 'PRESET/SET_FILTER', id, payload });

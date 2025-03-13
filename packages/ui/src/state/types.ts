@@ -41,7 +41,7 @@ type PartialWithKey<I extends keyof T, T extends object> = Partial<
 
 export type EngineAction =
   | PRESET_BASE<'NEW_PRESET'>
-  | PRESET<'SET_WAVE', { id: WAVE; payload: number }>
+  | PRESET<'SET_WAVE', { wave: Partial<Wave> }>
   | PRESET<'SET_ENVELOPE', { id: ENVELOPE; payload: Partial<Envelope> }>
   | PRESET<'SET_FILTER', { id: FILTER; payload: number }>
   | PRESET<'SET_SEQUENCE', { payload: Sequence }>

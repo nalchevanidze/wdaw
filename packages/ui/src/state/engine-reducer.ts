@@ -36,7 +36,7 @@ export const engineReducer = (
       }));
     case 'PRESET/SET_WAVE':
       return mapPreset(presets, action.presetId, ({ wave }) => ({
-        wave: { ...wave, [action.id]: action.payload }
+        wave: { ...wave, ...action.wave }
       }));
     case 'PRESET/SET_FILTER':
       return mapPreset(presets, action.presetId, ({ filter }) => ({
@@ -59,10 +59,17 @@ export const engineReducer = (
     case 'MIDI/SET_MIDI_REF':
       return mapMidiRefs(midiRefs, action.payload.id, () => action.payload);
     case 'MIDI/SET_FRAGMENT':
-      return mapMidiFragment(midiFragments, action.fragment.id, () => action.fragment);
+      return mapMidiFragment(
+        midiFragments,
+        action.fragment.id,
+        () => action.fragment
+      );
     case 'MIDI/NEW_FRAGMENT': {
       return {
-        midiFragments: { ...midiFragments, [action.fragment.id]: action.fragment }
+        midiFragments: {
+          ...midiFragments,
+          [action.fragment.id]: action.fragment
+        }
       };
     }
     // TRACK
