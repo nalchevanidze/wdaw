@@ -42,7 +42,7 @@ export type EngineAction =
   | PRESET<'TOGGLE_MODULE', { id: 'filter' | 'sequence' }>
   | PRESET<'ASSIGN_TO_TRACK'>
   // TRACK
-  | TRACK<'SET_TRACK', { id: number; payload: Partial<TrackInput> }>
+  | TRACK<'SET_TRACK', { trackId: number; payload: Partial<TrackInput> }>
   | TRACK<'SET_CURRENT', { payload: number }>
   | TRACK<'NEW_TRACK'>
   // MIDI

@@ -19,7 +19,7 @@ export const engineEffects = (
     // Track
     case 'TRACK/SET_TRACK':
       return action.payload.gain
-        ? engine.setGain(action.id, action.payload.gain)
+        ? engine.setGain(action.trackId, action.payload.gain)
         : undefined;
     case 'TRACK/NEW_TRACK':
       engine.setTracks({ tracks, midiFragments, presets, midiRefs });

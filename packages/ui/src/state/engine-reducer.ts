@@ -67,7 +67,7 @@ export const engineReducer = (
     }
     // TRACK
     case 'TRACK/SET_TRACK':
-      return mapTrack(tracks, action.id, () => action.payload);
+      return mapTrack(tracks, action.trackId, () => action.payload);
     case 'TRACK/NEW_TRACK':
       return {
         tracks: [
