@@ -27,6 +27,6 @@ export class Resources {
 
     debug('new', id);
 
-    return {  debug: (method: string) => debug(method, id) };
+    return { debug: (method: string) => debug(method, id) };
   };
 }
