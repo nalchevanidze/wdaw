@@ -1,4 +1,8 @@
+import { debug, debugIdGen } from './utils/debug';
+
 const BUFFER_SIZE = 2048;
+
+const gen = debugIdGen('processor');
 
 export type SoundIterator = {
   next(): number;
@@ -6,8 +10,14 @@ export type SoundIterator = {
 
 class Processor {
   private context?: AudioContext;
+  id: string;
+
+  constructor() {
+    this.id = gen.nextId();
+  }
 
   open = (process: SoundIterator) => {
+    debug('open', this.id);
     const AC = new AudioContext();
     const node = AC.createScriptProcessor(BUFFER_SIZE, 1, 1);
     node.connect(AC.destination);
@@ -24,6 +34,7 @@ class Processor {
   };
 
   close = () => {
+    debug('close', this.id);
     this.context?.close();
   };
 }
@@ -39,6 +50,7 @@ const audioProcessor = (process: SoundIterator): Callback => {
     const processor = new Processor();
 
     const init = () => {
+      debug('init', processor.id);
       processor.open(process);
       removeEventListeners();
     };
