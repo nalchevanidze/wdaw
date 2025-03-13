@@ -3,7 +3,7 @@ import { DawDispatch } from '../daw/types';
 import { EngineApi, State } from '../state/types';
 import { dawState } from '../state/defs';
 
-const engine: EngineApi = {
+export const engineAPIMock: EngineApi = {
   startNote() {},
   endNote() {},
   play() {},
@@ -26,5 +26,5 @@ export const DawApiContext = createContext<DawApi>({
   time: 0,
   isPlaying: false,
   dispatch() {},
-  engine
+  engine: engineAPIMock
 });

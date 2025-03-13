@@ -4,9 +4,10 @@ import { dawState } from '../state/defs';
 import { loadState } from '../state/utils';
 import { reducer } from '../state';
 import { engineEffects } from '../state/engine-effects';
+import { engineAPIMock } from '../context/state';
 
 export const useEngine = () => {
-  const ref = useRef<SynthEngine>(new SynthEngine());
+  const ref = useRef<SynthEngine | undefined>(undefined);
 
   const [time, setTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -14,7 +15,7 @@ export const useEngine = () => {
 
   useEffect(() => {
     const engine = new SynthEngine();
-    ref.current.destroy();
+    ref.current?.destroy();
     ref.current = engine;
 
     engine.addEventListener('isPlayingChanged', setIsPlaying);
@@ -28,7 +29,9 @@ export const useEngine = () => {
 
   const [state, dispatch] = useReducer((state, action) => {
     const newState = reducer(state, action);
-    engineEffects(newState, ref.current, action);
+    if (ref.current) {
+      engineEffects(newState, ref.current, action);
+    }
     return newState;
   }, dawState());
 
@@ -38,6 +41,6 @@ export const useEngine = () => {
     currentBPM,
     isPlaying,
     dispatch,
-    engine: ref.current
+    engine: ref.current  ?? engineAPIMock
   };
 };
