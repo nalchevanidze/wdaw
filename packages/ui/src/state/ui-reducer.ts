@@ -7,7 +7,7 @@ export const uiReducer = (
     case 'MIDI/SET_CURRENT_FRAGMENT':
       return { currentFragment: action.fragmentId };
     case 'MIDI/NEW_FRAGMENT':
-      return { currentFragment: action.payload.id };
+      return { currentFragment: action.fragment.id };
     case 'TRACK/SET_CURRENT':
       return { currentTrack: action.trackId };
     default:

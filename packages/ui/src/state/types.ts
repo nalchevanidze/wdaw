@@ -55,8 +55,8 @@ export type EngineAction =
   | MIDI<'SET_CURRENT_FRAGMENT', { fragmentId: string }>
   | MIDI<'SET_MIDI_REFS', { payload: MidiRef[] }>
   | MIDI<'SET_MIDI_REF', { payload: PartialWithKey<'id', MidiRef> }>
-  | MIDI<'NEW_FRAGMENT', { payload: MidiFragment }>
-  | MIDI<'SET_FRAGMENT', { payload: PartialWithKey<'id', MidiFragment> }>
+  | MIDI<'NEW_FRAGMENT', { fragment: MidiFragment }>
+  | MIDI<'SET_FRAGMENT', { fragment: PartialWithKey<'id', MidiFragment> }>
   // PLAYER
   | PLAYER<'SET_BPM', { payload: ValueController }>
   // STORE

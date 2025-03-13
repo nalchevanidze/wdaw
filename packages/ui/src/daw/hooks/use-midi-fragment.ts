@@ -32,12 +32,12 @@ export const useMidiFragment = (targetId?: string) => {
     dispatch({ type: 'MIDI/SET_CURRENT_FRAGMENT', fragmentId });
 
   const setFragment = (payload: Partial<MidiFragment>) =>
-    dispatch({ type: 'MIDI/SET_FRAGMENT', payload: { ...payload, id } });
+    dispatch({ type: 'MIDI/SET_FRAGMENT', fragment: { ...payload, id } });
 
   const newFragment = () =>
     dispatch({
       type: 'MIDI/NEW_FRAGMENT',
-      payload: {
+      fragment: {
         id: crypto.randomUUID(),
         name: `Fragment ${Object.keys(midiFragments).length + 1}`,
         notes: [],
@@ -48,7 +48,7 @@ export const useMidiFragment = (targetId?: string) => {
   const syncNotes = (notes: UINote[]) =>
     dispatch({
       type: 'MIDI/SET_FRAGMENT',
-      payload: { id, notes: toNotes(notes) }
+      fragment: { id, notes: toNotes(notes) }
     });
 
   const { notes, loop, name } = midiFragments[id];
