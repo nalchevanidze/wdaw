@@ -42,15 +42,13 @@ export class MidiPlayer {
     this.bpmChanged(this.bpm.get(this.time));
   };
 
-  public nextPBM = () => {
-    if (!this.bpm || !this.isPlaying) return;
-
-    this.bpmChanged(this.bpm.get(this.time));
-  };
-
   public next = () => {
     if (this.tempo.next()) {
-      this.nextPBM();
+
+      if (this.bpm && this.isPlaying) {
+        this.bpmChanged(this.bpm.get(this.time));
+      }
+      
       this.tracks.nextActions(this.isPlaying, this.time);
 
       if (this.isPlaying) {
