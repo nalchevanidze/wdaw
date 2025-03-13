@@ -3,9 +3,10 @@ import { EngineAction } from './types';
 
 export const engineEffects = (
   { tracks, midiFragments, presets, midiRefs }: EngineState,
-  engine: SynthEngine,
-  action: EngineAction
+  action: EngineAction,
+  engine?: SynthEngine
 ): void => {
+  if (!engine) return;
   switch (action.type) {
     // Player
     case 'PLAYER/SET_BPM':

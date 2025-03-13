@@ -29,9 +29,7 @@ export const useEngine = () => {
 
   const [state, dispatch] = useReducer((state, action) => {
     const newState = reducer(state, action);
-    if (ref.current) {
-      engineEffects(newState, ref.current, action);
-    }
+    engineEffects(newState, action, ref.current);
     return newState;
   }, dawState());
 
@@ -41,6 +39,6 @@ export const useEngine = () => {
     currentBPM,
     isPlaying,
     dispatch,
-    engine: ref.current  ?? engineAPIMock
+    engine: ref.current ?? engineAPIMock
   };
 };
