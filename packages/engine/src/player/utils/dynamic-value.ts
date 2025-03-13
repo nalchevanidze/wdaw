@@ -26,7 +26,7 @@ const fill = (size: number, [head, ...list]: ControlPoint[]): number[] => {
   return points;
 };
 
-class DynamicValue {
+class ValueRecord {
   list: number[];
   start: ControlPoint;
   end: ControlPoint;
@@ -55,25 +55,25 @@ class DynamicValue {
   };
 }
 
-export class ControlValue {
-  private dynamic?: DynamicValue;
+export class DynamicValue {
+  private record?: ValueRecord;
 
   constructor(private changed: (i: number) => void) {}
 
   public set = (input: ValueController, time: number) => {
     if (input.type === 'fixed') {
-      this.dynamic = undefined;
+      this.record = undefined;
       this.changed(input.value);
       return;
     }
 
-    this.dynamic = new DynamicValue(input.value);
-    this.changed(this.dynamic.get(time));
+    this.record = new ValueRecord(input.value);
+    this.changed(this.record.get(time));
   };
 
   next(time: number) {
-    if (this.dynamic) {
-      this.changed(this.dynamic.get(time));
+    if (this.record) {
+      this.changed(this.record.get(time));
     }
   }
 }

@@ -2,13 +2,13 @@ import { EngineEvents } from '../common/events';
 import { ValueController } from '../state/state';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
-import { ControlValue } from './utils/dynamic-value';
+import { DynamicValue } from './utils/dynamic-value';
 
 export class MidiPlayer {
   private isPlaying = false;
   private time = 0;
   private tempo = new Tempo(this.sampleRate);
-  private bpm = new ControlValue((v) => {
+  private bpm = new DynamicValue((v) => {
     this.tempo.setBPM(v);
     this.events.dispatch('bpmChanged', v);
   });
