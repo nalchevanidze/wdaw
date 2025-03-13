@@ -1,7 +1,7 @@
 export type Maybe<T> = T | undefined;
 // SYNTH
 
-export type Sequence = Module<Record<number, Maybe<number[]>>>;
+export type Sequence = Record<number, Maybe<number[]>>;
 
 export type Module<T> = { disabled?: boolean } & T;
 
@@ -17,7 +17,7 @@ export type Preset = {
   wave: Wave;
   envelopes: Record<'filter' | 'gain', Envelope>;
   filter: Module<Filter>;
-  sequence: Sequence;
+  sequence: Module<Sequence>;
 };
 
 export type Presets = Record<string, Preset>;

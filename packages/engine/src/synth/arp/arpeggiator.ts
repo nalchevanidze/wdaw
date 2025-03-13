@@ -1,4 +1,4 @@
-import { Maybe, Sequence, NoteAction } from '../../common/types';
+import { Maybe, Sequence, NoteAction, Module } from '../../common/types';
 import { SEQUENCE_LENGTH } from '../../common/defs';
 
 const END_INDEX = SEQUENCE_LENGTH * 2;
@@ -20,7 +20,7 @@ class Arpeggiator {
     this.notes.delete(note);
   }
 
-  next = (sequence: Sequence): NoteAction | undefined => {
+  next = (sequence: Module<Sequence>): NoteAction | undefined => {
     const { notes } = this;
 
     if (sequence.disabled) {
