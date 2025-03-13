@@ -33,11 +33,11 @@ class MoogFilter {
   };
 
   next(
-    { enabled, cutoff, envelope, resonance }: Module<Filter>,
+    { disabled, cutoff, envelope, resonance }: Module<Filter>,
     input: number,
     envCutoff: number
   ) {
-    if (!enabled) return input;
+    if (disabled) return input;
     const combinedCutoff = cutoff + envCutoff * envelope;
 
     return this.compute(

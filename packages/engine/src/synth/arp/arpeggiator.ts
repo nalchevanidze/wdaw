@@ -1,7 +1,5 @@
-import { Maybe, NoteAction } from '../../common/types';
+import { Maybe, Sequence, NoteAction } from '../../common/types';
 import { SEQUENCE_LENGTH } from '../../common/defs';
-
-export type Sequence = Record<number, Maybe<number[]>> & { enabled?: boolean };
 
 const END_INDEX = SEQUENCE_LENGTH * 2;
 
@@ -25,7 +23,7 @@ class Arpeggiator {
   next = (sequence: Sequence): NoteAction | undefined => {
     const { notes } = this;
 
-    if (!sequence.enabled) {
+    if (sequence.disabled) {
       return undefined;
     }
 

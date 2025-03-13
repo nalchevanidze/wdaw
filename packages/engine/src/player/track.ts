@@ -37,10 +37,10 @@ const derfaultPreset: Preset = {
     cutoff: 0.35,
     resonance: 0.2,
     envelope: 0.6,
-    enabled: false
+    disabled: true
   },
   sequence: {
-    enabled: false
+    disabled: true
   }
 };
 

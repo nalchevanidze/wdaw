@@ -24,7 +24,7 @@ export const engineReducer = (
       return mapPreset(presets, action.presetId, (preset) => ({
         [action.id]: {
           ...preset[action.id],
-          enabled: !preset[action.id].enabled
+          disabled: !preset[action.id].disabled
         }
       }));
     case 'PRESET/SET_ENVELOPE':

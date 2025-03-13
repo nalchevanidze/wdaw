@@ -47,7 +47,7 @@ export const usePreset = () => {
     dispatch({ trackId, presetId, type: 'PRESET/SET_ENVELOPE', id, payload });
 
   const getModule = (id: 'filter' | 'sequence') => ({
-    disabled: !current[id].enabled,
+    disabled: current[id].disabled,
     toggle: () =>
       dispatch({ trackId, presetId, type: 'PRESET/TOGGLE_MODULE', id })
   });

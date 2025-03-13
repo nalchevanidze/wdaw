@@ -54,7 +54,7 @@ type Props = {
   size?: number;
   color?: string;
   optional?: {
-    disabled: boolean;
+    disabled?: boolean;
     toggle(): void;
   };
 };

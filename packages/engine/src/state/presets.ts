@@ -34,10 +34,10 @@ export const makePreset = (name: string) => ({
     cutoff: 0,
     resonance: 0,
     envelope: 0,
-    enabled: false
+    disabled: true
   },
   sequence: {
-    enabled: false
+    disabled: true
   }
 });
 
@@ -86,10 +86,10 @@ export const genPresets = (): Preset[] => [
       cutoff: 0.35,
       resonance: 0.2,
       envelope: 0.6,
-      enabled: false
+      disabled: true
     },
     sequence: {
-      enabled: false
+      disabled: true
     }
   },
   {
@@ -125,11 +125,9 @@ export const genPresets = (): Preset[] => [
     filter: {
       cutoff: 0.15,
       resonance: 0.3,
-      envelope: 0.5,
-      enabled: true
+      envelope: 0.5
     },
     sequence: {
-      enabled: true,
       0: [1],
       2: [2],
       6: [1],
@@ -169,13 +167,13 @@ export const genPresets = (): Preset[] => [
       }
     },
     filter: {
-      enabled: false,
+      disabled: true,
       cutoff: 0.5,
       resonance: 0.2,
       envelope: 0.6
     },
     sequence: {
-      enabled: false,
+      disabled: true,
       0: [3],
       1: [1],
       3: [3],
@@ -221,11 +219,10 @@ export const genPresets = (): Preset[] => [
     filter: {
       cutoff: 0.5,
       resonance: 0.2,
-      envelope: 0.6,
-      enabled: true
+      envelope: 0.6
     },
     sequence: {
-      enabled: false
+      disabled: true
     }
   },
   {
@@ -261,11 +258,10 @@ export const genPresets = (): Preset[] => [
     filter: {
       cutoff: 0.1,
       resonance: 0.6,
-      envelope: 0.8,
-      enabled: true
+      envelope: 0.8
     },
     sequence: {
-      enabled: false
+      disabled: true
     }
   },
   {
@@ -299,13 +295,12 @@ export const genPresets = (): Preset[] => [
       }
     },
     filter: {
-      enabled: true,
       cutoff: 0.1,
       resonance: 0.3,
       envelope: 0.3
     },
     sequence: {
-      enabled: false
+      disabled: true
     }
   },
   {
@@ -342,10 +337,10 @@ export const genPresets = (): Preset[] => [
       cutoff: 0.5,
       resonance: 0.2,
       envelope: 0.6,
-      enabled: false
+      disabled: true
     },
     sequence: {
-      enabled: false
+      disabled: true
     }
   }
 ];

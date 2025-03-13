@@ -1,9 +1,9 @@
 export type Maybe<T> = T | undefined;
 // SYNTH
 
-export type Sequence = Record<number, Maybe<number[]>> & { enabled?: boolean };
+export type Sequence = Module<Record<number, Maybe<number[]>>>;
 
-export type Module<T> = { enabled?: boolean } & T;
+export type Module<T> = { disabled?: boolean } & T;
 
 export type Filter = {
   cutoff: number;

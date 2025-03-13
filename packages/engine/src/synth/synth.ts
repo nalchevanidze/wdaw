@@ -3,7 +3,7 @@ import { Arpeggiator } from './arp/arpeggiator';
 import { Sound } from './oscillator/sound';
 
 const toSequence = (preset: Preset, note: number) =>
-  preset.sequence.enabled ? undefined : [note];
+  preset.sequence.disabled ? [note] : undefined;
 
 export class Synth {
   private sound = new Sound(this.sampleRate);
