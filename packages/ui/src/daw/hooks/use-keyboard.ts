@@ -13,14 +13,14 @@ export const useKeyboard = () => {
     const key = noteFromKeyboard(e);
     if (key) {
       setNotes((ns) => [...ns, key]);
-      engine.startNote(currentTrack, key);
+      engine?.startNote(currentTrack, key);
     }
   };
 
   const onKeyUp: KeyHandler = (e) => {
     const key = noteFromKeyboard(e);
     if (key) {
-      engine.endNote(currentTrack, key);
+      engine?.endNote(currentTrack, key);
       setNotes((ns) => ns.filter((n) => n !== key));
     }
   };

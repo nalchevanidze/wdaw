@@ -4,7 +4,6 @@ import { dawState } from '../state/defs';
 import { loadState } from '../state/utils';
 import { reducer } from '../state';
 import { engineEffects } from '../state/engine-effects';
-import { engineAPIMock } from '../context/state';
 
 export const useEngine = () => {
   const ref = useRef<SynthEngine | undefined>(undefined);
@@ -39,6 +38,6 @@ export const useEngine = () => {
     currentBPM,
     isPlaying,
     dispatch,
-    engine: ref.current ?? engineAPIMock
+    engine: ref.current
   };
 };
