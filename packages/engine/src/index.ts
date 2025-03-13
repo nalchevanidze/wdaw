@@ -1,9 +1,5 @@
-export {
-  EngineState,
-  engineState,
-  makePreset,
-  ValueController
-} from './state';
+export { EngineState, engineState, makePreset } from './state';
+export { ValueController } from './player';
 export { waveFunction } from './synth';
 export { SynthEngine } from './engine';
 export { SEQUENCE_LENGTH } from './common/defs';
