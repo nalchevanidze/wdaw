@@ -42,6 +42,7 @@ export const useEngine = () => {
     currentBPM,
     isPlaying,
     dispatch,
-    engine: ref.current
+    engine: ref.current,
+    gains
   };
 };

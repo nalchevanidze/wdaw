@@ -9,6 +9,7 @@ type DawApi = State & {
   isPlaying: boolean;
   dispatch: DawDispatch;
   engine?: EngineApi;
+  gains: Record<number, number>;
 };
 
 export const DawApiContext = createContext<DawApi>({
@@ -16,5 +17,6 @@ export const DawApiContext = createContext<DawApi>({
   ...dawState(),
   time: 0,
   isPlaying: false,
-  dispatch() {}
+  dispatch() {},
+  gains: {}
 });
