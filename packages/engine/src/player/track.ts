@@ -55,7 +55,10 @@ class Track {
     this.currentGain = v;
   });
 
-  constructor(private synth: Synth, private gainChanged: (v: number)=> void ) {}
+  constructor(
+    private synth: Synth,
+    private gainChanged: (v: number) => void
+  ) {}
 
   public startNote = (n: number) => this.synth.startNote(this.preset, n);
 
@@ -66,7 +69,7 @@ class Track {
       this.clear();
       return;
     }
-    this.gain.next(current)
+    this.gain.next(current);
 
     for (const loop of this.loops) {
       const inRange = loop.start <= current && current <= loop.end;
@@ -79,9 +82,7 @@ class Track {
 
   public nextKeyboardActions = () => this.synth.nextActions(this.preset);
 
-  public setGain(value: DynamicValueInput) {
-    this.gain.set(value);
-  }
+  public setGain = (value: DynamicValueInput) => this.gain.set(value);
 
   public next = () => this.synth.next(this.preset) * this.currentGain;
 

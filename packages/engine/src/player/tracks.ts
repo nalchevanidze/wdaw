@@ -1,4 +1,5 @@
 import { TypedEvents } from '../common/events';
+import { ITime } from '../common/time';
 import {
   MidiFragments,
   Preset,
@@ -17,7 +18,8 @@ export class Tracks {
 
   constructor(
     private sampleRate: number,
-    private events: TypedEvents<ChangeEvents>
+    private events: TypedEvents<ChangeEvents>,
+    private time: ITime
   ) {}
 
   public get = (i: number) => this.tracks[i];
@@ -30,7 +32,7 @@ export class Tracks {
           this.events.dispatch('changed/gain', { trackId: i, value })
         );
 
-      track.setGain(gain);
+      track.setGain(gain).next(this.time.get());
       track.setPreset(presets[presetId]);
       return track;
     });
@@ -67,7 +69,7 @@ export class Tracks {
   public isDone = (time: number) => time >= this.size;
 
   public setGain = (i: number, gain: DynamicValueInput) => {
-    this.tracks[i].setGain(gain);
+    this.tracks[i].setGain(gain).next(this.time.get());
   };
 
   public setMidis = (midiRefs: MidiRef[], midiFragments: MidiFragments) => {
