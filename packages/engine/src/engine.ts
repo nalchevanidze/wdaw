@@ -1,5 +1,6 @@
 import { audioProcessor } from './audio-processor';
 import { TypedEvents } from './common/events';
+import { Time } from './common/time';
 import { ChangeEvents } from './common/types';
 import { MidiPlayer } from './player';
 import { Tracks } from './player/tracks';
@@ -11,7 +12,13 @@ export class SynthEngine {
   private sampleRate = 44100;
   private events = new TypedEvents<ChangeEvents>();
   private tracks = new Tracks(this.sampleRate, this.events);
-  private player = new MidiPlayer(this.events, this.tracks, this.sampleRate);
+  private time = new Time(this.events);
+  private player = new MidiPlayer(
+    this.events,
+    this.tracks,
+    this.time,
+    this.sampleRate
+  );
   private closeContext: () => void;
   public resource: Resource;
 
@@ -26,7 +33,7 @@ export class SynthEngine {
   public pause = this.player.pause;
   public stop = this.player.stop;
   public setBPM = this.player.setBPM;
-  public setTime = this.player.setTime;
+  public setTime = this.time.set;
 
   public setGain = this.tracks.setGain;
   public setMidis = this.tracks.setMidis;
