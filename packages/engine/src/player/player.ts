@@ -1,4 +1,4 @@
-import { EngineEvents } from '../common/events';
+import { ChangeEvents, EngineEvents } from '../common/events';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
 import { DynamicValue, DynamicValueInput } from './utils/dynamic-value';
