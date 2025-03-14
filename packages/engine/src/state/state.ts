@@ -15,10 +15,7 @@ const genTracks = (): TrackInput[] => [
   {
     name: 'Kick',
     presetId: pid.kick,
-    gain: {
-      type: 'fixed',
-      value: 0.5
-    }
+    gain: { type: 'fixed', value: 0.5 }
   },
   {
     name: 'Clap',
