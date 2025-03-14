@@ -1,4 +1,4 @@
-import { ChangeEvents, EngineEvents } from '../common/events';
+import { ChangeEvents, TypedEvents } from '../common/events';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
 import { DynamicValue, DynamicValueInput } from './utils/dynamic-value';
@@ -15,7 +15,7 @@ export class MidiPlayer {
   });
 
   constructor(
-    private events: EngineEvents<ChangeEvents>,
+    private events: TypedEvents<ChangeEvents>,
     private tracks: Tracks,
     private sampleRate: number
   ) {}
