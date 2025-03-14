@@ -1,5 +1,5 @@
 export class TypedEvents<E> {
-  private handlers: { [N in keyof E]?: ((e: E[N]) => void)[] } = {};
+  private handlers: { [N in keyof E]?: Set<(e: E[N]) => void> } = {};
 
   public dispatch = <N extends keyof E>(name: N, event: E[N]) =>
     this.handlers[name]?.forEach((f) => f(event));
@@ -8,16 +8,14 @@ export class TypedEvents<E> {
     name: N,
     handler: (e: E[N]) => void
   ) => {
-    this.handlers[name] = this.handlers[name] ?? [];
-    this.handlers[name].push(handler);
+    this.handlers[name] = this.handlers[name] ?? new Set();
+    this.handlers[name].add(handler);
   };
 
   public removeEventListener = <N extends keyof E>(
     name: N,
     handler: (e: E[N]) => void
-  ) => {
-    this.handlers[name] = this.handlers[name]?.filter((f) => handler !== f);
-  };
+  ) => this.handlers[name]?.delete(handler);
 
   public clear() {
     this.handlers = {};
