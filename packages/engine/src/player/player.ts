@@ -33,7 +33,7 @@ export class MidiPlayer {
 
   private nextActions() {
     const step = this.tempo.next();
-    if (step === 0) return;
+    if (step <= 0) return;
 
     const { time, isPlaying } = this;
 
