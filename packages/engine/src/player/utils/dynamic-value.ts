@@ -66,7 +66,7 @@ export class DynamicValue {
 
   constructor(private changed: (i: number) => void) {}
 
-  private update = (input: number) => {
+  private update = (input: number): void => {
     const value = Math.round(input);
 
     if (this.current === value) return;
@@ -84,7 +84,7 @@ export class DynamicValue {
     return this;
   };
 
-  next(time: number) {
+  next(time: number) : void {
     if (this.record) {
       this.update(this.record.get(time));
     }
