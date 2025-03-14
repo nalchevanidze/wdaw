@@ -1,59 +1,33 @@
-import { Maybe } from './types';
-
 type Events = {
   isPlayingChanged: boolean;
   timeChanged: number;
   bpmChanged: number;
 };
 
-type EName = keyof Events;
+type Name = keyof Events;
 
-type EType<K extends EName> = Events[K];
+type Event<N extends Name> = Events[N];
 
-type Parsers = { [K in EName]: (i: any) => Maybe<EType<K>> };
+type Handler<N extends Name> = (e: Event<N>) => void;
 
-const parse = {
-  boolean: (v: any) => (typeof v === 'boolean' ? v : undefined),
-  number: (v: any) => (typeof v === 'number' ? v : undefined)
-};
+type Targets = { [N in Name]: Handler<N>[] };
 
-const parsers: Parsers = {
-  isPlayingChanged: parse.boolean,
-  timeChanged: parse.number,
-  bpmChanged: parse.number
-};
-
-type Handler<N extends EName> = (e: EType<N>) => void;
-
-const makeParser =
-  <N extends EName>(
-    name: N,
-    f: Handler<N>
-  ): EventListenerOrEventListenerObject =>
-  (event) => {
-    if (!(event instanceof CustomEvent)) return undefined;
-    const value = parsers[name](event.detail);
-    return value === undefined ? undefined : f(value);
-  };
+const empty = (): Targets => ({
+  isPlayingChanged: [],
+  timeChanged: [],
+  bpmChanged: []
+});
 
 export class EngineEvents {
-  private target = new EventTarget();
-  private events = new Set<[string, EventListenerOrEventListenerObject]>();
+  private events = empty();
 
-  public dispatch = <T extends EName>(name: T, value: Events[T]) =>
-    this.target.dispatchEvent(new CustomEvent(name, { detail: value }));
+  public dispatch = <N extends Name>(name: N, value: Event<N>) =>
+    this.events[name].forEach((f) => f(value));
 
-  public addEventListener = <N extends EName>(name: N, f: Handler<N>) => {
-    const func = makeParser(name, f);
-    this.events.add([name, func]);
-    this.target.addEventListener(name, func);
-  };
+  public addEventListener = <N extends Name>(name: N, f: Handler<N>) =>
+    this.events[name].push(f);
 
   public clear() {
-    this.events.forEach(([name, f]) => {
-      this.target.addEventListener(name, f);
-    });
-
-    this.events.clear();
+    this.events = empty();
   }
 }
