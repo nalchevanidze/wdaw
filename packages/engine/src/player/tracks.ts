@@ -1,8 +1,10 @@
+import { TypedEvents } from '../common/events';
 import {
   MidiFragments,
   Preset,
   MidiRef,
-  TracksInput
+  TracksInput,
+  ChangeEvents
 } from '../common/types';
 import { Synth } from '../synth';
 import { Track } from './track';
@@ -13,13 +15,20 @@ export class Tracks {
   private tracks: Track[] = [];
   public size: number = 0;
 
-  constructor(private sampleRate: number) {}
+  constructor(
+    private sampleRate: number,
+    private events: TypedEvents<ChangeEvents>
+  ) {}
 
   public get = (i: number) => this.tracks[i];
 
   public set = ({ tracks, midiFragments, presets, midiRefs }: TracksInput) => {
     this.tracks = tracks.map(({ presetId, gain }, i) => {
-      const track = this.get(i) ?? new Track(new Synth(this.sampleRate));
+      const track =
+        this.get(i) ??
+        new Track(new Synth(this.sampleRate), (value) =>
+          this.events.dispatch('changed/gain', { trackId: i, value })
+        );
 
       track.setGain(gain);
       track.setPreset(presets[presetId]);

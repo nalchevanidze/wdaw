@@ -10,7 +10,7 @@ const engines = new Resources('Engine', 3);
 export class SynthEngine {
   private sampleRate = 44100;
   private events = new TypedEvents<ChangeEvents>();
-  private tracks = new Tracks(this.sampleRate);
+  private tracks = new Tracks(this.sampleRate, this.events);
   private player = new MidiPlayer(this.events, this.tracks, this.sampleRate);
   private closeContext: () => void;
   public resource: Resource;

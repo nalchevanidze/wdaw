@@ -51,10 +51,11 @@ class Track {
   public size = 0;
   private preset: Preset = derfaultPreset;
   private gain = new DynamicValue((v) => {
+    this.gainChanged(v);
     this.currentGain = v;
   });
 
-  constructor(private synth: Synth) {}
+  constructor(private synth: Synth, private gainChanged: (v: number)=> void ) {}
 
   public startNote = (n: number) => this.synth.startNote(this.preset, n);
 
