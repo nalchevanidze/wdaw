@@ -10,24 +10,18 @@ type Event<N extends Name> = Events[N];
 
 type Handler<N extends Name> = (e: Event<N>) => void;
 
-type Targets = { [N in Name]: Handler<N>[] };
-
-const empty = (): Targets => ({
-  isPlayingChanged: [],
-  timeChanged: [],
-  bpmChanged: []
-});
-
 export class EngineEvents {
-  private events = empty();
+  private handlers: { [N in Name]?: Handler<N>[] } = {};
 
-  public dispatch = <N extends Name>(name: N, value: Event<N>) =>
-    this.events[name].forEach((f) => f(value));
+  public dispatch = <N extends Name>(name: N, event: Event<N>) =>
+    this.handlers[name]?.forEach((f) => f(event));
 
-  public addEventListener = <N extends Name>(name: N, f: Handler<N>) =>
-    this.events[name].push(f);
+  public addEventListener = <N extends Name>(name: N, handler: Handler<N>) => {
+    this.handlers[name] = this.handlers[name] ?? [];
+    this.handlers[name].push(handler);
+  };
 
   public clear() {
-    this.events = empty();
+    this.handlers = {};
   }
 }
