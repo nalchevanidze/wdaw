@@ -12,7 +12,7 @@ const toArea = ({ start, end, trackId }: MidiRef): IArea => ({
 });
 
 export const useTrackEditor = (matrix: Matrix) => {
-  const { midiRefs, setMidis, setCurrent, tracks } = useTracks();
+  const { midiRefs, setMidis, setCurrent, length } = useTracks();
   const { all, edit, add, clear, sync, select, selectIn, remove } =
     useSelection(midiRefs, setMidis);
 
@@ -20,7 +20,7 @@ export const useTrackEditor = (matrix: Matrix) => {
     edit(({ start, end, trackId }) => ({
       start: Math.max(start + mx, 0),
       end: end + mx,
-      trackId: Math.min(tracks.length - 1, Math.max(trackId + my, 0))
+      trackId: Math.min(length - 1, Math.max(trackId + my, 0))
     }))
   );
 

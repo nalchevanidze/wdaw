@@ -30,7 +30,6 @@ export const useTracks = () => {
 
   return {
     current: tracks[currentTrack],
-    tracks,
     midiRefs,
     currentTrack,
     setMidis,
