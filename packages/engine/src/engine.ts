@@ -28,6 +28,7 @@ export class SynthEngine {
   }
 
   public addEventListener = this.events.addEventListener;
+  public removeEventListener = this.events.removeEventListener;
 
   public play = this.player.play;
   public pause = this.player.pause;
