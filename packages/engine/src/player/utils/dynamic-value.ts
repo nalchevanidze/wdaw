@@ -67,7 +67,6 @@ export class DynamicValue {
   constructor(private changed: (i: number) => void) {}
 
   private update = (value: number): void => {
-
     if (this.current === value) return;
 
     this.current = value;
@@ -83,9 +82,19 @@ export class DynamicValue {
     return this;
   };
 
-  next(time: number) : void {
+  next(time: number): void {
     if (this.record) {
       this.update(this.record.get(time));
     }
   }
 }
+
+export const fixed = (value: number): DynamicValueInput => ({
+  type: 'fixed',
+  value
+});
+
+export const dynamic = (...value: RecordValue[]): DynamicValueInput => ({
+  type: 'dynamic',
+  value
+});
