@@ -95,4 +95,5 @@ export type ChangeEvents = {
   ['changed/isPlaying']: boolean;
   ['changed/time']: number;
   ['changed/bpm']: number;
+  ['changed/gain']: { trackId: number; value: number };
 };

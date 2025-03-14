@@ -11,6 +11,7 @@ export const useEngine = () => {
   const [time, setTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentBPM, setCurrentBPM] = useState(0);
+  const [gains, setGains] = useState({});
 
   useEffect(() => {
     const engine = new SynthEngine();
@@ -20,6 +21,9 @@ export const useEngine = () => {
     engine.addEventListener('changed/isPlaying', setIsPlaying);
     engine.addEventListener('changed/time', setTime);
     engine.addEventListener('changed/bpm', setCurrentBPM);
+    engine.addEventListener('changed/gain', ({ trackId, value }) =>
+      setGains((gains) => ({ ...gains, [trackId]: value }))
+    );
 
     dispatch({ type: 'STORE/LOAD', payload: loadState() ?? state });
 
