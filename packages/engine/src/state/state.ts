@@ -19,7 +19,7 @@ const genTracks = (): TrackInput[] => [
       type: 'dynamic',
       value: [
         { time: 32, value: 0.2 },
-        { time: 128, value: 1 },
+        { time: 256, value: 1 },
         { time: 256, value: 0.5 },
       ]
     }
