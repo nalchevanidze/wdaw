@@ -1,5 +1,6 @@
 import { audioProcessor } from './audio-processor';
-import { ChangeEvents, TypedEvents } from './common/events';
+import { TypedEvents } from './common/events';
+import { ChangeEvents } from './common/types';
 import { MidiPlayer } from './player';
 import { Tracks } from './player/tracks';
 import { Resource, Resources } from './utils/debug';
@@ -36,7 +37,7 @@ export class SynthEngine {
 
   public destroy = () => {
     this.resource.debug('destroy');
-    this.events.clear()
+    this.events.clear();
     this.tracks.clear();
     this.closeContext();
   };

@@ -21,9 +21,3 @@ export class TypedEvents<E> {
     this.handlers = {};
   }
 }
-
-export type ChangeEvents = {
-  ['changed/isPlaying']: boolean;
-  ['changed/time']: number;
-  ['changed/bpm']: number;
-};

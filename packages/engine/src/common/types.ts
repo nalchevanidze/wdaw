@@ -90,3 +90,9 @@ export type TracksInput = {
   presets: Presets;
   midiRefs: MidiRef[];
 };
+
+export type ChangeEvents = {
+  ['changed/isPlaying']: boolean;
+  ['changed/time']: number;
+  ['changed/bpm']: number;
+};

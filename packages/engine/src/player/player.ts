@@ -1,9 +1,8 @@
-import { ChangeEvents, TypedEvents } from '../common/events';
+import { TypedEvents } from '../common/events';
+import { ChangeEvents } from '../common/types';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
 import { DynamicValue, DynamicValueInput } from './utils/dynamic-value';
-
-
 
 export class MidiPlayer {
   private isPlaying = false;
