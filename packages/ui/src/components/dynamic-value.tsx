@@ -8,6 +8,7 @@ type Value = {
 };
 
 type Props = {
+  top?: number
   height: number;
   width: number;
   setValues(vs: Value[]): void;
@@ -17,6 +18,7 @@ type Props = {
 };
 
 export const DynamicValue: React.FC<Props> = ({
+  top,
   height,
   width,
   setValues,
@@ -40,6 +42,7 @@ export const DynamicValue: React.FC<Props> = ({
 
   return (
     <LineEditor
+      top={top}
       insert={(p) => update([...points, p])}
       height={height}
       width={width}

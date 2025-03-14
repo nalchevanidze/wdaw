@@ -20,6 +20,7 @@ import { DropDown } from '../../components/drop-down';
 import { useMidiFragment } from '../hooks/use-midi-fragment';
 import { Mixed } from '../utils/tracking';
 import { BpmEditor } from './bpmEditor';
+import { DynamicValue } from '../../components/dynamic-value';
 
 export type EditActionType = 'select' | 'draw';
 
@@ -60,11 +61,13 @@ const rulerSize = BLOCK;
 const accuracy = rulerSize / 8;
 
 type ContentProps = {
+  width: number;
   actionType: EditActionType;
   openDropDown(ref?: MidiRef): void;
 };
 
 export const TracksContent: React.FC<ContentProps> = ({
+  width,
   actionType,
   openDropDown
 }) => {
@@ -152,6 +155,20 @@ export const TracksContent: React.FC<ContentProps> = ({
           setTrack={setTrack}
         />
       ))}
+      {panels.map(({ gainController, index, setGain }) =>
+        gainController.type === 'dynamic' ? (
+          <DynamicValue
+            key={index}
+            top={index * trackHeight}
+            max={1}
+            min={0}
+            height={trackHeight}
+            width={width}
+            setValues={(value) => setGain({ type: 'dynamic', value })}
+            values={gainController.value}
+          />
+        ) : null
+      )}
       {dragging.area ? <SelectionArea area={dragging.area} /> : null}
     </g>
   );
@@ -219,7 +236,11 @@ export const Tracks = () => {
           paddingTop={timelineHeight}
         >
           <NoteGrid size={rulerSize} />
-          <TracksContent actionType={actionType} openDropDown={setOpen} />
+          <TracksContent
+            width={length + rulerSize}
+            actionType={actionType}
+            openDropDown={setOpen}
+          />
           <Timeline height={timelineHeight} size={rulerSize} />
         </Svg>
         <BpmEditor
