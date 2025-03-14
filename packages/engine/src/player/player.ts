@@ -9,7 +9,7 @@ export class MidiPlayer {
   private tempo = new Tempo(this.sampleRate);
   private bpm = new DynamicValue((v) => {
     this.tempo.setBPM(v);
-    this.events.dispatch('bpmChanged', v);
+    this.events.dispatch('changed/bpm', v);
   });
 
   constructor(
@@ -20,12 +20,12 @@ export class MidiPlayer {
 
   private setIsPlaying(isPlaying: boolean) {
     this.isPlaying = isPlaying;
-    this.events.dispatch('isPlayingChanged', isPlaying);
+    this.events.dispatch('changed/isPlaying', isPlaying);
   }
 
   public setTime = (time: number) => {
     this.time = time;
-    this.events.dispatch('timeChanged', time);
+    this.events.dispatch('changed/time', time);
   };
 
   public setBPM = (value: DynamicValueInput) =>

@@ -17,9 +17,9 @@ export const useEngine = () => {
     ref.current?.destroy();
     ref.current = engine;
 
-    engine.addEventListener('isPlayingChanged', setIsPlaying);
-    engine.addEventListener('timeChanged', setTime);
-    engine.addEventListener('bpmChanged', setCurrentBPM);
+    engine.addEventListener('changed/isPlaying', setIsPlaying);
+    engine.addEventListener('changed/time', setTime);
+    engine.addEventListener('changed/bpm', setCurrentBPM);
 
     dispatch({ type: 'STORE/LOAD', payload: loadState() ?? state });
 

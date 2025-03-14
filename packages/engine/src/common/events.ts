@@ -1,7 +1,7 @@
 type Events = {
-  isPlayingChanged: boolean;
-  timeChanged: number;
-  bpmChanged: number;
+  ['changed/isPlaying']: boolean;
+  ['changed/time']: number;
+  ['changed/bpm']: number;
 };
 
 type Name = keyof Events;
