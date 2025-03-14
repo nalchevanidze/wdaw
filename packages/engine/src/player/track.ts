@@ -51,7 +51,6 @@ class Track {
   public size = 0;
   private preset: Preset = derfaultPreset;
   private gain = new DynamicValue((v) => {
-    console.log(v)
     this.currentGain = v;
   });
 
@@ -66,6 +65,7 @@ class Track {
       this.clear();
       return;
     }
+    this.gain.next(current)
 
     for (const loop of this.loops) {
       const inRange = loop.start <= current && current <= loop.end;

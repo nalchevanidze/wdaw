@@ -12,7 +12,18 @@ export type EngineState = PlayerState & TracksInput;
 const genTracks = (): TrackInput[] => [
   { name: 'Piano', presetId: pid.pluck, gain: { type: 'fixed', value: 0.4 } },
   { name: 'Bass', presetId: pid.bass, gain: { type: 'fixed', value: 0.3 } },
-  { name: 'Kick', presetId: pid.kick, gain: { type: 'fixed', value: 1 } },
+  {
+    name: 'Kick',
+    presetId: pid.kick,
+    gain: {
+      type: 'dynamic',
+      value: [
+        { time: 32, value: 0.2 },
+        { time: 128, value: 1 },
+        { time: 256, value: 0.5 },
+      ]
+    }
+  },
   { name: 'Clap', presetId: pid.clap, gain: { type: 'fixed', value: 0.3 } }
 ];
 
