@@ -32,6 +32,9 @@ export class MidiPlayer {
     this.bpm.set(value).next(this.time);
 
   private nextActions() {
+    const step = this.tempo.next();
+    if (step === 0) return;
+
     const { time, isPlaying } = this;
 
     if (!isPlaying) {
@@ -40,14 +43,13 @@ export class MidiPlayer {
 
     this.bpm.next(time);
     this.tracks.nextMidiActions(time);
-    const nextTime = time + this.tempo.size;
+
+    const nextTime = time + step;
     this.setTime(this.tracks.isDone(nextTime) ? 0 : nextTime);
   }
 
   public next = () => {
-    if (this.tempo.next()) {
-      this.nextActions();
-    }
+    this.nextActions();
     return this.tracks.next();
   };
 
