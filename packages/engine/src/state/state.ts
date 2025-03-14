@@ -16,15 +16,26 @@ const genTracks = (): TrackInput[] => [
     name: 'Kick',
     presetId: pid.kick,
     gain: {
-      type: 'dynamic',
-      value: [
-        { time: 32, value: 0.2 },
-        { time: 256, value: 1 },
-        { time: 256, value: 0.5 },
-      ]
+      type: 'fixed',
+      value: 0.5
     }
   },
-  { name: 'Clap', presetId: pid.clap, gain: { type: 'fixed', value: 0.3 } }
+  {
+    name: 'Clap',
+    presetId: pid.clap,
+    gain: {
+      type: 'dynamic',
+      value: [
+        { time: 128, value: 0.2 },
+        { time: 256, value: 1 },
+        { time: 256, value: 0.2 },
+        { time: 384, value: 0.2 },
+        { time: 512, value: 1 },
+        { time: 768, value: 0.2 },
+        { time: 1024, value: 1 },
+      ]
+    }
+  }
 ];
 
 export const engineState = (): EngineState => ({
