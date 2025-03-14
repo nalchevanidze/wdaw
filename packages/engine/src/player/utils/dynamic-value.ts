@@ -66,8 +66,7 @@ export class DynamicValue {
 
   constructor(private changed: (i: number) => void) {}
 
-  private update = (input: number): void => {
-    const value = Math.round(input);
+  private update = (value: number): void => {
 
     if (this.current === value) return;
 

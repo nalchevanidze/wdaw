@@ -10,10 +10,10 @@ type PlayerState = { bpm: DynamicValueInput };
 export type EngineState = PlayerState & TracksInput;
 
 const genTracks = (): TrackInput[] => [
-  { name: 'Piano', presetId: pid.pluck, gain: 0.4 },
-  { name: 'Bass', presetId: pid.bass, gain: 0.3 },
-  { name: 'Kick', presetId: pid.kick, gain: 1 },
-  { name: 'Clap', presetId: pid.clap, gain: 0.3 }
+  { name: 'Piano', presetId: pid.pluck, gain: { type: 'fixed', value: 0.4 } },
+  { name: 'Bass', presetId: pid.bass, gain: { type: 'fixed', value: 0.3 } },
+  { name: 'Kick', presetId: pid.kick, gain: { type: 'fixed', value: 1 } },
+  { name: 'Clap', presetId: pid.clap, gain: { type: 'fixed', value: 0.3 } }
 ];
 
 export const engineState = (): EngineState => ({

@@ -2,6 +2,7 @@ import { Preset } from '../common/types';
 import { Synth } from '../synth';
 import { RecordLoop } from './record';
 import { NoteLoops } from './utils/actions';
+import { DynamicValue, DynamicValueInput } from './utils/dynamic-value';
 
 const derfaultPreset: Preset = {
   id: 'default',
@@ -46,9 +47,13 @@ const derfaultPreset: Preset = {
 
 class Track {
   private loops: RecordLoop[] = [];
-  private gain: number = 1;
+  private currentGain: number = 1;
   public size = 0;
   private preset: Preset = derfaultPreset;
+  private gain = new DynamicValue((v) => {
+    console.log(v)
+    this.currentGain = v;
+  });
 
   constructor(private synth: Synth) {}
 
@@ -73,11 +78,11 @@ class Track {
 
   public nextKeyboardActions = () => this.synth.nextActions(this.preset);
 
-  public setGain(n: number) {
-    this.gain = n;
+  public setGain(value: DynamicValueInput) {
+    this.gain.set(value);
   }
 
-  public next = () => this.synth.next(this.preset) * this.gain;
+  public next = () => this.synth.next(this.preset) * this.currentGain;
 
   public clear = () => this.synth.clear();
 

@@ -1,14 +1,13 @@
 import {
   MidiFragments,
   Preset,
-  Presets,
   MidiRef,
-  TrackInput,
   TracksInput
 } from '../common/types';
 import { Synth } from '../synth';
 import { Track } from './track';
 import { toActions } from './utils/actions';
+import { DynamicValueInput } from './utils/dynamic-value';
 
 export class Tracks {
   private tracks: Track[] = [];
@@ -58,7 +57,7 @@ export class Tracks {
 
   public isDone = (time: number) => time >= this.size;
 
-  public setGain = (i: number, gain: number) => {
+  public setGain = (i: number, gain: DynamicValueInput) => {
     this.tracks[i].setGain(gain);
   };
 

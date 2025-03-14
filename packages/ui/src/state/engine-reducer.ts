@@ -81,7 +81,7 @@ export const engineReducer = (
           ...tracks,
           {
             name: `track ${tracks.length + 5}`,
-            gain: 1,
+            gain: { type: 'fixed', value: 1 },
             presetId: Object.keys(presets)[0]
           }
         ]
