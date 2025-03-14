@@ -1,5 +1,5 @@
 import { audioProcessor } from './audio-processor';
-import { EngineEvents } from './common/events';
+import { ChangeEvents, EngineEvents } from './common/events';
 import { MidiPlayer } from './player';
 import { Tracks } from './player/tracks';
 import { Resource, Resources } from './utils/debug';
@@ -8,7 +8,7 @@ const engines = new Resources('Engine', 3);
 
 export class SynthEngine {
   private sampleRate = 44100;
-  private events = new EngineEvents();
+  private events = new EngineEvents<ChangeEvents>();
   private tracks = new Tracks(this.sampleRate);
   private player = new MidiPlayer(this.events, this.tracks, this.sampleRate);
   private closeContext: () => void;

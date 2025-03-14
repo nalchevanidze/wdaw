@@ -1,22 +1,13 @@
-type Events = {
-  ['changed/isPlaying']: boolean;
-  ['changed/time']: number;
-  ['changed/bpm']: number;
-};
+export class EngineEvents<E> {
+  private handlers: { [N in keyof E]?: ((e: E[N]) => void)[] } = {};
 
-type Name = keyof Events;
-
-type Event<N extends Name> = Events[N];
-
-type Handler<N extends Name> = (e: Event<N>) => void;
-
-export class EngineEvents {
-  private handlers: { [N in Name]?: Handler<N>[] } = {};
-
-  public dispatch = <N extends Name>(name: N, event: Event<N>) =>
+  public dispatch = <N extends keyof E>(name: N, event: E[N]) =>
     this.handlers[name]?.forEach((f) => f(event));
 
-  public addEventListener = <N extends Name>(name: N, handler: Handler<N>) => {
+  public addEventListener = <N extends keyof E>(
+    name: N,
+    handler: (e: E[N]) => void
+  ) => {
     this.handlers[name] = this.handlers[name] ?? [];
     this.handlers[name].push(handler);
   };
@@ -25,3 +16,9 @@ export class EngineEvents {
     this.handlers = {};
   }
 }
+
+export type ChangeEvents = {
+  ['changed/isPlaying']: boolean;
+  ['changed/time']: number;
+  ['changed/bpm']: number;
+};

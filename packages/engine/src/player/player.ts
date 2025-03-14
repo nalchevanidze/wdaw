@@ -3,6 +3,8 @@ import { Tempo } from './tempo';
 import { Tracks } from './tracks';
 import { DynamicValue, DynamicValueInput } from './utils/dynamic-value';
 
+
+
 export class MidiPlayer {
   private isPlaying = false;
   private time = 0;
@@ -13,7 +15,7 @@ export class MidiPlayer {
   });
 
   constructor(
-    private events: EngineEvents,
+    private events: EngineEvents<ChangeEvents>,
     private tracks: Tracks,
     private sampleRate: number
   ) {}
