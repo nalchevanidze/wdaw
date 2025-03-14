@@ -19,7 +19,7 @@ export const usePanels = () => {
       index,
       active: index === currentTrack,
       name,
-      gain: gains[index] ?? tracks[index].gain.value,
+      gain: gains[index] ?? 0,
       setTrack: () => dispatch({ type: 'TRACK/SET_CURRENT', trackId: index }),
       setGain: (gain) =>
         dispatch({
