@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { colors } from '../../styles';
 import { Level } from '../../components/level';
+import { DynamicValueInput } from '@wdaw/engine';
 
 type Props = {
   name: string;
@@ -9,10 +10,23 @@ type Props = {
   width: number;
   height: number;
   gain: number;
-  setGain(i: number): void;
+  setGain(i: DynamicValueInput): void;
   setTrack(): void;
   levelSize?: number;
 };
+
+const genPath = (y: number, x: number, height: number) =>
+  'M' +
+  [
+    x,
+    y,
+    x + 5,
+    y + height / 2,
+    x + 10,
+    y + height / 4,
+    x + 20,
+    y + height / 3
+  ].join(' ');
 
 export const Panel: React.FC<Props> = ({
   name,
@@ -49,7 +63,7 @@ export const Panel: React.FC<Props> = ({
       style={{ border: 'none', cursor: 'pointer' }}
     />
     <Level
-      onChange={setGain}
+      onChange={(value) => setGain({ type: 'fixed', value })}
       value={gain}
       color={colors.black}
       size={16}
@@ -58,6 +72,15 @@ export const Panel: React.FC<Props> = ({
       x={-levelSize * 3}
       stepOpacity={0.2}
       bold={0.1}
+    />
+    <path
+      onClick={() =>
+        setGain({ type: 'dynamic', value: [{ time: 0, value: 0.5 }] })
+      }
+      d={genPath(y + height / 3, -width / 2, height / 2)}
+      strokeWidth={2}
+      stroke={colors.notes}
+      fill="none"
     />
   </>
 );

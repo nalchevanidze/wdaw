@@ -8,7 +8,7 @@ type Panel = {
   active: boolean;
   gain: number;
   gainController: DynamicValueInput;
-  setGain(g: number): void;
+  setGain(g: DynamicValueInput): void;
   setTrack(): void;
 };
 
@@ -24,11 +24,11 @@ export const usePanels = () => {
       gain: gains[index] ?? 0,
       gainController: tracks[index].gain,
       setTrack: () => dispatch({ type: 'TRACK/SET_CURRENT', trackId: index }),
-      setGain: (gain) =>
+      setGain: (gain:DynamicValueInput) =>
         dispatch({
           type: 'TRACK/SET_TRACK',
           trackId: index,
-          payload: { gain: { type: 'fixed', value: gain } }
+          payload: { gain }
         })
     })
   );
