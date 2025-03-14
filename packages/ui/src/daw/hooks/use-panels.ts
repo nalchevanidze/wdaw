@@ -11,14 +11,15 @@ type Panel = {
 };
 
 export const usePanels = () => {
-  const { currentTrack, tracks , dispatch} = React.useContext(DawApiContext);
+  const { currentTrack, tracks, gains, dispatch } =
+    React.useContext(DawApiContext);
 
   const panels = tracks.map(
     ({ name }, index): Panel => ({
       index,
       active: index === currentTrack,
       name,
-      gain: tracks[index].gain,
+      gain: gains[index] ?? tracks[index].gain,
       setTrack: () => dispatch({ type: 'TRACK/SET_CURRENT', trackId: index }),
       setGain: (gain) =>
         dispatch({ type: 'TRACK/SET_TRACK', trackId: index, payload: { gain } })
