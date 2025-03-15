@@ -1,4 +1,4 @@
-import { EngineState, makePreset } from '@wdaw/engine';
+import { EngineState, makePreset, Scalar } from '@wdaw/engine';
 import {
   deleteState,
   mapPreset,
@@ -81,7 +81,7 @@ export const engineReducer = (
           ...tracks,
           {
             name: `track ${tracks.length + 5}`,
-            gain: { type: 'fixed', value: 1 },
+            gain: Scalar.fixed(1),
             presetId: Object.keys(presets)[0]
           }
         ]

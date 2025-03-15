@@ -2,6 +2,7 @@ import * as React from 'react';
 import { IconButton } from '../../components/icon-button';
 import { colors } from '../../styles';
 import { usePlayer } from '../hooks/use-player';
+import { Scalar } from '@wdaw/engine';
 
 const styles = {
   container: {
@@ -49,17 +50,18 @@ export const Player: React.FC = () => {
           value={currentBPM}
           disabled={bpm.type === 'dynamic'}
           onChange={({ target }) =>
-            setBPM({
-              type: 'fixed',
-              value: Math.min(Math.max(minBPM, Number(target.value)), maxBPM)
-            })
+            setBPM(
+              Scalar.fixed(
+                Math.min(Math.max(minBPM, Number(target.value)), maxBPM)
+              )
+            )
           }
           min={minBPM}
           max={maxBPM}
           style={styles.bpmInput}
         />
         {bpm.type === 'dynamic' && (
-          <button onClick={() => setBPM({ type: 'fixed', value: currentBPM })}>
+          <button onClick={() => setBPM(Scalar.fixed(currentBPM))}>
             fixed
           </button>
         )}

@@ -63,7 +63,7 @@ export const Panel: React.FC<Props> = ({
       style={{ border: 'none', cursor: 'pointer' }}
     />
     <Level
-      onChange={(value) => setGain({ type: 'fixed', value })}
+      onChange={(value) => setGain(Scalar.fixed(value))}
       value={gain}
       color={colors.black}
       size={16}
