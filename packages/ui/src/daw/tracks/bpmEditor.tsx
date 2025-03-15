@@ -2,6 +2,7 @@ import * as React from 'react';
 import { usePlayer } from '../hooks/use-player';
 import { DynamicValue } from '../../components/dynamic-value';
 import { Svg } from '@wdaw/svg';
+import { Scalar } from '@wdaw/engine';
 
 type Props = {
   height: number;
@@ -48,7 +49,7 @@ export const BpmEditor: React.FC<Props> = ({ panelWidth, height, width }) => {
         min={40}
         height={height}
         width={width}
-        setValues={(value) => setBPM({ type: 'dynamic', value })}
+        setValues={(value) => setBPM(Scalar.dynamic(...value))}
         values={bpm.value}
       />
     </Svg>

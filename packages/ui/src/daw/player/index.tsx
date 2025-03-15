@@ -68,10 +68,9 @@ export const Player: React.FC = () => {
         {bpm.type === 'fixed' && (
           <button
             onClick={() =>
-              setBPM({
-                type: 'dynamic',
-                value: [{ time: 0, value: Math.max(currentBPM, 40) }]
-              })
+              setBPM(
+                Scalar.dynamic({ time: 0, value: Math.max(currentBPM, 40) })
+              )
             }
           >
             dynamic

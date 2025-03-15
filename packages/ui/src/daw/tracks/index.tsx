@@ -14,7 +14,7 @@ import { DragingBackground } from '../../components/background';
 import { useTracks } from '../hooks/use-tracks';
 import { usePanels } from '../hooks/use-panels';
 import { IconButton } from '../../components/icon-button';
-import { MidiRef } from '@wdaw/engine';
+import { MidiRef, Scalar } from '@wdaw/engine';
 import { NameInput } from '../../components/name-input';
 import { DropDown } from '../../components/drop-down';
 import { useMidiFragment } from '../hooks/use-midi-fragment';
@@ -164,7 +164,7 @@ export const TracksContent: React.FC<ContentProps> = ({
             min={0}
             height={trackHeight}
             width={width}
-            setValues={(value) => setGain({ type: 'dynamic', value })}
+            setValues={(value) => setGain(Scalar.dynamic(...value))}
             values={gainController.value}
           />
         ) : null
