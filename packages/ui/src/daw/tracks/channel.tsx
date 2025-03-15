@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { colors } from '../../styles';
 import { Level } from '../../components/level';
-import { DynamicValueInput } from '@wdaw/engine';
+import { Scalar } from '@wdaw/engine';
 
 type Props = {
   name: string;
@@ -10,7 +10,7 @@ type Props = {
   width: number;
   height: number;
   gain: number;
-  setGain(i: DynamicValueInput): void;
+  setGain(i: Scalar.Input): void;
   setTrack(): void;
   levelSize?: number;
 };

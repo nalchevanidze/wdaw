@@ -89,12 +89,15 @@ export class DynamicValue {
   }
 }
 
-export const fixed = (value: number): DynamicValueInput => ({
-  type: 'fixed',
-  value
-});
+export namespace Scalar {
+  export const fixed = (value: number): DynamicValueInput => ({
+    type: 'fixed',
+    value
+  });
+  export const dynamic = (...value: RecordValue[]): DynamicValueInput => ({
+    type: 'dynamic',
+    value
+  });
 
-export const dynamic = (...value: RecordValue[]): DynamicValueInput => ({
-  type: 'dynamic',
-  value
-});
+  export type Input = DynamicValueInput
+}

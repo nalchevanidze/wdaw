@@ -1,3 +1,3 @@
 export { MidiPlayer } from './player';
 export { Track } from './track';
-export { DynamicValueInput } from './utils/dynamic-value';
+export { DynamicValueInput, Scalar } from './utils/dynamic-value';

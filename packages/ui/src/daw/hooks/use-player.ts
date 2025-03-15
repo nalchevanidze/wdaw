@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { DawApiContext } from '../../context/state';
-import { DynamicValueInput } from '@wdaw/engine';
+import { Scalar } from '@wdaw/engine';
 
 const identity = () => undefined;
 
@@ -16,7 +16,7 @@ export const usePlayer = () => {
 
   const reset = () => dispatch({ type: 'STORE/RESET' });
 
-  const setBPM = (value: DynamicValueInput) =>
+  const setBPM = (value: Scalar.Input) =>
     dispatch({ type: 'PLAYER/SET_BPM', payload: value });
 
   return {

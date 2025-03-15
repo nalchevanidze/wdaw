@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { DawApiContext } from '../../context/state';
-import { DynamicValueInput } from '@wdaw/engine';
+import { Scalar } from '@wdaw/engine';
 
 type Panel = {
   name: string;
   index: number;
   active: boolean;
   gain: number;
-  gainController: DynamicValueInput;
-  setGain(g: DynamicValueInput): void;
+  gainController: Scalar.Input;
+  setGain(g: Scalar.Input): void;
   setTrack(): void;
 };
 
@@ -24,7 +24,7 @@ export const usePanels = () => {
       gain: gains[index] ?? 0,
       gainController: tracks[index].gain,
       setTrack: () => dispatch({ type: 'TRACK/SET_CURRENT', trackId: index }),
-      setGain: (gain:DynamicValueInput) =>
+      setGain: (gain: Scalar.Input) =>
         dispatch({
           type: 'TRACK/SET_TRACK',
           trackId: index,

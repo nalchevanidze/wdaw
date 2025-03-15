@@ -8,7 +8,7 @@ import {
   Wave,
   Filter,
   Preset,
-  DynamicValueInput
+  Scalar
 } from '@wdaw/engine';
 
 export type ENVELOPE = keyof Preset['envelopes'];
@@ -55,7 +55,7 @@ export type EngineAction =
   | MIDI<'NEW_FRAGMENT', { fragment: MidiFragment }>
   | MIDI<'SET_FRAGMENT', { fragment: PartialWithKey<'id', MidiFragment> }>
   // PLAYER
-  | PLAYER<'SET_BPM', { payload: DynamicValueInput }>
+  | PLAYER<'SET_BPM', { payload: Scalar.Input }>
   // STORE
   | STORE<'SAVE'>
   | STORE<'RESET'>

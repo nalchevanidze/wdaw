@@ -1,5 +1,5 @@
 export { EngineState, engineState, makePreset } from './state';
-export { DynamicValueInput } from './player';
+export { Scalar } from './player';
 export { waveFunction } from './synth';
 export { SynthEngine } from './engine';
 export { SEQUENCE_LENGTH } from './common/defs';
