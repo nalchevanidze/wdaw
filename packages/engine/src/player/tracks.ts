@@ -10,7 +10,7 @@ import {
 import { Synth } from '../synth';
 import { Track } from './track';
 import { toActions } from './utils/actions';
-import { DynamicValueInput } from './utils/dynamic-value';
+import { Scalar } from './utils/dynamic-value';
 
 export class Tracks {
   private tracks: Track[] = [];
@@ -68,7 +68,7 @@ export class Tracks {
 
   public isDone = (time: number) => time >= this.size;
 
-  public setGain = (i: number, gain: DynamicValueInput) => {
+  public setGain = (i: number, gain: Scalar.Input) => {
     this.tracks[i].setGain(gain).next(this.time.get());
   };
 

@@ -1,5 +1,25 @@
 type RecordValue = { time: number; value: number };
 
+export namespace Scalar {
+  export type Input =
+    | { type: 'fixed'; value: number }
+    | { type: 'dynamic'; value: RecordValue[] };
+
+  export const fixed = (value: number): Input => ({
+    type: 'fixed',
+    value
+  });
+  export const dynamic = (...value: RecordValue[]): Input => ({
+    type: 'dynamic',
+    value
+  });
+
+  export const initDynamic = (value: number): Input => ({
+    type: 'dynamic',
+    value: [{ time: 0, value }]
+  });
+}
+
 const fill = (size: number, [head, ...list]: RecordValue[]): number[] => {
   const points = Array(size).fill(0);
 
@@ -55,10 +75,6 @@ class Record {
   };
 }
 
-export type DynamicValueInput =
-  | { type: 'fixed'; value: number }
-  | { type: 'dynamic'; value: RecordValue[] };
-
 export class DynamicValue {
   private record?: Record;
 
@@ -73,7 +89,7 @@ export class DynamicValue {
     this.changed(value);
   };
 
-  public set = (input: DynamicValueInput): DynamicValue => {
+  public set = (input: Scalar.Input): DynamicValue => {
     if (input.type === 'fixed') {
       this.update(input.value);
     }
@@ -87,17 +103,4 @@ export class DynamicValue {
       this.update(this.record.get(time));
     }
   }
-}
-
-export namespace Scalar {
-  export const fixed = (value: number): DynamicValueInput => ({
-    type: 'fixed',
-    value
-  });
-  export const dynamic = (...value: RecordValue[]): DynamicValueInput => ({
-    type: 'dynamic',
-    value
-  });
-
-  export type Input = DynamicValueInput
 }

@@ -3,7 +3,7 @@ import { Time } from '../common/time';
 import { ChangeEvents } from '../common/types';
 import { Tempo } from './tempo';
 import { Tracks } from './tracks';
-import { DynamicValue, DynamicValueInput } from './utils/dynamic-value';
+import { DynamicValue, Scalar } from './utils/dynamic-value';
 
 export class MidiPlayer {
   private isPlaying = false;
@@ -26,7 +26,7 @@ export class MidiPlayer {
     this.events.dispatch('changed/isPlaying', isPlaying);
   }
 
-  public setBPM = (value: DynamicValueInput) =>
+  public setBPM = (value: Scalar.Input) =>
     this.bpm.set(value).next(this.time.get());
 
   private nextActions() {

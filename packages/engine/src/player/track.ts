@@ -2,7 +2,7 @@ import { Preset } from '../common/types';
 import { Synth } from '../synth';
 import { RecordLoop } from './record';
 import { NoteLoops } from './utils/actions';
-import { DynamicValue, DynamicValueInput } from './utils/dynamic-value';
+import { DynamicValue, Scalar } from './utils/dynamic-value';
 
 const derfaultPreset: Preset = {
   id: 'default',
@@ -82,7 +82,7 @@ class Track {
 
   public nextKeyboardActions = () => this.synth.nextActions(this.preset);
 
-  public setGain = (value: DynamicValueInput) => this.gain.set(value);
+  public setGain = (value: Scalar.Input) => this.gain.set(value);
 
   public next = () => this.synth.next(this.preset) * this.currentGain;
 

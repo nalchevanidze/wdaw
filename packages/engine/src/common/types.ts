@@ -1,4 +1,4 @@
-import { DynamicValueInput } from "../player";
+import { Scalar } from "../player";
 
 export type Maybe<T> = T | undefined;
 // SYNTH
@@ -82,7 +82,7 @@ export type MidiRef = {
 
 export type TrackInput = {
   name: string;
-  gain: DynamicValueInput;
+  gain: Scalar.Input;
   presetId: string;
 };
 
