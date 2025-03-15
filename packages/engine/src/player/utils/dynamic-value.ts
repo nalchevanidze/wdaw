@@ -1,15 +1,17 @@
-type RecordValue = { time: number; value: number };
-
 export namespace Scalar {
+  export type Value = { time: number; value: number };
+
+  export type Values = Value[];
+
   export type Input =
     | { type: 'fixed'; value: number }
-    | { type: 'dynamic'; value: RecordValue[] };
+    | { type: 'dynamic'; value: Values };
 
   export const fixed = (value: number): Input => ({
     type: 'fixed',
     value
   });
-  export const dynamic = (...value: RecordValue[]): Input => ({
+  export const dynamic = (...value: Values): Input => ({
     type: 'dynamic',
     value
   });
@@ -20,7 +22,7 @@ export namespace Scalar {
   });
 }
 
-const fill = (size: number, [head, ...list]: RecordValue[]): number[] => {
+const fill = (size: number, [head, ...list]: Scalar.Values): number[] => {
   const points = Array(size).fill(0);
 
   list.reduce((a, b) => {
@@ -48,10 +50,10 @@ const fill = (size: number, [head, ...list]: RecordValue[]): number[] => {
 
 class Record {
   list: number[];
-  start: RecordValue;
-  end: RecordValue;
+  start: Scalar.Value;
+  end: Scalar.Value;
 
-  constructor(ls: RecordValue[]) {
+  constructor(ls: Scalar.Value[]) {
     const sorted = ls.sort((a, b) => a.time - b.time);
 
     this.start = sorted[0];

@@ -74,7 +74,7 @@ export const Panel: React.FC<Props> = ({
       bold={0.1}
     />
     <path
-      onClick={() => setGain(Scalar.dynamic({ time: 0, value: 0.5 }))}
+      onClick={() => setGain(Scalar.initDynamic(0.5))}
       d={genPath(y + height / 3, -width / 2, height / 2)}
       strokeWidth={2}
       stroke={colors.notes}

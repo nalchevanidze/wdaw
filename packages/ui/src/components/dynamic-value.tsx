@@ -1,18 +1,14 @@
 import * as React from 'react';
 import { Point } from '@wdaw/svg';
 import { LineEditor } from './line-editor';
-
-type Value = {
-  time: number;
-  value: number;
-};
+import { Scalar } from '@wdaw/engine';
 
 type Props = {
-  top?: number
+  top?: number;
   height: number;
   width: number;
-  setValues(vs: Value[]): void;
-  values: Value[];
+  setValues(vs: Scalar.Values): void;
+  values: Scalar.Values;
   min: number;
   max: number;
 };
