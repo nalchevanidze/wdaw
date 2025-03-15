@@ -38,6 +38,8 @@ export const Player: React.FC = () => {
   const { isPlaying, bpm, currentBPM, setBPM, toggle, stop, save, reset } =
     usePlayer();
 
+  const isDynamic = bpm.type === 'dynamic';
+
   return (
     <section style={styles.container}>
       <IconButton id={isPlaying ? 'pause' : 'play'} onClick={toggle} />
@@ -48,7 +50,7 @@ export const Player: React.FC = () => {
           id="bpm-input"
           type="number"
           value={currentBPM}
-          disabled={bpm.type === 'dynamic'}
+          disabled={isDynamic}
           onChange={({ target }) =>
             setBPM(
               Scalar.fixed(
@@ -60,12 +62,11 @@ export const Player: React.FC = () => {
           max={maxBPM}
           style={styles.bpmInput}
         />
-        {bpm.type === 'dynamic' && (
+        {isDynamic ? (
           <button onClick={() => setBPM(Scalar.fixed(currentBPM))}>
             fixed
           </button>
-        )}
-        {bpm.type === 'fixed' && (
+        ) : (
           <button
             onClick={() => setBPM(Scalar.initDynamic(Math.max(currentBPM, 40)))}
           >
