@@ -54,6 +54,10 @@ class Record {
   end: Scalar.Value;
 
   constructor(ls: Scalar.Value[]) {
+    if (ls.length === 0) {
+      throw new TypeError('expected non-empty Scalar.Value!');
+    }
+
     const sorted = ls.sort((a, b) => a.time - b.time);
 
     this.start = sorted[0];
