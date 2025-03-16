@@ -62,7 +62,7 @@ class Record {
 
     this.start = sorted[0];
     this.end = sorted[sorted.length - 1];
-    this.list = fill(this.end.time, sorted);
+    this.list = fill(Math.max(this.end.time ?? 1, 1), sorted);
   }
 
   get = (time: number) => {
