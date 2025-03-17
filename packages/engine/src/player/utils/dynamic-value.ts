@@ -16,14 +16,11 @@ export namespace Scalar {
     value
   });
 
-  export const initDynamic = (value: number): Input => ({
-    type: 'dynamic',
-    value: [{ time: 0, value }]
-  });
+  export const initDynamic = (value: number) => dynamic({ time: 0, value });
 }
 
 const fill = (size: number, [head, ...list]: Scalar.Values): Float32Array => {
-  console.log(size)
+  console.log(size);
   const points = new Float32Array(size);
 
   list.reduce((a, b) => {
@@ -63,7 +60,7 @@ class Record {
 
     this.start = sorted[0];
     this.end = sorted[sorted.length - 1];
-    console.log(this.end.time)
+    console.log(this.end.time);
     this.list = fill(Math.max(this.end.time ?? 1, 1), sorted);
   }
 
