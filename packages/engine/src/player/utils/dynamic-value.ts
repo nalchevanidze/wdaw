@@ -23,6 +23,7 @@ export namespace Scalar {
 }
 
 const fill = (size: number, [head, ...list]: Scalar.Values): number[] => {
+  console.log(size)
   const points = Array(size).fill(0);
 
   list.reduce((a, b) => {
@@ -62,6 +63,7 @@ class Record {
 
     this.start = sorted[0];
     this.end = sorted[sorted.length - 1];
+    console.log(this.end.time)
     this.list = fill(Math.max(this.end.time ?? 1, 1), sorted);
   }
 
