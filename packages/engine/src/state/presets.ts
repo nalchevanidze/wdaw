@@ -278,7 +278,7 @@ export const genPresets = (): Preset[] => [
       fmFreq: 0.53125,
       offset: 0,
       voices: 3,
-      octave: 0
+      octave: 1
     },
     envelopes: {
       filter: {
