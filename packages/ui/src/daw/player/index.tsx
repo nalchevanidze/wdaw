@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IconButton } from '../../components/icon-button';
 import { colors } from '../../styles';
 import { usePlayer } from '../hooks/use-player';
-import { Scalar } from '@wdaw/engine';
+import { DynamicValueInput } from '../../components/dynamic-value-input';
 
 const styles = {
   container: {
@@ -19,26 +19,12 @@ const styles = {
     alignItems: 'center',
     fontFamily: 'sans-serif',
     fontSize: '14px'
-  },
-  bpmInput: {
-    userSelect: 'none',
-    outline: 'none',
-    border: '0',
-    background: colors.secondary,
-    fontSize: '14px',
-    marginLeft: '4px',
-    borderRadius: '3px'
   }
 } as const;
-
-const maxBPM = 200;
-const minBPM = 0;
 
 export const Player: React.FC = () => {
   const { isPlaying, bpm, currentBPM, setBPM, toggle, stop, save, reset } =
     usePlayer();
-
-  const isDynamic = bpm.type === 'dynamic';
 
   return (
     <section style={styles.container}>
@@ -46,33 +32,13 @@ export const Player: React.FC = () => {
       <IconButton id="stop" onClick={stop} />
       <div style={styles.bpm}>
         <label htmlFor="bpm-input">BPM</label>
-        <input
-          id="bpm-input"
-          type="number"
+        <DynamicValueInput
+          max={200}
+          min={0}
+          input={bpm}
           value={currentBPM}
-          disabled={isDynamic}
-          onChange={({ target }) =>
-            setBPM(
-              Scalar.fixed(
-                Math.min(Math.max(minBPM, Number(target.value)), maxBPM)
-              )
-            )
-          }
-          min={minBPM}
-          max={maxBPM}
-          style={styles.bpmInput}
+          onChange={setBPM}
         />
-        {isDynamic ? (
-          <button onClick={() => setBPM(Scalar.fixed(currentBPM))}>
-            fixed
-          </button>
-        ) : (
-          <button
-            onClick={() => setBPM(Scalar.initDynamic(Math.max(currentBPM, 40)))}
-          >
-            dynamic
-          </button>
-        )}
       </div>
       <button onClick={save}> save</button>
       <button onClick={reset}> reset </button>
