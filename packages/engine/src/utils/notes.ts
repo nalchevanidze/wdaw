@@ -40,23 +40,6 @@ const fromString = (note: string): number => {
   return keyIndex + 1 + octaveIndex * OCTAVE_SIZE;
 };
 
-const measure = (input: string) => {
-  const ocatvePlus = 0;
-  const note = fromString(input);
-  const range = Math.max(note + Math.floor(ocatvePlus) * 12, 0);
-  const freq = noteToFrequency(range);
-  console.log(input, range, freq);
-};
-
-console.log(toString(49));
-
-console.log(440 * 2 ** (49 / 12));
-
-measure('C0');
-measure('F0');
-measure('C1');
-measure('A4');
-
 export const NoteUnit = {
   toString,
   fromString
