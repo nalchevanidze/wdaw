@@ -16,8 +16,8 @@ export const usePlayer = () => {
 
   const reset = () => dispatch({ type: 'STORE/RESET' });
 
-  const setBPM = (value: Scalar.Input) =>
-    dispatch({ type: 'PLAYER/SET_BPM', payload: value });
+  const setBPM = (payload: Scalar.Input) =>
+    dispatch({ type: 'PLAYER/SET_BPM', payload });
 
   return {
     isPlaying,
