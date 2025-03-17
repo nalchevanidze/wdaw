@@ -8,7 +8,7 @@ const shiftOctave = 12 * 4;
 // shifts note A0 to C0
 const shiftNote = 10;
 
-const shift = -(shiftNote + shiftOctave);
+const shift = -shiftNote - shiftOctave;
 
 // with reference C0 = 1, where result for 1 should be 16.351597831287414 Hz
 export const noteToFrequency = (index: number): number =>
