@@ -15,4 +15,4 @@ export {
   Wave,
   Filter
 } from './common/types';
-export { UIPosition, OCTAVE_SIZE } from './utils/notes';
+export { NoteUnit, OCTAVE_SIZE } from './utils/notes';

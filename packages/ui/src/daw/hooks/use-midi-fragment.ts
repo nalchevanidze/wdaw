@@ -2,14 +2,14 @@ import * as React from 'react';
 import { useMemo } from 'react';
 import { DawApiContext } from '../../context/state';
 import { UINote } from '../utils/notes';
-import { MidiFragment, Note, UIPosition } from '@wdaw/engine';
+import { MidiFragment, Note, NoteUnit } from '@wdaw/engine';
 
 const fromNotes = (notes: Note[]): UINote[] =>
   notes.map(
     ({ id, note, at, length }: Note): UINote => ({
       id,
       x: at,
-      y: UIPosition.fromNote(note),
+      y: NoteUnit.fromString(note) + 1,
       length
     })
   );
@@ -18,7 +18,7 @@ const toNotes = (notes: UINote[]): Note[] =>
   notes.map(({ id, length, x, y }: UINote) => ({
     id,
     at: x,
-    note: UIPosition.toNote(y),
+    note: NoteUnit.toString(y - 1),
     length
   }));
 

@@ -1,5 +1,5 @@
 import { MidiRef, MidiFragments } from '../../common/types';
-import { keysToIndexes } from '../../utils/notes';
+import { NoteUnit } from '../../utils/notes';
 import { RecordLoop } from '../record';
 
 export type NoteLoops = {
@@ -27,7 +27,7 @@ export const toActions = (
 
       if (noteStart < 0) return;
 
-      const key = keysToIndexes(note.note);
+      const key = NoteUnit.fromString(note.note);
 
       record.startKey(noteStart, key);
       record.endKey(noteStart + note.length - 1, key);
