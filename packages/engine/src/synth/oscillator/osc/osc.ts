@@ -59,6 +59,8 @@ export class Oscillators implements WaveNode<Wave> {
     const poly = Math.min(MAX_OSCILLATORS - 1, Math.max(1, wave.voices));
 
     const range = Math.max(note + Math.floor(wave.octave) * 12, 0);
+
+    
     const frequency = noteToFrequency(range);
     const middle = Math.floor((poly + 1) / 2);
     const offset = wave.offset * MAX_OFFSET;

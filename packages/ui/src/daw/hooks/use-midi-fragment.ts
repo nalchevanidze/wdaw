@@ -9,7 +9,7 @@ const fromNotes = (notes: Note[]): UINote[] =>
     ({ id, note, at, length }: Note): UINote => ({
       id,
       x: at,
-      y: NoteUnit.fromString(note) + 1,
+      y: NoteUnit.fromString(note),
       length
     })
   );
@@ -18,7 +18,7 @@ const toNotes = (notes: UINote[]): Note[] =>
   notes.map(({ id, length, x, y }: UINote) => ({
     id,
     at: x,
-    note: NoteUnit.toString(y - 1),
+    note: NoteUnit.toString(y),
     length
   }));
 
