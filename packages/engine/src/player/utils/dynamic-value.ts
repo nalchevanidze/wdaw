@@ -22,9 +22,9 @@ export namespace Scalar {
   });
 }
 
-const fill = (size: number, [head, ...list]: Scalar.Values): number[] => {
+const fill = (size: number, [head, ...list]: Scalar.Values): Float32Array => {
   console.log(size)
-  const points = Array(size).fill(0);
+  const points = new Float32Array(size);
 
   list.reduce((a, b) => {
     const diff = b.time - a.time;
@@ -50,7 +50,7 @@ const fill = (size: number, [head, ...list]: Scalar.Values): number[] => {
 };
 
 class Record {
-  list: number[];
+  list: Float32Array;
   start: Scalar.Value;
   end: Scalar.Value;
 
