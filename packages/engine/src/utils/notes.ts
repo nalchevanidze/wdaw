@@ -1,5 +1,3 @@
-import { noteToFrequency } from '../synth/oscillator/utils';
-
 export const BASE_NOTES: string[] = [
   'C',
   'C#',
