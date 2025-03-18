@@ -1,21 +1,24 @@
-import { Preset } from '../common/types';
+import { Preset, Wave } from '../common/types';
+
+const wave = ({ ...props }: Partial<Wave>): Wave => ({
+  sine: 0,
+  square: 0,
+  saw: 0,
+  saw2: 0,
+  tech: 0,
+  noise: 0,
+  fm: 0,
+  fmFreq: 0,
+  offset: 0,
+  octave: 1,
+  voices: 1,
+  ...props
+});
 
 export const makePreset = (name: string) => ({
   id: crypto.randomUUID(),
   name,
-  wave: {
-    sine: 0,
-    square: 1,
-    saw: 0,
-    saw2: 0,
-    tech: 0,
-    noise: 0,
-    fm: 0,
-    fmFreq: 0,
-    offset: 0,
-    voices: 1,
-    octave: 1
-  },
+  wave: wave({ square: 1 }),
   envelopes: {
     filter: {
       attack: 0,
@@ -55,19 +58,14 @@ export const genPresets = (): Preset[] => [
   {
     id: pid.prelude,
     name: 'prelude',
-    wave: {
+    wave: wave({
       sine: 0.2,
       square: 1,
       saw: 1,
       saw2: 1,
-      tech: 0,
-      noise: 0,
-      fm: 0,
-      fmFreq: 0,
       offset: 0.75,
-      voices: 12,
-      octave: 1
-    },
+      voices: 12
+    }),
     envelopes: {
       filter: {
         attack: 0,
@@ -95,19 +93,7 @@ export const genPresets = (): Preset[] => [
   {
     id: pid.pluck,
     name: 'pluck',
-    wave: {
-      sine: 1,
-      square: 0,
-      saw: 0.6,
-      saw2: 0,
-      tech: 0.3,
-      noise: 0,
-      fm: 0,
-      fmFreq: 0,
-      offset: 0,
-      voices: 1,
-      octave: 1
-    },
+    wave: wave({ sine: 1, saw: 0.6, tech: 0.3 }),
     envelopes: {
       filter: {
         attack: 0,
@@ -139,19 +125,14 @@ export const genPresets = (): Preset[] => [
   {
     id: pid.razor,
     name: 'razor',
-    wave: {
+    wave: wave({
       sine: 1,
-      square: 0,
-      saw: 0,
       saw2: 0.125,
       tech: 1,
-      noise: 0,
       fm: 0.7,
       fmFreq: 0.53125,
-      offset: 0,
-      voices: 3,
-      octave: 0
-    },
+      voices: 3
+    }),
     envelopes: {
       filter: {
         attack: 0,
@@ -189,19 +170,13 @@ export const genPresets = (): Preset[] => [
   {
     id: pid.wind,
     name: 'wind',
-    wave: {
+    wave: wave({
       sine: 1,
       square: 0.1,
       saw: 0.4,
       saw2: 0.125,
-      tech: 0,
-      noise: 0,
-      fm: 0,
-      fmFreq: 0,
-      offset: 0.5,
-      voices: 1,
-      octave: 0
-    },
+      offset: 0.5
+    }),
     envelopes: {
       filter: {
         attack: 0.7,
@@ -228,19 +203,13 @@ export const genPresets = (): Preset[] => [
   {
     id: pid.kick,
     name: 'kick',
-    wave: {
+    wave: wave({
       sine: 1,
       square: 0.1,
       saw: 0.2,
-      saw2: 0,
-      tech: 0,
       noise: 0.5,
-      fm: 0,
-      fmFreq: 0,
-      offset: 0.5,
-      voices: 1,
-      octave: 0
-    },
+      offset: 0.5
+    }),
     envelopes: {
       filter: {
         attack: 0,
@@ -267,19 +236,14 @@ export const genPresets = (): Preset[] => [
   {
     id: pid.bass,
     name: 'bass',
-    wave: {
+    wave: wave({
       sine: 1,
-      square: 0,
-      saw: 0,
-      saw2: 0.125,
+      saw2: 0.12,
       tech: 1,
-      noise: 0,
       fm: 0.7,
-      fmFreq: 0.53125,
-      offset: 0,
-      voices: 3,
-      octave: 1
-    },
+      fmFreq: 0.5,
+      voices: 3
+    }),
     envelopes: {
       filter: {
         attack: 0,
@@ -306,19 +270,7 @@ export const genPresets = (): Preset[] => [
   {
     id: pid.clap,
     name: 'clap',
-    wave: {
-      sine: 0,
-      square: 0,
-      saw: 0,
-      saw2: 0,
-      tech: 0,
-      noise: 0.2,
-      fm: 0,
-      fmFreq: 0,
-      offset: 0,
-      voices: 1,
-      octave: 0
-    },
+    wave: wave({ noise: 0.2 }),
     envelopes: {
       filter: {
         attack: 0,
