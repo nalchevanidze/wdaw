@@ -102,7 +102,7 @@ export const genPresets = (): Preset[] => [
       voices: 3
     }),
     envelopes: {
-      filter: env({ decay: 0.4, sustain: 0.08, release: 0.1 }),
+      filter: env({}),
       gain: env({ decay: 0.2, sustain: 1, release: 0.05 })
     },
     filter: filter({ disabled: true }),
@@ -189,7 +189,7 @@ export const genPresets = (): Preset[] => [
     name: 'clap',
     wave: wave({ noise: 0.2 }),
     envelopes: {
-      filter: env({ decay: 0.4, sustain: 0.08, release: 0.1 }),
+      filter: env({}),
       gain: env({ decay: 0.2, sustain: 0, release: 0 })
     },
     filter: filter({ disabled: true }),
