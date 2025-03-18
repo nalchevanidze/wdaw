@@ -1,4 +1,4 @@
-import { Preset, Wave } from '../common/types';
+import { Envelope, Filter, Module, Preset, Wave } from '../common/types';
 
 const wave = ({ ...props }: Partial<Wave>): Wave => ({
   sine: 0,
@@ -15,33 +15,28 @@ const wave = ({ ...props }: Partial<Wave>): Wave => ({
   ...props
 });
 
+const filter = ({ ...p }: Partial<Module<Filter>>): Module<Filter> => ({
+  cutoff: 0,
+  resonance: 0,
+  envelope: 0,
+  ...p
+});
+
+const env = ({ ...p }: Partial<Module<Envelope>>): Module<Envelope> => ({
+  attack: 0,
+  decay: 0.5,
+  sustain: 0.5,
+  release: 0.5,
+  ...p
+});
+
 export const makePreset = (name: string) => ({
   id: crypto.randomUUID(),
   name,
   wave: wave({ square: 1 }),
-  envelopes: {
-    filter: {
-      attack: 0,
-      decay: 1,
-      sustain: 1,
-      release: 1
-    },
-    gain: {
-      attack: 0,
-      decay: 0.5,
-      sustain: 0.5,
-      release: 0.5
-    }
-  },
-  filter: {
-    cutoff: 0,
-    resonance: 0,
-    envelope: 0,
-    disabled: true
-  },
-  sequence: {
-    disabled: true
-  }
+  envelopes: { filter: env({}), gain: env({}) },
+  filter: filter({ disabled: true }),
+  sequence: { disabled: true }
 });
 
 export const pid = {
@@ -80,15 +75,8 @@ export const genPresets = (): Preset[] => [
         release: 0.3
       }
     },
-    filter: {
-      cutoff: 0.35,
-      resonance: 0.2,
-      envelope: 0.6,
-      disabled: true
-    },
-    sequence: {
-      disabled: true
-    }
+    filter: filter({ disabled: true }),
+    sequence: { disabled: true }
   },
   {
     id: pid.pluck,
@@ -147,25 +135,8 @@ export const genPresets = (): Preset[] => [
         release: 0.05
       }
     },
-    filter: {
-      disabled: true,
-      cutoff: 0.5,
-      resonance: 0.2,
-      envelope: 0.6
-    },
-    sequence: {
-      disabled: true,
-      0: [3],
-      1: [1],
-      3: [3],
-      4: [1],
-      6: [3],
-      7: [1],
-      9: [1],
-      11: [1],
-      12: [1],
-      14: [3]
-    }
+    filter: filter({ disabled: true }),
+    sequence: { disabled: true }
   },
   {
     id: pid.wind,
@@ -229,9 +200,7 @@ export const genPresets = (): Preset[] => [
       resonance: 0.6,
       envelope: 0.8
     },
-    sequence: {
-      disabled: true
-    }
+    sequence: { disabled: true }
   },
   {
     id: pid.bass,
@@ -263,9 +232,7 @@ export const genPresets = (): Preset[] => [
       resonance: 0.3,
       envelope: 0.3
     },
-    sequence: {
-      disabled: true
-    }
+    sequence: { disabled: true }
   },
   {
     id: pid.clap,
@@ -285,14 +252,7 @@ export const genPresets = (): Preset[] => [
         release: 0
       }
     },
-    filter: {
-      cutoff: 0.5,
-      resonance: 0.2,
-      envelope: 0.6,
-      disabled: true
-    },
-    sequence: {
-      disabled: true
-    }
+    filter: filter({ disabled: true }),
+    sequence: { disabled: true }
   }
 ];
