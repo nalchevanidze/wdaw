@@ -168,18 +168,16 @@ export const genPresets = (): Preset[] => [
       offset: 0.5
     }),
     envelopes: {
-      filter: {
-        attack: 0,
+      filter: env({
         decay: 0.05,
         sustain: 0.0,
         release: 0
-      },
-      gain: {
-        attack: 0,
+      }),
+      gain: env({
         decay: 0.3,
         sustain: 0.1,
         release: 0.2
-      }
+      })
     },
     filter: {
       cutoff: 0.1,
@@ -200,18 +198,16 @@ export const genPresets = (): Preset[] => [
       voices: 3
     }),
     envelopes: {
-      filter: {
-        attack: 0,
+      filter: env({
         decay: 0.5,
         sustain: 0.08,
         release: 0.1
-      },
-      gain: {
-        attack: 0,
+      }),
+      gain: env({
         decay: 0.6,
         sustain: 0.8,
         release: 0.1
-      }
+      })
     },
     filter: {
       cutoff: 0.1,
@@ -225,18 +221,8 @@ export const genPresets = (): Preset[] => [
     name: 'clap',
     wave: wave({ noise: 0.2 }),
     envelopes: {
-      filter: {
-        attack: 0,
-        decay: 0.4,
-        sustain: 0.08,
-        release: 0.1
-      },
-      gain: {
-        attack: 0,
-        decay: 0.2,
-        sustain: 0,
-        release: 0
-      }
+      filter: env({ decay: 0.4, sustain: 0.08, release: 0.1 }),
+      gain: env({ decay: 0.2, sustain: 0, release: 0 })
     },
     filter: filter({ disabled: true }),
     sequence: { disabled: true }
