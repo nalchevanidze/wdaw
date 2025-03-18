@@ -62,18 +62,16 @@ export const genPresets = (): Preset[] => [
       voices: 12
     }),
     envelopes: {
-      filter: {
-        attack: 0,
+      filter: env({
         decay: 0.4,
         sustain: 0.08,
         release: 0.1
-      },
-      gain: {
-        attack: 0,
+      }),
+      gain: env({
         decay: 0.05,
         sustain: 0.5,
         release: 0.3
-      }
+      })
     },
     filter: filter({ disabled: true }),
     sequence: { disabled: true }
@@ -83,18 +81,16 @@ export const genPresets = (): Preset[] => [
     name: 'pluck',
     wave: wave({ sine: 1, saw: 0.6, tech: 0.3 }),
     envelopes: {
-      filter: {
-        attack: 0,
+      filter: env({
         decay: 0.2,
         sustain: 0.2,
         release: 0.3
-      },
-      gain: {
-        attack: 0,
-        decay: 0.385,
-        sustain: 0.185,
+      }),
+      gain: env({
+        decay: 0.39,
+        sustain: 0.19,
         release: 0.7
-      }
+      })
     },
     filter: {
       cutoff: 0.15,
@@ -122,18 +118,8 @@ export const genPresets = (): Preset[] => [
       voices: 3
     }),
     envelopes: {
-      filter: {
-        attack: 0,
-        decay: 0.4,
-        sustain: 0.08,
-        release: 0.1
-      },
-      gain: {
-        attack: 0,
-        decay: 0.2,
-        sustain: 1,
-        release: 0.05
-      }
+      filter: env({ decay: 0.4, sustain: 0.08, release: 0.1 }),
+      gain: env({ decay: 0.2, sustain: 1, release: 0.05 })
     },
     filter: filter({ disabled: true }),
     sequence: { disabled: true }
