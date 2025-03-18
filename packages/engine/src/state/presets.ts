@@ -22,7 +22,7 @@ const filter = ({ ...p }: Partial<Module<Filter>>): Module<Filter> => ({
   ...p
 });
 
-const env = ({ ...p }: Partial<Module<Envelope>>): Module<Envelope> => ({
+const env = ({ ...p }: Partial<Envelope>): Envelope => ({
   attack: 0,
   decay: 0.5,
   sustain: 0.5,
